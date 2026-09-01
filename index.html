@@ -119,12 +119,13 @@
             transition: filter 3.5s ease, opacity 3.5s ease;
         }
 
+        /* Hides visual video frames softly while audio continues running */
         .video-wrapper video.seamless-dissolve {
-            opacity: 0.15;
-            filter: blur(8px) brightness(0.25);
+            opacity: 0;
+            filter: blur(8px) brightness(0.2);
         }
 
-        /* SEAMLESS CROSS-FADE OVERLAY */
+        /* SEAMLESS CROSS-FADE OVERLAY FOR INVITATION.JPG */
         .invitation-overlay {
             position: absolute;
             top: 0;
@@ -181,7 +182,7 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
         }
 
-        /* ELEGANT MAGICAL OPENING ANIMATION FOR INVITATION.JPG */
+        /* MAGICAL CARD UNFOLDING ANIMATION */
         .invitation-card-container.magical-open .invitation-img-btn {
             animation: magicalCardUnfold 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
         }
@@ -542,10 +543,6 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <audio id="intro-audio" preload="auto">
-        <source src="HPintroaudio.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="lightbox-modal" id="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
@@ -558,11 +555,10 @@
                 <video 
                     id="intro-video" 
                     autoplay 
-                    muted 
                     playsinline 
                     preload="auto"
                 >
-                    <source src="HPintro.mp4" type="video/mp4">
+                    <source src="HPintrowithaudio.mp4" type="video/mp4">
                     Your browser does not support video playback.
                 </video>
 
@@ -617,7 +613,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="stopIntroAudioAndGoMenu()" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="fadeVideoSoundAndGoMenu()" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -921,7 +917,7 @@
             { q: "Can I bring a plus-one?", a: "Please follow the number of seats indicated on your formal invitation envelope." }
         ];
 
-        /* DOM INITIALIZATION & SYNCHRONIZED INTRO AUDIO PLAYBACK */
+        /* DOM INITIALIZATION */
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('couple-names').innerText = wedding.couple.toUpperCase();
             document.getElementById('cover-date-loc').innerText = wedding.coverDateLoc;
@@ -959,21 +955,9 @@
             initParticles();
             setupIntersectionObserver();
             setupVideoEndCheck();
-            setupIntroAudioSync();
         });
 
-        /* SYNCHRONIZE HPintroaudio.mp3 WITH HPintro.mp4 PLAYBACK */
-        function setupIntroAudioSync() {
-            const video = document.getElementById('intro-video');
-            const introAudio = document.getElementById('intro-audio');
-
-            video.addEventListener('play', () => {
-                introAudio.currentTime = 0;
-                introAudio.play().catch(() => {});
-            });
-        }
-
-        /* 10-SECOND HPintro.mp4 PLAYBACK DETECTION FOR SEAMLESS CROSS-FADE */
+        /* VIDEO NEAR-END DETECTION FOR SEAMLESS VISUAL CROSS-FADE */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
@@ -988,7 +972,8 @@
             });
 
             video.addEventListener('ended', () => {
-                video.pause();
+                video.loop = true; // Loops video silently so its sound track keeps playing
+                video.play();
                 if (!hasTriggeredTransition) {
                     overlay.classList.add('reveal');
                     video.classList.add('seamless-dissolve');
@@ -996,7 +981,7 @@
             });
         }
 
-        /* MAGICAL UNROLL TRANSITION TO STORY (AUDIO STAYS PLAYING) */
+        /* MAGICAL UNROLL TRANSITION TO STORY (VIDEO AUDIO STAYS PLAYING IN BACKGROUND) */
         function executeMagicalOpening(event) {
             const cardWrapper = document.getElementById('card-wrapper');
             const videoScene = document.getElementById('scene-video-intro');
@@ -1008,36 +993,38 @@
             // 2. Add Magical Opening Transform to invitation.jpg
             cardWrapper.classList.add('magical-open');
 
-            // 3. Transition to Story Details (HPintroaudio.mp3 CONTINUES TO PLAY)
+            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING IN BACKGROUND)
             setTimeout(() => {
-                videoScene.style.opacity = '0';
-                
-                setTimeout(() => {
-                    videoScene.classList.add('hidden');
-                    videoScene.classList.remove('active');
+                storyScene.classList.remove('hidden');
+                storyScene.classList.add('active');
 
-                    storyScene.classList.remove('hidden');
-                    storyScene.classList.add('active');
-                    storyScene.scrollIntoView({ behavior: 'smooth' });
-                }, 800);
+                setTimeout(() => {
+                    videoScene.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        videoScene.classList.add('hidden');
+                        videoScene.classList.remove('active');
+                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                    }, 800);
+                }, 600);
             }, 800);
         }
 
-        /* AUDIO STOPS ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
-        function stopIntroAudioAndGoMenu() {
-            const introAudio = document.getElementById('intro-audio');
-            fadeAudioOut(introAudio);
+        /* VIDEO AUDIO FADES OUT ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
+        function stopVideoSoundAndGoMenu() {
+            const video = document.getElementById('intro-video');
+            fadeVideoAudioOut(video);
             scrollToSection('scene-menu');
         }
 
-        function fadeAudioOut(audioEl) {
-            if (!audioEl || audioEl.paused) return;
+        function fadeVideoAudioOut(videoEl) {
+            if (!videoEl || videoEl.paused) return;
             const fadeInterval = setInterval(() => {
-                if (audioEl.volume > 0.08) {
-                    audioEl.volume -= 0.08;
+                if (videoEl.volume > 0.08) {
+                    videoEl.volume -= 0.08;
                 } else {
-                    audioEl.pause();
-                    audioEl.volume = 1;
+                    videoEl.pause();
+                    videoEl.volume = 1;
                     clearInterval(fadeInterval);
                 }
             }, 50);
