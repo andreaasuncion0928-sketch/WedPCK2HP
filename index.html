@@ -922,7 +922,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories →</div>
+                <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories · click to enlarge →</div>
 
                 <button class="btn-magic stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
                     VIEW THE WEDDING DETAILS →
@@ -1114,7 +1114,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1356,7 +1356,7 @@
 
             if (!subtitleEl || subtitleEl.children.length > 0) return;
 
-            const text1 = "You Are Cordially Invited.";
+            const text1 = "You Are Cordially Invited."; // Added period
             const text2 = "ELENA & ADRIAN";
             const text3 = "31 JANUARY 2028 · MANILA";
 
@@ -1601,15 +1601,21 @@
             }).join('');
         }
 
+        /* LIGHTBOX FUNCTIONALITY FOR BOTH OUR STORY MEMORY STACK AND MAIN GALLERY */
         function openLightbox(src) {
             const modal = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
-            img.src = src;
-            modal.classList.add('active');
+            if (img && modal) {
+                img.src = src;
+                modal.classList.add('active');
+            }
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
+            const modal = document.getElementById('lightbox');
+            if (modal) {
+                modal.classList.remove('active');
+            }
         }
 
         function submitRSVP(e) {
