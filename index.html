@@ -60,10 +60,11 @@
             z-index: 2;
         }
 
-        /* --- STAGE CONTAINER --- */
+        /* --- STAGE CONTAINER & OVERLAY LAYOUT --- */
         .stage-container {
             position: relative;
             width: 100%;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -79,14 +80,32 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .stage.hidden {
             display: none !important;
         }
 
-        /* --- INITIAL ENVELOPE GATEWAY --- */
+        /* FIXED OVERLAY FOR PERFECT CENTER ALIGNMENT WITHOUT GRAY BOX LEAKS */
+        #scene-video-intro, #scene-story {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        #scene-story {
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        #scene-story.active {
+            pointer-events: auto;
+        }
+
+        /* --- INITIAL GATEWAY SCREEN --- */
         .envelope-gateway-screen {
             position: fixed;
             top: 0;
@@ -197,15 +216,6 @@
         }
 
         /* --- VIDEO SECTION --- */
-        #scene-video-intro {
-            padding: 0;
-            overflow: hidden;
-            background: #000;
-            position: relative;
-            z-index: 10;
-            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -218,14 +228,14 @@
             border: 1px solid var(--antique-gold);
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
-            background: #000;
+            background: transparent;
         }
 
         .video-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 3.5s ease, filter 3.5s ease;
+            transition: filter 2.5s ease, opacity 2.5s ease;
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -241,7 +251,7 @@
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             opacity: 0;
-            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         #scene-story.active .chapter-container {
@@ -947,20 +957,20 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
-                    video.playbackRate = 1.20; // Fast-forwarded slightly for viewer engagement
+                    video.playbackRate = 1.20; // 1.2x Speed boost for a punchier video intro
                     video.muted = false;
                     video.play().catch(e => console.log("Video Play Error:", e));
                 }, 800);
             }, 400);
         }
 
-        /* IMPERCEPTIBLE CROSS-FADE DIRECTLY INTO 'YOU ARE CORDIALLY INVITED' */
+        /* IMPERCEPTIBLE DIRECT CROSS-FADE INTO 'YOU ARE CORDIALLY INVITED' */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                // Triggers cross-fade 2.5s before video completion
+                // Starts 2.5s before video completion
                 if ((video.currentTime >= 18.5 || (video.duration && video.duration - video.currentTime <= 2.5)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
                     transitionDirectlyToStory();
@@ -984,7 +994,7 @@
             video.loop = true;
             video.play();
 
-            // Seamless 3.5s cross-fade
+            // Imperceptible direct cross-fade
             videoScene.style.opacity = '0';
             storyScene.classList.remove('hidden');
             storyScene.classList.add('active');
@@ -996,12 +1006,12 @@
             }, 2500);
         }
 
-        /* MUSIC SWITCHES TO COUPLE SOUNDTRACK ON EXPLORE CHAPTERS CLICK */
+        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
         function switchSoundtrackAndGoMenu() {
             const video = document.getElementById('intro-video');
             const bgMusic = document.getElementById('bg-music');
 
-            // Fade out video sound
+            // Fade out video audio
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1062,8 +1072,8 @@
         }
 
         function toggleProgramFlow() {
-            const content = document.getElementById('program-flow-content');
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            const container = document.getElementById('program-flow-content');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
         }
 
         function renderEntourage() {
