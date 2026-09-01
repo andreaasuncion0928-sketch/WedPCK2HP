@@ -525,19 +525,27 @@
             opacity: 0.7;
         }
 
-        /* ENTRANCE STAGGER ANIMATIONS */
+        /* WHOLE STORY TEXT UNIFIED FADE-IN ANIMATION */
+        .story-text-group {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 1.6s ease, transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scene-story-animated .story-text-group {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* STAGGERED ENTRANCE FOR MEMORY STACK & BUTTON AFTER TEXT APPEARS */
         .stagger-item {
             opacity: 0;
             transform: translateY(14px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.0s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .scene-story-animated .stagger-1 { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-        .scene-story-animated .stagger-2 { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
-        .scene-story-animated .stagger-3 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-        .scene-story-animated .stagger-4 { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
-        .scene-story-animated .stagger-5 { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-        .scene-story-animated .stagger-6 { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.9s; }
 
         /* --- NAVIGATION MENU --- */
         .nav-chapters {
@@ -857,50 +865,53 @@
 
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container zoom-in-parchment story-editorial-card">
-                <p class="chapter-subtitle stagger-item stagger-1">A Little Story About Us</p>
-                <h2 class="chapter-title stagger-item stagger-1">OUR STORY</h2>
-                <div class="story-divider stagger-item stagger-2"></div>
                 
-                <p class="script-handwriting stagger-item stagger-2" style="font-size: 2.2rem; margin-bottom: 0.6rem;">
-                    It started with coffee.
-                </p>
+                <div class="story-text-group">
+                    <p class="chapter-subtitle">A Little Story About Us</p>
+                    <h2 class="chapter-title">OUR STORY</h2>
+                    <div class="story-divider"></div>
+                    
+                    <p class="script-handwriting" style="font-size: 2.2rem; margin-bottom: 0.6rem;">
+                        It started with coffee.
+                    </p>
 
-                <p class="story-text-compact stagger-item stagger-3" id="story-paragraph">
-                    We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
-                </p>
+                    <p class="story-text-compact" id="story-paragraph">
+                        We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
+                    </p>
 
-                <p class="script-handwriting stagger-item stagger-4" style="font-size: 2.2rem; margin-bottom: 0.3rem;">
-                    we became us.
-                </p>
+                    <p class="script-handwriting" style="font-size: 2.2rem; margin-bottom: 0.3rem;">
+                        we became us.
+                    </p>
 
-                <p class="stagger-item stagger-4" style="font-size: 1.05rem; font-family: var(--font-serif); color: #000000; font-weight: 800;">
-                    And now, we're getting married.
-                </p>
+                    <p style="font-size: 1.05rem; font-family: var(--font-serif); color: #000000; font-weight: 800;">
+                        And now, we're getting married.
+                    </p>
+                </div>
 
-                <div class="story-section-title stagger-item stagger-5">MOMENTS WE'VE KEPT</div>
+                <div class="story-section-title stagger-item stagger-photo-stack">MOMENTS WE'VE KEPT</div>
 
-                <div class="memory-stack-wrapper stagger-item stagger-5">
+                <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
                     <div class="memory-stack-track" id="memory-track">
-                        <div class="memory-photo-card" onclick="openLightbox('photo1.jpeg')">
-                            <img src="photo1.jpeg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+1'">
+                        <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
+                            <img src="photo1.jpg" alt="Memory 1" onerror="this.src='photo1.jpeg'">
                         </div>
-                        <div class="memory-photo-card" onclick="openLightbox('photo2.jpeg')">
-                            <img src="photo2.jpeg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+2'">
+                        <div class="memory-photo-card" onclick="openLightbox('photo2.jpg')">
+                            <img src="photo2.jpg" alt="Memory 2" onerror="this.src='photo2.jpeg'">
                         </div>
-                        <div class="memory-photo-card" onclick="openLightbox('photo3.jpeg')">
-                            <img src="photo3.jpeg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+3'">
+                        <div class="memory-photo-card" onclick="openLightbox('photo3.jpg')">
+                            <img src="photo3.jpg" alt="Memory 3" onerror="this.src='photo3.jpeg'">
                         </div>
-                        <div class="memory-photo-card" onclick="openLightbox('photo4.jpeg')">
-                            <img src="photo4.jpeg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+4'">
+                        <div class="memory-photo-card" onclick="openLightbox('photo4.jpg')">
+                            <img src="photo4.jpg" alt="Memory 4" onerror="this.src='photo4.jpeg'">
                         </div>
-                        <div class="memory-photo-card" onclick="openLightbox('photo5.jpeg')">
-                            <img src="photo5.jpeg" alt="Memory 5" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+5'">
+                        <div class="memory-photo-card" onclick="openLightbox('photo5.jpg')">
+                            <img src="photo5.jpg" alt="Memory 5" onerror="this.src='photo5.jpeg'">
                         </div>
                     </div>
                 </div>
-                <div class="scroll-hint-indicator stagger-item stagger-5">← drag or swipe memories →</div>
+                <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories →</div>
 
-                <button class="btn-magic stagger-item stagger-6" onclick="switchSoundtrackAndGoMenu()">
+                <button class="btn-magic stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
                     VIEW THE WEDDING DETAILS →
                 </button>
             </article>
@@ -1162,8 +1173,8 @@
         };
 
         const galleryImages = [
-            "photo1.jpeg", "photo2.jpeg", "photo3.jpeg", "photo4.jpeg", "photo5.jpeg",
-            "photo6.jpeg", "photo7.jpeg", "photo8.jpeg", "photo9.jpeg", "photo10.jpeg"
+            "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg",
+            "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
         ];
 
         const programFlow = [
@@ -1445,7 +1456,7 @@
                 
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
-                storyScene.classList.add('scene-story-animated'); // Triggers subtle stagger entrance
+                storyScene.classList.add('scene-story-animated'); // Triggers unified text fade-in and photo stagger
                 storyScene.scrollIntoView({ behavior: 'smooth' });
             }, 800);
         }
