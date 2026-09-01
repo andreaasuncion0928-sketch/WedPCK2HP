@@ -113,6 +113,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: opacity 0.1s linear; /* Smooth visual opacity transition */
         }
 
         /* LAYER 2: INVITATION OVERLAY CARD (PARCHMENT BG) */
@@ -1061,7 +1062,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & SLOW FADE OUT BEFORE 17 SECONDS */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1077,17 +1078,20 @@
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
                     video.muted = false;
+                    video.volume = 1.0;
+                    video.style.opacity = '1';
 
                     const playPromise = video.play();
                     
                     let transitionTriggered = false;
-                    const executeSeamlessTransition = () => {
+
+                    const executeFinalStop = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
                             
-                            // Stop video sound immediately at 17s transition point
-                            video.muted = true;
+                            // Stop video completely at 17 seconds
                             video.pause();
+                            video.muted = true;
                             video.currentTime = 17.0;
 
                             // Play openinvite.mp3 audio track for the invitation landing page
@@ -1098,19 +1102,30 @@
                     };
 
                     video.addEventListener('timeupdate', () => {
-                        if (video.currentTime >= 17.0) {
-                            executeSeamlessTransition();
+                        const currentTime = video.currentTime;
+
+                        // START SLOW FADE OUT AT 16.70 SECONDS
+                        if (currentTime >= 16.70 && currentTime < 17.0) {
+                            const fadeProgress = (currentTime - 16.70) / 0.30; // 0.0 to 1.0 scale
+                            video.volume = Math.max(0, 1.0 - fadeProgress);
+                            video.style.opacity = Math.max(0, 1.0 - fadeProgress);
+                        }
+
+                        // COMPLETE STOP & TRANSITION AT 17.0 SECONDS
+                        if (currentTime >= 17.0) {
+                            executeFinalStop();
                         }
                     });
 
+                    // Fallback timer if event is delayed
                     setTimeout(() => {
-                        executeSeamlessTransition();
+                        executeFinalStop();
                     }, 17000);
 
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            executeSeamlessTransition();
+                            executeFinalStop();
                         });
                     }
                 }, 800);
