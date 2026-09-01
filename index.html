@@ -142,17 +142,17 @@
 
         #scene-invite-card.slide-up-out {
             opacity: 0 !important;
-            transform: translateY(-80px) scale(0.96);
+            transform: translateY(-25px) scale(0.98);
         }
 
-        /* LAYER 3: WEBPAGE SCROLL CONTENT & PAGE-UP ANIMATION */
+        /* LAYER 3: WEBPAGE SCROLL CONTENT & SEAMLESS MAGICAL PAGE FADE-IN */
         #scene-story {
             position: relative;
             z-index: 30;
             margin-top: 100vh;
             opacity: 0;
-            transform: translateY(80px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         #scene-story.page-up-active {
@@ -541,8 +541,8 @@
         /* WHOLE STORY TEXT UNIFIED FADE-IN ANIMATION */
         .story-text-group {
             opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 1.6s ease, transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(12px);
+            transition: opacity 1.4s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scene-story-animated .story-text-group {
@@ -553,12 +553,12 @@
         /* STAGGERED ENTRANCE FOR MEMORY STACK & BUTTON AFTER TEXT APPEARS */
         .stagger-item {
             opacity: 0;
-            transform: translateY(14px);
+            transform: translateY(12px);
             transition: opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.0s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.9s; }
+        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
         /* --- NAVIGATION MENU --- */
         .nav-chapters {
@@ -1414,12 +1414,12 @@
             });
         }
 
-        /* SMOOTH 3.5-SECOND EXPONENTIAL FADE-IN TO BALANCED TARGET VOLUME (0.55) */
+        /* REDUCED 1.2-SECOND BALANCED FADE-IN FOR SONG.MP3 */
         function fadeInSongTrack(songAudio) {
             if (!songAudio) return;
             const targetVolume = 0.55; 
-            const fadeDuration = 3500; 
-            const intervalTime = 50;   
+            const fadeDuration = 1200; // 1.2 seconds for an immediate yet gentle start
+            const intervalTime = 40;   
             const totalSteps = fadeDuration / intervalTime;
             let currentStep = 0;
 
@@ -1430,7 +1430,7 @@
             const fadeInterval = setInterval(() => {
                 currentStep++;
                 const progress = currentStep / totalSteps;
-                const newVolume = Math.min(targetVolume, Math.pow(progress, 1.8) * targetVolume);
+                const newVolume = Math.min(targetVolume, Math.pow(progress, 1.2) * targetVolume);
 
                 songAudio.volume = newVolume;
 
@@ -1441,7 +1441,7 @@
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> SEAMLESS PAGE-UP SLIDE TRANSITION TO OUR STORY */
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> CONCURRENTLY STARTS SONG.MP3 AND MAGICAL STORY FADE-IN */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
@@ -1455,14 +1455,14 @@
                 inviteAudio.currentTime = 0;
             }
 
-            // 2. Start song.mp3 with balanced volume (0.55 max) and smooth 3.5s exponential fade-in
+            // 2. Play song.mp3 concurrently with the page transition (1.2s balanced fade-in)
             fadeInSongTrack(bgMusic);
 
-            // 3. Initiate seamless Page-Up slide transition
+            // 3. Initiate subtle, seamless Page-Up transition
             inviteScene.classList.add('slide-up-out');
             storyScene.classList.remove('hidden');
             
-            // Allow DOM paint before initiating upward slide animation
+            // Allow DOM paint before initiating upward slide & unified text fade-in
             requestAnimationFrame(() => {
                 storyScene.classList.add('active');
                 storyScene.classList.add('page-up-active');
