@@ -7,22 +7,22 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS VARIABLES & THEMING --- */
         :root {
             --midnight: #111322;
             --midnight-soft: #191A2A;
-            --ink: #242124;
+            --ink: #111111; /* Deep rich black for contrast */
             --paper: #FFFDF8;
             --parchment: #F3EBDD;
-            --lavender: #9A84A1;
+            --lavender: #6A4B7C;
             --lavender-light: #D4A8F0;
             --lavender-glow: rgba(212, 168, 240, 0.45);
-            --antique-gold: #B49A68;
+            --antique-gold: #8C6F36;
             --gold-glow: rgba(180, 154, 104, 0.4);
-            --gray: #666666;
+            --gray: #333333;
             
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Poppins', sans-serif;
@@ -283,8 +283,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: 1px solid var(--antique-gold);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow);
+            border: 2px solid var(--antique-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px var(--gold-glow);
             opacity: 0;
             transform: scale(0.7) translateY(20px);
             transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -309,9 +309,9 @@
         /* FAST MAGICAL TYPEWRITER CURSOR */
         .typing-cursor::after {
             content: '│';
-            color: var(--antique-gold);
+            color: #000000;
             animation: blink 0.4s infinite alternate;
-            text-shadow: 0 0 8px var(--lavender-light);
+            font-weight: bold;
         }
 
         @keyframes blink {
@@ -319,28 +319,34 @@
             100% { opacity: 1; }
         }
 
+        /* --- HIGH VISIBILITY BLACK TYPOGRAPHY FOR PARCHMENT --- */
         .chapter-title {
             font-family: var(--font-serif);
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             letter-spacing: 3px;
-            color: var(--midnight);
+            color: #000000; /* Solid Black */
             text-align: center;
             margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
         }
 
         .chapter-subtitle {
             font-family: var(--font-script);
-            font-size: 1.8rem;
-            color: var(--lavender);
+            font-size: 2.2rem;
+            color: #111111; /* Dark Ink Black */
             text-align: center;
             margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
         .script-handwriting {
             font-family: var(--font-script);
-            font-size: 2.2rem;
-            color: var(--midnight);
+            font-size: 2.4rem;
+            color: #000000;
             line-height: 1.4;
+            font-weight: bold;
         }
 
         /* --- NAVIGATION MENU --- */
@@ -436,25 +442,27 @@
         }
 
         .btn-magic {
-            background: transparent;
-            border: 1px solid var(--antique-gold);
-            color: var(--antique-gold);
+            background: rgba(17, 19, 34, 0.85);
+            border: 2px solid var(--antique-gold);
+            color: #FFFFFF;
             padding: 12px 24px;
             font-family: var(--font-serif);
             letter-spacing: 2px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
             margin-top: 1.5rem;
             display: inline-block;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .btn-magic:hover {
             background: var(--antique-gold);
             color: var(--midnight);
-            box-shadow: 0 0 15px var(--lavender-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         /* --- GALLERY --- */
@@ -581,7 +589,8 @@
 
         @media (max-width: 600px) {
             .chapter-container { padding: 2.5rem 1.2rem; }
-            .chapter-title { font-size: 1.75rem; }
+            .chapter-title { font-size: 1.8rem; }
+            .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
             .desk-envelope { width: 280px; height: 190px; }
@@ -631,7 +640,7 @@
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 650px;">
             <p class="chapter-subtitle" id="type-subtitle"></p>
             <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
-            <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
+            <p style="font-family: var(--font-serif); letter-spacing: 2.5px; color: #111111; font-weight: 700; margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
                 Read Our Story →
@@ -650,7 +659,7 @@
                     It started with coffee.
                 </p>
 
-                <p style="font-size: 0.95rem; line-height: 1.8; color: #4A4A4A; text-align: center; margin-bottom: 1.5rem;" id="story-paragraph">
+                <p style="font-size: 0.95rem; line-height: 1.8; color: #222222; text-align: center; margin-bottom: 1.5rem;" id="story-paragraph">
                     We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
                 </p>
 
@@ -658,7 +667,7 @@
                     we became us.
                 </p>
 
-                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: var(--midnight); font-weight: 600;" id="story-closing">
+                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: #000000; font-weight: 700;" id="story-closing">
                     And now, we're getting married.
                 </p>
 
@@ -709,7 +718,7 @@
             <article class="chapter-container zoom-in-parchment fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
                 <h2 class="chapter-title">THE DETAILS</h2>
-                <p style="text-align: center; font-size: 0.9rem; color: var(--gray); margin-bottom: 2rem;">
+                <p style="text-align: center; font-size: 0.9rem; color: #444444; margin-bottom: 2rem;">
                     Two places. One promise. A day we will always remember.
                 </p>
 
@@ -752,7 +761,7 @@
             <article class="chapter-container zoom-in-parchment fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">With Our Beloved Families</p>
                 <h2 class="chapter-title">THE ENTOURAGE</h2>
-                <p style="text-align: center; font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem;">
+                <p style="text-align: center; font-size: 0.85rem; color: #444444; margin-bottom: 2rem;">
                     Those who hold our hands, guide our steps, and stand beside us as we say 'I do.'
                 </p>
 
@@ -816,8 +825,8 @@
 
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container zoom-in-parchment fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
-                <p style="text-align: center; font-size: 0.85rem; color: var(--gray);">
+                <h2 class="chapter-title">WE'VS SAVED YOU A SEAT.</h2>
+                <p style="text-align: center; font-size: 0.85rem; color: #444444;">
                     Please let us know if you'll be joining us.
                 </p>
 
@@ -1019,21 +1028,18 @@
                     const executeSeamlessTransition = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
-                            // Seamless transition trigger: Video naturally freezes at letter opening
                             video.pause(); 
                             video.currentTime = 17.0;
                             proceedToCordiallyInvitedSeamless();
                         }
                     };
 
-                    // Check exact video current time for smooth transition at 17 seconds
                     video.addEventListener('timeupdate', () => {
                         if (video.currentTime >= 17.0) {
                             executeSeamlessTransition();
                         }
                     });
 
-                    // Fallback timer (17000ms = 17 seconds)
                     setTimeout(() => {
                         executeSeamlessTransition();
                     }, 17000);
@@ -1053,10 +1059,8 @@
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
 
-            // Show overlay scene smoothly
             inviteScene.classList.add('active-overlay');
 
-            // Parchment.jpg card seamlessly emerges and blooms from the letter opening
             setTimeout(() => {
                 cardBox.classList.add('seamless-emerge');
                 runFastMagicalTyping();
@@ -1127,7 +1131,6 @@
             const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            // Smoothly fade out video audio track
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1251,7 +1254,7 @@
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox.classList.remove')('active');
+            document.getElementById('lightbox').classList.remove('active');
         }
 
         function submitRSVP(e) {
