@@ -691,7 +691,7 @@
     <section id="scene-invite-card">
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 650px;">
             <p class="chapter-subtitle" id="type-subtitle"></p>
-            <h1 class="chapter-title" id="type-title"></h1>
+            <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
             <p id="type-date"></p>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
@@ -1057,7 +1057,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS WITH 3.5s AUDIO FADE */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1073,6 +1073,7 @@
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
                     video.muted = false;
+                    video.volume = 1.0;
 
                     const playPromise = video.play();
                     
@@ -1080,8 +1081,10 @@
                     const executeSeamlessTransition = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
-                            video.pause(); 
-                            video.currentTime = 17.0;
+                            
+                            // Smoothly fade video audio over 3.5 seconds
+                            fadeVideoAudioSmoothly(video);
+                            
                             proceedToCordiallyInvitedSeamless();
                         }
                     };
@@ -1104,6 +1107,24 @@
                     }
                 }, 800);
             }, 400);
+        }
+
+        /* GENTLE 3.5 SECOND AUDIO FADE-OUT LOGIC */
+        function fadeVideoAudioSmoothly(video) {
+            if (!video) return;
+            const fadeDuration = 3500; // 3.5 seconds
+            const intervalTime = 100;  // step every 100ms
+            const step = video.volume / (fadeDuration / intervalTime);
+
+            const audioInterval = setInterval(() => {
+                if (video.volume > step) {
+                    video.volume = Math.max(0, video.volume - step);
+                } else {
+                    video.volume = 0;
+                    video.pause();
+                    clearInterval(audioInterval);
+                }
+            }, intervalTime);
         }
 
         /* SEAMLESS TRANSITION -> PARCHMENT.JPG EMERGES DIRECTLY FROM THE OPENING LETTER */
@@ -1154,22 +1175,20 @@
 
             const line1 = buildGlyphs(subtitleEl, text1);
 
-            // Slower, organic enchanted ink speed (120ms - 150ms per character)
+            // Slower, organic enchanted ink speed (110ms - 160ms per character)
             function animateGlyphSequence(lineObj, onComplete) {
                 let index = 0;
                 function revealNext() {
                     if (index < lineObj.glyphs.length) {
                         lineObj.glyphs[index].classList.add('inked');
                         index++;
-                        // Random delay between 110ms and 160ms for a human, magical pacing
                         const delay = Math.floor(Math.random() * 50) + 110;
                         setTimeout(revealNext, delay);
                     } else {
-                        // Remove quill cursor on section completion
                         if (lineObj.cursor && lineObj.cursor.parentNode) {
                             lineObj.cursor.parentNode.removeChild(lineObj.cursor);
                         }
-                        if (onComplete) setTimeout(onComplete, 400); // Elegant pause between lines
+                        if (onComplete) setTimeout(onComplete, 400);
                     }
                 }
                 revealNext();
