@@ -49,33 +49,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- AUDIO CONTROLLER --- */
-        .audio-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(25, 26, 42, 0.85);
-            border: 1px solid var(--antique-gold);
-            color: var(--antique-gold);
-            padding: 10px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: var(--transition-med);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .audio-control:hover {
-            background: var(--antique-gold);
-            color: var(--midnight);
-            box-shadow: 0 0 15px var(--lavender-glow);
-        }
-
         /* --- CANVAS PARTICLES --- */
         #particle-canvas {
             position: fixed;
@@ -143,7 +116,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 2.5s ease, opacity 2.5s ease;
+            transition: filter 3.5s ease, opacity 3.5s ease;
         }
 
         .video-wrapper video.seamless-dissolve {
@@ -151,14 +124,14 @@
             filter: blur(8px) brightness(0.25);
         }
 
-        /* OVERLAY - SLOW CROSS-FADE AFTER 10s VIDEO FINISHES */
+        /* SEAMLESS CROSS-FADE OVERLAY */
         .invitation-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.05) 0%, rgba(11, 13, 27, 0.88) 100%);
+            background: radial-gradient(circle, rgba(17, 19, 34, 0.05) 0%, rgba(11, 13, 27, 0.85) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -166,7 +139,7 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
             perspective: 1200px;
         }
 
@@ -193,7 +166,7 @@
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
             opacity: 0;
             transform: scale(1);
-            transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.5s ease, box-shadow 0.6s ease;
+            transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 3.5s ease, box-shadow 0.6s ease;
             object-fit: cover;
             display: block;
         }
@@ -208,6 +181,29 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
         }
 
+        /* ELEGANT MAGICAL OPENING ANIMATION FOR INVITATION.JPG */
+        .invitation-card-container.magical-open .invitation-img-btn {
+            animation: magicalCardUnfold 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+        }
+
+        @keyframes magicalCardUnfold {
+            0% {
+                transform: scale(1.08) rotate(0deg);
+                filter: brightness(1);
+                box-shadow: 0 0 30px var(--antique-gold);
+            }
+            40% {
+                transform: scale(1.2) rotate(-1deg);
+                filter: brightness(1.4);
+                box-shadow: 0 0 60px var(--lavender-light), 0 0 40px var(--gold-glow);
+            }
+            100% {
+                transform: scale(1.8) rotate(0deg);
+                opacity: 0;
+                filter: brightness(2.5) blur(10px);
+            }
+        }
+
         /* STEADY INSTRUCTION TEXT */
         .tap-instruction {
             margin-top: 1.8rem;
@@ -217,69 +213,11 @@
             color: var(--antique-gold);
             text-transform: uppercase;
             opacity: 0;
-            transition: opacity 2s ease 1s;
+            transition: opacity 2s ease 1.5s;
         }
 
         .invitation-overlay.reveal .tap-instruction {
             opacity: 1;
-        }
-
-        /* --- ENCHANTED PARCHMENT REVEAL LAYER --- */
-        .enchanted-parchment-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 150;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1200px;
-        }
-
-        .enchanted-paper {
-            width: 320px;
-            height: 440px;
-            background: var(--paper);
-            border: 2px solid var(--antique-gold);
-            border-radius: 4px;
-            box-shadow: 0 0 60px rgba(212, 168, 240, 0.6), 0 0 30px var(--gold-glow);
-            padding: 3rem 2rem;
-            text-align: center;
-            color: var(--ink);
-            opacity: 0;
-            transform: scale(0.6) rotateX(20deg);
-            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .enchanted-paper.bloom {
-            opacity: 1;
-            transform: scale(1) rotateX(0deg);
-        }
-
-        .enchanted-paper.expand-fullscreen {
-            width: 90vw !important;
-            max-width: 800px !important;
-            height: 85vh !important;
-            transform: scale(1.05) !important;
-            box-shadow: 0 0 100px rgba(212, 168, 240, 0.85), 0 0 50px var(--gold-glow);
-            transition: width 1.2s ease, height 1.2s ease, transform 1.2s ease;
-        }
-
-        /* Self-Writing Ink Lines */
-        .ink-text-line {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .ink-text-line.written {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* Sparks / Particle Burst on Click */
@@ -312,6 +250,24 @@
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
+        }
+
+        /* MAGICAL BLOOM ENTRANCE FOR DETAILS */
+        #scene-story.active .chapter-container {
+            animation: magicalDetailsBloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes magicalDetailsBloom {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+                filter: brightness(1.8) drop-shadow(0 0 30px var(--lavender-light));
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: brightness(1);
+            }
         }
 
         .chapter-title {
@@ -579,7 +535,6 @@
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
             .invitation-card-container { width: 75%; }
-            .enchanted-paper { width: 280px; height: 380px; padding: 2rem 1.2rem; }
         }
     </style>
 </head>
@@ -587,20 +542,8 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <div class="enchanted-parchment-layer" id="parchment-overlay" style="display: none;">
-        <div class="enchanted-paper" id="enchanted-paper">
-            <p class="chapter-subtitle ink-text-line" id="ink-line-1" style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--lavender);">An Invitation to Celebrate</p>
-            <h2 class="chapter-title ink-text-line" id="ink-line-2" style="font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--midnight);">ELENA & ADRIAN</h2>
-            <p class="ink-text-line" id="ink-line-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 1rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
-        </div>
-    </div>
-
-    <button class="audio-control" id="audio-toggle" aria-label="Toggle Atmosphere Sound">
-        <span>♪</span> <span id="audio-status">SOUND ON</span>
-    </button>
-
-    <audio id="bg-music" loop preload="auto">
-        <source src="song.mp3" type="audio/mpeg">
+    <audio id="intro-audio" preload="auto">
+        <source src="HPintroaudio.mp3" type="audio/mpeg">
     </audio>
 
     <div class="lightbox-modal" id="lightbox">
@@ -624,7 +567,7 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-container" id="card-wrapper" onclick="executeEnchantedParchmentOpening(event)">
+                    <div class="invitation-card-container" id="card-wrapper" onclick="executeMagicalOpening(event)">
                         <img 
                             src="invitation.jpg" 
                             alt="An Invitation Has Arrived" 
@@ -674,7 +617,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="stopIntroAudioAndGoMenu()" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -868,7 +811,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -978,7 +921,7 @@
             { q: "Can I bring a plus-one?", a: "Please follow the number of seats indicated on your formal invitation envelope." }
         ];
 
-        /* DOM INITIALIZATION */
+        /* DOM INITIALIZATION & SYNCHRONIZED INTRO AUDIO PLAYBACK */
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('couple-names').innerText = wedding.couple.toUpperCase();
             document.getElementById('cover-date-loc').innerText = wedding.coverDateLoc;
@@ -1016,7 +959,19 @@
             initParticles();
             setupIntersectionObserver();
             setupVideoEndCheck();
+            setupIntroAudioSync();
         });
+
+        /* SYNCHRONIZE HPintroaudio.mp3 WITH HPintro.mp4 PLAYBACK */
+        function setupIntroAudioSync() {
+            const video = document.getElementById('intro-video');
+            const introAudio = document.getElementById('intro-audio');
+
+            video.addEventListener('play', () => {
+                introAudio.currentTime = 0;
+                introAudio.play().catch(() => {});
+            });
+        }
 
         /* 10-SECOND HPintro.mp4 PLAYBACK DETECTION FOR SEAMLESS CROSS-FADE */
         function setupVideoEndCheck() {
@@ -1024,7 +979,6 @@
             const overlay = document.getElementById('video-overlay');
             let hasTriggeredTransition = false;
 
-            // Trigger cross-fade at 10.0 seconds or when video finishes naturally
             video.addEventListener('timeupdate', () => {
                 if ((video.currentTime >= 10.0 || (video.duration && video.duration - video.currentTime <= 1.0)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
@@ -1042,48 +996,51 @@
             });
         }
 
-        /* HARRY POTTER STYLE MAGICAL ENCHANTED PARCHMENT REVEAL */
-        function executeEnchantedParchmentOpening(event) {
-            const overlayLayer = document.getElementById('parchment-overlay');
-            const paper = document.getElementById('enchanted-paper');
+        /* MAGICAL UNROLL TRANSITION TO STORY (AUDIO STAYS PLAYING) */
+        function executeMagicalOpening(event) {
+            const cardWrapper = document.getElementById('card-wrapper');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
 
-            // 1. Create Stardust Sparkles at Click Location
+            // 1. Create Stardust Sparkles at Click Position
             createSparkleParticles(event.clientX, event.clientY);
 
-            // 2. Display Magic Overlay & Bloom Enchanted Parchment
-            overlayLayer.style.display = 'flex';
+            // 2. Add Magical Opening Transform to invitation.jpg
+            cardWrapper.classList.add('magical-open');
+
+            // 3. Transition to Story Details (HPintroaudio.mp3 CONTINUES TO PLAY)
             setTimeout(() => {
-                paper.classList.add('bloom');
-
-                // 3. Self-Writing Animated Quill Ink Reveal
+                videoScene.style.opacity = '0';
+                
                 setTimeout(() => {
-                    document.getElementById('ink-line-1').classList.add('written');
-                    setTimeout(() => {
-                        document.getElementById('ink-line-2').classList.add('written');
-                        setTimeout(() => {
-                            document.getElementById('ink-line-3').classList.add('written');
+                    videoScene.classList.add('hidden');
+                    videoScene.classList.remove('active');
 
-                            // 4. Parchment Expands & Unfolds to Fill the Screen
-                            setTimeout(() => {
-                                paper.classList.add('expand-fullscreen');
-
-                                setTimeout(() => {
-                                    // 5. Hide Video Stage & Smoothly Transition to Details Content
-                                    videoScene.classList.add('hidden');
-                                    videoScene.classList.remove('active');
-                                    overlayLayer.style.display = 'none';
-
-                                    storyScene.classList.remove('hidden');
-                                    storyScene.classList.add('active');
-                                    storyScene.scrollIntoView({ behavior: 'smooth' });
-                                }, 1200);
-                            }, 1000);
-                        }, 600);
-                    }, 600);
+                    storyScene.classList.remove('hidden');
+                    storyScene.classList.add('active');
+                    storyScene.scrollIntoView({ behavior: 'smooth' });
                 }, 800);
-            }, 100);
+            }, 800);
+        }
+
+        /* AUDIO STOPS ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
+        function stopIntroAudioAndGoMenu() {
+            const introAudio = document.getElementById('intro-audio');
+            fadeAudioOut(introAudio);
+            scrollToSection('scene-menu');
+        }
+
+        function fadeAudioOut(audioEl) {
+            if (!audioEl || audioEl.paused) return;
+            const fadeInterval = setInterval(() => {
+                if (audioEl.volume > 0.08) {
+                    audioEl.volume -= 0.08;
+                } else {
+                    audioEl.pause();
+                    audioEl.volume = 1;
+                    clearInterval(fadeInterval);
+                }
+            }, 50);
         }
 
         function createSparkleParticles(x, y) {
@@ -1257,27 +1214,6 @@
 
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         }
-
-        /* AUDIO TOGGLE */
-        const audioBtn = document.getElementById('audio-toggle');
-        const audioStatus = document.getElementById('audio-status');
-        const bgMusic = document.getElementById('bg-music');
-        let isPlaying = false;
-
-        audioBtn.addEventListener('click', () => {
-            if (!isPlaying) {
-                bgMusic.play().then(() => {
-                    audioStatus.innerText = "SOUND ON";
-                    isPlaying = true;
-                }).catch(() => {
-                    audioStatus.innerText = "SOUND OFF";
-                });
-            } else {
-                bgMusic.pause();
-                audioStatus.innerText = "SOUND OFF";
-                isPlaying = false;
-            }
-        });
     </script>
 </body>
 </html>
