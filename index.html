@@ -19,7 +19,7 @@
             --parchment: #F3EBDD;
             --lavender: #9A84A1;
             --lavender-light: #D4A8F0;
-            --lavender-glow: rgba(212, 168, 240, 0.35);
+            --lavender-glow: rgba(212, 168, 240, 0.45);
             --antique-gold: #B49A68;
             --gold-glow: rgba(180, 154, 104, 0.4);
             --gray: #666666;
@@ -67,7 +67,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1500px;
         }
 
         .stage {
@@ -80,13 +79,14 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
+            transition: opacity 2s ease, filter 2s ease;
         }
 
         .stage.hidden {
             display: none !important;
         }
 
-        /* --- STEP 1 & 2: INITIAL GATEWAY --- */
+        /* --- INITIAL ENVELOPE GATEWAY --- */
         .envelope-gateway-screen {
             position: fixed;
             top: 0;
@@ -203,7 +203,7 @@
             background: #000;
             position: relative;
             z-index: 10;
-            transition: opacity 1.2s ease;
+            transition: opacity 2s ease;
         }
 
         .video-wrapper {
@@ -219,7 +219,6 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
             background: #000;
-            perspective: 1200px;
         }
 
         .video-wrapper video {
@@ -229,112 +228,9 @@
             transition: filter 2.5s ease, opacity 2.5s ease;
         }
 
-        /* --- CSS FALLING/FLOATING LETTERS & PARCHMENT TRANSITION LAYER --- */
-        .floating-letters-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 30;
+        .video-wrapper video.seamless-dissolve {
             opacity: 0;
-            transition: opacity 1s ease;
-            overflow: hidden;
-            perspective: 1200px;
-        }
-
-        .floating-letters-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Soft background ambient glow for floating letter scene */
-        .ambient-soft-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            background: radial-gradient(circle, rgba(212, 168, 240, 0.25) 0%, rgba(180, 154, 104, 0.1) 40%, transparent 70%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 2s ease;
-        }
-
-        .ambient-soft-glow.visible {
-            opacity: 1;
-        }
-
-        /* Generic falling parchment sheet element */
-        .parchment-sheet {
-            position: absolute;
-            background: var(--parchment);
-            border: 1px solid var(--antique-gold);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border-radius: 2px;
-            opacity: 0.85;
-            transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), opacity 2s ease, width 2s ease, height 2s ease, top 2.5s ease, left 2.5s ease;
-            transform-style: preserve-3d;
-        }
-
-        /* Focus Parchment (The single sheet that expands) */
-        .parchment-sheet.hero-focus {
-            z-index: 100;
-            box-shadow: 0 0 50px rgba(212, 168, 240, 0.6), 0 0 30px var(--gold-glow);
-        }
-
-        .parchment-sheet.hero-fullscreen {
-            top: 50% !important;
-            left: 50% !important;
-            width: 90vw !important;
-            max-width: 750px !important;
-            height: 80vh !important;
-            transform: translate(-50%, -50%) rotate(0deg) scale(1) translateZ(0) !important;
-            opacity: 1 !important;
-            background: var(--paper) !important;
-            box-shadow: 0 0 80px rgba(212, 168, 240, 0.8), 0 0 40px var(--gold-glow);
-            padding: 3.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-
-        /* Curled/Unfolding Edge Animation effect */
-        .parchment-sheet.unfolding {
-            animation: paperUnfold 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes paperUnfold {
-            0% {
-                transform: translate(-50%, -50%) rotateX(-25deg) scale(0.92);
-                box-shadow: inset 0 20px 40px rgba(0,0,0,0.25), 0 0 80px rgba(212, 168, 240, 0.8);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotateX(10deg) scale(1.02);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotateX(0deg) scale(1);
-                box-shadow: inset 0 0 0px rgba(0,0,0,0), 0 0 80px rgba(212, 168, 240, 0.8);
-            }
-        }
-
-        /* Ink Revealing Lines */
-        .ink-text {
-            color: var(--ink);
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .ink-text.written {
-            opacity: 1;
-            transform: translateY(0);
+            filter: blur(8px) brightness(0.2);
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -349,6 +245,14 @@
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease, transform 2s ease;
+        }
+
+        #scene-story.active .chapter-container {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .chapter-title {
@@ -617,7 +521,6 @@
             .photo-card { width: 95px; height: 120px; }
             .desk-envelope { width: 280px; height: 190px; }
             .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
-            .parchment-sheet.hero-fullscreen { width: 94vw !important; height: 85vh !important; padding: 2.5rem 1.2rem; }
         }
     </style>
 </head>
@@ -658,10 +561,6 @@
                     <source src="HPintrowithaudio.mp4" type="video/mp4">
                     Your browser does not support video playback.
                 </video>
-
-                <div class="floating-letters-overlay" id="falling-overlay">
-                    <div class="ambient-soft-glow" id="ambient-glow"></div>
-                    </div>
             </div>
         </section>
 
@@ -701,7 +600,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -890,7 +789,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1061,151 +960,69 @@
             }, 400);
         }
 
-        /* STEP 2-6: SEAMLESS CONTINUOUS FALLING LETTER TRANSITION AT VIDEO END */
+        /* DIRECT DISSOLVE TO 'YOU ARE CORDIALLY INVITED / OUR STORY' WHILE VIDEO AUDIO PLAYS */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                // Freeze/hold video at its final frame & trigger continuous motion transition
                 if ((video.currentTime >= 10.5 || (video.duration && video.duration - video.currentTime <= 0.8)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
-                    video.pause(); // Hold final frame visually
-                    startContinuousLetterTransition();
+                    transitionDirectlyToStory();
                 }
             });
 
             video.addEventListener('ended', () => {
                 if (!hasTriggeredTransition) {
                     hasTriggeredTransition = true;
-                    video.pause();
-                    startContinuousLetterTransition();
+                    transitionDirectlyToStory();
                 }
             });
         }
 
-        function startContinuousLetterTransition() {
-            const overlay = document.getElementById('falling-overlay');
-            const ambientGlow = document.getElementById('ambient-glow');
+        function transitionDirectlyToStory() {
+            const videoScene = document.getElementById('scene-video-intro');
+            const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            overlay.classList.add('active');
-            ambientGlow.classList.add('visible');
+            // Video loops silently behind so its audio track continues uninterrupted
+            video.loop = true;
+            video.play();
 
-            // 1. Generate floating/swirling background parchments from chimney/ceiling motion
-            const sheetsCount = 14;
-            const sheetElements = [];
+            // Smooth cross-fade directly into Our Story
+            videoScene.style.opacity = '0';
+            storyScene.classList.remove('hidden');
+            storyScene.classList.add('active');
 
-            for (let i = 0; i < sheetsCount; i++) {
-                const sheet = document.createElement('div');
-                sheet.className = 'parchment-sheet';
+            setTimeout(() => {
+                videoScene.classList.add('hidden');
+                videoScene.classList.remove('active');
+                storyScene.scrollIntoView({ behavior: 'smooth' });
+            }, 1200);
+        }
 
-                // Initial positions matching top/chimney/ceiling origins
-                const startLeft = Math.random() * 80 + 10;
-                const startTop = Math.random() * -30 - 10;
-                const width = Math.random() * 35 + 40;
-                const height = width * 1.3;
+        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
+        function switchSoundtrackAndGoMenu() {
+            const video = document.getElementById('intro-video');
+            const bgMusic = document.getElementById('bg-music');
 
-                sheet.style.width = `${width}px`;
-                sheet.style.height = `${height}px`;
-                sheet.style.left = `${startLeft}%`;
-                sheet.style.top = `${startTop}%`;
-                sheet.style.transform = `rotate(${Math.random() * 360}deg) translateZ(${Math.random() * -200}px)`;
-
-                overlay.appendChild(sheet);
-                sheetElements.push(sheet);
+            // Fade out video audio
+            if (video) {
+                const fadeAudio = setInterval(() => {
+                    if (video.volume > 0.08) {
+                        video.volume -= 0.08;
+                    } else {
+                        video.pause();
+                        clearInterval(fadeAudio);
+                    }
+                }, 50);
             }
 
-            // 2. Animate falling -> slowing down -> gently swirling
-            setTimeout(() => {
-                sheetElements.forEach((sheet, idx) => {
-                    const swirlX = Math.sin(idx) * 20 + (idx % 2 === 0 ? 15 : -15);
-                    const swirlY = Math.cos(idx) * 15 + 35 + (idx * 4);
-                    const rot = Math.random() * 60 - 30;
+            // Start Couple Track (song.mp3)
+            bgMusic.currentTime = 0;
+            bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
 
-                    sheet.style.top = `${swirlY}%`;
-                    sheet.style.left = `${parseFloat(sheet.style.left) + swirlX}%`;
-                    sheet.style.transform = `rotate(${rot}deg) translateZ(-50px)`;
-                });
-            }, 100);
-
-            // 3. ONE parchment separates, moves forward toward camera, fills screen
-            setTimeout(() => {
-                // Fade out background video softly behind floating sheets
-                video.style.opacity = '0.15';
-                video.style.filter = 'blur(10px) brightness(0.3)';
-
-                // Create Hero Parchment sheet
-                const heroParchment = document.createElement('div');
-                heroParchment.className = 'parchment-sheet hero-focus';
-                heroParchment.style.width = '140px';
-                heroParchment.style.height = '190px';
-                heroParchment.style.top = '40%';
-                heroParchment.style.left = '45%';
-                heroParchment.style.transform = 'rotate(-8deg) scale(0.6) translateZ(-100px)';
-                overlay.appendChild(heroParchment);
-
-                // Other background letters fade softly into distance
-                sheetElements.forEach(s => {
-                    s.style.opacity = '0.25';
-                    s.style.transform += ' scale(0.7) translateZ(-300px)';
-                });
-
-                // Hero parchment moves toward viewer and expands to full screen
-                setTimeout(() => {
-                    heroParchment.classList.add('hero-fullscreen');
-
-                    // 4. Animate paper unfolding naturally with content inside
-                    setTimeout(() => {
-                        heroParchment.classList.add('unfolding');
-
-                        heroParchment.innerHTML = `
-                            <p class="chapter-subtitle ink-text" id="hero-ink-1" style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--lavender);">You Are Cordially Invited</p>
-                            <h2 class="chapter-title ink-text" id="hero-ink-2" style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--midnight);">ELENA & ADRIAN</h2>
-                            <p class="ink-text" id="hero-ink-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 1rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
-                        `;
-
-                        // 5. Reveal Wedding Details via handwritten ink effect
-                        setTimeout(() => {
-                            document.getElementById('hero-ink-1').classList.add('written');
-                            setTimeout(() => {
-                                document.getElementById('hero-ink-2').classList.add('written');
-                                setTimeout(() => {
-                                    document.getElementById('hero-ink-3').classList.add('written');
-
-                                    // 6. DIRECT NO-CLICK TRANSITION into Our Story website section
-                                    setTimeout(() => {
-                                        const videoScene = document.getElementById('scene-video-intro');
-                                        const storyScene = document.getElementById('scene-story');
-                                        const bgMusic = document.getElementById('bg-music');
-
-                                        // Fade video soundtrack & seamlessly start couple soundtrack (song.mp3)
-                                        const fadeAudio = setInterval(() => {
-                                            if (video.volume > 0.08) {
-                                                video.volume -= 0.08;
-                                            } else {
-                                                video.pause();
-                                                clearInterval(fadeAudio);
-                                            }
-                                        }, 50);
-
-                                        bgMusic.currentTime = 0;
-                                        bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
-
-                                        // Transition seamlessly into main page Our Story section
-                                        videoScene.classList.add('hidden');
-                                        videoScene.classList.remove('active');
-
-                                        storyScene.classList.remove('hidden');
-                                        storyScene.classList.add('active');
-                                        storyScene.scrollIntoView({ behavior: 'smooth' });
-                                    }, 2200);
-                                }, 600);
-                            }, 600);
-                        }, 500);
-                    }, 800);
-                }, 1000);
-            }, 2000);
+            scrollToSection('scene-menu');
         }
 
         function scrollToSection(stageId) {
