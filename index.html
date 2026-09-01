@@ -397,6 +397,148 @@
             font-weight: 800;
         }
 
+        /* --- EDITORIAL "MEMORIES BETWEEN THE PAGES" OUR STORY SECTION --- */
+        .story-editorial-card {
+            padding: 2.2rem 1.8rem 1.8rem 1.8rem !important;
+            max-width: 780px !important;
+            margin: 1.5rem auto !important;
+            text-align: center;
+            position: relative;
+        }
+
+        .story-editorial-card .chapter-subtitle {
+            font-size: 1.4rem !important;
+            margin-bottom: 0.1rem !important;
+            color: var(--lavender) !important;
+        }
+
+        .story-editorial-card .chapter-title {
+            font-size: 1.8rem !important;
+            margin-bottom: 0.8rem !important;
+            letter-spacing: 2px !important;
+        }
+
+        .story-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--antique-gold);
+            margin: 0.5rem auto 1rem auto;
+            opacity: 0.6;
+        }
+
+        .story-text-compact {
+            font-size: 0.92rem;
+            line-height: 1.65;
+            color: #222222;
+            max-width: 620px;
+            margin: 0 auto 0.8rem auto;
+            font-weight: 500;
+        }
+
+        .story-section-title {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--antique-gold);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        /* COMPACT MEMORY STACK (HORIZONTAL SCROLL) */
+        .memory-stack-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin: 0.5rem 0 1rem 0;
+            padding: 10px 0;
+        }
+
+        .memory-stack-track {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 12px 15px;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+
+        .memory-stack-track::-webkit-scrollbar {
+            display: none; /* Visually hide scrollbar */
+        }
+        .memory-stack-track {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .memory-stack-track:active {
+            cursor: grabbing;
+        }
+
+        .memory-photo-card {
+            flex: 0 0 190px;
+            height: 240px;
+            scroll-snap-align: center;
+            background: #FFFFFF;
+            padding: 8px 8px 24px 8px;
+            border-radius: 3px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12), 0 0 10px rgba(0,0,0,0.03);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, z-index 0.35s ease;
+            position: relative;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .memory-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1px;
+            pointer-events: none;
+        }
+
+        /* Rotations for natural memory stack feel */
+        .memory-photo-card:nth-child(1) { transform: rotate(-2deg); }
+        .memory-photo-card:nth-child(2) { transform: rotate(1deg); }
+        .memory-photo-card:nth-child(3) { transform: rotate(-1deg); }
+        .memory-photo-card:nth-child(4) { transform: rotate(2deg); }
+        .memory-photo-card:nth-child(5) { transform: rotate(-1deg); }
+
+        /* ACTIVE / HOVER PHOTO FOCUS EFFECT */
+        .memory-photo-card:hover, 
+        .memory-photo-card.is-active {
+            transform: scale(1.04) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 0 15px var(--gold-glow) !important;
+        }
+
+        .scroll-hint-indicator {
+            font-size: 0.7rem;
+            color: #777777;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: -0.2rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* ENTRANCE STAGGER ANIMATIONS */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scene-story-animated .stagger-1 { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        .scene-story-animated .stagger-2 { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+        .scene-story-animated .stagger-3 { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+        .scene-story-animated .stagger-4 { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+        .scene-story-animated .stagger-5 { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+        .scene-story-animated .stagger-6 { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+
         /* --- NAVIGATION MENU --- */
         .nav-chapters {
             display: flex;
@@ -503,7 +645,7 @@
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             display: inline-block;
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -638,7 +780,7 @@
         }
 
         @media (max-width: 600px) {
-            .chapter-container { padding: 2.5rem 1.2rem; }
+            .chapter-container { padding: 2rem 1rem; }
             #type-subtitle { font-size: 2.2rem !important; }
             #type-title { font-size: 2.2rem !important; }
             #type-date { font-size: 1.15rem !important; }
@@ -648,6 +790,12 @@
             .photo-card { width: 95px; height: 120px; }
             .desk-envelope { width: 280px; height: 190px; }
             .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
+
+            /* Mobile-specific adjustments for Our Story memory stack */
+            .story-editorial-card { padding: 1.5rem 0.8rem 1.2rem 0.8rem !important; }
+            .memory-photo-card { flex: 0 0 140px; height: 180px; }
+            .story-text-compact { font-size: 0.85rem; line-height: 1.55; }
+            .script-handwriting { font-size: 1.9rem !important; }
         }
     </style>
 </head>
@@ -708,28 +856,52 @@
     <main class="stage-container" id="stage-wrapper">
 
         <section class="stage hidden" id="scene-story">
-            <article class="chapter-container zoom-in-parchment fade-in-up">
-                <p class="chapter-subtitle" style="font-size: 1.4rem;">A Little Story About Us</p>
-                <h2 class="chapter-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">OUR STORY</h2>
+            <article class="chapter-container zoom-in-parchment story-editorial-card">
+                <p class="chapter-subtitle stagger-item stagger-1">A Little Story About Us</p>
+                <h2 class="chapter-title stagger-item stagger-1">OUR STORY</h2>
+                <div class="story-divider stagger-item stagger-2"></div>
                 
-                <p class="script-handwriting" style="text-align: center; margin-bottom: 1.5rem;" id="story-opening">
+                <p class="script-handwriting stagger-item stagger-2" style="font-size: 2.2rem; margin-bottom: 0.6rem;">
                     It started with coffee.
                 </p>
 
-                <p style="font-size: 0.95rem; line-height: 1.8; color: #222222; text-align: center; margin-bottom: 1.5rem; font-weight: 500;" id="story-paragraph">
+                <p class="story-text-compact stagger-item stagger-3" id="story-paragraph">
                     We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
                 </p>
 
-                <p class="script-handwriting" style="text-align: center; margin-bottom: 1rem;" id="story-highlight">
+                <p class="script-handwriting stagger-item stagger-4" style="font-size: 2.2rem; margin-bottom: 0.3rem;">
                     we became us.
                 </p>
 
-                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: #000000; font-weight: 800;" id="story-closing">
+                <p class="stagger-item stagger-4" style="font-size: 1.05rem; font-family: var(--font-serif); color: #000000; font-weight: 800;">
                     And now, we're getting married.
                 </p>
 
-                <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
-                    Explore The Letter's Chapters →
+                <div class="story-section-title stagger-item stagger-5">MOMENTS WE'VE KEPT</div>
+
+                <div class="memory-stack-wrapper stagger-item stagger-5">
+                    <div class="memory-stack-track" id="memory-track">
+                        <div class="memory-photo-card" onclick="openLightbox('photo1.jpeg')">
+                            <img src="photo1.jpeg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+1'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo2.jpeg')">
+                            <img src="photo2.jpeg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+2'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo3.jpeg')">
+                            <img src="photo3.jpeg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+3'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo4.jpeg')">
+                            <img src="photo4.jpeg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+4'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo5.jpeg')">
+                            <img src="photo5.jpeg" alt="Memory 5" onerror="this.src='https://via.placeholder.com/190x240?text=Memory+5'">
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-hint-indicator stagger-item stagger-5">← drag or swipe memories →</div>
+
+                <button class="btn-magic stagger-item stagger-6" onclick="switchSoundtrackAndGoMenu()">
+                    VIEW THE WEDDING DETAILS →
                 </button>
             </article>
         </section>
@@ -1030,10 +1202,7 @@
 
         /* DOM INITIALIZATION */
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('story-opening').innerText = wedding.story.opening;
             document.getElementById('story-paragraph').innerText = wedding.story.paragraph;
-            document.getElementById('story-highlight').innerText = wedding.story.highlight;
-            document.getElementById('story-closing').innerText = wedding.story.closing;
 
             document.getElementById('ceremony-venue').innerText = wedding.ceremony.venue.toUpperCase();
             document.getElementById('ceremony-time').innerText = `${wedding.ceremony.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.ceremony.time}`;
@@ -1060,6 +1229,7 @@
             startCountdown();
             initParticles();
             setupIntersectionObserver();
+            setupDragScroll();
         });
 
         /* GATEWAY CLICK -> STARTS VIDEO & CONCURRENTLY EMERGES PARCHMENT AT 16.63s */
@@ -1223,9 +1393,9 @@
         /* SMOOTH 3.5-SECOND EXPONENTIAL FADE-IN TO BALANCED TARGET VOLUME (0.55) */
         function fadeInSongTrack(songAudio) {
             if (!songAudio) return;
-            const targetVolume = 0.55; // Balanced volume level matching previous track
-            const fadeDuration = 3500; // 3.5 seconds
-            const intervalTime = 50;   // 50ms smooth updates
+            const targetVolume = 0.55; 
+            const fadeDuration = 3500; 
+            const intervalTime = 50;   
             const totalSteps = fadeDuration / intervalTime;
             let currentStep = 0;
 
@@ -1235,7 +1405,6 @@
 
             const fadeInterval = setInterval(() => {
                 currentStep++;
-                // Smooth exponential volume curve
                 const progress = currentStep / totalSteps;
                 const newVolume = Math.min(targetVolume, Math.pow(progress, 1.8) * targetVolume);
 
@@ -1276,8 +1445,34 @@
                 
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
+                storyScene.classList.add('scene-story-animated'); // Triggers subtle stagger entrance
                 storyScene.scrollIntoView({ behavior: 'smooth' });
             }, 800);
+        }
+
+        /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
+        function setupDragScroll() {
+            const track = document.getElementById('memory-track');
+            if (!track) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+            track.addEventListener('mouseleave', () => { isDown = false; });
+            track.addEventListener('mouseup', () => { isDown = false; });
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 1.8;
+                track.scrollLeft = scrollLeft - walk;
+            });
         }
 
         /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
@@ -1440,11 +1635,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        if (entry.target.id === 'scene-story') {
+                            entry.target.classList.add('scene-story-animated');
+                        }
                     }
                 });
             }, { threshold: 0.2 });
 
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+            document.querySelectorAll('.fade-in-up, #scene-story').forEach(el => observer.observe(el));
         }
     </script>
 </body>
