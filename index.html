@@ -79,7 +79,7 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 3s cubic-bezier(0.4, 0, 0.2, 1), filter 3s ease;
+            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .stage.hidden {
@@ -203,7 +203,7 @@
             background: #000;
             position: relative;
             z-index: 10;
-            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .video-wrapper {
@@ -225,7 +225,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 3s ease, opacity 3s ease;
+            transition: opacity 3.5s ease, filter 3.5s ease;
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -241,13 +241,11 @@
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1), transform 3s ease;
+            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         #scene-story.active .chapter-container {
             opacity: 1;
-            transform: translateY(0);
         }
 
         .chapter-title {
@@ -934,7 +932,7 @@
             setupVideoEndCheck();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO AT 1.25x PLAYBACK SPEED */
+        /* GATEWAY CLICK -> STARTS VIDEO AT 1.2x PLAYBACK SPEED */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -949,21 +947,21 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
-                    video.playbackRate = 1.20; // 1.2x Speed boost for a punchier video intro
+                    video.playbackRate = 1.20; // Fast-forwarded slightly for viewer engagement
                     video.muted = false;
                     video.play().catch(e => console.log("Video Play Error:", e));
                 }, 800);
             }, 400);
         }
 
-        /* 21-SECOND VIDEO TIMING & UNNOTICED DIRECT DISSOLVE TO 'YOU ARE CORDIALLY INVITED' */
+        /* IMPERCEPTIBLE CROSS-FADE DIRECTLY INTO 'YOU ARE CORDIALLY INVITED' */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                // Starts smooth fade ~1.5s before completion based on 1.2x playback rate
-                if ((video.currentTime >= 19.2 || (video.duration && video.duration - video.currentTime <= 1.5)) && !hasTriggeredTransition) {
+                // Triggers cross-fade 2.5s before video completion
+                if ((video.currentTime >= 18.5 || (video.duration && video.duration - video.currentTime <= 2.5)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
                     transitionDirectlyToStory();
                 }
@@ -982,11 +980,11 @@
             const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            // Video continues playing audio seamlessly in background
+            // Video audio remains active
             video.loop = true;
             video.play();
 
-            // Imperceptible 2.5s Cross-Fade directly into Our Story
+            // Seamless 3.5s cross-fade
             videoScene.style.opacity = '0';
             storyScene.classList.remove('hidden');
             storyScene.classList.add('active');
@@ -995,15 +993,15 @@
                 videoScene.classList.add('hidden');
                 videoScene.classList.remove('active');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 1800);
+            }, 2500);
         }
 
-        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
+        /* MUSIC SWITCHES TO COUPLE SOUNDTRACK ON EXPLORE CHAPTERS CLICK */
         function switchSoundtrackAndGoMenu() {
             const video = document.getElementById('intro-video');
             const bgMusic = document.getElementById('bg-music');
 
-            // Fade out video audio
+            // Fade out video sound
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1015,7 +1013,7 @@
                 }, 50);
             }
 
-            // Start Couple Track (song.mp3)
+            // Play song.mp3
             bgMusic.currentTime = 0;
             bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
 
