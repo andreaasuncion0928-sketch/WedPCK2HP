@@ -113,7 +113,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.1s linear; /* Smooth visual opacity transition */
+            transition: opacity 0.05s linear; /* Ultra-responsive opacity fading */
         }
 
         /* LAYER 2: INVITATION OVERLAY CARD (PARCHMENT BG) */
@@ -1062,7 +1062,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SLOW FADE OUT BEFORE 17 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & FADES OUT VIDEO AUDIO/VISUALS FROM 16.63s TO 17.0s */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1089,14 +1089,15 @@
                         if (!transitionTriggered) {
                             transitionTriggered = true;
                             
-                            // Stop video completely at 17 seconds
+                            // 1. Fully mute and stop video at 17 seconds
                             video.pause();
                             video.muted = true;
                             video.currentTime = 17.0;
 
-                            // Play openinvite.mp3 audio track for the invitation landing page
+                            // 2. Play openinvite.mp3 track seamlessly
                             playInvitePageSound();
 
+                            // 3. Reveal the "You Are Cordially Invited" parchment card
                             proceedToCordiallyInvitedSeamless();
                         }
                     };
@@ -1104,20 +1105,20 @@
                     video.addEventListener('timeupdate', () => {
                         const currentTime = video.currentTime;
 
-                        // START SLOW FADE OUT AT 16.70 SECONDS
-                        if (currentTime >= 16.70 && currentTime < 17.0) {
-                            const fadeProgress = (currentTime - 16.70) / 0.30; // 0.0 to 1.0 scale
+                        // START FADE-OUT AT EXACTLY 16.63 SECONDS
+                        if (currentTime >= 16.63 && currentTime < 17.0) {
+                            const fadeProgress = (currentTime - 16.63) / (17.0 - 16.63); // Normalized 0.0 to 1.0
                             video.volume = Math.max(0, 1.0 - fadeProgress);
                             video.style.opacity = Math.max(0, 1.0 - fadeProgress);
                         }
 
-                        // COMPLETE STOP & TRANSITION AT 17.0 SECONDS
+                        // COMPLETE TRANSITION AT 17.0 SECONDS
                         if (currentTime >= 17.0) {
                             executeFinalStop();
                         }
                     });
 
-                    // Fallback timer if event is delayed
+                    // Fallback timer (17000ms = 17 seconds)
                     setTimeout(() => {
                         executeFinalStop();
                     }, 17000);
