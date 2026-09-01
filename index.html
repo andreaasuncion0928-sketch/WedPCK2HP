@@ -125,17 +125,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.4);
+            background: rgba(17, 19, 34, 0.45);
             backdrop-filter: blur(2px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.2s ease;
+            transition: opacity 0.8s ease;
             z-index: 15;
         }
 
         .video-action-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         /* LAYER 2: INVITATION OVERLAY CARD */
@@ -297,7 +297,7 @@
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.85);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .chapter-container.zoom-in-parchment {
@@ -630,7 +630,7 @@
             </video>
 
             <div class="video-action-overlay" id="video-action-overlay">
-                <button class="btn-magic" style="background: rgba(255,253,248,0.92); color: var(--midnight); box-shadow: 0 0 25px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
+                <button class="btn-magic" style="background: rgba(255,253,248,0.95); color: var(--midnight); box-shadow: 0 0 30px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
                     View Invitation Details →
                 </button>
             </div>
@@ -862,7 +862,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1039,34 +1039,49 @@
             }, 400);
         }
 
-        /* FREEZES VIDEO AT LAST FRAME & REVEALS BUTTON OVERLAY */
+        /* AUTOMATIC METADATA DURATION DETECTION + EVENT LISTENERS */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredFreeze = false;
 
-            function freezeVideoAndShowButton() {
+            function triggerFreeze() {
                 if (!hasTriggeredFreeze) {
                     hasTriggeredFreeze = true;
-                    
-                    // Freeze visual on last frame
-                    video.pause();
-
-                    // Reveal button overlay directly on frozen frame
-                    const overlayBtn = document.getElementById('video-action-overlay');
-                    if (overlayBtn) {
-                        overlayBtn.classList.add('active');
-                    }
+                    freezeVideoAndShowButton();
                 }
             }
 
-            video.addEventListener('ended', freezeVideoAndShowButton);
-            video.addEventListener('error', freezeVideoAndShowButton);
+            // DYNAMIC DURATION LOGIC: Reads exact length as soon as video loads
+            video.addEventListener('loadedmetadata', () => {
+                const totalDuration = video.duration; // Reads video length dynamically
+                
+                // Calculates precise trigger point right before video completion
+                const triggerPoint = Math.max(0, totalDuration - 0.4);
 
-            video.addEventListener('timeupdate', () => {
-                if (video.duration && (video.duration - video.currentTime <= 0.2)) {
-                    freezeVideoAndShowButton();
-                }
+                video.addEventListener('timeupdate', () => {
+                    if (video.currentTime >= triggerPoint) {
+                        triggerFreeze();
+                    }
+                });
             });
+
+            // Universal Fallback Listeners
+            video.addEventListener('ended', triggerFreeze);
+            video.addEventListener('error', triggerFreeze);
+        }
+
+        /* FREEZES VIDEO AT LAST FRAME & SHOWS BUTTON OVERLAY */
+        function freezeVideoAndShowButton() {
+            const video = document.getElementById('intro-video');
+            const overlayBtn = document.getElementById('video-action-overlay');
+
+            if (video && !video.paused) {
+                video.pause(); // Freezes last visual frame
+            }
+
+            if (overlayBtn) {
+                overlayBtn.classList.add('active'); // Reveals button
+            }
         }
 
         /* BUTTON CLICK -> TRANSITIONS TO YOU ARE CORDIALLY INVITED */
@@ -1075,7 +1090,6 @@
             const cardBox = document.getElementById('invite-card-box');
             const videoOverlay = document.getElementById('video-action-overlay');
 
-            // Hide action overlay button
             if (videoOverlay) {
                 videoOverlay.classList.remove('active');
             }
@@ -1137,7 +1151,6 @@
                     setTimeout(typeLine3, 28);
                 } else {
                     dateEl.classList.remove('typing-cursor');
-                    
                     btnEl.style.opacity = '1';
                     btnEl.style.pointerEvents = 'auto';
                 }
