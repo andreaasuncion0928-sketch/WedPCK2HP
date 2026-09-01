@@ -94,6 +94,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1500px;
         }
 
         .stage {
@@ -112,7 +113,7 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO & SEAMLESS INVITATION.JPG OVERLAY --- */
+        /* --- SCENE 1: VIDEO INTRO & INVITATION.JPG OVERLAY --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -135,6 +136,7 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
             background: #000;
+            perspective: 1200px;
         }
 
         .video-wrapper video {
@@ -144,7 +146,6 @@
             transition: filter 3.5s ease, opacity 3.5s ease;
         }
 
-        /* Video softly dissolves as image solidifies */
         .video-wrapper video.seamless-dissolve {
             opacity: 0.1;
             filter: blur(8px) brightness(0.2);
@@ -165,8 +166,8 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            /* Ultra-slow 3.5s fade so transition is imperceptible */
             transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
+            perspective: 1200px;
         }
 
         .invitation-overlay.reveal {
@@ -174,59 +175,64 @@
             pointer-events: auto;
         }
 
-        /* CLICKABLE IMAGE CARD (invitation.jpg) - PERFECT MATCH TO VIDEO FRAME */
-        .invitation-img-btn {
+        /* --- 3D BOOK/LETTER OPENING WRAPPER --- */
+        .invitation-card-container {
             width: 65%;
             max-width: 340px;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+
+        /* CLICKABLE IMAGE CARD (invitation.jpg) - FRONT COVER */
+        .invitation-img-btn {
+            width: 100%;
             height: auto;
             border-radius: 6px;
             border: 2px solid var(--antique-gold);
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
-            cursor: pointer;
             opacity: 0;
-            /* Starts at natural scale to match the video frame precisely */
             transform: scale(1);
+            transform-origin: left center;
             transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 3.5s ease, box-shadow 0.6s ease;
             object-fit: cover;
             display: block;
+            backface-visibility: hidden;
         }
 
-        /* Gently moves forward into focal focus as it becomes visible */
         .invitation-overlay.reveal .invitation-img-btn {
             opacity: 1;
             transform: scale(1.08);
         }
 
-        .invitation-img-btn:hover {
+        .invitation-card-container:hover .invitation-img-btn {
             transform: scale(1.12) translateY(-4px) !important;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
         }
 
-        /* MAGICAL LETTER TRANSITION ANIMATIONS */
-        .invitation-img-btn.magical-open {
-            animation: magicalLetterUnfold 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        /* MAGICAL 3D LETTER UNFOLDING OPEN ANIMATION (NO BLUR/FADE EXIT) */
+        .invitation-card-container.unfold-open .invitation-img-btn {
+            animation: magicalParchmentOpen 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
         }
 
-        @keyframes magicalLetterUnfold {
+        @keyframes magicalParchmentOpen {
             0% {
-                transform: scale(1.08) rotate(0deg);
+                transform: scale(1.08) rotateY(0deg);
                 box-shadow: 0 0 30px var(--antique-gold);
-                filter: brightness(1);
             }
-            40% {
-                transform: scale(1.2) rotate(-1deg);
-                box-shadow: 0 0 70px var(--lavender-light), 0 0 30px var(--antique-gold);
-                filter: brightness(1.4);
+            30% {
+                transform: scale(1.15) rotateY(-30deg);
+                box-shadow: -15px 15px 40px rgba(0,0,0,0.8), 0 0 50px var(--gold-glow);
             }
             70% {
-                transform: scale(1.35) rotate(1deg);
-                opacity: 0.8;
-                filter: brightness(2) blur(2px);
+                transform: scale(1.25) rotateY(-110deg);
+                box-shadow: -30px 20px 60px rgba(0,0,0,0.9), 0 0 70px var(--lavender-glow);
             }
             100% {
-                transform: scale(2.4) rotate(0deg);
-                opacity: 0;
-                filter: brightness(3) blur(10px);
+                transform: scale(1.4) rotateY(-180deg);
+                box-shadow: 0 0 90px var(--lavender-light);
+                opacity: 1; /* Stays visible while opening like a book cover */
             }
         }
 
@@ -264,7 +270,7 @@
             100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
         }
 
-        /* --- MAIN CHAPTER STYLING --- */
+        /* --- MAIN CHAPTER STYLING WITH MAGICAL REVEAL --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -276,6 +282,30 @@
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
+        }
+
+        /* MAGICAL ENCHANTED ENTRANCE FOR DETAILS */
+        #scene-story.active .chapter-container {
+            animation: magicalDetailsBloom 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes magicalDetailsBloom {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) rotateX(15deg);
+                box-shadow: 0 0 0 rgba(0,0,0,0);
+                filter: brightness(2) drop-shadow(0 0 30px var(--lavender-light));
+            }
+            50% {
+                opacity: 0.8;
+                filter: brightness(1.3) drop-shadow(0 0 20px var(--antique-gold));
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow);
+                filter: brightness(1);
+            }
         }
 
         .chapter-title {
@@ -542,7 +572,7 @@
             .chapter-title { font-size: 1.75rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-            .invitation-img-btn { width: 75%; }
+            .invitation-card-container { width: 75%; }
         }
     </style>
 </head>
@@ -579,14 +609,15 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <img 
-                        src="invitation.jpg" 
-                        alt="An Invitation Has Arrived" 
-                        class="invitation-img-btn" 
-                        id="invitation-card"
-                        onclick="executeMagicalTransition(event)"
-                        onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=An+Invitation+Has+Arrived'"
-                    >
+                    <div class="invitation-card-container" id="card-wrapper" onclick="executeMagicalOpening(event)">
+                        <img 
+                            src="invitation.jpg" 
+                            alt="An Invitation Has Arrived" 
+                            class="invitation-img-btn" 
+                            id="invitation-card"
+                            onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=An+Invitation+Has+Arrived'"
+                        >
+                    </div>
                     <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
                 </div>
             </div>
@@ -992,42 +1023,44 @@
             });
         }
 
-        /* DIRECT MAGICAL LETTER TRANSITION FROM INVITATION.JPG TO DETAILS */
-        function executeMagicalTransition(event) {
-            const cardImg = document.getElementById('invitation-card');
+        /* MAGICAL 3D BOOK/PARCHMENT OPENING TRANSITION TO DETAILS */
+        function executeMagicalOpening(event) {
+            const wrapper = document.getElementById('card-wrapper');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
 
             // 1. Create Magical Particle Sparks
             createSparkleParticles(event.clientX, event.clientY);
 
-            // 2. Add Magical Letter Unfold Animation directly to invitation.jpg
-            cardImg.classList.add('magical-open');
+            // 2. Add 3D Book Opening Effect to invitation.jpg
+            wrapper.classList.add('unfold-open');
 
-            // 3. Smoothly transition to invitation details section
+            // 3. Reveal the underlying wedding details card magically as the cover opens
             setTimeout(() => {
-                videoScene.style.opacity = '0';
-                
-                setTimeout(() => {
-                    videoScene.classList.add('hidden');
-                    videoScene.classList.remove('active');
+                storyScene.classList.remove('hidden');
+                storyScene.classList.add('active');
 
-                    storyScene.classList.remove('hidden');
-                    storyScene.classList.add('active');
-                    storyScene.scrollIntoView({ behavior: 'smooth' });
-                }, 800);
-            }, 1000);
+                setTimeout(() => {
+                    videoScene.style.opacity = '0';
+
+                    setTimeout(() => {
+                        videoScene.classList.add('hidden');
+                        videoScene.classList.remove('active');
+                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                    }, 800);
+                }, 600);
+            }, 800);
         }
 
         function createSparkleParticles(x, y) {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 25; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'sparkle-burst';
                 particle.style.left = `${x}px`;
                 particle.style.top = `${y}px`;
 
                 const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 100 + 40;
+                const dist = Math.random() * 120 + 40;
                 particle.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
                 particle.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
 
