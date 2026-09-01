@@ -104,7 +104,7 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO & MASKING LAYER --- */
+        /* --- SCENE 1: VIDEO INTRO & RADIAL MASK DISSOLVE --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -112,11 +112,10 @@
             position: relative;
             z-index: 10;
             
-            /* 1. INITIAL MASK LAYER SETUP */
-            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
-            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            /* Initial state: Fully visible mask */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
             
-            /* Prepare procedural morph */
             -webkit-mask-size: 200% 200%;
             mask-size: 200% 200%;
             -webkit-mask-position: center;
@@ -125,15 +124,15 @@
             transition: -webkit-mask-image 1.6s ease-in-out, mask-image 1.6s ease-in-out, opacity 0.8s ease 1.2s;
         }
 
-        /* 2. ACTIVE MASK TRANSITION STATE */
+        /* Triggered active mask dissolve state */
         #scene-video-intro.dissolve-out {
-            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 100%, rgba(0,0,0,0) 100%);
-            mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 100%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%);
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%);
             opacity: 0;
             pointer-events: none;
         }
 
-        /* 3. WAND SPARKLE OVERLAY (PSEUDO-ELEMENT) */
+        /* --- WAND SPARKLE OVERLAY --- */
         .stage-container {
             position: relative;
             width: 100%;
@@ -165,7 +164,6 @@
             animation: wandSparkleSweep 1.6s ease-in-out forwards;
         }
 
-        /* 4. MAGIC KEYFRAME ANIMATION */
         @keyframes wandSparkleSweep {
             0% {
                 opacity: 0;
@@ -564,7 +562,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <main id="app" class="stage-container" id="stage-wrapper">
+    <main class="stage-container" id="stage-wrapper">
 
         <section class="stage active" id="scene-video-intro">
             <div class="video-wrapper">
@@ -819,7 +817,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -986,7 +984,7 @@
         /* RADIAL MASK DISSOLVE & WAND SPARKLE SWEEP */
         function triggerRadialMaskTransition() {
             const introScene = document.getElementById('scene-video-intro');
-            const wrapper = document.getElementById('app');
+            const wrapper = document.getElementById('stage-wrapper');
             const storyScene = document.getElementById('scene-story');
 
             // 1. Reveal target story section underneath first
