@@ -115,24 +115,7 @@
             object-fit: cover;
         }
 
-        /* OVERLAY BUTTON OVER VIDEO (HIDDEN UNTIL 16.63s) */
-        .video-action-overlay {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease, transform 0.4s ease;
-        }
-
-        .video-action-overlay.active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
-
-        /* LAYER 2: INVITATION OVERLAY CARD */
+        /* LAYER 2: INVITATION OVERLAY CARD (PARCHMENT BG) */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -143,11 +126,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.85);
-            backdrop-filter: blur(6px);
+            background: rgba(17, 19, 34, 0.65);
+            backdrop-filter: blur(3px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
             padding: 0;
         }
 
@@ -277,7 +260,7 @@
             transform: translate(-50%, -50%) scale(5);
         }
 
-        /* --- MAIN CHAPTER STYLING --- */
+        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -292,6 +275,25 @@
             text-align: center;
             transform: scale(0.85);
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Custom Parchment Background for the Seamless Letter Transition */
+        .parchment-texture-card {
+            background-image: url('parchment.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid var(--antique-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow);
+            opacity: 0;
+            transform: scale(0.7) translateY(20px);
+            transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .parchment-texture-card.seamless-emerge {
+            opacity: 1 !important;
+            transform: scale(1) translateY(0) !important;
+            animation: magicalBloomGlow 2.5s ease-in-out infinite alternate;
         }
 
         .chapter-container.zoom-in-parchment {
@@ -622,17 +624,11 @@
                 <source src="HPintrowithaudio.mp4" type="video/mp4">
                 Your browser does not support video playback.
             </video>
-
-            <div class="video-action-overlay" id="video-action-overlay">
-                <button class="btn-magic" style="background: rgba(255,253,248,0.95); color: var(--midnight); box-shadow: 0 0 30px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
-                    See Invitation Details →
-                </button>
-            </div>
         </div>
     </section>
 
     <section id="scene-invite-card">
-        <article class="chapter-container" id="invite-card-box" style="max-width: 650px;">
+        <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 650px;">
             <p class="chapter-subtitle" id="type-subtitle"></p>
             <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
             <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
@@ -856,7 +852,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1000,13 +996,12 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & FREEZES/SHOWS BUTTON AT EXACTLY 16.63 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
             const gateway = document.getElementById('desk-gateway');
             const video = document.getElementById('intro-video');
-            const overlayBtn = document.getElementById('video-action-overlay');
 
             deskSeal.classList.add('break');
 
@@ -1020,58 +1015,55 @@
 
                     const playPromise = video.play();
                     
-                    let revealed = false;
-                    const freezeAndShowButton = () => {
-                        if (!revealed) {
-                            revealed = true;
-                            video.pause(); // Freeze video frame at exactly 16.63s
-                            video.currentTime = 16.63;
-                            overlayBtn.classList.add('active'); // Reveal button
+                    let transitionTriggered = false;
+                    const executeSeamlessTransition = () => {
+                        if (!transitionTriggered) {
+                            transitionTriggered = true;
+                            // Seamless transition trigger: Video naturally freezes at letter opening
+                            video.pause(); 
+                            video.currentTime = 17.0;
+                            proceedToCordiallyInvitedSeamless();
                         }
                     };
 
-                    // Monitor exact playback timestamp
+                    // Check exact video current time for smooth transition at 17 seconds
                     video.addEventListener('timeupdate', () => {
-                        if (video.currentTime >= 16.63) {
-                            freezeAndShowButton();
+                        if (video.currentTime >= 17.0) {
+                            executeSeamlessTransition();
                         }
                     });
 
-                    // Precise timer fallback calculated at 16630 ms
+                    // Fallback timer (17000ms = 17 seconds)
                     setTimeout(() => {
-                        freezeAndShowButton();
-                    }, 16630);
+                        executeSeamlessTransition();
+                    }, 17000);
 
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            freezeAndShowButton(); // Show button immediately if autoplay fails
+                            executeSeamlessTransition();
                         });
                     }
                 }, 800);
             }, 400);
         }
 
-        /* BUTTON CLICK -> TRANSITIONS DIRECTLY TO YOU ARE CORDIALLY INVITED */
-        function proceedToCordiallyInvited() {
+        /* SEAMLESS TRANSITION -> PARCHMENT.JPG EMERGES DIRECTLY FROM THE OPENING LETTER */
+        function proceedToCordiallyInvitedSeamless() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
-            const videoOverlay = document.getElementById('video-action-overlay');
 
-            if (videoOverlay) {
-                videoOverlay.classList.remove('active');
-            }
-
-            // Activate Layer 2 overlay directly over frozen video
+            // Show overlay scene smoothly
             inviteScene.classList.add('active-overlay');
 
+            // Parchment.jpg card seamlessly emerges and blooms from the letter opening
             setTimeout(() => {
-                cardBox.classList.add('zoom-in-parchment');
+                cardBox.classList.add('seamless-emerge');
                 runFastMagicalTyping();
-            }, 100);
+            }, 300);
         }
 
-        /* FAST MAGICAL TYPEWRITER ANIMATION */
+        /* FAST MAGICAL TYPEWRITER ANIMATION FOR INVITATION DETAILS */
         function runFastMagicalTyping() {
             const subtitleEl = document.getElementById('type-subtitle');
             const titleEl = document.getElementById('type-title');
@@ -1259,7 +1251,7 @@
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
+            document.getElementById('lightbox.classList.remove')('active');
         }
 
         function submitRSVP(e) {
