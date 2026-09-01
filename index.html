@@ -1356,7 +1356,7 @@
 
             if (!subtitleEl || subtitleEl.children.length > 0) return;
 
-            const text1 = "You Are Cordially Invited."; // Added period
+            const text1 = "You Are Cordially Invited.";
             const text2 = "ELENA & ADRIAN";
             const text3 = "31 JANUARY 2028 · MANILA";
 
@@ -1414,12 +1414,12 @@
             });
         }
 
-        /* REDUCED 1.2-SECOND BALANCED FADE-IN FOR SONG.MP3 */
-        function fadeInSongTrack(songAudio) {
+        /* FAST & BALANCED FADE-IN (0.3s) FOR SONG.MP3 RIGHT WHEN CLICKED */
+        function playSongTrackImmediate(songAudio) {
             if (!songAudio) return;
             const targetVolume = 0.55; 
-            const fadeDuration = 1200; // 1.2 seconds for an immediate yet gentle start
-            const intervalTime = 40;   
+            const fadeDuration = 300; // Ultra-fast 0.3s fade-in so music is heard right away
+            const intervalTime = 30;   
             const totalSteps = fadeDuration / intervalTime;
             let currentStep = 0;
 
@@ -1430,7 +1430,7 @@
             const fadeInterval = setInterval(() => {
                 currentStep++;
                 const progress = currentStep / totalSteps;
-                const newVolume = Math.min(targetVolume, Math.pow(progress, 1.2) * targetVolume);
+                const newVolume = Math.min(targetVolume, progress * targetVolume);
 
                 songAudio.volume = newVolume;
 
@@ -1441,7 +1441,11 @@
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> CONCURRENTLY STARTS SONG.MP3 AND MAGICAL STORY FADE-IN */
+        /* BUTTON CLICK ("CHECK THE DETAILS"): 
+           1. STOP OPENINVITE.MP3
+           2. PLAY SONG.MP3 IMMEDIATELY BEFORE PAGE TRANSITIONS
+           3. SLOWLY SLIDE UP OUR STORY PAGE (500ms DELAY)
+        */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
@@ -1455,28 +1459,29 @@
                 inviteAudio.currentTime = 0;
             }
 
-            // 2. Play song.mp3 concurrently with the page transition (1.2s balanced fade-in)
-            fadeInSongTrack(bgMusic);
+            // 2. SONG.MP3 PLAYS FIRST WITH MINIMAL FADE-IN
+            playSongTrackImmediate(bgMusic);
 
-            // 3. Initiate subtle, seamless Page-Up transition
-            inviteScene.classList.add('slide-up-out');
-            storyScene.classList.remove('hidden');
-            
-            // Allow DOM paint before initiating upward slide & unified text fade-in
-            requestAnimationFrame(() => {
-                storyScene.classList.add('active');
-                storyScene.classList.add('page-up-active');
-                storyScene.classList.add('scene-story-animated'); // Triggers unified text fade-in and photo stagger
-                storyScene.scrollIntoView({ behavior: 'smooth' });
-            });
-
+            // 3. SHORT DELAY (500ms) SO MUSIC IS AUDIBLE BEFORE OUR STORY SLIDES IN
             setTimeout(() => {
-                inviteScene.classList.remove('active-overlay');
-                inviteScene.classList.remove('slide-up-out');
-                if (videoScene) {
-                    videoScene.style.display = 'none';
-                }
-            }, 1200);
+                inviteScene.classList.add('slide-up-out');
+                storyScene.classList.remove('hidden');
+                
+                requestAnimationFrame(() => {
+                    storyScene.classList.add('active');
+                    storyScene.classList.add('page-up-active');
+                    storyScene.classList.add('scene-story-animated');
+                    storyScene.scrollIntoView({ behavior: 'smooth' });
+                });
+
+                setTimeout(() => {
+                    inviteScene.classList.remove('active-overlay');
+                    inviteScene.classList.remove('slide-up-out');
+                    if (videoScene) {
+                        videoScene.style.display = 'none';
+                    }
+                }, 1200);
+            }, 500);
         }
 
         /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
