@@ -1448,7 +1448,7 @@
         /* BUTTON CLICK ("CHECK THE DETAILS"): 
            1. STOP OPENINVITE.MP3
            2. PLAY SONG.MP3 IMMEDIATELY BEFORE PAGE TRANSITIONS
-           3. SLOWLY SLIDE UP OUR STORY PAGE (500ms DELAY)
+           3. SLOWLY SLIDE UP OUR STORY PAGE AT 2.6s OF SONG.MP3
         */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
@@ -1463,29 +1463,48 @@
                 inviteAudio.currentTime = 0;
             }
 
-            // 2. SONG.MP3 PLAYS FIRST WITH MINIMAL FADE-IN
+            // 2. SONG.MP3 PLAYS FIRST IMMEDIATELY
             playSongTrackImmediate(bgMusic);
 
-            // 3. SHORT DELAY (500ms) SO MUSIC IS AUDIBLE BEFORE OUR STORY SLIDES IN
-            setTimeout(() => {
-                inviteScene.classList.add('slide-up-out');
-                storyScene.classList.remove('hidden');
-                
-                requestAnimationFrame(() => {
-                    storyScene.classList.add('active');
-                    storyScene.classList.add('page-up-active');
-                    storyScene.classList.add('scene-story-animated');
-                    storyScene.scrollIntoView({ behavior: 'smooth' });
-                });
+            // 3. SHOW "OUR STORY" PAGE WHEN SONG.MP3 REACHES EXACTLY 2.6 SECONDS
+            let pageRevealed = false;
+            const revealOurStoryPage = () => {
+                if (!pageRevealed) {
+                    pageRevealed = true;
+                    inviteScene.classList.add('slide-up-out');
+                    storyScene.classList.remove('hidden');
+                    
+                    requestAnimationFrame(() => {
+                        storyScene.classList.add('active');
+                        storyScene.classList.add('page-up-active');
+                        storyScene.classList.add('scene-story-animated');
+                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                    });
 
-                setTimeout(() => {
-                    inviteScene.classList.remove('active-overlay');
-                    inviteScene.classList.remove('slide-up-out');
-                    if (videoScene) {
-                        videoScene.style.display = 'none';
+                    setTimeout(() => {
+                        inviteScene.classList.remove('active-overlay');
+                        inviteScene.classList.remove('slide-up-out');
+                        if (videoScene) {
+                            videoScene.style.display = 'none';
+                        }
+                    }, 1200);
+                }
+            };
+
+            // Monitor song.mp3 current playback time to reveal Our Story page at 2.6 seconds
+            if (bgMusic) {
+                bgMusic.addEventListener('timeupdate', function onTimeUpdate() {
+                    if (bgMusic.currentTime >= 2.6) {
+                        revealOurStoryPage();
+                        bgMusic.removeEventListener('timeupdate', onTimeUpdate);
                     }
-                }, 1200);
-            }, 500);
+                });
+            }
+
+            // Fallback timer at 2.6 seconds (2600ms)
+            setTimeout(() => {
+                revealOurStoryPage();
+            }, 2600);
         }
 
         /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
