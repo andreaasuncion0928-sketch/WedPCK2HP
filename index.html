@@ -75,7 +75,7 @@
             box-shadow: 0 0 15px var(--lavender-glow);
         }
 
-        /* --- CANVAS & BACKGROUND PARTICLES --- */
+        /* --- CANVAS PARTICLES --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -108,272 +108,99 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: THE WINDOW, CHIMNEY & ROOM --- */
-        #scene-window {
-            background: radial-gradient(circle at 50% 30%, var(--midnight-soft), var(--midnight));
+        /* --- SCENE 1: VIDEO INTRO STAGING --- */
+        #scene-video-intro {
+            padding: 0;
             overflow: hidden;
+            background: #000;
         }
 
-        .room-container {
+        .video-wrapper {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             height: 85vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        /* SVG Window Frame */
-        .window-frame {
-            width: 280px;
-            height: 380px;
-            border: 10px solid #2A1A08;
-            border-top-left-radius: 140px;
-            border-top-right-radius: 140px;
-            position: relative;
-            background: radial-gradient(circle at 70% 20%, #2A3656, #090B15);
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 0 50px rgba(212, 168, 240, 0.15);
+            border-radius: 8px;
+            border: 1px solid var(--antique-gold);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
+            background: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay-btn {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(17, 19, 34, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--antique-gold);
+            color: var(--antique-gold);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: var(--font-serif);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
             cursor: pointer;
+            transition: var(--transition-med);
         }
 
-        .window-glass-pane {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            border-right: 2px solid #1A1005;
-            top: 0;
+        .video-overlay-btn:hover {
+            background: var(--antique-gold);
+            color: var(--midnight);
         }
 
-        .window-arch-line {
-            position: absolute;
-            top: 90px;
-            width: 100%;
-            height: 2px;
-            background: #1A1005;
-        }
-
-        .moon {
-            position: absolute;
-            top: 35px;
-            right: 35px;
-            width: 55px;
-            height: 55px;
-            background: #FFFDF8;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #FFFDF8, 0 0 40px var(--lavender-glow);
-        }
-
-        .curtain {
-            position: absolute;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            background: rgba(36, 33, 36, 0.7);
-            backdrop-filter: blur(2px);
-            transition: transform 2s ease;
-        }
-
-        .curtain.left { left: 0; transform-origin: left; }
-        .curtain.right { right: 0; transform-origin: right; }
-
-        .window-frame:hover .curtain.left { transform: scaleX(0.7); }
-        .window-frame:hover .curtain.right { transform: scaleX(0.7); }
-
-        /* Chimney Illustration Elements */
-        .chimney-structure {
-            position: absolute;
-            top: -20px;
-            right: 10%;
-            width: 110px;
-            height: 180px;
-            background: linear-gradient(180deg, #1A1005, #2A1A08);
-            border: 2px solid #000;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.9);
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-            z-index: 1;
-        }
-
-        .chimney-opening {
-            position: absolute;
-            bottom: 0;
-            left: 15px;
-            width: 80px;
-            height: 120px;
-            background: #090B15;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
-            box-shadow: inset 0 10px 15px rgba(0,0,0,1);
-        }
-
-        /* SVG Owl Silhouette */
-        .owl-svg {
-            position: absolute;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 65px;
-            fill: #05060A;
-            transition: transform 1.5s ease;
-        }
-
-        .owl-head {
-            transform-origin: 32px 22px;
-            transition: transform 0.8s ease;
-        }
-
-        .desk-surface {
-            width: 100%;
-            max-width: 600px;
-            height: 15px;
-            background: #1A1005;
-            margin-top: -5px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+        /* --- SCENE 2: IMAGE INVITATION CARD (PNG) --- */
+        .image-invitation-container {
             position: relative;
-            z-index: 3;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
+            max-width: 420px;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            perspective: 1000px;
+            transition: transform 0.5s ease;
         }
 
-        .candle {
-            position: absolute;
-            left: 12%;
-            bottom: 15px;
-            width: 16px;
-            height: 55px;
-            background: #E2E8F0;
-            border-radius: 2px;
+        .image-invitation-container:hover {
+            transform: scale(1.02);
         }
 
-        .candle-flame {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 14px;
-            background: #FFB703;
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 10px #FFB703, 0 0 20px #FB8500;
-            animation: flicker 0.1s infinite alternate;
+        .invitation-png {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 25px var(--lavender-glow);
+            border: 1px solid var(--antique-gold);
+            display: block;
+            margin: 0 auto;
         }
 
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
-            100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
-        }
-
-        .prompt-text {
-            margin-top: 2rem;
+        .tap-instruction {
+            margin-top: 1.5rem;
             font-family: var(--font-serif);
             letter-spacing: 3px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--antique-gold);
-            text-align: center;
             text-transform: uppercase;
+            animation: pulse 2s infinite alternate;
         }
 
-        .sub-prompt {
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: var(--paper);
-            opacity: 0;
-            transition: opacity 1s ease;
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
         }
 
-        /* Rain of Letters Effect (Chimney) */
-        .falling-letter {
-            position: absolute;
-            width: 24px;
-            height: 16px;
-            background: var(--parchment);
-            border: 1px solid var(--antique-gold);
-            border-radius: 1px;
-            pointer-events: none;
-            z-index: 10;
-            animation: fallAndRotate 3s linear forwards;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        @keyframes fallAndRotate {
-            0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(450px) rotate(720deg) scale(1); }
-        }
-
-        /* --- SCENE 3: ENVELOPE --- */
-        .envelope-wrapper {
-            perspective: 1000px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .envelope {
-            width: 310px;
-            height: 210px;
-            background: var(--parchment);
-            position: relative;
-            border-radius: 4px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 15px var(--lavender-glow);
-            border: 1px solid var(--antique-gold);
-            transform-style: preserve-3d;
-            transition: transform 0.8s ease;
-        }
-
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 155px solid transparent;
-            border-right: 155px solid transparent;
-            border-top: 115px solid #EAE0D0;
-            transform-origin: top;
-            transition: transform 0.6s ease 0.4s, z-index 0.2s ease 0.4s;
-            z-index: 5;
-        }
-
-        .wax-seal {
-            position: absolute;
-            top: 75px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 48px;
-            background: var(--ink);
-            border-radius: 50%;
-            border: 2px dashed var(--antique-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--antique-gold);
-            font-family: var(--font-serif);
-            font-weight: bold;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            z-index: 6;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
-
-        .envelope.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .envelope.open .wax-seal {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.5);
-        }
-
-        /* --- MAIN SITE CHAPTER STYLING --- */
+        /* --- MAIN CHAPTER STYLING --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -411,7 +238,7 @@
             line-height: 1.4;
         }
 
-        /* --- CHAPTER NAVIGATION MENU --- */
+        /* --- NAVIGATION MENU --- */
         .nav-chapters {
             display: flex;
             justify-content: center;
@@ -453,7 +280,7 @@
             margin-top: 4px;
         }
 
-        /* --- ODOMETER / MECHANICAL COUNTDOWN --- */
+        /* --- ODOMETER COUNTDOWN --- */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -485,7 +312,7 @@
             text-transform: uppercase;
         }
 
-        /* --- CARDS & ACCORDIONS --- */
+        /* --- CARDS & BUTTONS --- */
         .unfold-card {
             background: var(--parchment);
             border: 1px solid var(--antique-gold);
@@ -524,7 +351,7 @@
             box-shadow: 0 0 15px var(--lavender-glow);
         }
 
-        /* --- GALLERY: MEMORY ENVELOPE STACK --- */
+        /* --- GALLERY --- */
         .gallery-envelope-container {
             position: relative;
             width: 100%;
@@ -599,7 +426,6 @@
             color: var(--paper);
             font-size: 2rem;
             cursor: pointer;
-            font-family: var(--font-sans);
         }
 
         /* --- RSVP FORM --- */
@@ -635,7 +461,7 @@
             outline: none;
         }
 
-        /* --- FADE ANIMATION --- */
+        /* --- ANIMATIONS --- */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
@@ -647,22 +473,11 @@
             transform: translateY(0);
         }
 
-        /* RESPONSIVE DESIGN */
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1.2rem; }
             .chapter-title { font-size: 1.75rem; }
-            .envelope { width: 270px; height: 185px; }
-            .envelope-flap { border-left-width: 135px; border-right-width: 135px; border-top-width: 100px; }
-            .window-frame { width: 210px; height: 310px; }
+            .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
         }
     </style>
 </head>
@@ -679,57 +494,37 @@
     </audio>
 
     <div class="lightbox-modal" id="lightbox">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
     <main id="app">
 
-        <section class="stage active" id="scene-1">
-            <div class="room-container">
-                <div class="chimney-structure" id="chimney">
-                    <div class="chimney-opening"></div>
-                </div>
+        <section class="stage active" id="scene-video-intro">
+            <div class="video-wrapper">
+                <video 
+                    id="intro-video" 
+                    autoplay 
+                    muted 
+                    playsinline 
+                    preload="auto"
+                    onended="handleVideoEnded()"
+                >
+                    <source src="HPintro.mp4" type="video/mp4">
+                    Your browser does not support video playback.
+                </video>
 
-                <div class="window-frame" id="interactive-window" role="button" aria-label="Open Window">
-                    <div class="moon"></div>
-                    <div class="curtain left"></div>
-                    <div class="curtain right"></div>
-                    <div class="window-glass-pane"></div>
-                    <div class="window-arch-line"></div>
-                    
-                    <svg class="owl-svg" viewBox="0 0 100 120">
-                        <g class="owl-head" id="owl-head">
-                            <path d="M20,30 Q50,5 80,30 Q85,15 90,10 Q80,45 80,50 Q50,40 20,50 Q20,45 10,10 Q15,15 20,30 Z" />
-                            <circle cx="35" cy="32" r="4" fill="#B49A68" />
-                            <circle cx="65" cy="32" r="4" fill="#B49A68" />
-                        </g>
-                        <path d="M20,50 Q50,40 80,50 Q90,80 75,110 Q50,115 25,110 Q10,80 20,50 Z" />
-                    </svg>
-                </div>
-                
-                <div class="desk-surface">
-                    <div class="candle">
-                        <div class="candle-flame"></div>
-                    </div>
-                </div>
-
-                <p class="prompt-text">There is something at the window.</p>
-                <p class="sub-prompt" id="window-subprompt">TAP TO DISCOVER</p>
+                <button class="video-overlay-btn" onclick="handleVideoEnded()">
+                    Skip / Open Invitation →
+                </button>
             </div>
         </section>
 
-        <section class="stage hidden" id="scene-envelope">
-            <p class="prompt-text" style="margin-bottom: 2rem;">An Invitation Has Arrived.</p>
-            
-            <div class="envelope-wrapper" id="envelope-container">
-                <div class="envelope" id="envelope">
-                    <div class="envelope-flap"></div>
-                    <div class="wax-seal" id="wax-seal">E</div>
-                </div>
+        <section class="stage hidden" id="scene-image-invitation">
+            <div class="image-invitation-container" onclick="openInvitationDetails()">
+                <img src="invitation.png" alt="Wedding Invitation Card" class="invitation-png" onerror="this.src='https://via.placeholder.com/400x560?text=Elena+%26+Adrian+Invitation'">
+                <p class="tap-instruction">TAP THE INVITATION TO OPEN DETAILS</p>
             </div>
-
-            <button class="btn-magic" id="btn-open-envelope" style="margin-top: 3rem;">Open The Letter</button>
         </section>
 
         <section class="stage hidden" id="scene-story">
@@ -981,7 +776,7 @@
     </main>
 
     <script>
-        /* --- 40. MASTER CONFIGURATION OBJECT --- */
+        /* MASTER WEDDING CONFIGURATION */
         const wedding = {
             couple: "Elena & Adrian",
             bride: "Elena",
@@ -1033,13 +828,11 @@
             }
         };
 
-        /* --- 41. GALLERY IMAGES CONFIGURATION --- */
         const galleryImages = [
             "photo1.jpeg", "photo2.jpeg", "photo3.jpeg", "photo4.jpeg", "photo5.jpeg",
             "photo6.jpeg", "photo7.jpeg", "photo8.jpeg", "photo9.jpeg", "photo10.jpeg"
         ];
 
-        /* --- 42. PROGRAM FLOW CONFIGURATION --- */
         const programFlow = [
             { time: "5:00 PM", title: "Cocktails & Registration", desc: "Guests arrive for registration, welcome drinks, cocktails, and acoustic music before taking their seats." },
             { time: "6:00 PM", title: "Start of Program", desc: "Our host formally opens the evening and welcomes our beloved family and friends to the celebration." },
@@ -1051,7 +844,6 @@
             { time: "8:30 PM", title: "Socials & Party", desc: "The dance floor opens! Enjoy drinks, music, and celebrating under the stars with us." }
         ];
 
-        /* --- 43. ENTOURAGE CONFIGURATION --- */
         const entourageData = [
             { role: "PARENTS OF THE BRIDE", names: ["Mr. Roberto Santos", "Mrs. Carmen Santos"] },
             { role: "PARENTS OF THE GROOM", names: ["Mr. Fernando Reyes", "Mrs. Alicia Reyes"] },
@@ -1069,7 +861,6 @@
             ]}
         ];
 
-        /* --- FAQ DATA --- */
         const faqData = [
             { q: "Is there available parking at the venues?", a: "Yes! Dedicated street and courtyard parking is available at San Sebastian Church. For the reception, Manila Hotel offers full valet parking service as well as a multi-level guest parking garage." },
             { q: "Can I request special dietary accommodations?", a: "Absolutely. If you have severe food allergies, vegetarian/vegan preferences, or religious dietary requirements, please indicate them when submitting your RSVP response." },
@@ -1078,7 +869,6 @@
 
         /* DOM INITIALIZATION */
         document.addEventListener("DOMContentLoaded", () => {
-            // Inject Master Data
             document.getElementById('couple-names').innerText = wedding.couple.toUpperCase();
             document.getElementById('cover-date-loc').innerText = wedding.coverDateLoc;
             document.getElementById('story-opening').innerText = wedding.story.opening;
@@ -1089,7 +879,6 @@
             document.getElementById('milestone-label').innerText = wedding.story.yearLabel;
             document.getElementById('milestone-desc').innerText = wedding.story.yearDescription;
 
-            // Venue Details
             document.getElementById('ceremony-venue').innerText = wedding.ceremony.venue.toUpperCase();
             document.getElementById('ceremony-time').innerText = `${wedding.ceremony.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.ceremony.time}`;
             document.getElementById('ceremony-desc').innerText = wedding.ceremony.description;
@@ -1100,7 +889,6 @@
             document.getElementById('reception-desc').innerText = wedding.reception.description;
             document.getElementById('reception-map').href = wedding.reception.mapUrl;
 
-            // Details Section
             document.getElementById('dress-code-title').innerText = wedding.dressCode.title;
             document.getElementById('dress-code-sub').innerText = wedding.dressCode.subtitle;
             document.getElementById('dress-code-ladies').innerText = wedding.dressCode.ladies;
@@ -1109,7 +897,6 @@
             document.getElementById('gift-number').innerText = wedding.gifts.paymentNumber;
             document.getElementById('gift-link').href = wedding.gifts.registryUrl;
 
-            // Render Modules
             renderProgramFlow();
             renderEntourage();
             renderFAQ();
@@ -1119,57 +906,14 @@
             setupIntersectionObserver();
         });
 
-        /* --- NOSTALGIC WINDOW & CHIMNEY RAIN INTERACTION --- */
-        const windowFrame = document.getElementById('interactive-window');
-        const owlHead = document.getElementById('owl-head');
-        const subPrompt = document.getElementById('window-subprompt');
-        let windowTapped = false;
-
-        setTimeout(() => {
-            if(!windowTapped) {
-                owlHead.style.transform = "rotate(15deg)";
-                subPrompt.style.opacity = "1";
-            }
-        }, 2000);
-
-        windowFrame.addEventListener('click', () => {
-            if (windowTapped) return;
-            windowTapped = true;
-
-            // Window opens
-            document.querySelector('.curtain.left').style.transform = "scaleX(0.2)";
-            document.querySelector('.curtain.right').style.transform = "scaleX(0.2)";
-
-            // Rain of letters from Chimney
-            triggerChimneyLetterRain();
-            
-            setTimeout(() => {
-                transitionStage('scene-1', 'scene-envelope');
-            }, 2500);
-        });
-
-        function triggerChimneyLetterRain() {
-            const chimney = document.getElementById('chimney');
-            for(let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const letter = document.createElement('div');
-                    letter.className = 'falling-letter';
-                    letter.style.left = `${Math.random() * 60 + 10}px`;
-                    chimney.appendChild(letter);
-
-                    setTimeout(() => letter.remove(), 3000);
-                }, i * 120);
-            }
+        /* VIDEO INTRO TRANSITION LOGIC */
+        function handleVideoEnded() {
+            transitionStage('scene-video-intro', 'scene-image-invitation');
         }
 
-        /* ENVELOPE OPENING */
-        document.getElementById('btn-open-envelope').addEventListener('click', () => {
-            document.getElementById('envelope').classList.add('open');
-
-            setTimeout(() => {
-                transitionStage('scene-envelope', 'scene-story');
-            }, 1500);
-        });
+        function openInvitationDetails() {
+            transitionStage('scene-image-invitation', 'scene-story');
+        }
 
         /* STAGE NAVIGATION HELPERS */
         function transitionStage(fromId, toId) {
@@ -1198,7 +942,7 @@
             }, 50);
         }
 
-        /* 15. DYNAMIC ODOMETER COUNTDOWN */
+        /* ODOMETER COUNTDOWN */
         function startCountdown() {
             const targetDate = new Date("January 31, 2028 15:00:00").getTime();
 
@@ -1220,7 +964,6 @@
             }, 1000);
         }
 
-        /* DYNAMIC RENDERING FUNCTIONS */
         function renderProgramFlow() {
             const container = document.getElementById('program-flow-content');
             container.innerHTML = programFlow.map(item => `
@@ -1270,7 +1013,6 @@
             }).join('');
         }
 
-        /* LIGHTBOX SYSTEM */
         function openLightbox(src) {
             const modal = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
@@ -1282,7 +1024,6 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        /* 29. RSVP SUBMISSION & RETURN LETTER ANIMATION */
         function submitRSVP(e) {
             e.preventDefault();
             const form = document.getElementById('rsvp-form');
@@ -1299,7 +1040,6 @@
             }, 500);
         }
 
-        /* PARTICLES CANVAS */
         function initParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
@@ -1348,7 +1088,7 @@
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         }
 
-        /* AUDIO TOGGLE WITH AUDIO ELEMENT FALLBACK */
+        /* AUDIO TOGGLE */
         const audioBtn = document.getElementById('audio-toggle');
         const audioStatus = document.getElementById('audio-status');
         const bgMusic = document.getElementById('bg-music');
