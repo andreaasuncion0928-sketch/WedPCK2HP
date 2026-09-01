@@ -60,7 +60,72 @@
             z-index: 2;
         }
 
-        /* --- STAGE CONTAINER & FIXED STACKED LAYERS --- */
+        /* --- FIXED BACKGROUND VIDEO LAYER (NEVER LEAVES DOM - NO WHITE SCREEN GAP) --- */
+        #scene-video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+            background: #111322;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid var(--antique-gold);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
+            overflow: hidden;
+            background: #111322;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 2s ease, filter 2s ease;
+        }
+
+        /* Softly dims video visuals while audio keeps playing underneath card */
+        .video-wrapper video.dissolve-visuals {
+            opacity: 0.15;
+            filter: blur(8px) brightness(0.3);
+        }
+
+        /* --- FIXED INVITATION CARD OVERLAY LAYER --- */
+        #scene-invite-card {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17, 19, 34, 0.35);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #scene-invite-card.active-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- STAGE CONTAINER & WEBPAGE SCROLL CONTENT --- */
         .stage-container {
             position: relative;
             width: 100%;
@@ -78,45 +143,10 @@
             padding: 2rem 1rem;
         }
 
-        /* LAYER 1: VIDEO INTRO (FIXED VIEWPORT) */
-        #scene-video-intro {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 10;
-            background: #111322;
-            transition: opacity 1.5s ease;
-            padding: 0;
-        }
-
-        /* LAYER 2: INVITATION CARD (FIXED OVERLAY - ZERO WHITE GAP) */
-        #scene-invite-card {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 20;
-            background: rgba(17, 19, 34, 0.4);
-            backdrop-filter: blur(5px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 0;
-        }
-
-        #scene-invite-card.active-overlay {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* LAYER 3: OUR STORY & WEBPAGE CONTENT */
         #scene-story {
             position: relative;
             z-index: 30;
-            margin-top: 100vh; /* Pushes content below intro viewport */
+            margin-top: 100vh; /* Keeps story & chapters scrollable below video intro */
         }
 
         .stage.hidden {
@@ -233,28 +263,6 @@
             transform: translate(-50%, -50%) scale(5);
         }
 
-        /* --- VIDEO SECTION --- */
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            border: 1px solid var(--antique-gold);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
-            overflow: hidden;
-            background: #111322;
-        }
-
-        .video-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         /* --- MAIN CHAPTER STYLING --- */
         .chapter-container {
             max-width: 800px;
@@ -268,7 +276,7 @@
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             text-align: center;
-            transform: scale(0.85);
+            transform: scale(0.8);
             transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -590,32 +598,32 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
+    <section id="scene-video-intro">
+        <div class="video-wrapper">
+            <video 
+                id="intro-video" 
+                playsinline 
+                preload="auto"
+            >
+                <source src="HPintrowithaudio.mp4" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+        </div>
+    </section>
+
+    <section id="scene-invite-card">
+        <article class="chapter-container" id="invite-card-box" style="max-width: 650px;">
+            <p class="chapter-subtitle" id="type-subtitle"></p>
+            <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
+            <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
+
+            <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                Read Our Story →
+            </button>
+        </article>
+    </section>
+
     <main class="stage-container" id="stage-wrapper">
-
-        <section class="stage active" id="scene-video-intro">
-            <div class="video-wrapper">
-                <video 
-                    id="intro-video" 
-                    playsinline 
-                    preload="auto"
-                >
-                    <source src="HPintrowithaudio.mp4" type="video/mp4">
-                    Your browser does not support video playback.
-                </video>
-            </div>
-        </section>
-
-        <section class="stage" id="scene-invite-card">
-            <article class="chapter-container" id="invite-card-box" style="max-width: 650px;">
-                <p class="chapter-subtitle" id="type-subtitle"></p>
-                <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
-                <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
-
-                <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
-                    Read Our Story →
-                </button>
-            </article>
-        </section>
 
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container zoom-in-parchment fade-in-up">
@@ -1031,18 +1039,19 @@
             });
         }
 
-        /* MAGICAL ZOOM-IN DISSOLVE OVER VIDEO (ZERO WHITE SCREEN GAP) */
+        /* DIRECT OVERLAY TRANSITION (VIDEO VISUALS FADE, AUDIO CONTINUES, PARCHMENT ZOOMS IN - ZERO WHITE GAP) */
         function transitionToInvitationCard() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
             const video = document.getElementById('intro-video');
 
-            if (video && !video.paused) {
+            if (video) {
                 video.loop = true;
+                video.classList.add('dissolve-visuals'); // Dims video visually without stopping sound
                 video.play().catch(e => {});
             }
 
-            // Layer 2 active-overlay brings invitation layer right on top of video
+            // Layer 2 overlay activates directly over Layer 1 video
             inviteScene.classList.add('active-overlay');
 
             setTimeout(() => {
@@ -1116,7 +1125,7 @@
             const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            // Stop video audio track
+            // Smoothly fade out video audio track
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1129,11 +1138,10 @@
             }
 
             inviteScene.style.opacity = '0';
-            videoScene.style.opacity = '0';
 
             setTimeout(() => {
                 inviteScene.classList.remove('active-overlay');
-                videoScene.classList.add('hidden');
+                videoScene.style.display = 'none'; // Unmounts video layer only after story is open
                 
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
