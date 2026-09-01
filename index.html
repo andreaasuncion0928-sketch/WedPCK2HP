@@ -80,7 +80,7 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .stage.hidden {
@@ -228,7 +228,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 2.5s ease, opacity 2.5s ease;
+            transition: filter 1.5s ease, opacity 1.5s ease;
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -244,13 +244,21 @@
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chapter-container.card-revealed {
+            opacity: 1 !important;
+            transform: scale(1) !important;
         }
 
         /* FAST MAGICAL TYPEWRITER CURSOR */
         .typing-cursor::after {
             content: '│';
             color: var(--antique-gold);
-            animation: blink 0.5s infinite alternate;
+            animation: blink 0.4s infinite alternate;
         }
 
         @keyframes blink {
@@ -569,7 +577,7 @@
         </section>
 
         <section class="stage hidden" id="scene-invite-card">
-            <article class="chapter-container" style="max-width: 650px;">
+            <article class="chapter-container" id="invite-card-box" style="max-width: 650px;">
                 <p class="chapter-subtitle" id="type-subtitle"></p>
                 <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
                 <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
@@ -581,7 +589,7 @@
         </section>
 
         <section class="stage hidden" id="scene-story">
-            <article class="chapter-container fade-in-up">
+            <article class="chapter-container card-revealed fade-in-up">
                 <p class="chapter-subtitle" style="font-size: 1.4rem;">A Little Story About Us</p>
                 <h2 class="chapter-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">OUR STORY</h2>
                 
@@ -645,7 +653,7 @@
         </section>
 
         <section class="stage hidden" id="scene-day">
-            <article class="chapter-container fade-in-up">
+            <article class="chapter-container card-revealed fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
                 <h2 class="chapter-title">THE DETAILS</h2>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--gray); margin-bottom: 2rem;">
@@ -688,7 +696,7 @@
         </section>
 
         <section class="stage hidden" id="scene-entourage">
-            <article class="chapter-container fade-in-up">
+            <article class="chapter-container card-revealed fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">With Our Beloved Families</p>
                 <h2 class="chapter-title">THE ENTOURAGE</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem;">
@@ -704,7 +712,7 @@
         </section>
 
         <section class="stage hidden" id="scene-details">
-            <article class="chapter-container fade-in-up">
+            <article class="chapter-container card-revealed fade-in-up">
                 <h2 class="chapter-title">EVERYTHING YOU NEED TO KNOW</h2>
                 
                 <div class="unfold-card" style="margin-top: 1.5rem;">
@@ -754,7 +762,7 @@
         </section>
 
         <section class="stage hidden" id="scene-rsvp">
-            <article class="chapter-container fade-in-up" style="max-width: 550px;">
+            <article class="chapter-container card-revealed fade-in-up" style="max-width: 550px;">
                 <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--gray);">
                     Please let us know if you'll be joining us.
@@ -961,12 +969,10 @@
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            // Fallback if video fails to play
                             transitionToInvitationCard();
                         });
                     }
 
-                    // Fallback Safety Timer (forces transition after 22s max)
                     setTimeout(() => {
                         transitionToInvitationCard();
                     }, 22000);
@@ -999,6 +1005,7 @@
         function transitionToInvitationCard() {
             const videoScene = document.getElementById('scene-video-intro');
             const inviteScene = document.getElementById('scene-invite-card');
+            const cardBox = document.getElementById('invite-card-box');
             const video = document.getElementById('intro-video');
 
             if (video && !video.paused) {
@@ -1014,9 +1021,10 @@
                 videoScene.classList.add('hidden');
                 videoScene.classList.remove('active');
                 
-                // Trigger Fast Magical Typewriter Animation
+                // Fade in card container background alongside text typing
+                cardBox.classList.add('card-revealed');
                 runFastMagicalTyping();
-            }, 1800);
+            }, 800);
         }
 
         /* FAST MAGICAL TYPEWRITER ANIMATION */
@@ -1040,11 +1048,11 @@
                 if (i < text1.length) {
                     subtitleEl.innerText += text1.charAt(i);
                     i++;
-                    setTimeout(typeLine1, 30);
+                    setTimeout(typeLine1, 28);
                 } else {
                     subtitleEl.classList.remove('typing-cursor');
                     titleEl.classList.add('typing-cursor');
-                    setTimeout(typeLine2, 150);
+                    setTimeout(typeLine2, 120);
                 }
             }
 
@@ -1052,11 +1060,11 @@
                 if (j < text2.length) {
                     titleEl.innerText += text2.charAt(j);
                     j++;
-                    setTimeout(typeLine2, 40);
+                    setTimeout(typeLine2, 38);
                 } else {
                     titleEl.classList.remove('typing-cursor');
                     dateEl.classList.add('typing-cursor');
-                    setTimeout(typeLine3, 150);
+                    setTimeout(typeLine3, 120);
                 }
             }
 
@@ -1064,7 +1072,7 @@
                 if (k < text3.length) {
                     dateEl.innerText += text3.charAt(k);
                     k++;
-                    setTimeout(typeLine3, 30);
+                    setTimeout(typeLine3, 28);
                 } else {
                     dateEl.classList.remove('typing-cursor');
                     
@@ -1090,7 +1098,7 @@
                 inviteScene.classList.add('hidden');
                 inviteScene.classList.remove('active');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 1200);
+            }, 800);
         }
 
         /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
