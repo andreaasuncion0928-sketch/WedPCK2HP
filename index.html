@@ -221,7 +221,7 @@
             border: 1px solid var(--antique-gold);
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
-            background: transparent;
+            background: #111322;
         }
 
         .video-wrapper video {
@@ -939,7 +939,7 @@
             setupVideoEndCheck();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO AT 1.2x PLAYBACK SPEED */
+        /* GATEWAY CLICK -> STARTS VIDEO */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -956,7 +956,20 @@
                     video.currentTime = 0;
                     video.playbackRate = 1.20;
                     video.muted = false;
-                    video.play().catch(e => console.log("Video Play Error:", e));
+
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(e => {
+                            console.log("Video Play Error:", e);
+                            // Fallback if video fails to play
+                            transitionToInvitationCard();
+                        });
+                    }
+
+                    // Fallback Safety Timer (forces transition after 22s max)
+                    setTimeout(() => {
+                        transitionToInvitationCard();
+                    }, 22000);
                 }, 800);
             }, 400);
         }
@@ -974,6 +987,7 @@
             }
 
             video.addEventListener('ended', triggerNextStage);
+            video.addEventListener('error', triggerNextStage);
 
             video.addEventListener('timeupdate', () => {
                 if (video.duration && (video.duration - video.currentTime <= 0.8)) {
@@ -987,8 +1001,10 @@
             const inviteScene = document.getElementById('scene-invite-card');
             const video = document.getElementById('intro-video');
 
-            video.loop = true;
-            video.play();
+            if (video && !video.paused) {
+                video.loop = true;
+                video.play().catch(e => {});
+            }
 
             videoScene.style.opacity = '0';
             inviteScene.classList.remove('hidden');
@@ -1009,6 +1025,8 @@
             const titleEl = document.getElementById('type-title');
             const dateEl = document.getElementById('type-date');
             const btnEl = document.getElementById('btn-read-story');
+
+            if (!subtitleEl || subtitleEl.innerText.length > 0) return;
 
             const text1 = "You Are Cordially Invited";
             const text2 = "ELENA & ADRIAN";
