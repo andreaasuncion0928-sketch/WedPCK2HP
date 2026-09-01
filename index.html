@@ -141,12 +141,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 1.5s ease, filter 1.5s ease;
+            transition: opacity 2s ease, filter 2s ease;
         }
 
         .video-wrapper video.dimmed {
-            opacity: 0.25;
-            filter: blur(4px) brightness(0.4);
+            opacity: 0.15;
+            filter: blur(6px) brightness(0.3);
         }
 
         /* OVERLAY CONTAINING INVITATION.JPG */
@@ -156,8 +156,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.1) 0%, rgba(11, 13, 27, 0.85) 100%);
-            backdrop-filter: blur(2px);
+            background: radial-gradient(circle, rgba(17, 19, 34, 0.2) 0%, rgba(11, 13, 27, 0.9) 100%);
+            backdrop-filter: blur(3px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -165,7 +165,7 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .invitation-overlay.reveal {
@@ -173,28 +173,31 @@
             pointer-events: auto;
         }
 
-        /* CLICKABLE IMAGE CARD WITH HARRY POTTER STYLE ZOOM */
+        /* CLICKABLE IMAGE CARD WITH SMOOTH FADE IN AND ZOOM OUT TO EXPAND TO SCREEN */
         .invitation-img-btn {
-            width: 72%;
-            max-width: 380px;
+            width: 50%;
+            max-width: 260px;
             height: auto;
             border-radius: 6px;
             border: 2px solid var(--antique-gold);
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
             cursor: pointer;
-            transform: scale(0.68) translateY(25px);
-            transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+            opacity: 0;
+            /* Starts smaller and expands (zooms out towards full scale on screen) */
+            transform: scale(0.45);
+            transition: transform 2.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.2s ease, box-shadow 0.6s ease;
             object-fit: cover;
             display: block;
         }
 
-        /* Slow Zoom In when video finishes */
+        /* Fades in smoothly and zooms out to a larger view on screen */
         .invitation-overlay.reveal .invitation-img-btn {
-            transform: scale(1) translateY(0);
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .invitation-img-btn:hover {
-            transform: scale(1.05) translateY(-5px) !important;
+            transform: scale(1.15) !important;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
         }
 
@@ -205,34 +208,40 @@
 
         @keyframes magicalLetterUnfold {
             0% {
-                transform: scale(1) rotate(0deg);
+                transform: scale(1.1) rotate(0deg);
                 box-shadow: 0 0 30px var(--antique-gold);
                 filter: brightness(1);
             }
             40% {
-                transform: scale(1.15) rotate(-2deg);
+                transform: scale(1.25) rotate(-1deg);
                 box-shadow: 0 0 70px var(--lavender-light), 0 0 30px var(--antique-gold);
                 filter: brightness(1.4);
             }
             70% {
-                transform: scale(1.3) rotate(1deg);
+                transform: scale(1.4) rotate(1deg);
                 opacity: 0.8;
                 filter: brightness(2) blur(2px);
             }
             100% {
-                transform: scale(2.2) rotate(0deg);
+                transform: scale(2.4) rotate(0deg);
                 opacity: 0;
                 filter: brightness(3) blur(10px);
             }
         }
 
         .tap-instruction {
-            margin-top: 1.5rem;
+            margin-top: 1.8rem;
             font-family: var(--font-serif);
             letter-spacing: 2.5px;
             font-size: 0.85rem;
             color: var(--antique-gold);
             text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 1.5s ease 1s;
+        }
+
+        .invitation-overlay.reveal .tap-instruction {
+            opacity: 1;
             animation: pulse 2s infinite alternate;
         }
 
@@ -537,7 +546,7 @@
             .chapter-title { font-size: 1.75rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-            .invitation-img-btn { width: 85%; }
+            .invitation-img-btn { width: 75%; }
         }
     </style>
 </head>
@@ -967,7 +976,7 @@
             setupVideoEndCheck();
         });
 
-        /* VIDEO END CHECK */
+        /* VIDEO END CHECK WITH FADE-IN & ZOOM-OUT TO FULL CARD */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
@@ -977,7 +986,7 @@
                 video.classList.add('dimmed');
                 setTimeout(() => {
                     overlay.classList.add('reveal');
-                }, 200);
+                }, 300);
             });
         }
 
