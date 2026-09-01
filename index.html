@@ -88,6 +88,14 @@
         }
 
         /* --- STAGE SYSTEM --- */
+        .stage-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .stage {
             min-height: 100vh;
             width: 100%;
@@ -104,7 +112,7 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO & GLOWING STATIONERY OVERLAY --- */
+        /* --- SCENE 1: VIDEO INTRO & INVITATION.JPG OVERLAY --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -112,14 +120,6 @@
             position: relative;
             z-index: 10;
             transition: opacity 1.2s ease;
-        }
-
-        .stage-container {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .video-wrapper {
@@ -145,19 +145,19 @@
         }
 
         .video-wrapper video.dimmed {
-            opacity: 0.35;
-            filter: blur(3px) brightness(0.7);
+            opacity: 0.25;
+            filter: blur(4px) brightness(0.4);
         }
 
-        /* OVERLAY - SLOW FADE IN MATCHING VIDEO AESTHETIC */
+        /* OVERLAY CONTAINING INVITATION.JPG */
         .invitation-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.2) 0%, rgba(11, 13, 27, 0.82) 100%);
-            backdrop-filter: blur(4px);
+            background: radial-gradient(circle, rgba(17, 19, 34, 0.1) 0%, rgba(11, 13, 27, 0.85) 100%);
+            backdrop-filter: blur(2px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -165,38 +165,69 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.96);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
         }
 
         .invitation-overlay.reveal {
             opacity: 1;
             pointer-events: auto;
-            transform: scale(1);
         }
 
-        /* CARD MATCHED TO VIDEO PARCHMENT ARTWORK */
-        .invitation-card-btn {
-            background: radial-gradient(circle at center, #FFFDF8 0%, #F3EBDD 100%);
-            color: var(--ink);
-            border: 2px double var(--antique-gold);
-            padding: 2.5rem 3rem;
+        /* CLICKABLE IMAGE CARD WITH HARRY POTTER STYLE ZOOM */
+        .invitation-img-btn {
+            width: 72%;
+            max-width: 380px;
+            height: auto;
             border-radius: 6px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), 0 0 35px var(--lavender-glow);
-            text-align: center;
+            border: 2px solid var(--antique-gold);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
             cursor: pointer;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            max-width: 360px;
-            position: relative;
+            transform: scale(0.68) translateY(25px);
+            transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+            object-fit: cover;
+            display: block;
         }
 
-        .invitation-card-btn:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85), 0 0 50px rgba(212, 168, 240, 0.7);
+        /* Slow Zoom In when video finishes */
+        .invitation-overlay.reveal .invitation-img-btn {
+            transform: scale(1) translateY(0);
+        }
+
+        .invitation-img-btn:hover {
+            transform: scale(1.05) translateY(-5px) !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
+        }
+
+        /* MAGICAL LETTER TRANSITION ANIMATIONS */
+        .invitation-img-btn.magical-open {
+            animation: magicalLetterUnfold 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes magicalLetterUnfold {
+            0% {
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 30px var(--antique-gold);
+                filter: brightness(1);
+            }
+            40% {
+                transform: scale(1.15) rotate(-2deg);
+                box-shadow: 0 0 70px var(--lavender-light), 0 0 30px var(--antique-gold);
+                filter: brightness(1.4);
+            }
+            70% {
+                transform: scale(1.3) rotate(1deg);
+                opacity: 0.8;
+                filter: brightness(2) blur(2px);
+            }
+            100% {
+                transform: scale(2.2) rotate(0deg);
+                opacity: 0;
+                filter: brightness(3) blur(10px);
+            }
         }
 
         .tap-instruction {
-            margin-top: 1.2rem;
+            margin-top: 1.5rem;
             font-family: var(--font-serif);
             letter-spacing: 2.5px;
             font-size: 0.85rem;
@@ -210,142 +241,7 @@
             100% { opacity: 1; transform: scale(1.02); }
         }
 
-        /* --- MAGICAL 3D ENVELOPE & PARCHMENT UNMODAL OVERLAY --- */
-        .magic-stage-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1200px;
-        }
-
-        /* Sealed Envelope */
-        .magic-envelope {
-            width: 320px;
-            height: 220px;
-            background: var(--parchment);
-            position: absolute;
-            border-radius: 4px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px var(--lavender-glow);
-            border: 1px solid var(--antique-gold);
-            transform-style: preserve-3d;
-            opacity: 0;
-            transform: translateY(40px) scale(0.8) rotateX(15deg);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .magic-envelope.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1) rotateX(0deg);
-        }
-
-        .magic-envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 120px solid #EAE0D0;
-            transform-origin: top;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 5;
-        }
-
-        .magic-envelope.open .magic-envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .magic-wax-seal {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%) scale(1);
-            width: 52px;
-            height: 52px;
-            background: radial-gradient(circle, #4B274F 0%, #242124 100%);
-            border-radius: 50%;
-            border: 2px dashed var(--antique-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--antique-gold);
-            font-family: var(--font-serif);
-            font-weight: bold;
-            font-size: 1.4rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 15px var(--gold-glow);
-            z-index: 6;
-            transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
-        }
-
-        .magic-wax-seal.break {
-            transform: translateX(-50%) scale(1.6);
-            opacity: 0;
-            filter: blur(10px) brightness(2);
-        }
-
-        /* Floating Parchment Sheet */
-        .magic-parchment-sheet {
-            position: absolute;
-            width: 300px;
-            height: 200px;
-            background: var(--paper);
-            border-radius: 3px;
-            border: 1px solid var(--antique-gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            z-index: 3;
-            top: 10px;
-            left: 10px;
-            opacity: 0;
-            transform: translateY(0) scaleY(0.4);
-            transform-origin: bottom center;
-            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, width 1.2s ease, height 1.2s ease, top 1.2s ease, left 1.2s ease;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            color: var(--ink);
-            overflow: hidden;
-        }
-
-        .magic-parchment-sheet.emerge {
-            opacity: 1;
-            transform: translateY(-160px) scaleY(1);
-            height: 380px;
-            z-index: 10;
-        }
-
-        .magic-parchment-sheet.expand-fullscreen {
-            position: fixed;
-            top: 50% !important;
-            left: 50% !important;
-            width: 92vw !important;
-            max-width: 800px !important;
-            height: 85vh !important;
-            transform: translate(-50%, -50%) scale(1) !important;
-            box-shadow: 0 0 80px rgba(212, 168, 240, 0.6), 0 0 40px var(--gold-glow);
-            z-index: 120;
-        }
-
-        /* Handwritten Quill Ink Reveal Styles */
-        .ink-line {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .ink-line.written {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Sparks / Particle Burst */
+        /* Sparks / Particle Burst on Click */
         .sparkle-burst {
             position: absolute;
             width: 8px;
@@ -353,8 +249,9 @@
             background: var(--antique-gold);
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 10px var(--lavender-light);
-            animation: burstFly 0.8s ease-out forwards;
+            box-shadow: 0 0 12px var(--lavender-light);
+            animation: burstFly 0.9s ease-out forwards;
+            z-index: 100;
         }
 
         @keyframes burstFly {
@@ -640,27 +537,13 @@
             .chapter-title { font-size: 1.75rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-            .magic-envelope { width: 280px; height: 190px; }
-            .magic-envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
+            .invitation-img-btn { width: 85%; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="particle-canvas"></canvas>
-
-    <div class="magic-stage-overlay" id="magic-overlay">
-        <div class="magic-envelope" id="magic-envelope">
-            <div class="magic-envelope-flap"></div>
-            <div class="magic-wax-seal" id="magic-seal">E</div>
-            
-            <div class="magic-parchment-sheet" id="magic-parchment">
-                <p class="chapter-subtitle ink-line" id="ink-line-1" style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--lavender);">An Invitation to Celebrate</p>
-                <h2 class="chapter-title ink-line" id="ink-line-2" style="font-size: 2rem; margin-bottom: 1rem; color: var(--midnight);">ELENA & ADRIAN</h2>
-                <p class="ink-line" id="ink-line-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 0.9rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
-            </div>
-        </div>
-    </div>
 
     <button class="audio-control" id="audio-toggle" aria-label="Toggle Atmosphere Sound">
         <span>♪</span> <span id="audio-status">SOUND ON</span>
@@ -691,11 +574,15 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-btn" onclick="executeEnchantedTransition()">
-                        <p style="font-family: var(--font-script); font-size: 2rem; color: var(--lavender);">An Invitation Has Arrived</p>
-                        <h3 style="font-family: var(--font-serif); letter-spacing: 2.5px; margin-top: 8px; color: var(--midnight);">ELENA & ADRIAN</h3>
-                        <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
-                    </div>
+                    <img 
+                        src="invitation.jpg" 
+                        alt="An Invitation Has Arrived" 
+                        class="invitation-img-btn" 
+                        id="invitation-card"
+                        onclick="executeMagicalTransition(event)"
+                        onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=An+Invitation+Has+Arrived'"
+                    >
+                    <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
                 </div>
             </div>
         </section>
@@ -942,7 +829,7 @@
 
         <section class="stage hidden" id="scene-outro" style="text-align: center;">
             <h1 class="chapter-title" style="color: var(--paper); font-size: 3rem;">ELENA & ADRIAN</h1>
-            <p class="prompt-text" style="color: var(--antique-gold);">31 JANUARY 2028 · MANILA</p>
+            <p style="color: var(--antique-gold); letter-spacing: 2px; font-size: 0.9rem;">31 JANUARY 2028 · MANILA</p>
             <p class="script-handwriting" style="color: var(--lavender-light); margin-top: 3rem;">Until we celebrate together.</p>
         </section>
 
@@ -1094,77 +981,47 @@
             });
         }
 
-        /* 3D ENVELOPE + PARCHMENT + QUILL INK REVEAL TRANSITION */
-        function executeEnchantedTransition() {
-            const overlayCard = document.getElementById('video-overlay');
-            const envelope = document.getElementById('magic-envelope');
-            const seal = document.getElementById('magic-seal');
-            const parchment = document.getElementById('magic-parchment');
+        /* DIRECT MAGICAL LETTER TRANSITION FROM INVITATION.JPG TO DETAILS */
+        function executeMagicalTransition(event) {
+            const cardImg = document.getElementById('invitation-card');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
 
-            // 1. Hide Overlay Card & Reveal Sealed Envelope
-            overlayCard.style.opacity = '0';
-            envelope.classList.add('visible');
+            // 1. Create Magical Particle Sparks
+            createSparkleParticles(event.clientX, event.clientY);
 
-            // 2. Break Wax Seal with Particle Sparks
+            // 2. Add Magical Letter Unfold Animation directly to invitation.jpg
+            cardImg.classList.add('magical-open');
+
+            // 3. Smoothly transition to invitation details section
             setTimeout(() => {
-                seal.classList.add('break');
-                createSparkleParticles(seal);
-
-                // 3. Open Envelope Flap & Emerge Parchment
+                videoScene.style.opacity = '0';
+                
                 setTimeout(() => {
-                    envelope.classList.add('open');
+                    videoScene.classList.add('hidden');
+                    videoScene.classList.remove('active');
 
-                    setTimeout(() => {
-                        parchment.classList.add('emerge');
-
-                        // 4. Animated Self-Writing Quill Ink Reveal
-                        setTimeout(() => {
-                            document.getElementById('ink-line-1').classList.add('written');
-                            setTimeout(() => {
-                                document.getElementById('ink-line-2').classList.add('written');
-                                setTimeout(() => {
-                                    document.getElementById('ink-line-3').classList.add('written');
-
-                                    // 5. Brief Magical Pause -> Expand Parchment Fullscreen
-                                    setTimeout(() => {
-                                        parchment.classList.add('expand-fullscreen');
-
-                                        setTimeout(() => {
-                                            // 6. Transition Into Main Wedding Invitation Story
-                                            videoScene.classList.add('hidden');
-                                            videoScene.classList.remove('active');
-                                            document.getElementById('magic-overlay').style.display = 'none';
-
-                                            storyScene.classList.remove('hidden');
-                                            storyScene.classList.add('active');
-                                            storyScene.scrollIntoView({ behavior: 'smooth' });
-                                        }, 1000);
-                                    }, 1000);
-                                }, 600);
-                            }, 600);
-                        }, 800);
-                    }, 600);
-                }, 400);
-            }, 800);
+                    storyScene.classList.remove('hidden');
+                    storyScene.classList.add('active');
+                    storyScene.scrollIntoView({ behavior: 'smooth' });
+                }, 800);
+            }, 1000);
         }
 
-        function createSparkleParticles(centerEl) {
-            const rect = centerEl.getBoundingClientRect();
-            for (let i = 0; i < 16; i++) {
+        function createSparkleParticles(x, y) {
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'sparkle-burst';
-                particle.style.left = `${rect.left + rect.width / 2}px`;
-                particle.style.top = `${rect.top + rect.height / 2}px`;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
 
                 const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 80 + 30;
+                const dist = Math.random() * 100 + 40;
                 particle.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
                 particle.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
 
                 document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 800);
+                setTimeout(() => particle.remove(), 900);
             }
         }
 
