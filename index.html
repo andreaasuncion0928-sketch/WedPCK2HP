@@ -87,8 +87,7 @@
             display: none !important;
         }
 
-        /* FIXED OVERLAY FOR PERFECT CENTER ALIGNMENT WITHOUT GRAY BOX LEAKS */
-        #scene-video-intro, #scene-story {
+        #scene-video-intro, #scene-invite-card, #scene-story {
             position: absolute;
             top: 0;
             left: 0;
@@ -96,14 +95,8 @@
             z-index: 10;
         }
 
-        #scene-story {
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        #scene-story.active {
-            pointer-events: auto;
-        }
+        #scene-invite-card { z-index: 20; }
+        #scene-story { z-index: 30; }
 
         /* --- INITIAL GATEWAY SCREEN --- */
         .envelope-gateway-screen {
@@ -250,12 +243,19 @@
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
-            opacity: 0;
-            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1);
+            text-align: center;
         }
 
-        #scene-story.active .chapter-container {
-            opacity: 1;
+        /* FAST MAGICAL TYPEWRITER CURSOR */
+        .typing-cursor::after {
+            content: '│';
+            color: var(--antique-gold);
+            animation: blink 0.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .chapter-title {
@@ -272,7 +272,7 @@
             font-size: 1.8rem;
             color: var(--lavender);
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .script-handwriting {
@@ -364,6 +364,7 @@
             border-radius: 2px;
             margin-bottom: 1.5rem;
             transition: var(--transition-med);
+            text-align: left;
         }
 
         .unfold-card h3 {
@@ -384,7 +385,7 @@
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             display: inline-block;
             text-decoration: none;
         }
@@ -518,7 +519,7 @@
         }
 
         @media (max-width: 600px) {
-            .chapter-container { padding: 2rem 1.2rem; }
+            .chapter-container { padding: 2.5rem 1.2rem; }
             .chapter-title { font-size: 1.75rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
@@ -567,16 +568,20 @@
             </div>
         </section>
 
+        <section class="stage hidden" id="scene-invite-card">
+            <article class="chapter-container" style="max-width: 650px;">
+                <p class="chapter-subtitle" id="type-subtitle"></p>
+                <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
+                <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
+
+                <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                    Read Our Story →
+                </button>
+            </article>
+        </section>
+
         <section class="stage hidden" id="scene-story">
-            <article class="chapter-container fade-in-up" id="story-main-card">
-                <p class="chapter-subtitle" style="margin-bottom: 0.5rem;">You Are Cordially Invited</p>
-                <h1 class="chapter-title" id="couple-names">ELENA & ADRIAN</h1>
-                <p style="text-align: center; font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-bottom: 2.5rem;" id="cover-date-loc">
-                    31 JANUARY 2028 · MANILA
-                </p>
-
-                <hr style="border: 0; border-top: 1px solid rgba(180, 154, 104, 0.3); margin: 2rem 0;">
-
+            <article class="chapter-container fade-in-up">
                 <p class="chapter-subtitle" style="font-size: 1.4rem;">A Little Story About Us</p>
                 <h2 class="chapter-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">OUR STORY</h2>
                 
@@ -595,17 +600,11 @@
                 <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: var(--midnight); font-weight: 600;" id="story-closing">
                     And now, we're getting married.
                 </p>
-            </article>
 
-            <article class="chapter-container fade-in-up" style="text-align: center; margin-top: 2rem;">
-                <h2 class="chapter-title" style="font-size: 4rem; color: var(--antique-gold);" id="milestone-year">2015</h2>
-                <p class="chapter-subtitle" style="font-size: 1.2rem; margin-bottom: 0.5rem;" id="milestone-label">Our Year</p>
-                <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
+                <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
+                    Explore The Letter's Chapters →
+                </button>
             </article>
-
-            <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
-                Explore The Letter's Chapters →
-            </button>
         </section>
 
         <section class="stage hidden" id="scene-menu">
@@ -904,8 +903,6 @@
 
         /* DOM INITIALIZATION */
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('couple-names').innerText = wedding.couple.toUpperCase();
-            document.getElementById('cover-date-loc').innerText = wedding.coverDateLoc;
             document.getElementById('story-opening').innerText = wedding.story.opening;
             document.getElementById('story-paragraph').innerText = wedding.story.paragraph;
             document.getElementById('story-highlight').innerText = wedding.story.highlight;
@@ -957,53 +954,124 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
-                    video.playbackRate = 1.20; // 1.2x Speed boost for a punchier video intro
+                    video.playbackRate = 1.20;
                     video.muted = false;
                     video.play().catch(e => console.log("Video Play Error:", e));
                 }, 800);
             }, 400);
         }
 
-        /* IMPERCEPTIBLE DIRECT CROSS-FADE INTO 'YOU ARE CORDIALLY INVITED' */
+        /* 21-SECOND VIDEO TIMING -> SEAMLESS TRANSITION TO TYPING CARD */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                // Starts 2.5s before video completion
                 if ((video.currentTime >= 18.5 || (video.duration && video.duration - video.currentTime <= 2.5)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
-                    transitionDirectlyToStory();
+                    transitionToInvitationCard();
                 }
             });
 
             video.addEventListener('ended', () => {
                 if (!hasTriggeredTransition) {
                     hasTriggeredTransition = true;
-                    transitionDirectlyToStory();
+                    transitionToInvitationCard();
                 }
             });
         }
 
-        function transitionDirectlyToStory() {
+        function transitionToInvitationCard() {
             const videoScene = document.getElementById('scene-video-intro');
-            const storyScene = document.getElementById('scene-story');
+            const inviteScene = document.getElementById('scene-invite-card');
             const video = document.getElementById('intro-video');
 
-            // Video audio remains active
             video.loop = true;
             video.play();
 
-            // Imperceptible direct cross-fade
             videoScene.style.opacity = '0';
-            storyScene.classList.remove('hidden');
-            storyScene.classList.add('active');
+            inviteScene.classList.remove('hidden');
+            inviteScene.classList.add('active');
 
             setTimeout(() => {
                 videoScene.classList.add('hidden');
                 videoScene.classList.remove('active');
+                
+                // Trigger Fast Magical Typewriter Animation
+                runFastMagicalTyping();
+            }, 1800);
+        }
+
+        /* FAST MAGICAL HARRY POTTER TYPEWRITER ANIMATION */
+        function runFastMagicalTyping() {
+            const subtitleEl = document.getElementById('type-subtitle');
+            const titleEl = document.getElementById('type-title');
+            const dateEl = document.getElementById('type-date');
+            const btnEl = document.getElementById('btn-read-story');
+
+            const text1 = "You Are Cordially Invited";
+            const text2 = "ELENA & ADRIAN";
+            const text3 = "31 JANUARY 2028 · MANILA";
+
+            let i = 0, j = 0, k = 0;
+
+            subtitleEl.classList.add('typing-cursor');
+
+            function typeLine1() {
+                if (i < text1.length) {
+                    subtitleEl.innerText += text1.charAt(i);
+                    i++;
+                    setTimeout(typeLine1, 30); // Fast 30ms typing speed
+                } else {
+                    subtitleEl.classList.remove('typing-cursor');
+                    titleEl.classList.add('typing-cursor');
+                    setTimeout(typeLine2, 150);
+                }
+            }
+
+            function typeLine2() {
+                if (j < text2.length) {
+                    titleEl.innerText += text2.charAt(j);
+                    j++;
+                    setTimeout(typeLine2, 40);
+                } else {
+                    titleEl.classList.remove('typing-cursor');
+                    dateEl.classList.add('typing-cursor');
+                    setTimeout(typeLine3, 150);
+                }
+            }
+
+            function typeLine3() {
+                if (k < text3.length) {
+                    dateEl.innerText += text3.charAt(k);
+                    k++;
+                    setTimeout(typeLine3, 30);
+                } else {
+                    dateEl.classList.remove('typing-cursor');
+                    
+                    // Reveal Read Our Story button
+                    btnEl.style.opacity = '1';
+                    btnEl.style.pointerEvents = 'auto';
+                }
+            }
+
+            typeLine1();
+        }
+
+        /* BUTTON CLICK -> OPENS OUR STORY PAGE */
+        function openOurStorySection() {
+            const inviteScene = document.getElementById('scene-invite-card');
+            const storyScene = document.getElementById('scene-story');
+
+            inviteScene.style.opacity = '0';
+            storyScene.classList.remove('hidden');
+            storyScene.classList.add('active');
+
+            setTimeout(() => {
+                inviteScene.classList.add('hidden');
+                inviteScene.classList.remove('active');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 2500);
+            }, 1200);
         }
 
         /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
@@ -1011,7 +1079,6 @@
             const video = document.getElementById('intro-video');
             const bgMusic = document.getElementById('bg-music');
 
-            // Fade out video audio
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1023,7 +1090,6 @@
                 }, 50);
             }
 
-            // Play song.mp3
             bgMusic.currentTime = 0;
             bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
 
