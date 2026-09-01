@@ -19,9 +19,9 @@
             --parchment: #F3EBDD;
             --lavender: #9A84A1;
             --lavender-light: #D4A8F0;
-            --lavender-glow: rgba(212, 168, 240, 0.45);
+            --lavender-glow: rgba(212, 168, 240, 0.35);
             --antique-gold: #B49A68;
-            --gold-glow: rgba(180, 154, 104, 0.6);
+            --gold-glow: rgba(180, 154, 104, 0.4);
             --gray: #666666;
             
             --font-serif: 'Cormorant Garamond', serif;
@@ -86,7 +86,7 @@
             display: none !important;
         }
 
-        /* --- STEP 1 & 2: CLOSED ENVELOPE GATEWAY --- */
+        /* --- STEP 1 & 2: INITIAL GATEWAY --- */
         .envelope-gateway-screen {
             position: fixed;
             top: 0;
@@ -176,7 +176,6 @@
             filter: blur(10px) brightness(2);
         }
 
-        /* Beam of Light from Inside Envelope */
         .magical-light-beam {
             position: absolute;
             top: 50%;
@@ -197,7 +196,7 @@
             transform: translate(-50%, -50%) scale(5);
         }
 
-        /* --- STEP 3 & 4: VIDEO & FLYING LETTER --- */
+        /* --- VIDEO SECTION --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -230,138 +229,115 @@
             transition: filter 2.5s ease, opacity 2.5s ease;
         }
 
-        .video-wrapper video.seamless-dissolve {
-            opacity: 0.1;
-            filter: blur(8px) brightness(0.2);
-        }
-
-        /* FLYING LETTER OVERLAY (TRANSFORMS FULLSCREEN) */
-        .invitation-overlay {
+        /* --- CSS FALLING/FLOATING LETTERS & PARCHMENT TRANSITION LAYER --- */
+        .floating-letters-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.05) 0%, rgba(11, 13, 27, 0.88) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 20;
-            opacity: 0;
             pointer-events: none;
-            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 30;
+            opacity: 0;
+            transition: opacity 1s ease;
+            overflow: hidden;
             perspective: 1200px;
         }
 
-        .invitation-overlay.reveal {
+        .floating-letters-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .invitation-card-container {
-            width: 65%;
-            max-width: 340px;
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 1500px;
-            cursor: pointer;
-        }
-
-        .invitation-img-btn {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            border: 2px solid var(--antique-gold);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
+        /* Soft background ambient glow for floating letter scene */
+        .ambient-soft-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(212, 168, 240, 0.25) 0%, rgba(180, 154, 104, 0.1) 40%, transparent 70%);
+            pointer-events: none;
             opacity: 0;
-            transform: scale(0.5) translateZ(-200px);
-            transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.5s ease, box-shadow 0.6s ease;
-            object-fit: cover;
-            display: block;
+            transition: opacity 2s ease;
         }
 
-        .invitation-overlay.reveal .invitation-img-btn {
+        .ambient-soft-glow.visible {
             opacity: 1;
-            transform: scale(1.08) translateZ(0);
         }
 
-        /* STEP 5: UNFOLDING PARCHMENT & SELF-WRITING INK OVERLAY */
-        .parchment-unfold-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 300;
+        /* Generic falling parchment sheet element */
+        .parchment-sheet {
+            position: absolute;
+            background: var(--parchment);
+            border: 1px solid var(--antique-gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border-radius: 2px;
+            opacity: 0.85;
+            transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), opacity 2s ease, width 2s ease, height 2s ease, top 2.5s ease, left 2.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Focus Parchment (The single sheet that expands) */
+        .parchment-sheet.hero-focus {
+            z-index: 100;
+            box-shadow: 0 0 50px rgba(212, 168, 240, 0.6), 0 0 30px var(--gold-glow);
+        }
+
+        .parchment-sheet.hero-fullscreen {
+            top: 50% !important;
+            left: 50% !important;
+            width: 90vw !important;
+            max-width: 750px !important;
+            height: 80vh !important;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1) translateZ(0) !important;
+            opacity: 1 !important;
+            background: var(--paper) !important;
+            box-shadow: 0 0 80px rgba(212, 168, 240, 0.8), 0 0 40px var(--gold-glow);
+            padding: 3.5rem 2rem;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            pointer-events: none;
-            perspective: 1200px;
+            text-align: center;
+            overflow: hidden;
+            border-radius: 4px;
         }
 
-        .parchment-card {
-            width: 320px;
-            height: 440px;
-            background: var(--paper);
-            border: 2px solid var(--antique-gold);
-            border-radius: 4px;
-            box-shadow: 0 0 70px rgba(212, 168, 240, 0.7), 0 0 40px var(--gold-glow);
-            padding: 3.5rem 2rem;
-            text-align: center;
+        /* Curled/Unfolding Edge Animation effect */
+        .parchment-sheet.unfolding {
+            animation: paperUnfold 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes paperUnfold {
+            0% {
+                transform: translate(-50%, -50%) rotateX(-25deg) scale(0.92);
+                box-shadow: inset 0 20px 40px rgba(0,0,0,0.25), 0 0 80px rgba(212, 168, 240, 0.8);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotateX(10deg) scale(1.02);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotateX(0deg) scale(1);
+                box-shadow: inset 0 0 0px rgba(0,0,0,0), 0 0 80px rgba(212, 168, 240, 0.8);
+            }
+        }
+
+        /* Ink Revealing Lines */
+        .ink-text {
             color: var(--ink);
             opacity: 0;
-            transform: scale(0.6) rotateX(20deg);
-            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), width 1.2s ease, height 1.2s ease;
-            position: relative;
-            overflow: hidden;
+            transform: translateY(15px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
         }
 
-        .parchment-card.bloom {
-            opacity: 1;
-            transform: scale(1) rotateX(0deg);
-        }
-
-        .parchment-card.expand-fullscreen {
-            width: 92vw !important;
-            max-width: 800px !important;
-            height: 85vh !important;
-            transform: scale(1.05) !important;
-            box-shadow: 0 0 100px rgba(212, 168, 240, 0.85), 0 0 50px var(--gold-glow);
-        }
-
-        /* Ink Reveal Animations */
-        .ink-line {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .ink-line.written {
+        .ink-text.written {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Sparks / Particle Burst */
-        .sparkle-burst {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--antique-gold);
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 12px var(--lavender-light);
-            animation: burstFly 0.9s ease-out forwards;
-            z-index: 500;
-        }
-
-        @keyframes burstFly {
-            0% { opacity: 1; transform: translate(0, 0) scale(1); }
-            100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
-        }
-
-        /* --- STEP 6: MAIN CHAPTER STYLING --- */
+        /* --- MAIN CHAPTER STYLING --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -641,7 +617,7 @@
             .photo-card { width: 95px; height: 120px; }
             .desk-envelope { width: 280px; height: 190px; }
             .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
-            .parchment-card { width: 280px; height: 380px; padding: 2.5rem 1.2rem; }
+            .parchment-sheet.hero-fullscreen { width: 94vw !important; height: 85vh !important; padding: 2.5rem 1.2rem; }
         }
     </style>
 </head>
@@ -658,14 +634,6 @@
             <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender); margin-top: 3.5rem;">An invitation awaits.</p>
             <h3 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 4px; color: var(--midnight);">ELENA & ADRIAN</h3>
             <p style="margin-top: 1.2rem; font-family: var(--font-serif); letter-spacing: 2px; font-size: 0.75rem; color: var(--antique-gold); text-transform: uppercase;">CLICK TO OPEN</p>
-        </div>
-    </div>
-
-    <div class="parchment-unfold-overlay" id="parchment-overlay" style="display: none;">
-        <div class="parchment-card" id="parchment-card">
-            <p class="chapter-subtitle ink-line" id="ink-1" style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--lavender);">You Are Cordially Invited</p>
-            <h2 class="chapter-title ink-line" id="ink-2" style="font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--midnight);">ELENA & ADRIAN</h2>
-            <p class="ink-line" id="ink-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 1rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
         </div>
     </div>
 
@@ -691,22 +659,14 @@
                     Your browser does not support video playback.
                 </video>
 
-                <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-container" id="card-wrapper" onclick="transformLetterToParchment(event)">
-                        <img 
-                            src="invitation.jpg" 
-                            alt="Flying Letter" 
-                            class="invitation-img-btn" 
-                            id="invitation-card"
-                            onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=The+Letter+Arrives'"
-                        >
+                <div class="floating-letters-overlay" id="falling-overlay">
+                    <div class="ambient-soft-glow" id="ambient-glow"></div>
                     </div>
-                </div>
             </div>
         </section>
 
         <section class="stage hidden" id="scene-story">
-            <article class="chapter-container fade-in-up">
+            <article class="chapter-container fade-in-up" id="story-main-card">
                 <p class="chapter-subtitle" style="margin-bottom: 0.5rem;">You Are Cordially Invited</p>
                 <h1 class="chapter-title" id="couple-names">ELENA & ADRIAN</h1>
                 <p style="text-align: center; font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-bottom: 2.5rem;" id="cover-date-loc">
@@ -741,7 +701,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -1080,14 +1040,13 @@
             setupVideoEndCheck();
         });
 
-        /* STEP 2: CLICK ENVELOPE -> OPENS WITH BEAM OF LIGHT & STARTS HPintrowithaudio.mp4 */
+        /* STEP 1: INITIAL GATEWAY CLICK -> PLAYS HPintrowithaudio.mp4 */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
             const gateway = document.getElementById('desk-gateway');
             const video = document.getElementById('intro-video');
 
-            createSparkleParticles(event.clientX, event.clientY);
             deskSeal.classList.add('break');
 
             setTimeout(() => {
@@ -1102,110 +1061,151 @@
             }, 400);
         }
 
-        /* STEP 4: VIDEO ENDS -> LETTER FLIES FORWARD FULLSCREEN */
+        /* STEP 2-6: SEAMLESS CONTINUOUS FALLING LETTER TRANSITION AT VIDEO END */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
-            const overlay = document.getElementById('video-overlay');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                if ((video.currentTime >= 10.0 || (video.duration && video.duration - video.currentTime <= 1.0)) && !hasTriggeredTransition) {
+                // Freeze/hold video at its final frame & trigger continuous motion transition
+                if ((video.currentTime >= 10.5 || (video.duration && video.duration - video.currentTime <= 0.8)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
-                    overlay.classList.add('reveal');
-                    video.classList.add('seamless-dissolve');
+                    video.pause(); // Hold final frame visually
+                    startContinuousLetterTransition();
                 }
             });
 
             video.addEventListener('ended', () => {
-                video.loop = true;
-                video.play();
                 if (!hasTriggeredTransition) {
-                    overlay.classList.add('reveal');
-                    video.classList.add('seamless-dissolve');
+                    hasTriggeredTransition = true;
+                    video.pause();
+                    startContinuousLetterTransition();
                 }
             });
         }
 
-        /* STEP 5 & 6: LETTER BECOMES PARCHMENT, INK WRITES, & REVEALS WEBSITE */
-        function transformLetterToParchment(event) {
-            const overlayLayer = document.getElementById('parchment-overlay');
-            const parchmentCard = document.getElementById('parchment-card');
-            const videoScene = document.getElementById('scene-video-intro');
-            const storyScene = document.getElementById('scene-story');
-
-            createSparkleParticles(event.clientX, event.clientY);
-
-            overlayLayer.style.display = 'flex';
-            setTimeout(() => {
-                parchmentCard.classList.add('bloom');
-
-                // Ink Reveals Text
-                setTimeout(() => {
-                    document.getElementById('ink-1').classList.add('written');
-                    setTimeout(() => {
-                        document.getElementById('ink-2').classList.add('written');
-                        setTimeout(() => {
-                            document.getElementById('ink-3').classList.add('written');
-
-                            // Parchment Expands Fullscreen into Website Story Section
-                            setTimeout(() => {
-                                parchmentCard.classList.add('expand-fullscreen');
-
-                                setTimeout(() => {
-                                    videoScene.classList.add('hidden');
-                                    videoScene.classList.remove('active');
-                                    overlayLayer.style.display = 'none';
-
-                                    storyScene.classList.remove('hidden');
-                                    storyScene.classList.add('active');
-                                    storyScene.scrollIntoView({ behavior: 'smooth' });
-                                }, 1000);
-                            }, 1000);
-                        }, 500);
-                    }, 500);
-                }, 600);
-            }, 100);
-        }
-
-        /* STEP 7: MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
-        function switchSoundtrackAndGoMenu() {
+        function startContinuousLetterTransition() {
+            const overlay = document.getElementById('falling-overlay');
+            const ambientGlow = document.getElementById('ambient-glow');
             const video = document.getElementById('intro-video');
-            const bgMusic = document.getElementById('bg-music');
 
-            // Fade out video audio
-            if (video) {
-                const fadeInterval = setInterval(() => {
-                    if (video.volume > 0.08) {
-                        video.volume -= 0.08;
-                    } else {
-                        video.pause();
-                        clearInterval(fadeInterval);
-                    }
-                }, 50);
+            overlay.classList.add('active');
+            ambientGlow.classList.add('visible');
+
+            // 1. Generate floating/swirling background parchments from chimney/ceiling motion
+            const sheetsCount = 14;
+            const sheetElements = [];
+
+            for (let i = 0; i < sheetsCount; i++) {
+                const sheet = document.createElement('div');
+                sheet.className = 'parchment-sheet';
+
+                // Initial positions matching top/chimney/ceiling origins
+                const startLeft = Math.random() * 80 + 10;
+                const startTop = Math.random() * -30 - 10;
+                const width = Math.random() * 35 + 40;
+                const height = width * 1.3;
+
+                sheet.style.width = `${width}px`;
+                sheet.style.height = `${height}px`;
+                sheet.style.left = `${startLeft}%`;
+                sheet.style.top = `${startTop}%`;
+                sheet.style.transform = `rotate(${Math.random() * 360}deg) translateZ(${Math.random() * -200}px)`;
+
+                overlay.appendChild(sheet);
+                sheetElements.push(sheet);
             }
 
-            // Start Couple Track (song.mp3)
-            bgMusic.currentTime = 0;
-            bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+            // 2. Animate falling -> slowing down -> gently swirling
+            setTimeout(() => {
+                sheetElements.forEach((sheet, idx) => {
+                    const swirlX = Math.sin(idx) * 20 + (idx % 2 === 0 ? 15 : -15);
+                    const swirlY = Math.cos(idx) * 15 + 35 + (idx * 4);
+                    const rot = Math.random() * 60 - 30;
 
-            scrollToSection('scene-menu');
-        }
+                    sheet.style.top = `${swirlY}%`;
+                    sheet.style.left = `${parseFloat(sheet.style.left) + swirlX}%`;
+                    sheet.style.transform = `rotate(${rot}deg) translateZ(-50px)`;
+                });
+            }, 100);
 
-        function createSparkleParticles(x, y) {
-            for (let i = 0; i < 25; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'sparkle-burst';
-                particle.style.left = `${x}px`;
-                particle.style.top = `${y}px`;
+            // 3. ONE parchment separates, moves forward toward camera, fills screen
+            setTimeout(() => {
+                // Fade out background video softly behind floating sheets
+                video.style.opacity = '0.15';
+                video.style.filter = 'blur(10px) brightness(0.3)';
 
-                const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 120 + 40;
-                particle.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
-                particle.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+                // Create Hero Parchment sheet
+                const heroParchment = document.createElement('div');
+                heroParchment.className = 'parchment-sheet hero-focus';
+                heroParchment.style.width = '140px';
+                heroParchment.style.height = '190px';
+                heroParchment.style.top = '40%';
+                heroParchment.style.left = '45%';
+                heroParchment.style.transform = 'rotate(-8deg) scale(0.6) translateZ(-100px)';
+                overlay.appendChild(heroParchment);
 
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 900);
-            }
+                // Other background letters fade softly into distance
+                sheetElements.forEach(s => {
+                    s.style.opacity = '0.25';
+                    s.style.transform += ' scale(0.7) translateZ(-300px)';
+                });
+
+                // Hero parchment moves toward viewer and expands to full screen
+                setTimeout(() => {
+                    heroParchment.classList.add('hero-fullscreen');
+
+                    // 4. Animate paper unfolding naturally with content inside
+                    setTimeout(() => {
+                        heroParchment.classList.add('unfolding');
+
+                        heroParchment.innerHTML = `
+                            <p class="chapter-subtitle ink-text" id="hero-ink-1" style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--lavender);">You Are Cordially Invited</p>
+                            <h2 class="chapter-title ink-text" id="hero-ink-2" style="font-size: 2.2rem; margin-bottom: 1.2rem; color: var(--midnight);">ELENA & ADRIAN</h2>
+                            <p class="ink-text" id="hero-ink-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 1rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
+                        `;
+
+                        // 5. Reveal Wedding Details via handwritten ink effect
+                        setTimeout(() => {
+                            document.getElementById('hero-ink-1').classList.add('written');
+                            setTimeout(() => {
+                                document.getElementById('hero-ink-2').classList.add('written');
+                                setTimeout(() => {
+                                    document.getElementById('hero-ink-3').classList.add('written');
+
+                                    // 6. DIRECT NO-CLICK TRANSITION into Our Story website section
+                                    setTimeout(() => {
+                                        const videoScene = document.getElementById('scene-video-intro');
+                                        const storyScene = document.getElementById('scene-story');
+                                        const bgMusic = document.getElementById('bg-music');
+
+                                        // Fade video soundtrack & seamlessly start couple soundtrack (song.mp3)
+                                        const fadeAudio = setInterval(() => {
+                                            if (video.volume > 0.08) {
+                                                video.volume -= 0.08;
+                                            } else {
+                                                video.pause();
+                                                clearInterval(fadeAudio);
+                                            }
+                                        }, 50);
+
+                                        bgMusic.currentTime = 0;
+                                        bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+
+                                        // Transition seamlessly into main page Our Story section
+                                        videoScene.classList.add('hidden');
+                                        videoScene.classList.remove('active');
+
+                                        storyScene.classList.remove('hidden');
+                                        storyScene.classList.add('active');
+                                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                                    }, 2200);
+                                }, 600);
+                            }, 600);
+                        }, 500);
+                    }, 800);
+                }, 1000);
+            }, 2000);
         }
 
         function scrollToSection(stageId) {
@@ -1326,13 +1326,13 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            const particles = Array.from({ length: 35 }, () => ({
+            const particles = Array.from({ length: 30 }, () => ({
                 x: Math.random() * width,
                 y: Math.random() * height,
                 size: Math.random() * 2 + 0.5,
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: -Math.random() * 0.4 - 0.1,
-                opacity: Math.random() * 0.5 + 0.2
+                speedX: (Math.random() - 0.5) * 0.2,
+                speedY: -Math.random() * 0.3 - 0.1,
+                opacity: Math.random() * 0.4 + 0.2
             }));
 
             function animate() {
