@@ -1088,7 +1088,7 @@
                         if (!transitionTriggered) {
                             transitionTriggered = true;
                             
-                            // CONCURRENT TRANSITION: Emerge parchment card at 16.63s
+                            // CONCURRENT TRANSITION: Immediately emerge parchment card at 16.63s
                             proceedToCordiallyInvitedSeamless();
 
                             // Play openinvite.mp3 audio track for the invitation page concurrently
@@ -1220,28 +1220,35 @@
             });
         }
 
-        /* 3.0 SECOND FADE-IN LOGIC FOR SONG.MP3 */
+        /* SMOOTH 3.5-SECOND EXPONENTIAL FADE-IN TO BALANCED TARGET VOLUME (0.55) */
         function fadeInSongTrack(songAudio) {
             if (!songAudio) return;
+            const targetVolume = 0.55; // Balanced volume level matching previous track
+            const fadeDuration = 3500; // 3.5 seconds
+            const intervalTime = 50;   // 50ms smooth updates
+            const totalSteps = fadeDuration / intervalTime;
+            let currentStep = 0;
+
             songAudio.currentTime = 0;
             songAudio.volume = 0;
             songAudio.play().catch(e => console.log("Song Play Warning:", e));
 
-            const fadeDuration = 3000; // 3.0 seconds
-            const intervalTime = 100;  // step every 100ms
-            const step = 1.0 / (fadeDuration / intervalTime);
-
             const fadeInterval = setInterval(() => {
-                if (songAudio.volume < (1.0 - step)) {
-                    songAudio.volume = Math.min(1.0, songAudio.volume + step);
-                } else {
-                    songAudio.volume = 1.0;
+                currentStep++;
+                // Smooth exponential volume curve
+                const progress = currentStep / totalSteps;
+                const newVolume = Math.min(targetVolume, Math.pow(progress, 1.8) * targetVolume);
+
+                songAudio.volume = newVolume;
+
+                if (currentStep >= totalSteps) {
+                    songAudio.volume = targetVolume;
                     clearInterval(fadeInterval);
                 }
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> STOPS OPENINVITE.MP3, FADES IN SONG.MP3 OVER 3s, OPENS STORY */
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> STOPS OPENINVITE.MP3, FADES IN SONG.MP3 BALANCED, OPENS STORY */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
@@ -1255,7 +1262,7 @@
                 inviteAudio.currentTime = 0;
             }
 
-            // 2. Start song.mp3 with a 3.0-second gentle fade-in
+            // 2. Start song.mp3 with balanced volume (0.55 max) and smooth 3.5s exponential fade-in
             fadeInSongTrack(bgMusic);
 
             // 3. Transition to "Our Story" screen
@@ -1278,6 +1285,7 @@
             const bgMusic = document.getElementById('bg-music');
             if (bgMusic && bgMusic.paused) {
                 bgMusic.currentTime = 0;
+                bgMusic.volume = 0.55;
                 bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
             }
 
