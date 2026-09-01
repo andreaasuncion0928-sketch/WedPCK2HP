@@ -1079,7 +1079,6 @@
                     video.currentTime = 0;
                     video.muted = false;
                     video.volume = 1.0;
-                    video.style.opacity = '1';
 
                     const playPromise = video.play();
                     
@@ -1089,7 +1088,7 @@
                         if (!transitionTriggered) {
                             transitionTriggered = true;
                             
-                            // CONCURRENT TRANSITION: Immediately emerge parchment card at 16.63s
+                            // CONCURRENT TRANSITION: Emerge parchment card at 16.63s
                             proceedToCordiallyInvitedSeamless();
 
                             // Play openinvite.mp3 audio track for the invitation page concurrently
@@ -1221,39 +1220,45 @@
             });
         }
 
-        /* GENTLE 3-SECOND AUDIO FADE-OUT FOR OPENINVITE.MP3 */
-        function fadeInviteAudioSmoothly(audioTrack, callback) {
-            if (!audioTrack) {
-                if (callback) callback();
-                return;
-            }
+        /* 3.0 SECOND FADE-IN LOGIC FOR SONG.MP3 */
+        function fadeInSongTrack(songAudio) {
+            if (!songAudio) return;
+            songAudio.currentTime = 0;
+            songAudio.volume = 0;
+            songAudio.play().catch(e => console.log("Song Play Warning:", e));
+
             const fadeDuration = 3000; // 3.0 seconds
             const intervalTime = 100;  // step every 100ms
-            const step = (audioTrack.volume || 1.0) / (fadeDuration / intervalTime);
+            const step = 1.0 / (fadeDuration / intervalTime);
 
-            const audioInterval = setInterval(() => {
-                if (audioTrack.volume > step) {
-                    audioTrack.volume = Math.max(0, audioTrack.volume - step);
+            const fadeInterval = setInterval(() => {
+                if (songAudio.volume < (1.0 - step)) {
+                    songAudio.volume = Math.min(1.0, songAudio.volume + step);
                 } else {
-                    audioTrack.volume = 0;
-                    audioTrack.pause();
-                    clearInterval(audioInterval);
-                    if (callback) callback();
+                    songAudio.volume = 1.0;
+                    clearInterval(fadeInterval);
                 }
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> FADES OPENINVITE.MP3 & OPENS OUR STORY PAGE */
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> STOPS OPENINVITE.MP3, FADES IN SONG.MP3 OVER 3s, OPENS STORY */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
             const inviteAudio = document.getElementById('invite-music');
+            const bgMusic = document.getElementById('bg-music');
 
-            // 1. Gently fade out openinvite.mp3 audio over 3 seconds
-            fadeInviteAudioSmoothly(inviteAudio);
+            // 1. Immediately stop openinvite.mp3
+            if (inviteAudio) {
+                inviteAudio.pause();
+                inviteAudio.currentTime = 0;
+            }
 
-            // 2. Smoothly transition screens
+            // 2. Start song.mp3 with a 3.0-second gentle fade-in
+            fadeInSongTrack(bgMusic);
+
+            // 3. Transition to "Our Story" screen
             inviteScene.style.opacity = '0';
 
             setTimeout(() => {
@@ -1271,9 +1276,10 @@
         /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
         function switchSoundtrackAndGoMenu() {
             const bgMusic = document.getElementById('bg-music');
-
-            bgMusic.currentTime = 0;
-            bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+            if (bgMusic && bgMusic.paused) {
+                bgMusic.currentTime = 0;
+                bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+            }
 
             scrollToSection('scene-menu');
         }
