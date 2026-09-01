@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            transition: opacity 2s ease;
+            transition: opacity 1.5s ease;
         }
 
         .video-wrapper {
@@ -115,6 +115,29 @@
             object-fit: cover;
         }
 
+        /* FROZEN VIDEO BUTTON OVERLAY */
+        .video-action-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17, 19, 34, 0.4);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+            z-index: 15;
+        }
+
+        .video-action-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         /* LAYER 2: INVITATION OVERLAY CARD */
         #scene-invite-card {
             position: fixed;
@@ -126,11 +149,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.45);
+            background: rgba(17, 19, 34, 0.85);
             backdrop-filter: blur(6px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 0;
         }
 
@@ -274,7 +297,7 @@
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.85);
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .chapter-container.zoom-in-parchment {
@@ -605,6 +628,12 @@
                 <source src="HPintrowithaudio.mp4" type="video/mp4">
                 Your browser does not support video playback.
             </video>
+
+            <div class="video-action-overlay" id="video-action-overlay">
+                <button class="btn-magic" style="background: rgba(255,253,248,0.92); color: var(--midnight); box-shadow: 0 0 25px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
+                    View Invitation Details →
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1003,49 +1032,55 @@
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            transitionToInvitationCard();
+                            freezeVideoAndShowButton();
                         });
                     }
                 }, 800);
             }, 400);
         }
 
-        /* EARLY OVERLAP CHECK (TRIGGERS 1.5s BEFORE VIDEO ENDS FOR ZERO-GAP BLEND) */
+        /* FREEZES VIDEO AT LAST FRAME & REVEALS BUTTON OVERLAY */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
-            let hasTriggeredTransition = false;
+            let hasTriggeredFreeze = false;
 
-            function triggerNextStage() {
-                if (!hasTriggeredTransition) {
-                    hasTriggeredTransition = true;
-                    transitionToInvitationCard();
+            function freezeVideoAndShowButton() {
+                if (!hasTriggeredFreeze) {
+                    hasTriggeredFreeze = true;
+                    
+                    // Freeze visual on last frame
+                    video.pause();
+
+                    // Reveal button overlay directly on frozen frame
+                    const overlayBtn = document.getElementById('video-action-overlay');
+                    if (overlayBtn) {
+                        overlayBtn.classList.add('active');
+                    }
                 }
             }
 
-            video.addEventListener('ended', triggerNextStage);
-            video.addEventListener('error', triggerNextStage);
+            video.addEventListener('ended', freezeVideoAndShowButton);
+            video.addEventListener('error', freezeVideoAndShowButton);
 
-            // Trigger cross-fade overlap 1.5 seconds BEFORE video finishes playing
             video.addEventListener('timeupdate', () => {
-                if (video.duration && (video.duration - video.currentTime <= 1.5)) {
-                    triggerNextStage();
+                if (video.duration && (video.duration - video.currentTime <= 0.2)) {
+                    freezeVideoAndShowButton();
                 }
             });
         }
 
-        /* DIRECT DISSOLVE OVERLAY (PARCHMENT ZOOMS IN WHILE VIDEO CONTINUES MOTION) */
-        function transitionToInvitationCard() {
+        /* BUTTON CLICK -> TRANSITIONS TO YOU ARE CORDIALLY INVITED */
+        function proceedToCordiallyInvited() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
-            const video = document.getElementById('intro-video');
+            const videoOverlay = document.getElementById('video-action-overlay');
 
-            // Video continues playing audio track seamlessly in background
-            if (video) {
-                video.loop = true;
-                video.play().catch(e => {});
+            // Hide action overlay button
+            if (videoOverlay) {
+                videoOverlay.classList.remove('active');
             }
 
-            // Layer 2 Overlay activates directly on top of active video Layer 1
+            // Layer 2 overlay activates directly over frozen video frame (ZERO WHITE GAP)
             inviteScene.classList.add('active-overlay');
 
             setTimeout(() => {
