@@ -131,7 +131,7 @@
             backdrop-filter: blur(3px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 0;
         }
 
@@ -140,11 +140,24 @@
             pointer-events: auto !important;
         }
 
-        /* LAYER 3: WEBPAGE SCROLL CONTENT */
+        #scene-invite-card.slide-up-out {
+            opacity: 0 !important;
+            transform: translateY(-80px) scale(0.96);
+        }
+
+        /* LAYER 3: WEBPAGE SCROLL CONTENT & PAGE-UP ANIMATION */
         #scene-story {
             position: relative;
             z-index: 30;
             margin-top: 100vh;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #scene-story.page-up-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         .stage.hidden {
@@ -1334,7 +1347,7 @@
             runFastMagicalTyping();
         }
 
-        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION */
+        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION WITH PERIOD (.) */
         function runFastMagicalTyping() {
             const subtitleEl = document.getElementById('type-subtitle');
             const titleEl = document.getElementById('type-title');
@@ -1343,7 +1356,7 @@
 
             if (!subtitleEl || subtitleEl.children.length > 0) return;
 
-            const text1 = "You Are Cordially Invited";
+            const text1 = "You Are Cordially Invited."; // Added period
             const text2 = "ELENA & ADRIAN";
             const text3 = "31 JANUARY 2028 · MANILA";
 
@@ -1428,7 +1441,7 @@
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> STOPS OPENINVITE.MP3, FADES IN SONG.MP3 BALANCED, OPENS STORY */
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> SEAMLESS PAGE-UP SLIDE TRANSITION TO OUR STORY */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
@@ -1445,20 +1458,25 @@
             // 2. Start song.mp3 with balanced volume (0.55 max) and smooth 3.5s exponential fade-in
             fadeInSongTrack(bgMusic);
 
-            // 3. Transition to "Our Story" screen
-            inviteScene.style.opacity = '0';
+            // 3. Initiate seamless Page-Up slide transition
+            inviteScene.classList.add('slide-up-out');
+            storyScene.classList.remove('hidden');
+            
+            // Allow DOM paint before initiating upward slide animation
+            requestAnimationFrame(() => {
+                storyScene.classList.add('active');
+                storyScene.classList.add('page-up-active');
+                storyScene.classList.add('scene-story-animated'); // Triggers unified text fade-in and photo stagger
+                storyScene.scrollIntoView({ behavior: 'smooth' });
+            });
 
             setTimeout(() => {
                 inviteScene.classList.remove('active-overlay');
+                inviteScene.classList.remove('slide-up-out');
                 if (videoScene) {
                     videoScene.style.display = 'none';
                 }
-                
-                storyScene.classList.remove('hidden');
-                storyScene.classList.add('active');
-                storyScene.classList.add('scene-story-animated'); // Triggers unified text fade-in and photo stagger
-                storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 800);
+            }, 1200);
         }
 
         /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
