@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            transition: opacity 1.2s ease;
+            transition: opacity 0.5s ease;
         }
 
         .video-wrapper {
@@ -113,7 +113,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.05s linear; /* Ultra-responsive opacity fading */
+            transition: opacity 0.05s linear;
         }
 
         /* LAYER 2: INVITATION OVERLAY CARD (PARCHMENT BG) */
@@ -131,13 +131,13 @@
             backdrop-filter: blur(3px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             padding: 0;
         }
 
         #scene-invite-card.active-overlay {
-            opacity: 1;
-            pointer-events: auto;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 
         /* LAYER 3: WEBPAGE SCROLL CONTENT */
@@ -288,7 +288,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 30px var(--gold-glow);
             opacity: 0;
             transform: scale(0.7) translateY(20px);
-            transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .parchment-texture-card.seamless-emerge {
@@ -365,7 +365,7 @@
             font-size: 1.35rem !important;
             letter-spacing: 3px !important;
             color: #000000 !important;
-            font-weight: 900 !important; /* Extra Bold Date */
+            font-weight: 900 !important;
             margin-top: 1rem;
             min-height: 2rem;
         }
@@ -1062,7 +1062,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & FADES OUT VIDEO AUDIO/VISUALS FROM 16.63s TO 17.0s */
+        /* GATEWAY CLICK -> STARTS VIDEO & CONCURRENTLY EMERGES PARCHMENT AT 16.63s */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1085,48 +1085,46 @@
                     
                     let transitionTriggered = false;
 
-                    const executeFinalStop = () => {
+                    const executeSeamlessTransition = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
                             
-                            // 1. Fully mute and stop video at 17 seconds
-                            video.pause();
-                            video.muted = true;
-                            video.currentTime = 17.0;
-
-                            // 2. Play openinvite.mp3 track seamlessly
-                            playInvitePageSound();
-
-                            // 3. Reveal the "You Are Cordially Invited" parchment card
+                            // CONCURRENT TRANSITION: Immediately emerge parchment card at 16.63s
                             proceedToCordiallyInvitedSeamless();
+
+                            // Play openinvite.mp3 audio track for the invitation page concurrently
+                            playInvitePageSound();
                         }
                     };
 
                     video.addEventListener('timeupdate', () => {
                         const currentTime = video.currentTime;
 
-                        // START FADE-OUT AT EXACTLY 16.63 SECONDS
-                        if (currentTime >= 16.63 && currentTime < 17.0) {
-                            const fadeProgress = (currentTime - 16.63) / (17.0 - 16.63); // Normalized 0.0 to 1.0
+                        // START CONCURRENT CROSS-DISSOLVE AT EXACTLY 16.63 SECONDS
+                        if (currentTime >= 16.63) {
+                            const fadeProgress = Math.min(1.0, (currentTime - 16.63) / 0.37);
                             video.volume = Math.max(0, 1.0 - fadeProgress);
                             video.style.opacity = Math.max(0, 1.0 - fadeProgress);
+                            
+                            executeSeamlessTransition();
                         }
 
-                        // COMPLETE TRANSITION AT 17.0 SECONDS
+                        // Fully pause video once past 17.0s
                         if (currentTime >= 17.0) {
-                            executeFinalStop();
+                            video.pause();
+                            video.muted = true;
                         }
                     });
 
-                    // Fallback timer (17000ms = 17 seconds)
+                    // Fallback timer (16630ms = 16.63 seconds)
                     setTimeout(() => {
-                        executeFinalStop();
-                    }, 17000);
+                        executeSeamlessTransition();
+                    }, 16630);
 
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            executeFinalStop();
+                            executeSeamlessTransition();
                         });
                     }
                 }, 800);
@@ -1144,17 +1142,16 @@
             }
         }
 
-        /* SEAMLESS TRANSITION -> PARCHMENT.JPG EMERGES DIRECTLY FROM THE OPENING LETTER */
+        /* SEAMLESS TRANSITION -> PARCHMENT.JPG EMERGES CONCURRENTLY */
         function proceedToCordiallyInvitedSeamless() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
 
             inviteScene.classList.add('active-overlay');
 
-            setTimeout(() => {
-                cardBox.classList.add('seamless-emerge');
-                runFastMagicalTyping();
-            }, 300);
+            // Parchment.jpg card immediately emerges and blooms concurrently with video fade
+            cardBox.classList.add('seamless-emerge');
+            runFastMagicalTyping();
         }
 
         /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION */
