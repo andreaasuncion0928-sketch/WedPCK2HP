@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS VARIABLES & THEMING --- */
@@ -311,7 +311,7 @@
             content: '│';
             color: #000000 !important;
             animation: blink 0.4s infinite alternate;
-            font-weight: bold;
+            font-weight: 900;
         }
 
         @keyframes blink {
@@ -319,31 +319,34 @@
             100% { opacity: 1; }
         }
 
-        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY --- */
+        /* --- BOLD, HIGH-VISIBILITY BLACK TYPOGRAPHY FOR PARCHMENT --- */
         #type-subtitle {
             font-family: var(--font-script) !important;
-            font-size: 2.5rem !important;
+            font-size: 2.8rem !important;
             color: #000000 !important;
-            font-weight: 700 !important;
-            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+            font-weight: 800 !important;
+            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.15) !important;
+            margin-bottom: 0.5rem;
         }
 
         #type-title {
             font-family: var(--font-serif) !important;
-            font-size: 2.6rem !important;
+            font-size: 2.8rem !important;
             letter-spacing: 3px !important;
             color: #000000 !important;
-            font-weight: 700 !important;
-            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+            font-weight: 800 !important;
+            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.2) !important;
         }
 
         #type-date {
             font-family: var(--font-serif) !important;
-            font-size: 1.1rem !important;
-            letter-spacing: 2.5px !important;
+            font-size: 1.35rem !important;
+            letter-spacing: 3px !important;
             color: #000000 !important;
-            font-weight: 700 !important;
-            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+            font-weight: 900 !important; /* Extra Bold Date */
+            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.25) !important;
+            margin-top: 1rem;
+            min-height: 1.5rem;
         }
 
         .chapter-title {
@@ -353,24 +356,24 @@
             color: #000000 !important;
             text-align: center;
             margin-bottom: 0.5rem;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .chapter-subtitle {
             font-family: var(--font-script);
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: #000000 !important;
             text-align: center;
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .script-handwriting {
             font-family: var(--font-script);
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             color: #000000 !important;
             line-height: 1.4;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         /* --- NAVIGATION MENU --- */
@@ -407,6 +410,7 @@
             font-size: 0.95rem;
             letter-spacing: 1.5px;
             color: var(--midnight);
+            font-weight: 700;
         }
 
         .nav-card p {
@@ -447,7 +451,7 @@
             text-transform: uppercase;
         }
 
-        /* --- CARDS & BUTTONS --- */
+        /* --- CARDS & BOLD BUTTONS --- */
         .unfold-card {
             background: var(--parchment);
             border: 1px solid var(--antique-gold);
@@ -463,17 +467,18 @@
             font-size: 1.4rem;
             color: var(--midnight);
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .btn-magic {
-            background: rgba(17, 19, 34, 0.9);
+            background: rgba(17, 19, 34, 0.92);
             border: 2px solid var(--antique-gold);
             color: #FFFFFF !important;
             padding: 12px 24px;
             font-family: var(--font-serif);
             letter-spacing: 2px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700 !important; /* Bold Button Text */
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
@@ -586,7 +591,7 @@
             letter-spacing: 1.5px;
             color: var(--midnight);
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .form-group input, .form-group select {
@@ -613,8 +618,9 @@
 
         @media (max-width: 600px) {
             .chapter-container { padding: 2.5rem 1.2rem; }
-            #type-subtitle { font-size: 2rem !important; }
-            #type-title { font-size: 2rem !important; }
+            #type-subtitle { font-size: 2.2rem !important; }
+            #type-title { font-size: 2.2rem !important; }
+            #type-date { font-size: 1.15rem !important; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -669,7 +675,7 @@
             <p id="type-date"></p>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
-                Read Our Story →
+                Check the details →
             </button>
         </article>
     </section>
@@ -685,7 +691,7 @@
                     It started with coffee.
                 </p>
 
-                <p style="font-size: 0.95rem; line-height: 1.8; color: #222222; text-align: center; margin-bottom: 1.5rem;" id="story-paragraph">
+                <p style="font-size: 0.95rem; line-height: 1.8; color: #222222; text-align: center; margin-bottom: 1.5rem; font-weight: 500;" id="story-paragraph">
                     We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
                 </p>
 
@@ -693,7 +699,7 @@
                     we became us.
                 </p>
 
-                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: #000000; font-weight: 700;" id="story-closing">
+                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: #000000; font-weight: 800;" id="story-closing">
                     And now, we're getting married.
                 </p>
 
