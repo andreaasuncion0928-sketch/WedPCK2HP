@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franz @18 — An Enchanted Invitation</title>
+    <title>Elena & Adrian — The Wedding Invitation</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS VARIABLES & THEMING --- */
         :root {
-            --midnight: #0B0D1B;
-            --midnight-light: #161A30;
-            --parchment: #F5EFE5;
-            --cream: #FFFDF8;
-            --lavender: #CB6CE6;
-            --lavender-glow: rgba(203, 108, 230, 0.4);
-            --plum: #361B3B;
-            --gold: #C5A059;
-            --ink: #1C1A1C;
-            --text-light: #E2E8F0;
+            --midnight: #111322;
+            --midnight-soft: #191A2A;
+            --ink: #242124;
+            --paper: #FFFDF8;
+            --parchment: #F3EBDD;
+            --lavender: #9A84A1;
+            --lavender-light: #D4A8F0;
+            --lavender-glow: rgba(212, 168, 240, 0.35);
+            --antique-gold: #B49A68;
+            --gray: #666666;
             
-            --font-serif: 'Cinzel', serif;
-            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Poppins', sans-serif;
             --font-script: 'Great Vibes', cursive;
             
             --transition-slow: 1.2s cubic-bezier(0.25, 1, 0.5, 1);
             --transition-med: 0.6s ease;
         }
 
-        /* --- BASE RESET & SETUP --- */
+        /* --- BASE RESET --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -42,7 +42,7 @@
             width: 100%;
             height: 100%;
             background-color: var(--midnight);
-            color: var(--text-light);
+            color: var(--paper);
             font-family: var(--font-sans);
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -54,9 +54,9 @@
             bottom: 20px;
             right: 20px;
             z-index: 1000;
-            background: rgba(22, 26, 48, 0.8);
-            border: 1px solid var(--gold);
-            color: var(--gold);
+            background: rgba(25, 26, 42, 0.85);
+            border: 1px solid var(--antique-gold);
+            color: var(--antique-gold);
             padding: 10px 16px;
             border-radius: 30px;
             font-size: 0.8rem;
@@ -70,12 +70,12 @@
         }
 
         .audio-control:hover {
-            background: var(--gold);
+            background: var(--antique-gold);
             color: var(--midnight);
             box-shadow: 0 0 15px var(--lavender-glow);
         }
 
-        /* --- PARTICLES CONTAINER --- */
+        /* --- CANVAS & BACKGROUND PARTICLES --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -86,7 +86,7 @@
             z-index: 2;
         }
 
-        /* --- STAGE MANAGEMENT --- */
+        /* --- STAGE SYSTEM --- */
         .stage {
             min-height: 100vh;
             width: 100%;
@@ -108,9 +108,9 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: THE WINDOW & ROOM --- */
+        /* --- SCENE 1: THE WINDOW, CHIMNEY & ROOM --- */
         #scene-window {
-            background: radial-gradient(circle at 50% 30%, var(--midnight-light), var(--midnight));
+            background: radial-gradient(circle at 50% 30%, var(--midnight-soft), var(--midnight));
             overflow: hidden;
         }
 
@@ -118,7 +118,7 @@
             position: relative;
             width: 100%;
             max-width: 800px;
-            height: 80vh;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -128,13 +128,13 @@
         /* SVG Window Frame */
         .window-frame {
             width: 280px;
-            height: 400px;
-            border: 12px solid #2A1A08;
+            height: 380px;
+            border: 10px solid #2A1A08;
             border-top-left-radius: 140px;
             border-top-right-radius: 140px;
             position: relative;
             background: radial-gradient(circle at 70% 20%, #2A3656, #090B15);
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 0 50px rgba(203, 108, 230, 0.15);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 0 50px rgba(212, 168, 240, 0.15);
             overflow: hidden;
             cursor: pointer;
         }
@@ -149,7 +149,7 @@
 
         .window-arch-line {
             position: absolute;
-            top: 100px;
+            top: 90px;
             width: 100%;
             height: 2px;
             background: #1A1005;
@@ -157,10 +157,10 @@
 
         .moon {
             position: absolute;
-            top: 40px;
-            right: 40px;
-            width: 60px;
-            height: 60px;
+            top: 35px;
+            right: 35px;
+            width: 55px;
+            height: 55px;
             background: #FFFDF8;
             border-radius: 50%;
             box-shadow: 0 0 20px #FFFDF8, 0 0 40px var(--lavender-glow);
@@ -171,7 +171,7 @@
             top: 0;
             width: 50%;
             height: 100%;
-            background: rgba(54, 27, 59, 0.6);
+            background: rgba(36, 33, 36, 0.7);
             backdrop-filter: blur(2px);
             transition: transform 2s ease;
         }
@@ -182,31 +182,59 @@
         .window-frame:hover .curtain.left { transform: scaleX(0.7); }
         .window-frame:hover .curtain.right { transform: scaleX(0.7); }
 
+        /* Chimney Illustration Elements */
+        .chimney-structure {
+            position: absolute;
+            top: -20px;
+            right: 10%;
+            width: 110px;
+            height: 180px;
+            background: linear-gradient(180deg, #1A1005, #2A1A08);
+            border: 2px solid #000;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.9);
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            z-index: 1;
+        }
+
+        .chimney-opening {
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            width: 80px;
+            height: 120px;
+            background: #090B15;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            box-shadow: inset 0 10px 15px rgba(0,0,0,1);
+        }
+
         /* SVG Owl Silhouette */
         .owl-svg {
             position: absolute;
-            bottom: 80px;
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
-            width: 70px;
+            width: 65px;
             fill: #05060A;
             transition: transform 1.5s ease;
         }
 
         .owl-head {
-            transform-origin: 35px 25px;
+            transform-origin: 32px 22px;
             transition: transform 0.8s ease;
         }
 
         .desk-surface {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             height: 15px;
             background: #1A1005;
             margin-top: -5px;
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.9);
             position: relative;
+            z-index: 3;
             display: flex;
             justify-content: space-around;
             align-items: flex-end;
@@ -214,10 +242,10 @@
 
         .candle {
             position: absolute;
-            left: 15%;
+            left: 12%;
             bottom: 15px;
             width: 16px;
-            height: 60px;
+            height: 55px;
             background: #E2E8F0;
             border-radius: 2px;
         }
@@ -244,8 +272,8 @@
             margin-top: 2rem;
             font-family: var(--font-serif);
             letter-spacing: 3px;
-            font-size: 0.9rem;
-            color: var(--gold);
+            font-size: 1rem;
+            color: var(--antique-gold);
             text-align: center;
             text-transform: uppercase;
         }
@@ -254,12 +282,33 @@
             margin-top: 0.5rem;
             font-size: 0.75rem;
             letter-spacing: 2px;
-            color: var(--text-light);
+            color: var(--paper);
             opacity: 0;
             transition: opacity 1s ease;
         }
 
-        /* --- SCENE 3: THE ENVELOPE --- */
+        /* Rain of Letters Effect (Chimney) */
+        .falling-letter {
+            position: absolute;
+            width: 24px;
+            height: 16px;
+            background: var(--parchment);
+            border: 1px solid var(--antique-gold);
+            border-radius: 1px;
+            pointer-events: none;
+            z-index: 10;
+            animation: fallAndRotate 3s linear forwards;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fallAndRotate {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(450px) rotate(720deg) scale(1); }
+        }
+
+        /* --- SCENE 3: ENVELOPE --- */
         .envelope-wrapper {
             perspective: 1000px;
             cursor: pointer;
@@ -267,13 +316,13 @@
         }
 
         .envelope {
-            width: 300px;
-            height: 200px;
+            width: 310px;
+            height: 210px;
             background: var(--parchment);
             position: relative;
             border-radius: 4px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 15px rgba(203, 108, 230, 0.2);
-            border: 1px solid var(--gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 15px var(--lavender-glow);
+            border: 1px solid var(--antique-gold);
             transform-style: preserve-3d;
             transition: transform 0.8s ease;
         }
@@ -284,9 +333,9 @@
             left: 0;
             width: 0;
             height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 110px solid #EAE0D0;
+            border-left: 155px solid transparent;
+            border-right: 155px solid transparent;
+            border-top: 115px solid #EAE0D0;
             transform-origin: top;
             transition: transform 0.6s ease 0.4s, z-index 0.2s ease 0.4s;
             z-index: 5;
@@ -294,41 +343,26 @@
 
         .wax-seal {
             position: absolute;
-            top: 70px;
+            top: 75px;
             left: 50%;
             transform: translateX(-50%);
-            width: 45px;
-            height: 45px;
-            background: var(--plum);
+            width: 48px;
+            height: 48px;
+            background: var(--ink);
             border-radius: 50%;
-            border: 2px dashed var(--gold);
+            border: 2px dashed var(--antique-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gold);
+            color: var(--antique-gold);
             font-family: var(--font-serif);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
             z-index: 6;
             transition: transform 0.4s ease, opacity 0.4s ease;
         }
 
-        .letter-preview {
-            position: absolute;
-            bottom: 10px;
-            left: 15px;
-            right: 15px;
-            height: 170px;
-            background: var(--cream);
-            border-radius: 2px;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
-            z-index: 2;
-            padding: 15px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
-
-        /* Envelope Open State */
         .envelope.open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
@@ -339,214 +373,140 @@
             transform: translateX(-50%) scale(0.5);
         }
 
-        .envelope.open .letter-preview {
-            transform: translateY(-120px) scale(1.05);
-            z-index: 10;
-        }
-
-        /* --- SCENE 4 & 5: LETTER CONTENT & TYPOGRAPHY --- */
-        .letter-full {
-            max-width: 650px;
+        /* --- MAIN SITE CHAPTER STYLING --- */
+        .chapter-container {
+            max-width: 800px;
             width: 100%;
-            background: var(--parchment);
+            background: var(--paper);
             color: var(--ink);
-            padding: 3rem 2rem;
+            padding: 3.5rem 2.5rem;
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow);
             position: relative;
-            border: 1px solid var(--gold);
-            text-align: center;
-        }
-
-        .script-header {
-            font-family: var(--font-script);
-            font-size: 2.5rem;
-            color: var(--plum);
-            margin-bottom: 1rem;
-            opacity: 0;
-        }
-
-        .serif-title {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            letter-spacing: 4px;
-            color: var(--midnight);
-            margin: 1rem 0;
-            font-weight: 700;
-        }
-
-        .invitation-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #4A4A4A;
-            margin-bottom: 2rem;
-        }
-
-        .date-display {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            color: var(--plum);
-            padding: 1rem 0;
-            border-top: 1px solid rgba(197, 160, 89, 0.3);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-            margin: 1.5rem 0;
-            text-shadow: 0 0 10px var(--lavender-glow);
-        }
-
-        /* --- SCENE 6: EIGHTEEN (KINETIC) --- */
-        .number-18 {
-            font-family: var(--font-serif);
-            font-size: 8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--gold), var(--lavender));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 1.5s ease;
-        }
-
-        .number-18.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .quote-text {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            max-width: 500px;
-            text-align: center;
-            line-height: 1.6;
-            color: var(--parchment);
-        }
-
-        /* --- SCENE 7: MANSION / CELEBRATION --- */
-        .mansion-svg-container {
-            width: 100%;
-            max-width: 400px;
-            height: 200px;
-            margin-bottom: 2rem;
-        }
-
-        /* --- SCENE 8: DRESS CODE --- */
-        .dress-code-card {
-            border: 1px solid var(--gold);
-            padding: 2.5rem 1.5rem;
-            border-radius: 4px;
-            background: rgba(22, 26, 48, 0.6);
-            backdrop-filter: blur(10px);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .dress-code-title {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            color: #FFFFFF;
-            letter-spacing: 3px;
-            margin-bottom: 0.5rem;
-        }
-
-        .silhouette-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            border: 1px solid var(--antique-gold);
             margin: 2rem 0;
         }
 
-        .fashion-icon {
-            width: 50px;
-            height: 80px;
-            fill: #FFFFFF;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-        }
-
-        .fashion-icon.accent {
-            fill: var(--lavender);
-        }
-
-        /* --- SCENE 9 & 10: DETAILS & RSVP --- */
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 3rem;
-        }
-
-        .detail-card {
-            background: var(--parchment);
-            color: var(--ink);
-            padding: 1.5rem;
-            border-radius: 2px;
-            border-left: 3px solid var(--gold);
-            text-align: left;
-        }
-
-        .detail-card h4 {
+        .chapter-title {
             font-family: var(--font-serif);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: var(--plum);
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            color: var(--midnight);
+            text-align: center;
             margin-bottom: 0.5rem;
         }
 
-        .detail-card p {
-            font-size: 1rem;
-            font-weight: 600;
+        .chapter-subtitle {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: var(--lavender);
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .rsvp-form {
+        .script-handwriting {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: var(--midnight);
+            line-height: 1.4;
+        }
+
+        /* --- CHAPTER NAVIGATION MENU --- */
+        .nav-chapters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 2rem 0;
             width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            max-width: 800px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            gap: 5px;
+        .nav-card {
+            background: var(--parchment);
+            border: 1px solid var(--antique-gold);
+            color: var(--ink);
+            padding: 1rem 1.5rem;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition-med);
+            text-align: center;
+            flex: 1 1 140px;
         }
 
-        .form-group label {
-            font-size: 0.75rem;
+        .nav-card:hover {
+            background: var(--paper);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 168, 240, 0.3);
+        }
+
+        .nav-card h3 {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
             letter-spacing: 1.5px;
-            color: var(--gold);
+            color: var(--midnight);
+        }
+
+        .nav-card p {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* --- ODOMETER / MECHANICAL COUNTDOWN --- */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+
+        .countdown-box {
+            background: var(--midnight-soft);
+            border: 1px solid var(--antique-gold);
+            color: var(--paper);
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-align: center;
+            min-width: 65px;
+        }
+
+        .countdown-num {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--lavender-light);
+        }
+
+        .countdown-label {
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--antique-gold);
             text-transform: uppercase;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
-            background: rgba(245, 239, 229, 0.1);
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            padding: 12px;
-            color: var(--cream);
-            font-family: var(--font-sans);
+        /* --- CARDS & ACCORDIONS --- */
+        .unfold-card {
+            background: var(--parchment);
+            border: 1px solid var(--antique-gold);
+            padding: 1.8rem;
             border-radius: 2px;
-            outline: none;
+            margin-bottom: 1.5rem;
             transition: var(--transition-med);
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--lavender);
-            box-shadow: 0 0 10px var(--lavender-glow);
-            background: rgba(22, 26, 48, 0.9);
+        .unfold-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--midnight);
+            margin-bottom: 0.5rem;
         }
 
-        /* --- BUTTONS --- */
         .btn-magic {
             background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 14px 28px;
+            border: 1px solid var(--antique-gold);
+            color: var(--antique-gold);
+            padding: 12px 24px;
             font-family: var(--font-serif);
             letter-spacing: 2px;
             font-size: 0.85rem;
@@ -554,17 +514,128 @@
             transition: var(--transition-med);
             text-transform: uppercase;
             margin-top: 1rem;
-            position: relative;
-            overflow: hidden;
+            display: inline-block;
+            text-decoration: none;
         }
 
         .btn-magic:hover {
-            background: var(--gold);
+            background: var(--antique-gold);
             color: var(--midnight);
-            box-shadow: 0 0 20px var(--lavender-glow);
+            box-shadow: 0 0 15px var(--lavender-glow);
         }
 
-        /* --- TYPEWRITER FADE ANIMATION --- */
+        /* --- GALLERY: MEMORY ENVELOPE STACK --- */
+        .gallery-envelope-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            min-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .photo-card {
+            width: 130px;
+            height: 160px;
+            background: #FFF;
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 1px solid #E2E8F0;
+            transform: rotate(calc(var(--r, 0) * 1deg));
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 19, 34, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 8px solid var(--paper);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border-radius: 2px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: var(--paper);
+            font-size: 2rem;
+            cursor: pointer;
+            font-family: var(--font-sans);
+        }
+
+        /* --- RSVP FORM --- */
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: var(--midnight);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            background: rgba(255, 253, 248, 0.9);
+            border: 1px solid var(--antique-gold);
+            padding: 12px;
+            color: var(--ink);
+            font-family: var(--font-sans);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        /* --- FADE ANIMATION --- */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
@@ -576,21 +647,19 @@
             transform: translateY(0);
         }
 
-        /* MEDIA QUERIES (MOBILE FIRST ENHANCEMENTS) */
+        /* RESPONSIVE DESIGN */
         @media (max-width: 600px) {
-            .serif-title { font-size: 1.75rem; }
-            .number-18 { font-size: 6rem; }
-            .envelope { width: 260px; height: 180px; }
-            .envelope-flap { border-left-width: 130px; border-right-width: 130px; border-top-width: 95px; }
-            .letter-full { padding: 2rem 1.2rem; }
-            .window-frame { width: 220px; height: 320px; }
+            .chapter-container { padding: 2rem 1.2rem; }
+            .chapter-title { font-size: 1.75rem; }
+            .envelope { width: 270px; height: 185px; }
+            .envelope-flap { border-left-width: 135px; border-right-width: 135px; border-top-width: 100px; }
+            .window-frame { width: 210px; height: 310px; }
+            .photo-card { width: 95px; height: 120px; }
         }
 
-        /* ACCESSIBILITY: PREFERS REDUCED MOTION */
         @media (prefers-reduced-motion: reduce) {
             *, ::before, ::after {
                 animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
@@ -605,10 +674,23 @@
         <span>♪</span> <span id="audio-status">SOUND ON</span>
     </button>
 
+    <audio id="bg-music" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="lightbox-modal" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
+    </div>
+
     <main id="app">
 
         <section class="stage active" id="scene-1">
             <div class="room-container">
+                <div class="chimney-structure" id="chimney">
+                    <div class="chimney-opening"></div>
+                </div>
+
                 <div class="window-frame" id="interactive-window" role="button" aria-label="Open Window">
                     <div class="moon"></div>
                     <div class="curtain left"></div>
@@ -619,8 +701,8 @@
                     <svg class="owl-svg" viewBox="0 0 100 120">
                         <g class="owl-head" id="owl-head">
                             <path d="M20,30 Q50,5 80,30 Q85,15 90,10 Q80,45 80,50 Q50,40 20,50 Q20,45 10,10 Q15,15 20,30 Z" />
-                            <circle cx="35" cy="32" r="4" fill="#C5A059" />
-                            <circle cx="65" cy="32" r="4" fill="#C5A059" />
+                            <circle cx="35" cy="32" r="4" fill="#B49A68" />
+                            <circle cx="65" cy="32" r="4" fill="#B49A68" />
                         </g>
                         <path d="M20,50 Q50,40 80,50 Q90,80 75,110 Q50,115 25,110 Q10,80 20,50 Z" />
                     </svg>
@@ -632,7 +714,7 @@
                     </div>
                 </div>
 
-                <p class="prompt-text" id="window-prompt">There is something at the window.</p>
+                <p class="prompt-text">There is something at the window.</p>
                 <p class="sub-prompt" id="window-subprompt">TAP TO DISCOVER</p>
             </div>
         </section>
@@ -643,244 +725,453 @@
             <div class="envelope-wrapper" id="envelope-container">
                 <div class="envelope" id="envelope">
                     <div class="envelope-flap"></div>
-                    <div class="wax-seal" id="wax-seal">F</div>
-                    <div class="letter-preview">
-                        <div style="width: 100%; height: 2px; background: var(--gold); margin-top: 10px;"></div>
-                        <div style="width: 70%; height: 2px; background: #E0E0E0; margin-top: 10px;"></div>
-                    </div>
+                    <div class="wax-seal" id="wax-seal">E</div>
                 </div>
             </div>
 
             <button class="btn-magic" id="btn-open-envelope" style="margin-top: 3rem;">Open The Letter</button>
         </section>
 
-        <section class="stage hidden" id="scene-letter">
-            <article class="letter-full fade-in-up" id="letter-content">
-                <p class="script-header" id="script-greeting">You are cordially invited</p>
-                <h1 class="serif-title" id="celebrant-title">FRANZ @18</h1>
-                
-                <p class="invitation-text">
-                    Join us for an evening of celebration,<br>
-                    laughter, memories, and a little magic.
+        <section class="stage hidden" id="scene-story">
+            <article class="chapter-container fade-in-up">
+                <p class="chapter-subtitle" style="margin-bottom: 0.5rem;">An Invitation to Celebrate</p>
+                <h1 class="chapter-title" id="couple-names">ELENA & ADRIAN</h1>
+                <p style="text-align: center; font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-bottom: 2.5rem;" id="cover-date-loc">
+                    31 JANUARY 2028 · MANILA
                 </p>
 
-                <div class="date-display">
-                    <div id="data-date">SEPTEMBER 27, 2026</div>
-                    <div style="font-size: 1rem; margin-top: 5px;" id="data-time">6:00 PM</div>
-                </div>
+                <hr style="border: 0; border-top: 1px solid rgba(180, 154, 104, 0.3); margin: 2rem 0;">
 
-                <p style="font-family: var(--font-serif); letter-spacing: 2px; color: var(--plum);" id="data-venue">
-                    FELICIDAD MANSION
+                <p class="chapter-subtitle" style="font-size: 1.4rem;">A Little Story About Us</p>
+                <h2 class="chapter-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">OUR STORY</h2>
+                
+                <p class="script-handwriting" style="text-align: center; margin-bottom: 1.5rem;" id="story-opening">
+                    It started with coffee.
+                </p>
+
+                <p style="font-size: 0.95rem; line-height: 1.8; color: #4A4A4A; text-align: center; margin-bottom: 1.5rem;" id="story-paragraph">
+                    We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
+                </p>
+
+                <p class="script-handwriting" style="text-align: center; margin-bottom: 1rem;" id="story-highlight">
+                    we became us.
+                </p>
+
+                <p style="font-size: 1.1rem; font-family: var(--font-serif); text-align: center; color: var(--midnight); font-weight: 600;" id="story-closing">
+                    And now, we're getting married.
                 </p>
             </article>
 
-            <div style="margin-top: 5rem; text-align: center;" class="fade-in-up">
-                <div class="number-18" id="kinetic-18">18</div>
-                <p class="quote-text">
-                    Eighteen years of stories, laughter, dreams, and becoming.
-                </p>
-                <p class="prompt-text" style="color: var(--lavender); margin-top: 1rem;">
-                    HERE'S TO THE NEXT CHAPTER.
-                </p>
-            </div>
+            <article class="chapter-container fade-in-up" style="text-align: center; margin-top: 2rem;">
+                <h2 class="chapter-title" style="font-size: 4rem; color: var(--antique-gold);" id="milestone-year">2015</h2>
+                <p class="chapter-subtitle" style="font-size: 1.2rem; margin-bottom: 0.5rem;" id="milestone-label">Our Year</p>
+                <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
+            </article>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-mansion')" style="margin-top: 4rem;">
-                Explore Celebration Details
+            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+                Explore The Letter's Chapters →
             </button>
         </section>
 
-        <section class="stage hidden" id="scene-mansion">
-            <div class="mansion-svg-container">
-                <svg viewBox="0 0 400 200" width="100%" height="100%">
-                    <path d="M50,180 L50,100 L100,60 L150,100 L150,180 Z" fill="none" stroke="#C5A059" stroke-width="1.5"/>
-                    <path d="M150,180 L150,80 L200,40 L250,80 L250,180 Z" fill="none" stroke="#C5A059" stroke-width="2"/>
-                    <path d="M250,180 L250,100 L300,60 L350,100 L350,180 Z" fill="none" stroke="#C5A059" stroke-width="1.5"/>
-                    <rect x="180" y="90" width="15" height="25" rx="7" fill="#CB6CE6" opacity="0.8"/>
-                    <rect x="205" y="90" width="15" height="25" rx="7" fill="#CB6CE6" opacity="0.8"/>
-                    <rect x="80" y="110" width="12" height="20" rx="6" fill="#FFFDF8" opacity="0.6"/>
-                    <rect x="308" y="110" width="12" height="20" rx="6" fill="#FFFDF8" opacity="0.6"/>
-                </svg>
+        <section class="stage hidden" id="scene-menu">
+            <h2 class="chapter-title" style="color: var(--paper);">THE LETTER'S CHAPTERS</h2>
+            <p style="color: var(--antique-gold); letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 1rem;">
+                ELENA & ADRIAN — 31 · 01 · 2028
+            </p>
+
+            <div class="countdown-container" id="countdown-odometer">
+                <div class="countdown-box"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-label">Mins</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Secs</div></div>
             </div>
 
-            <div class="dress-code-card fade-in-up">
-                <h2 class="dress-code-title" id="dress-code-head">DRESS CODE</h2>
-                <p style="color: var(--gold); letter-spacing: 2px; font-weight: 600; margin-top: 0.5rem;" id="dress-code-main">
-                    STRICT WHITE DRESS CODE
+            <nav class="nav-chapters">
+                <div class="nav-card" onclick="scrollToSection('scene-day')">
+                    <h3>THE DAY</h3>
+                    <p>When & where to find us</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-entourage')">
+                    <h3>THE ENTOURAGE</h3>
+                    <p>Those who walk beside us</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-details')">
+                    <h3>DETAILS</h3>
+                    <p>Everything you need to know</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-gallery')">
+                    <h3>GALLERY</h3>
+                    <p>The moments we've kept</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-rsvp')">
+                    <h3>RSVP</h3>
+                    <p>Save your seat</p>
+                </div>
+            </nav>
+        </section>
+
+        <section class="stage hidden" id="scene-day">
+            <article class="chapter-container fade-in-up">
+                <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
+                <h2 class="chapter-title">THE DETAILS</h2>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--gray); margin-bottom: 2rem;">
+                    Two places. One promise. A day we will always remember.
                 </p>
-                
-                <div class="silhouette-container">
-                    <svg class="fashion-icon" viewBox="0 0 24 24">
-                        <path d="M12,2 L15,8 L18,22 L6,22 L9,8 Z"/>
-                    </svg>
-                    <svg class="fashion-icon" viewBox="0 0 24 24">
-                        <path d="M6,2 L18,2 L16,10 L18,22 L6,22 L8,10 Z"/>
-                    </svg>
-                    <svg class="fashion-icon accent" viewBox="0 0 24 24" title="Accessories/Pants may have color">
-                        <circle cx="12" cy="12" r="6"/>
-                    </svg>
+
+                <div class="unfold-card">
+                    <h3 id="ceremony-venue">SAN SEBASTIAN CHURCH</h3>
+                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--antique-gold); font-weight: 600;" id="ceremony-time">
+                        MANILA · TUESDAY, JANUARY 31, 2028 · 3:00 PM
+                    </p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);" id="ceremony-desc">
+                        Where our forever begins.
+                    </p>
+                    <a id="ceremony-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
                 </div>
 
-                <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-light);" id="dress-code-desc">
-                    Keep your main outfit white. Pants, skirts, shoes, and accessories may be any color — just no purple as the main outfit color.
-                </p>
-            </div>
+                <div class="unfold-card">
+                    <h3 id="reception-venue">MANILA HOTEL</h3>
+                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--antique-gold); font-weight: 600;" id="reception-time">
+                        MANILA · TUESDAY, JANUARY 31, 2028 · 6:00 PM
+                    </p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);" id="reception-desc">
+                        A celebration to remember.
+                    </p>
+                    <a id="reception-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
+                </div>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-details')" style="margin-top: 3rem;">
-                View Event Info & RSVP
-            </button>
+                <div style="margin-top: 2.5rem; text-align: center;">
+                    <button class="btn-magic" onclick="toggleProgramFlow()" style="background: var(--midnight-soft); color: var(--paper);">
+                        Program Flow ↓
+                    </button>
+                    
+                    <div id="program-flow-content" style="display: none; text-align: left; margin-top: 1.5rem;" class="unfold-card">
+                        </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-entourage">
+            <article class="chapter-container fade-in-up">
+                <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">With Our Beloved Families</p>
+                <h2 class="chapter-title">THE ENTOURAGE</h2>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem;">
+                    Those who hold our hands, guide our steps, and stand beside us as we say 'I do.'
+                </p>
+
+                <div id="entourage-list" style="display: grid; gap: 20px;">
+                    </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
         </section>
 
         <section class="stage hidden" id="scene-details">
-            <h2 class="serif-title" style="color: var(--cream); margin-bottom: 2rem;">EVENT DETAILS</h2>
-            
-            <div class="details-grid">
-                <div class="detail-card">
-                    <h4>THE DATE</h4>
-                    <p class="inject-date">September 27, 2026</p>
+            <article class="chapter-container fade-in-up">
+                <h2 class="chapter-title">EVERYTHING YOU NEED TO KNOW</h2>
+                
+                <div class="unfold-card" style="margin-top: 1.5rem;">
+                    <h3 id="dress-code-title">BLACK & WHITE</h3>
+                    <p style="font-size: 0.85rem; color: var(--antique-gold); font-weight: 600;" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
+                    <div style="margin-top: 10px; font-size: 0.9rem; line-height: 1.6;">
+                        <p><strong>LADIES:</strong> <span id="dress-code-ladies">Black, white, ivory, or monochrome formalwear.</span></p>
+                        <p><strong>GENTLEMEN:</strong> <span id="dress-code-gents">Black suit, tuxedo, white shirt, or classic monochrome formalwear.</span></p>
+                    </div>
                 </div>
-                <div class="detail-card">
-                    <h4>THE TIME</h4>
-                    <p class="inject-time">6:00 PM</p>
-                </div>
-                <div class="detail-card">
-                    <h4>THE VENUE</h4>
-                    <p class="inject-venue">Felicidad Mansion</p>
-                </div>
-                <div class="detail-card">
-                    <h4>DRESS CODE</h4>
-                    <p>Strict White</p>
-                </div>
-            </div>
 
-            <div class="letter-full" style="max-width: 550px; background: var(--cream);">
-                <h3 class="serif-title" style="font-size: 1.4rem; margin-top: 0;">WILL YOU JOIN THE CELEBRATION?</h3>
-                <p style="font-size: 0.85rem; color: #666; margin-bottom: 1.5rem;">
-                    Your presence would make Franz's 18th birthday even more special.
+                <div class="unfold-card">
+                    <h3>REGISTRY & GIFTS</h3>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--ink);">
+                        We are immensely grateful for your love and support. Your presence at our wedding is the greatest gift of all. If you wish to bless us with a gift, a contribution towards our future together or our gift registry would be deeply appreciated.
+                    </p>
+                    <div style="margin-top: 12px; font-size: 0.85rem;">
+                        <p><strong>Send Monetary Gift (<span id="gift-label">GCash / Maya</span>):</strong> <span id="gift-number">0917-XXX-XXXX</span></p>
+                        <a id="gift-link" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 6px 12px; margin-top: 8px;">
+                            View Online Gift Registry →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="unfold-card">
+                    <h3>FREQUENTLY ASKED QUESTIONS</h3>
+                    <div id="faq-list" style="margin-top: 10px;">
+                        </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-gallery">
+            <h2 class="chapter-title" style="color: var(--paper);">MOMENTS ALONG THE WAY</h2>
+            <p style="color: var(--antique-gold); font-size: 0.85rem; letter-spacing: 1.5px;">
+                PHOTOGRAPHS TUCKED INSIDE THE LETTER
+            </p>
+
+            <div class="gallery-envelope-container" id="gallery-container">
+                </div>
+
+            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+                ← Back to Chapters
+            </button>
+        </section>
+
+        <section class="stage hidden" id="scene-rsvp">
+            <article class="chapter-container fade-in-up" style="max-width: 550px;">
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--gray);">
+                    Please let us know if you'll be joining us.
                 </p>
 
-                <form class="rsvp-form" id="rsvp-form" onsubmit="handleRSVP(event)">
+                <form class="rsvp-form" id="rsvp-form" onsubmit="submitRSVP(event)">
                     <div class="form-group">
-                        <label for="guest-name">Full Name</label>
-                        <input type="text" id="guest-name" required placeholder="Enter your full name">
+                        <label for="rsvp-name">Your Name</label>
+                        <input type="text" id="rsvp-name" required placeholder="Enter full name">
                     </div>
 
                     <div class="form-group">
-                        <label for="guest-count">Number of Guests</label>
-                        <select id="guest-count">
-                            <option value="1">1 Person</option>
-                            <option value="2">2 Persons</option>
+                        <label for="rsvp-attend">Will You Join Us?</label>
+                        <select id="rsvp-attend" required>
+                            <option value="Happily, yes">Happily, yes</option>
+                            <option value="Regretfully, no">Regretfully, no</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="attendance">Will you be joining us?</label>
-                        <select id="attendance" required>
-                            <option value="yes">YES, I'LL BE THERE</option>
-                            <option value="no">SORRY, I CAN'T MAKE IT</option>
+                        <label for="rsvp-guests">Number of Guests</label>
+                        <select id="rsvp-guests">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="message">Leave a message for Franz</label>
-                        <textarea id="message" rows="3" placeholder="Write your warm wishes..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-magic" style="background: var(--plum); color: var(--gold); border: none;">
-                        Send My RSVP
+                    <button type="submit" class="btn-magic" style="background: var(--midnight-soft); color: var(--paper); margin-top: 1rem;">
+                        Confirm RSVP →
                     </button>
                 </form>
 
-                <div id="rsvp-success-message" style="display: none; padding: 2rem 0;">
-                    <p class="script-header" style="opacity: 1;">Your reply has been sent.</p>
-                    <p style="font-size: 0.9rem; color: var(--ink);">The owl messenger is returning your response to the mansion.</p>
+                <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
+                    <p class="script-handwriting">You're on the list.</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
+                        We can't wait to celebrate with you.
+                    </p>
                 </div>
-            </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
         </section>
 
         <section class="stage hidden" id="scene-outro" style="text-align: center;">
-            <h1 class="serif-title" style="color: var(--cream);" id="outro-title">FRANZ @18</h1>
-            <p class="prompt-text" style="color: var(--gold);" id="outro-date">SEPTEMBER 27, 2026 — 6:00 PM</p>
-            <p class="script-header" style="opacity: 1; margin-top: 3rem; color: var(--lavender);">Until we celebrate together.</p>
+            <h1 class="chapter-title" style="color: var(--paper); font-size: 3rem;">ELENA & ADRIAN</h1>
+            <p class="prompt-text" style="color: var(--antique-gold);">31 JANUARY 2028 · MANILA</p>
+            <p class="script-handwriting" style="color: var(--lavender-light); margin-top: 3rem;">Until we celebrate together.</p>
         </section>
 
     </main>
 
     <script>
-        /* --- EASY CUSTOMIZATION DATA DATA STRUCTURE --- */
-        const invitationData = {
-            celebrant: "Franz",
-            eventName: "Franz @18",
-            date: "September 27, 2026",
-            time: "6:00 PM",
-            venue: "Felicidad Mansion",
-            dressCodeTitle: "STRICT WHITE DRESS CODE",
-            dressCodeDescription: "Keep your main outfit white. Pants, skirts, shoes, and accessories can be any color — just no purple as the main outfit color."
+        /* --- 40. MASTER CONFIGURATION OBJECT --- */
+        const wedding = {
+            couple: "Elena & Adrian",
+            bride: "Elena",
+            groom: "Adrian",
+
+            date: "January 31, 2028",
+            day: "Tuesday",
+            location: "Manila, Philippines",
+            coverDateLoc: "31 JANUARY 2028 · MANILA",
+
+            ceremony: {
+                venue: "San Sebastian Church",
+                city: "Manila",
+                time: "3:00 PM",
+                description: "Where our forever begins.",
+                mapUrl: "https://maps.google.com/?q=San+Sebastian+Church+Manila"
+            },
+
+            reception: {
+                venue: "Manila Hotel",
+                city: "Manila",
+                time: "6:00 PM",
+                description: "A celebration to remember.",
+                mapUrl: "https://maps.google.com/?q=Manila+Hotel+Manila"
+            },
+
+            story: {
+                year: "2015",
+                yearLabel: "Our Year",
+                yearDescription: "The year everything changed.",
+                opening: "It started with coffee.",
+                paragraph: "We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.",
+                highlight: "we became us.",
+                closing: "And now, we're getting married."
+            },
+
+            dressCode: {
+                title: "BLACK & WHITE",
+                subtitle: "Keep it classic. Keep it timeless.",
+                ladies: "Black, white, ivory, or monochrome formalwear.",
+                gentlemen: "Black suit, tuxedo, white shirt, or classic monochrome formalwear."
+            },
+
+            gifts: {
+                paymentLabel: "GCash / Maya",
+                paymentNumber: "0917-XXX-XXXX",
+                registryName: "Crate & Barrel",
+                registryUrl: "https://www.crateandbarrel.com"
+            }
         };
 
-        /* Dynamic Injection */
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('celebrant-title').innerText = invitationData.eventName;
-            document.getElementById('data-date').innerText = invitationData.date.toUpperCase();
-            document.getElementById('data-time').innerText = invitationData.time;
-            document.getElementById('data-venue').innerText = invitationData.venue.toUpperCase();
-            document.getElementById('dress-code-main').innerText = invitationData.dressCodeTitle;
-            document.getElementById('dress-code-desc').innerText = invitationData.dressCodeDescription;
-            document.getElementById('outro-title').innerText = invitationData.eventName;
-            document.getElementById('outro-date').innerText = `${invitationData.date.toUpperCase()} — ${invitationData.time}`;
-            
-            document.querySelectorAll('.inject-date').forEach(el => el.innerText = invitationData.date);
-            document.querySelectorAll('.inject-time').forEach(el => el.innerText = invitationData.time);
-            document.querySelectorAll('.inject-venue').forEach(el => el.innerText = invitationData.venue);
+        /* --- 41. GALLERY IMAGES CONFIGURATION --- */
+        const galleryImages = [
+            "photo1.jpeg", "photo2.jpeg", "photo3.jpeg", "photo4.jpeg", "photo5.jpeg",
+            "photo6.jpeg", "photo7.jpeg", "photo8.jpeg", "photo9.jpeg", "photo10.jpeg"
+        ];
 
+        /* --- 42. PROGRAM FLOW CONFIGURATION --- */
+        const programFlow = [
+            { time: "5:00 PM", title: "Cocktails & Registration", desc: "Guests arrive for registration, welcome drinks, cocktails, and acoustic music before taking their seats." },
+            { time: "6:00 PM", title: "Start of Program", desc: "Our host formally opens the evening and welcomes our beloved family and friends to the celebration." },
+            { time: "6:15 PM", title: "Grand Entrance", desc: "Welcoming the newlyweds as they make their first official entrance as husband and wife." },
+            { time: "6:30 PM", title: "Short Interview & Welcome", desc: "A quick chat with the couple to share their excitement and set the joyful tone for the night." },
+            { time: "6:45 PM", title: "First Dance", desc: "Elena and Adrian take the floor for their very first dance as a married couple." },
+            { time: "7:00 PM", title: "Cake Cutting & Toast", desc: "The traditional cutting of the wedding cake followed by heartfelt toasts and raising a glass to love." },
+            { time: "7:15 PM", title: "Dinner & Speeches", desc: "A sumptuous meal served alongside messages, stories, and toasts from special guests." },
+            { time: "8:30 PM", title: "Socials & Party", desc: "The dance floor opens! Enjoy drinks, music, and celebrating under the stars with us." }
+        ];
+
+        /* --- 43. ENTOURAGE CONFIGURATION --- */
+        const entourageData = [
+            { role: "PARENTS OF THE BRIDE", names: ["Mr. Roberto Santos", "Mrs. Carmen Santos"] },
+            { role: "PARENTS OF THE GROOM", names: ["Mr. Fernando Reyes", "Mrs. Alicia Reyes"] },
+            { role: "MAID OF HONOR", names: ["Sophia Santos"] },
+            { role: "BEST MAN", names: ["Marco Reyes"] },
+            { role: "PRINCIPAL SPONSORS", names: [
+                "Mr. Ricardo Cruz & Mrs. Elena Cruz",
+                "Mr. Gabriel Gomez & Mrs. Teresa Gomez",
+                "Mr. Antonio Morales & Mrs. Beatrix Morales"
+            ]},
+            { role: "BRIDESMAIDS & GROOMSMEN", names: [
+                "Isabella Santos · Lucas Torres",
+                "Clara Mendoza · Mateo Ramos",
+                "Julianna Navarro · Gabriel Navarro"
+            ]}
+        ];
+
+        /* --- FAQ DATA --- */
+        const faqData = [
+            { q: "Is there available parking at the venues?", a: "Yes! Dedicated street and courtyard parking is available at San Sebastian Church. For the reception, Manila Hotel offers full valet parking service as well as a multi-level guest parking garage." },
+            { q: "Can I request special dietary accommodations?", a: "Absolutely. If you have severe food allergies, vegetarian/vegan preferences, or religious dietary requirements, please indicate them when submitting your RSVP response." },
+            { q: "Can I bring a plus-one?", a: "Please follow the number of seats indicated on your formal invitation envelope." }
+        ];
+
+        /* DOM INITIALIZATION */
+        document.addEventListener("DOMContentLoaded", () => {
+            // Inject Master Data
+            document.getElementById('couple-names').innerText = wedding.couple.toUpperCase();
+            document.getElementById('cover-date-loc').innerText = wedding.coverDateLoc;
+            document.getElementById('story-opening').innerText = wedding.story.opening;
+            document.getElementById('story-paragraph').innerText = wedding.story.paragraph;
+            document.getElementById('story-highlight').innerText = wedding.story.highlight;
+            document.getElementById('story-closing').innerText = wedding.story.closing;
+            document.getElementById('milestone-year').innerText = wedding.story.year;
+            document.getElementById('milestone-label').innerText = wedding.story.yearLabel;
+            document.getElementById('milestone-desc').innerText = wedding.story.yearDescription;
+
+            // Venue Details
+            document.getElementById('ceremony-venue').innerText = wedding.ceremony.venue.toUpperCase();
+            document.getElementById('ceremony-time').innerText = `${wedding.ceremony.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.ceremony.time}`;
+            document.getElementById('ceremony-desc').innerText = wedding.ceremony.description;
+            document.getElementById('ceremony-map').href = wedding.ceremony.mapUrl;
+
+            document.getElementById('reception-venue').innerText = wedding.reception.venue.toUpperCase();
+            document.getElementById('reception-time').innerText = `${wedding.reception.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.reception.time}`;
+            document.getElementById('reception-desc').innerText = wedding.reception.description;
+            document.getElementById('reception-map').href = wedding.reception.mapUrl;
+
+            // Details Section
+            document.getElementById('dress-code-title').innerText = wedding.dressCode.title;
+            document.getElementById('dress-code-sub').innerText = wedding.dressCode.subtitle;
+            document.getElementById('dress-code-ladies').innerText = wedding.dressCode.ladies;
+            document.getElementById('dress-code-gents').innerText = wedding.dressCode.gentlemen;
+            document.getElementById('gift-label').innerText = wedding.gifts.paymentLabel;
+            document.getElementById('gift-number').innerText = wedding.gifts.paymentNumber;
+            document.getElementById('gift-link').href = wedding.gifts.registryUrl;
+
+            // Render Modules
+            renderProgramFlow();
+            renderEntourage();
+            renderFAQ();
+            renderGallery();
+            startCountdown();
             initParticles();
             setupIntersectionObserver();
         });
 
-        /* --- SCENE 1 & 2 INTERACTION LOGIC --- */
+        /* --- NOSTALGIC WINDOW & CHIMNEY RAIN INTERACTION --- */
         const windowFrame = document.getElementById('interactive-window');
         const owlHead = document.getElementById('owl-head');
         const subPrompt = document.getElementById('window-subprompt');
         let windowTapped = false;
 
-        // Sequence: Owl head turns after delay
         setTimeout(() => {
             if(!windowTapped) {
                 owlHead.style.transform = "rotate(15deg)";
                 subPrompt.style.opacity = "1";
             }
-        }, 2500);
+        }, 2000);
 
         windowFrame.addEventListener('click', () => {
             if (windowTapped) return;
             windowTapped = true;
 
-            // Animate Window opening
+            // Window opens
             document.querySelector('.curtain.left').style.transform = "scaleX(0.2)";
             document.querySelector('.curtain.right').style.transform = "scaleX(0.2)";
+
+            // Rain of letters from Chimney
+            triggerChimneyLetterRain();
             
-            // Transition to Scene 2 / Envelope
             setTimeout(() => {
                 transitionStage('scene-1', 'scene-envelope');
+            }, 2500);
+        });
+
+        function triggerChimneyLetterRain() {
+            const chimney = document.getElementById('chimney');
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const letter = document.createElement('div');
+                    letter.className = 'falling-letter';
+                    letter.style.left = `${Math.random() * 60 + 10}px`;
+                    chimney.appendChild(letter);
+
+                    setTimeout(() => letter.remove(), 3000);
+                }, i * 120);
+            }
+        }
+
+        /* ENVELOPE OPENING */
+        document.getElementById('btn-open-envelope').addEventListener('click', () => {
+            document.getElementById('envelope').classList.add('open');
+
+            setTimeout(() => {
+                transitionStage('scene-envelope', 'scene-story');
             }, 1500);
         });
 
-        /* --- SCENE 3 INTERACTION: ENVELOPE OPENING --- */
-        const btnOpenEnvelope = document.getElementById('btn-open-envelope');
-        const envelope = document.getElementById('envelope');
-
-        btnOpenEnvelope.addEventListener('click', () => {
-            envelope.classList.add('open');
-
-            setTimeout(() => {
-                transitionStage('scene-envelope', 'scene-letter');
-                setTimeout(() => {
-                    document.getElementById('script-greeting').style.opacity = '1';
-                    document.getElementById('kinetic-18').classList.add('visible');
-                }, 400);
-            }, 1800);
-        });
-
-        /* --- STAGE NAVIGATION HELPERS --- */
+        /* STAGE NAVIGATION HELPERS */
         function transitionStage(fromId, toId) {
             const fromEl = document.getElementById(fromId);
             const toEl = document.getElementById(toId);
@@ -907,29 +1198,111 @@
             }, 50);
         }
 
-        /* --- RSVP FORM SUBMISSION LOGIC --- */
-        function handleRSVP(event) {
-            event.preventDefault();
+        /* 15. DYNAMIC ODOMETER COUNTDOWN */
+        function startCountdown() {
+            const targetDate = new Date("January 31, 2028 15:00:00").getTime();
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                    document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                    document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
+                    document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+                }
+            }, 1000);
+        }
+
+        /* DYNAMIC RENDERING FUNCTIONS */
+        function renderProgramFlow() {
+            const container = document.getElementById('program-flow-content');
+            container.innerHTML = programFlow.map(item => `
+                <div style="margin-bottom: 15px; border-bottom: 1px dashed rgba(180, 154, 104, 0.4); padding-bottom: 10px;">
+                    <div style="font-weight: 600; color: var(--midnight); font-size: 0.95rem;">${item.time} — ${item.title}</div>
+                    <div style="font-size: 0.85rem; color: var(--gray); margin-top: 4px;">${item.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleProgramFlow() {
+            const content = document.getElementById('program-flow-content');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function renderEntourage() {
+            const container = document.getElementById('entourage-list');
+            container.innerHTML = entourageData.map(group => `
+                <div class="unfold-card" style="margin-bottom: 0;">
+                    <h4 style="font-family: var(--font-serif); font-size: 0.85rem; letter-spacing: 2px; color: var(--antique-gold);">${group.role}</h4>
+                    <div style="margin-top: 8px; font-size: 0.95rem; font-weight: 500; color: var(--midnight);">
+                        ${group.names.join('<br>')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ() {
+            const container = document.getElementById('faq-list');
+            container.innerHTML = faqData.map(item => `
+                <div style="margin-bottom: 12px;">
+                    <p style="font-weight: 600; font-size: 0.9rem; color: var(--midnight);">Q: ${item.q}</p>
+                    <p style="font-size: 0.85rem; color: var(--gray); margin-top: 4px;">A: ${item.a}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = galleryImages.map((src, idx) => {
+                const randomRot = (Math.random() * 16 - 8).toFixed(1);
+                return `
+                    <div class="photo-card" style="--r: ${randomRot};" onclick="openLightbox('${src}')">
+                        <img src="${src}" alt="Gallery photo ${idx + 1}" onerror="this.src='https://via.placeholder.com/150?text=Photo+${idx+1}'">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* LIGHTBOX SYSTEM */
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            modal.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        /* 29. RSVP SUBMISSION & RETURN LETTER ANIMATION */
+        function submitRSVP(e) {
+            e.preventDefault();
             const form = document.getElementById('rsvp-form');
-            const successMsg = document.getElementById('rsvp-success-message');
+            const confirm = document.getElementById('rsvp-confirmation');
 
             form.style.opacity = '0';
             setTimeout(() => {
                 form.style.display = 'none';
-                successMsg.style.display = 'block';
-                
-                // Trigger Outro Transition after short delay
+                confirm.style.display = 'block';
+
                 setTimeout(() => {
-                    transitionStage('scene-details', 'scene-outro');
-                }, 4000);
+                    transitionStage('scene-rsvp', 'scene-outro');
+                }, 3500);
             }, 500);
         }
 
-        /* --- AMBIENT PARTICLE CANVAS SYSTEM --- */
+        /* PARTICLES CANVAS */
         function initParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
-            
             let width = canvas.width = window.innerWidth;
             let height = canvas.height = window.innerHeight;
 
@@ -938,38 +1311,31 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            const particles = Array.from({ length: 40 }, () => ({
+            const particles = Array.from({ length: 35 }, () => ({
                 x: Math.random() * width,
                 y: Math.random() * height,
                 size: Math.random() * 2 + 0.5,
                 speedX: (Math.random() - 0.5) * 0.3,
-                speedY: -Math.random() * 0.5 - 0.2,
+                speedY: -Math.random() * 0.4 - 0.1,
                 opacity: Math.random() * 0.5 + 0.2
             }));
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-
                 particles.forEach(p => {
                     p.x += p.speedX;
                     p.y += p.speedY;
-                    
                     if (p.y < 0) p.y = height;
-                    if (p.x < 0) p.x = width;
-                    if (p.x > width) p.x = 0;
-
-                    ctx.fillStyle = `rgba(203, 108, 230, ${p.opacity})`;
+                    ctx.fillStyle = `rgba(212, 168, 240, ${p.opacity})`;
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();
                 });
-
                 requestAnimationFrame(animate);
             }
             animate();
         }
 
-        /* --- INTERSECTION OBSERVER FOR SCROLL REVEALS --- */
         function setupIntersectionObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -982,44 +1348,26 @@
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         }
 
-        /* --- OPTIONAL WEB AUDIO SYNTHESIZER (NO EXTERNAL ASSETS) --- */
+        /* AUDIO TOGGLE WITH AUDIO ELEMENT FALLBACK */
         const audioBtn = document.getElementById('audio-toggle');
         const audioStatus = document.getElementById('audio-status');
-        let audioCtx = null;
+        const bgMusic = document.getElementById('bg-music');
         let isPlaying = false;
 
         audioBtn.addEventListener('click', () => {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
             if (!isPlaying) {
-                audioCtx.resume();
-                playAmbientSound();
-                audioStatus.innerText = "SOUND ON";
-                isPlaying = true;
+                bgMusic.play().then(() => {
+                    audioStatus.innerText = "SOUND ON";
+                    isPlaying = true;
+                }).catch(() => {
+                    audioStatus.innerText = "SOUND OFF";
+                });
             } else {
-                audioCtx.suspend();
+                bgMusic.pause();
                 audioStatus.innerText = "SOUND OFF";
                 isPlaying = false;
             }
         });
-
-        function playAmbientSound() {
-            // Subtle synth wind/pad effect using Web Audio API
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(110, audioCtx.currentTime); // Low A note
-            
-            gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.05, audioCtx.currentTime + 3);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-        }
     </script>
 </body>
 </html>
