@@ -28,7 +28,7 @@
             --font-sans: 'Poppins', sans-serif;
             --font-script: 'Great Vibes', cursive;
             
-            --transition-slow: 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-slow: 1.6s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-med: 0.6s ease;
         }
 
@@ -96,24 +96,90 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity var(--transition-slow);
-            padding: 2rem 1rem;
-        }
-
-        .stage.active {
             opacity: 1;
+            padding: 2rem 1rem;
         }
 
         .stage.hidden {
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO & MAGICAL PARCHMENT OVERLAY --- */
+        /* --- SCENE 1: VIDEO INTRO & MASKING LAYER --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
             background: #000;
+            position: relative;
+            z-index: 10;
+            
+            /* 1. INITIAL MASK LAYER SETUP */
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 0%);
+            
+            /* Prepare procedural morph */
+            -webkit-mask-size: 200% 200%;
+            mask-size: 200% 200%;
+            -webkit-mask-position: center;
+            mask-position: center;
+            
+            transition: -webkit-mask-image 1.6s ease-in-out, mask-image 1.6s ease-in-out, opacity 0.8s ease 1.2s;
+        }
+
+        /* 2. ACTIVE MASK TRANSITION STATE */
+        #scene-video-intro.dissolve-out {
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 100%, rgba(0,0,0,0) 100%);
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,0) 100%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* 3. WAND SPARKLE OVERLAY (PSEUDO-ELEMENT) */
+        .stage-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stage-container::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+            background-image: 
+                radial-gradient(circle, #fff 1.5px, transparent 1.5px),
+                radial-gradient(circle, var(--antique-gold) 1px, transparent 1px),
+                radial-gradient(circle, var(--lavender-light) 2px, transparent 2px);
+            background-size: 32px 32px, 48px 48px, 64px 64px;
+            background-position: 0 0, 16px 16px, 32px 32px;
+            opacity: 0;
+            mix-blend-mode: screen;
+        }
+
+        .stage-container.sparkle-active::after {
+            animation: wandSparkleSweep 1.6s ease-in-out forwards;
+        }
+
+        /* 4. MAGIC KEYFRAME ANIMATION */
+        @keyframes wandSparkleSweep {
+            0% {
+                opacity: 0;
+                transform: scale(0.95) rotate(0deg);
+            }
+            50% {
+                opacity: 0.85;
+                transform: scale(1.08) rotate(3deg);
+                filter: drop-shadow(0 0 10px var(--lavender-glow));
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.15) rotate(6deg);
+            }
         }
 
         .video-wrapper {
@@ -129,22 +195,19 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
             background: #000;
-            perspective: 1200px;
         }
 
         .video-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 1.2s ease, filter 1.2s ease;
+            transition: opacity 1.2s ease;
         }
 
         .video-wrapper video.dimmed {
-            opacity: 0.35;
-            filter: blur(2px);
+            opacity: 0.45;
         }
 
-        /* INVITATION OVERLAY CARD */
         .invitation-overlay {
             position: absolute;
             top: 0;
@@ -160,7 +223,7 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.92);
+            transform: scale(0.95);
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -181,7 +244,6 @@
             cursor: pointer;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             max-width: 340px;
-            position: relative;
         }
 
         .invitation-card-btn:hover {
@@ -202,65 +264,6 @@
         @keyframes pulse {
             0% { opacity: 0.5; transform: scale(0.98); }
             100% { opacity: 1; transform: scale(1.02); }
-        }
-
-        /* --- MAGICAL WAX SEAL & UNROLL ANIMATION --- */
-        .magic-wax-seal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 90px;
-            height: 90px;
-            background: radial-gradient(circle, #8b0000 0%, #361b3b 100%);
-            border: 3px double var(--antique-gold);
-            border-radius: 50%;
-            color: var(--antique-gold);
-            font-family: var(--font-serif);
-            font-weight: bold;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px var(--gold-glow), inset 0 0 15px rgba(0,0,0,0.8);
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
-        }
-
-        .magic-wax-seal.pop {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-
-        .magic-wax-seal.crack {
-            transform: translate(-50%, -50%) scale(1.8);
-            opacity: 0;
-            filter: blur(10px);
-        }
-
-        .magic-parchment-unfold {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scaleX(0.05) scaleY(0.01);
-            width: 90vw;
-            max-width: 800px;
-            height: 80vh;
-            background: var(--paper);
-            border: 2px solid var(--antique-gold);
-            box-shadow: 0 0 80px var(--lavender-glow), 0 0 40px var(--gold-glow);
-            z-index: 40;
-            pointer-events: none;
-            opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
-            border-radius: 4px;
-        }
-
-        .magic-parchment-unfold.open {
-            opacity: 1;
-            transform: translate(-50%, -50%) scaleX(1) scaleY(1);
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -548,9 +551,6 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <div class="magic-wax-seal" id="magic-seal">E & A</div>
-    <div class="magic-parchment-unfold" id="magic-parchment"></div>
-
     <button class="audio-control" id="audio-toggle" aria-label="Toggle Atmosphere Sound">
         <span>♪</span> <span id="audio-status">SOUND ON</span>
     </button>
@@ -564,7 +564,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <main id="app">
+    <main id="app" class="stage-container" id="stage-wrapper">
 
         <section class="stage active" id="scene-video-intro">
             <div class="video-wrapper">
@@ -580,7 +580,7 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-btn" onclick="triggerMagicalOpening()">
+                    <div class="invitation-card-btn" onclick="triggerRadialMaskTransition()">
                         <p style="font-family: var(--font-script); font-size: 1.9rem; color: var(--lavender);">An Invitation Has Arrived</p>
                         <h3 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 6px; color: var(--midnight);">ELENA & ADRIAN</h3>
                         <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
@@ -819,7 +819,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -969,7 +969,7 @@
             setupVideoEndCheck();
         });
 
-        /* DUAL-FADE TRANSITION WHEN VIDEO ENDS */
+        /* VIDEO END CHECK */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
@@ -983,48 +983,29 @@
             });
         }
 
-        /* HARRY POTTER STYLE MAGICAL PARCHMENT REVEAL TRANSITION */
-        function triggerMagicalOpening() {
-            const seal = document.getElementById('magic-seal');
-            const parchment = document.getElementById('magic-parchment');
+        /* RADIAL MASK DISSOLVE & WAND SPARKLE SWEEP */
+        function triggerRadialMaskTransition() {
+            const introScene = document.getElementById('scene-video-intro');
+            const wrapper = document.getElementById('app');
+            const storyScene = document.getElementById('scene-story');
 
-            // 1. Pop Wax Seal
-            seal.classList.add('pop');
+            // 1. Reveal target story section underneath first
+            storyScene.classList.remove('hidden');
+            storyScene.classList.add('active');
 
+            // 2. Trigger Wand Sparkles keyframe flare
+            wrapper.classList.add('sparkle-active');
+
+            // 3. Trigger Radial Mask Dissolve state
+            introScene.classList.add('dissolve-out');
+
+            // 4. Hide video scene completely after dissolve completes
             setTimeout(() => {
-                // 2. Shatter Wax Seal & Expand Golden Scroll
-                seal.classList.add('crack');
-                parchment.classList.add('open');
-
-                setTimeout(() => {
-                    // 3. Complete Stage Transition to Invitation Story
-                    transitionStage('scene-video-intro', 'scene-story');
-                    
-                    // Reset Magic Layers after Stage Switch
-                    setTimeout(() => {
-                        seal.classList.remove('pop', 'crack');
-                        parchment.classList.remove('open');
-                    }, 1000);
-                }, 1000);
-            }, 600);
-        }
-
-        /* STAGE NAVIGATION HELPERS */
-        function transitionStage(fromId, toId) {
-            const fromEl = document.getElementById(fromId);
-            const toEl = document.getElementById(toId);
-
-            fromEl.style.opacity = '0';
-            setTimeout(() => {
-                fromEl.classList.add('hidden');
-                fromEl.classList.remove('active');
-                
-                toEl.classList.remove('hidden');
-                setTimeout(() => {
-                    toEl.classList.add('active');
-                    toEl.scrollIntoView({ behavior: 'smooth' });
-                }, 50);
-            }, 1000);
+                introScene.classList.add('hidden');
+                introScene.classList.remove('active');
+                wrapper.classList.remove('sparkle-active');
+                storyScene.scrollIntoView({ behavior: 'smooth' });
+            }, 1600);
         }
 
         function scrollToSection(stageId) {
@@ -1129,7 +1110,7 @@
                 confirm.style.display = 'block';
 
                 setTimeout(() => {
-                    transitionStage('scene-rsvp', 'scene-outro');
+                    scrollToSection('scene-outro');
                 }, 3500);
             }, 500);
         }
