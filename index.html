@@ -68,6 +68,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1200px;
         }
 
         .stage {
@@ -80,7 +81,7 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .stage.hidden {
@@ -92,11 +93,24 @@
             top: 0;
             left: 0;
             width: 100%;
+            height: 100vh;
             z-index: 10;
         }
 
-        #scene-invite-card { z-index: 20; }
-        #scene-story { z-index: 30; }
+        #scene-invite-card { 
+            z-index: 20; 
+            pointer-events: none;
+            background: rgba(17, 19, 34, 0.35);
+            backdrop-filter: blur(4px);
+        }
+        
+        #scene-invite-card.active { 
+            pointer-events: auto; 
+        }
+        
+        #scene-story { 
+            z-index: 30; 
+        }
 
         /* --- INITIAL GATEWAY SCREEN --- */
         .envelope-gateway-screen {
@@ -228,7 +242,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 1.5s ease, opacity 1.5s ease;
+            transition: filter 2.5s ease, opacity 2.5s ease;
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -239,19 +253,26 @@
             color: var(--ink);
             padding: 3.5rem 2.5rem;
             border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px var(--lavender-glow);
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             text-align: center;
             opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.7) translateZ(-100px);
+            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .chapter-container.card-revealed {
+        /* MAGICAL ZOOM-IN PARCHMENT ANIMATION */
+        .chapter-container.zoom-in-parchment {
             opacity: 1 !important;
-            transform: scale(1) !important;
+            transform: scale(1) translateZ(0) !important;
+            animation: magicalBloomGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes magicalBloomGlow {
+            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow); }
+            100% { box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 45px rgba(212, 168, 240, 0.75), 0 0 25px var(--gold-glow); }
         }
 
         /* FAST MAGICAL TYPEWRITER CURSOR */
@@ -259,6 +280,7 @@
             content: '│';
             color: var(--antique-gold);
             animation: blink 0.4s infinite alternate;
+            text-shadow: 0 0 8px var(--lavender-light);
         }
 
         @keyframes blink {
@@ -589,7 +611,7 @@
         </section>
 
         <section class="stage hidden" id="scene-story">
-            <article class="chapter-container card-revealed fade-in-up">
+            <article class="chapter-container zoom-in-parchment fade-in-up">
                 <p class="chapter-subtitle" style="font-size: 1.4rem;">A Little Story About Us</p>
                 <h2 class="chapter-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">OUR STORY</h2>
                 
@@ -653,7 +675,7 @@
         </section>
 
         <section class="stage hidden" id="scene-day">
-            <article class="chapter-container card-revealed fade-in-up">
+            <article class="chapter-container zoom-in-parchment fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
                 <h2 class="chapter-title">THE DETAILS</h2>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--gray); margin-bottom: 2rem;">
@@ -696,7 +718,7 @@
         </section>
 
         <section class="stage hidden" id="scene-entourage">
-            <article class="chapter-container card-revealed fade-in-up">
+            <article class="chapter-container zoom-in-parchment fade-in-up">
                 <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">With Our Beloved Families</p>
                 <h2 class="chapter-title">THE ENTOURAGE</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem;">
@@ -712,7 +734,7 @@
         </section>
 
         <section class="stage hidden" id="scene-details">
-            <article class="chapter-container card-revealed fade-in-up">
+            <article class="chapter-container zoom-in-parchment fade-in-up">
                 <h2 class="chapter-title">EVERYTHING YOU NEED TO KNOW</h2>
                 
                 <div class="unfold-card" style="margin-top: 1.5rem;">
@@ -762,7 +784,7 @@
         </section>
 
         <section class="stage hidden" id="scene-rsvp">
-            <article class="chapter-container card-revealed fade-in-up" style="max-width: 550px;">
+            <article class="chapter-container zoom-in-parchment fade-in-up" style="max-width: 550px;">
                 <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--gray);">
                     Please let us know if you'll be joining us.
@@ -1002,8 +1024,8 @@
             });
         }
 
+        /* MAGICAL ZOOM-IN DISSOLVE OVER VIDEO (ZERO WHITE SCREEN GAP) */
         function transitionToInvitationCard() {
-            const videoScene = document.getElementById('scene-video-intro');
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
             const video = document.getElementById('intro-video');
@@ -1013,18 +1035,15 @@
                 video.play().catch(e => {});
             }
 
-            videoScene.style.opacity = '0';
+            // Bring invite scene forward instantly
             inviteScene.classList.remove('hidden');
             inviteScene.classList.add('active');
 
+            // Zoom in parchment & start handwriting animation
             setTimeout(() => {
-                videoScene.classList.add('hidden');
-                videoScene.classList.remove('active');
-                
-                // Fade in card container background alongside text typing
-                cardBox.classList.add('card-revealed');
+                cardBox.classList.add('zoom-in-parchment');
                 runFastMagicalTyping();
-            }, 800);
+            }, 50);
         }
 
         /* FAST MAGICAL TYPEWRITER ANIMATION */
@@ -1085,27 +1104,14 @@
             typeLine1();
         }
 
-        /* BUTTON CLICK -> OPENS OUR STORY PAGE */
+        /* BUTTON CLICK -> OPENS OUR STORY PAGE & STOPS VIDEO SOUND */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
+            const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
-
-            inviteScene.style.opacity = '0';
-            storyScene.classList.remove('hidden');
-            storyScene.classList.add('active');
-
-            setTimeout(() => {
-                inviteScene.classList.add('hidden');
-                inviteScene.classList.remove('active');
-                storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 800);
-        }
-
-        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
-        function switchSoundtrackAndGoMenu() {
             const video = document.getElementById('intro-video');
-            const bgMusic = document.getElementById('bg-music');
 
+            // Stop video audio track
             if (video) {
                 const fadeAudio = setInterval(() => {
                     if (video.volume > 0.08) {
@@ -1116,6 +1122,24 @@
                     }
                 }, 50);
             }
+
+            inviteScene.style.opacity = '0';
+            videoScene.style.opacity = '0';
+            storyScene.classList.remove('hidden');
+            storyScene.classList.add('active');
+
+            setTimeout(() => {
+                inviteScene.classList.add('hidden');
+                inviteScene.classList.remove('active');
+                videoScene.classList.add('hidden');
+                videoScene.classList.remove('active');
+                storyScene.scrollIntoView({ behavior: 'smooth' });
+            }, 800);
+        }
+
+        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
+        function switchSoundtrackAndGoMenu() {
+            const bgMusic = document.getElementById('bg-music');
 
             bgMusic.currentTime = 0;
             bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
