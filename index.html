@@ -144,7 +144,7 @@
             transition: opacity 1.8s ease, filter 1.8s ease;
         }
 
-        /* Video Blurs Out near completion */
+        /* Video Blurs Out strictly after video playback finishes */
         .video-wrapper video.blur-out {
             opacity: 0.15;
             filter: blur(12px) brightness(0.25);
@@ -174,7 +174,7 @@
             pointer-events: auto;
         }
 
-        /* CLICKABLE IMAGE CARD (invitation.jpg) - SLOW ZOOM IN TO THE SCREEN */
+        /* CLICKABLE IMAGE CARD (invitation.jpg) - SLOW ZOOM FORWARD TO SCREEN */
         .invitation-img-btn {
             width: 65%;
             max-width: 340px;
@@ -190,7 +190,7 @@
             display: block;
         }
 
-        /* Fades in smoothly and zooms forward into screen focus */
+        /* Fades in smoothly as sole focal point and zooms forward */
         .invitation-overlay.reveal .invitation-img-btn {
             opacity: 1;
             transform: scale(1.1) translateY(0);
@@ -971,27 +971,17 @@
             setupVideoEndCheck();
         });
 
-        /* VIDEO NEAR-END DETECTOR WITH BLUR & INVITATION.JPG FADE IN + ZOOM */
+        /* VIDEO END DETECTOR — BLURS VIDEO & REVEALS INVITATION.JPG UPON COMPLETE FINISH */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
-            let triggeredBlur = false;
-
-            // Trigger blur near the end of video playback
-            video.addEventListener('timeupdate', () => {
-                if (video.duration && (video.duration - video.currentTime <= 1.8) && !triggeredBlur) {
-                    triggeredBlur = true;
-                    video.classList.add('blur-out');
-                    setTimeout(() => {
-                        overlay.classList.add('reveal');
-                    }, 200);
-                }
-            });
 
             video.addEventListener('ended', () => {
                 video.pause();
                 video.classList.add('blur-out');
-                overlay.classList.add('reveal');
+                setTimeout(() => {
+                    overlay.classList.add('reveal');
+                }, 100);
             });
         }
 
