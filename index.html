@@ -119,10 +119,9 @@
             transition: filter 3.5s ease, opacity 3.5s ease;
         }
 
-        /* Hides visual video frames softly while audio continues running */
         .video-wrapper video.seamless-dissolve {
-            opacity: 0;
-            filter: blur(8px) brightness(0.2);
+            opacity: 0.15;
+            filter: blur(8px) brightness(0.25);
         }
 
         /* SEAMLESS CROSS-FADE OVERLAY FOR INVITATION.JPG */
@@ -253,20 +252,25 @@
             margin: 2rem 0;
         }
 
-        /* MAGICAL BLOOM ENTRANCE FOR DETAILS */
+        /* MAGICAL BLOOM ENTRANCE FOR DETAILS & OUR STORY */
         #scene-story.active .chapter-container {
-            animation: magicalDetailsBloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: magicalDetailsBloom 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes magicalDetailsBloom {
             0% {
                 opacity: 0;
-                transform: scale(0.9) translateY(20px);
-                filter: brightness(1.8) drop-shadow(0 0 30px var(--lavender-light));
+                transform: scale(0.85) rotateX(15deg) translateY(30px);
+                filter: brightness(2) drop-shadow(0 0 40px var(--lavender-light));
+            }
+            50% {
+                opacity: 0.8;
+                filter: brightness(1.3) drop-shadow(0 0 25px var(--antique-gold));
             }
             100% {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1) rotateX(0deg) translateY(0);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow);
                 filter: brightness(1);
             }
         }
@@ -613,7 +617,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="fadeVideoSoundAndGoMenu()" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -981,7 +985,7 @@
             });
         }
 
-        /* MAGICAL UNROLL TRANSITION TO STORY (VIDEO AUDIO STAYS PLAYING IN BACKGROUND) */
+        /* MAGICAL TRANSITION ON CLICK: VIDEO AUDIO CONTINUES PLAYING */
         function executeMagicalOpening(event) {
             const cardWrapper = document.getElementById('card-wrapper');
             const videoScene = document.getElementById('scene-video-intro');
@@ -993,7 +997,7 @@
             // 2. Add Magical Opening Transform to invitation.jpg
             cardWrapper.classList.add('magical-open');
 
-            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING IN BACKGROUND)
+            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING)
             setTimeout(() => {
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
@@ -1010,24 +1014,45 @@
             }, 800);
         }
 
-        /* VIDEO AUDIO FADES OUT ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
-        function stopVideoSoundAndGoMenu() {
+        /* INSTANTLY STOPS VIDEO AUDIO WHEN CLICKING "CLICK TO OPEN INVITATION" */
+        function stopVideoAudioInstantly() {
             const video = document.getElementById('intro-video');
-            fadeVideoAudioOut(video);
-            scrollToSection('scene-menu');
+            if (video) {
+                video.muted = true;
+                video.pause();
+            }
         }
 
-        function fadeVideoAudioOut(videoEl) {
-            if (!videoEl || videoEl.paused) return;
-            const fadeInterval = setInterval(() => {
-                if (videoEl.volume > 0.08) {
-                    videoEl.volume -= 0.08;
-                } else {
-                    videoEl.pause();
-                    videoEl.volume = 1;
-                    clearInterval(fadeInterval);
-                }
-            }, 50);
+        /* MAGICAL TRANSITION ON CLICK WITH INSTANT AUDIO STOP */
+        function executeMagicalOpening(event) {
+            const cardWrapper = document.getElementById('card-wrapper');
+            const videoScene = document.getElementById('scene-video-intro');
+            const storyScene = document.getElementById('scene-story');
+
+            // 1. Stop Video Audio Instantly
+            stopVideoAudioInstantly();
+
+            // 2. Create Stardust Sparkles at Click Position
+            createSparkleParticles(event.clientX, event.clientY);
+
+            // 3. Add Magical Opening Transform to invitation.jpg
+            cardWrapper.classList.add('magical-open');
+
+            // 4. Transition to Story Details with Magical Entrance
+            setTimeout(() => {
+                storyScene.classList.remove('hidden');
+                storyScene.classList.add('active');
+
+                setTimeout(() => {
+                    videoScene.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        videoScene.classList.add('hidden');
+                        videoScene.classList.remove('active');
+                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                    }, 800);
+                }, 600);
+            }, 800);
         }
 
         function createSparkleParticles(x, y) {
