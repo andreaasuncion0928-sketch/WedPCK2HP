@@ -49,61 +49,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- ENTRY GATEWAY (UNLOCKS AUDIO PERMISSION) --- */
-        .gateway-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle, #191A2A 0%, #111322 100%);
-            z-index: 5000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 1.2s ease, visibility 1.2s ease;
-        }
-
-        .gateway-screen.fade-out {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .gateway-card {
-            background: rgba(255, 253, 248, 0.95);
-            color: var(--ink);
-            border: 2px double var(--antique-gold);
-            padding: 3rem 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 0 50px var(--lavender-glow), 0 0 20px var(--gold-glow);
-            text-align: center;
-            max-width: 350px;
-            width: 85%;
-            transition: transform 0.4s ease;
-        }
-
-        .gateway-card:hover {
-            transform: scale(1.03);
-        }
-
-        .gateway-btn-text {
-            margin-top: 1.5rem;
-            font-family: var(--font-serif);
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            color: var(--antique-gold);
-            text-transform: uppercase;
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.5; transform: scale(0.98); }
-            100% { opacity: 1; transform: scale(1.02); }
-        }
-
         /* --- CANVAS PARTICLES --- */
         #particle-canvas {
             position: fixed;
@@ -115,7 +60,7 @@
             z-index: 2;
         }
 
-        /* --- STAGE SYSTEM --- */
+        /* --- STAGE CONTAINER --- */
         .stage-container {
             position: relative;
             width: 100%;
@@ -141,7 +86,118 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO & INVITATION.JPG OVERLAY --- */
+        /* --- STEP 1 & 2: CLOSED ENVELOPE GATEWAY --- */
+        .envelope-gateway-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, #191A2A 0%, #0B0D1B 100%);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        .envelope-gateway-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .desk-envelope {
+            width: 320px;
+            height: 220px;
+            background: var(--parchment);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px var(--lavender-glow);
+            border: 2px solid var(--antique-gold);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .desk-envelope:hover {
+            transform: scale(1.04) rotateX(-5deg);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 50px var(--gold-glow);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #EAE0D0;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
+        }
+
+        .desk-envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            width: 54px;
+            height: 54px;
+            background: radial-gradient(circle, #8b0000 0%, #361b3b 100%);
+            border-radius: 50%;
+            border: 2px dashed var(--antique-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--antique-gold);
+            font-family: var(--font-serif);
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7), 0 0 15px var(--gold-glow);
+            z-index: 6;
+            transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+        }
+
+        .wax-seal.break {
+            transform: translateX(-50%) scale(1.6);
+            opacity: 0;
+            filter: blur(10px) brightness(2);
+        }
+
+        /* Beam of Light from Inside Envelope */
+        .magical-light-beam {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,253,248,1) 0%, rgba(212,168,240,0.8) 40%, rgba(180,154,104,0) 70%);
+            border-radius: 50%;
+            z-index: 10;
+            pointer-events: none;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+            opacity: 0;
+        }
+
+        .desk-envelope.open .magical-light-beam {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(5);
+        }
+
+        /* --- STEP 3 & 4: VIDEO & FLYING LETTER --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -171,22 +227,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 3.5s ease, opacity 3.5s ease;
+            transition: filter 2.5s ease, opacity 2.5s ease;
         }
 
         .video-wrapper video.seamless-dissolve {
-            opacity: 0;
+            opacity: 0.1;
             filter: blur(8px) brightness(0.2);
         }
 
-        /* SEAMLESS CROSS-FADE OVERLAY FOR INVITATION.JPG */
+        /* FLYING LETTER OVERLAY (TRANSFORMS FULLSCREEN) */
         .invitation-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.05) 0%, rgba(11, 13, 27, 0.85) 100%);
+            background: radial-gradient(circle, rgba(17, 19, 34, 0.05) 0%, rgba(11, 13, 27, 0.88) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -194,7 +250,7 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 3.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
             perspective: 1200px;
         }
 
@@ -212,7 +268,6 @@
             cursor: pointer;
         }
 
-        /* CLICKABLE IMAGE CARD (invitation.jpg) */
         .invitation-img-btn {
             width: 100%;
             height: auto;
@@ -220,62 +275,75 @@
             border: 2px solid var(--antique-gold);
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 35px var(--lavender-glow);
             opacity: 0;
-            transform: scale(1);
-            transition: transform 3.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 3.5s ease, box-shadow 0.6s ease;
+            transform: scale(0.5) translateZ(-200px);
+            transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.5s ease, box-shadow 0.6s ease;
             object-fit: cover;
             display: block;
         }
 
         .invitation-overlay.reveal .invitation-img-btn {
             opacity: 1;
-            transform: scale(1.08);
+            transform: scale(1.08) translateZ(0);
         }
 
-        .invitation-card-container:hover .invitation-img-btn {
-            transform: scale(1.12) translateY(-4px) !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 55px rgba(212, 168, 240, 0.85);
+        /* STEP 5: UNFOLDING PARCHMENT & SELF-WRITING INK OVERLAY */
+        .parchment-unfold-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            perspective: 1200px;
         }
 
-        /* MAGICAL CARD UNFOLDING ANIMATION */
-        .invitation-card-container.magical-open .invitation-img-btn {
-            animation: magicalCardUnfold 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
-        }
-
-        @keyframes magicalCardUnfold {
-            0% {
-                transform: scale(1.08) rotate(0deg);
-                filter: brightness(1);
-                box-shadow: 0 0 30px var(--antique-gold);
-            }
-            40% {
-                transform: scale(1.2) rotate(-1deg);
-                filter: brightness(1.4);
-                box-shadow: 0 0 60px var(--lavender-light), 0 0 40px var(--gold-glow);
-            }
-            100% {
-                transform: scale(1.8) rotate(0deg);
-                opacity: 0;
-                filter: brightness(2.5) blur(10px);
-            }
-        }
-
-        /* STEADY INSTRUCTION TEXT */
-        .tap-instruction {
-            margin-top: 1.8rem;
-            font-family: var(--font-serif);
-            letter-spacing: 2.5px;
-            font-size: 0.85rem;
-            color: var(--antique-gold);
-            text-transform: uppercase;
+        .parchment-card {
+            width: 320px;
+            height: 440px;
+            background: var(--paper);
+            border: 2px solid var(--antique-gold);
+            border-radius: 4px;
+            box-shadow: 0 0 70px rgba(212, 168, 240, 0.7), 0 0 40px var(--gold-glow);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            color: var(--ink);
             opacity: 0;
-            transition: opacity 2s ease 1.5s;
+            transform: scale(0.6) rotateX(20deg);
+            transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), width 1.2s ease, height 1.2s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .invitation-overlay.reveal .tap-instruction {
+        .parchment-card.bloom {
             opacity: 1;
+            transform: scale(1) rotateX(0deg);
         }
 
-        /* Sparks / Particle Burst on Click */
+        .parchment-card.expand-fullscreen {
+            width: 92vw !important;
+            max-width: 800px !important;
+            height: 85vh !important;
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 100px rgba(212, 168, 240, 0.85), 0 0 50px var(--gold-glow);
+        }
+
+        /* Ink Reveal Animations */
+        .ink-line {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .ink-line.written {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sparks / Particle Burst */
         .sparkle-burst {
             position: absolute;
             width: 8px;
@@ -285,7 +353,7 @@
             pointer-events: none;
             box-shadow: 0 0 12px var(--lavender-light);
             animation: burstFly 0.9s ease-out forwards;
-            z-index: 200;
+            z-index: 500;
         }
 
         @keyframes burstFly {
@@ -293,7 +361,7 @@
             100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
         }
 
-        /* --- MAIN CHAPTER STYLING --- */
+        /* --- STEP 6: MAIN CHAPTER STYLING --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -305,24 +373,6 @@
             position: relative;
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
-        }
-
-        /* MAGICAL BLOOM ENTRANCE FOR DETAILS */
-        #scene-story.active .chapter-container {
-            animation: magicalDetailsBloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes magicalDetailsBloom {
-            0% {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-                filter: brightness(1.8) drop-shadow(0 0 30px var(--lavender-light));
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: brightness(1);
-            }
         }
 
         .chapter-title {
@@ -589,7 +639,9 @@
             .chapter-title { font-size: 1.75rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-            .invitation-card-container { width: 75%; }
+            .desk-envelope { width: 280px; height: 190px; }
+            .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
+            .parchment-card { width: 280px; height: 380px; padding: 2.5rem 1.2rem; }
         }
     </style>
 </head>
@@ -597,13 +649,29 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <div class="gateway-screen" id="gateway" onclick="enterInvitationExperience()">
-        <div class="gateway-card">
-            <p style="font-family: var(--font-script); font-size: 2.2rem; color: var(--lavender);">An Invitation Has Arrived</p>
-            <h2 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 5px;">ELENA & ADRIAN</h2>
-            <p class="gateway-btn-text">TAP TO ENTER</p>
+    <div class="envelope-gateway-screen" id="desk-gateway">
+        <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" id="desk-seal">E & A</div>
+            <div class="magical-light-beam"></div>
+
+            <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender); margin-top: 3.5rem;">An invitation awaits.</p>
+            <h3 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 4px; color: var(--midnight);">ELENA & ADRIAN</h3>
+            <p style="margin-top: 1.2rem; font-family: var(--font-serif); letter-spacing: 2px; font-size: 0.75rem; color: var(--antique-gold); text-transform: uppercase;">CLICK TO OPEN</p>
         </div>
     </div>
+
+    <div class="parchment-unfold-overlay" id="parchment-overlay" style="display: none;">
+        <div class="parchment-card" id="parchment-card">
+            <p class="chapter-subtitle ink-line" id="ink-1" style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--lavender);">You Are Cordially Invited</p>
+            <h2 class="chapter-title ink-line" id="ink-2" style="font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--midnight);">ELENA & ADRIAN</h2>
+            <p class="ink-line" id="ink-3" style="font-family: var(--font-serif); letter-spacing: 2px; font-size: 1rem; color: var(--antique-gold); font-weight: 600;">31 JANUARY 2028 · MANILA</p>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="lightbox-modal" id="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
@@ -624,16 +692,15 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-container" id="card-wrapper" onclick="executeMagicalOpening(event)">
+                    <div class="invitation-card-container" id="card-wrapper" onclick="transformLetterToParchment(event)">
                         <img 
                             src="invitation.jpg" 
-                            alt="An Invitation Has Arrived" 
+                            alt="Flying Letter" 
                             class="invitation-img-btn" 
                             id="invitation-card"
-                            onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=An+Invitation+Has+Arrived'"
+                            onerror="this.src='https://via.placeholder.com/380x520/F3EBDD/111322?text=The+Letter+Arrives'"
                         >
                     </div>
-                    <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
                 </div>
             </div>
         </section>
@@ -674,7 +741,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="fadeVideoSoundAndGoMenu()" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="switchSoundtrackAndGoMenu()" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -750,9 +817,7 @@
                     <button class="btn-magic" onclick="toggleProgramFlow()" style="background: var(--midnight-soft); color: var(--paper);">
                         Program Flow ↓
                     </button>
-                    
-                    <div id="program-flow-content" style="display: none; text-align: left; margin-top: 1.5rem;" class="unfold-card">
-                        </div>
+                    <div id="program-flow-content" style="display: none; text-align: left; margin-top: 1.5rem;" class="unfold-card"></div>
                 </div>
 
                 <div style="text-align: center; margin-top: 2rem;">
@@ -769,8 +834,7 @@
                     Those who hold our hands, guide our steps, and stand beside us as we say 'I do.'
                 </p>
 
-                <div id="entourage-list" style="display: grid; gap: 20px;">
-                    </div>
+                <div id="entourage-list" style="display: grid; gap: 20px;"></div>
 
                 <div style="text-align: center; margin-top: 2rem;">
                     <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
@@ -806,8 +870,7 @@
 
                 <div class="unfold-card">
                     <h3>FREQUENTLY ASKED QUESTIONS</h3>
-                    <div id="faq-list" style="margin-top: 10px;">
-                        </div>
+                    <div id="faq-list" style="margin-top: 10px;"></div>
                 </div>
 
                 <div style="text-align: center; margin-top: 2rem;">
@@ -822,8 +885,7 @@
                 PHOTOGRAPHS TUCKED INSIDE THE LETTER
             </p>
 
-            <div class="gallery-envelope-container" id="gallery-container">
-                </div>
+            <div class="gallery-envelope-container" id="gallery-container"></div>
 
             <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
                 ← Back to Chapters
@@ -1018,18 +1080,29 @@
             setupVideoEndCheck();
         });
 
-        /* FIRST TAP / CLICK UNLOCKS BROWSER AUDIO & STARTS 0:00 VIDEO PLAYBACK */
-        function enterInvitationExperience() {
-            const gateway = document.getElementById('gateway');
+        /* STEP 2: CLICK ENVELOPE -> OPENS WITH BEAM OF LIGHT & STARTS HPintrowithaudio.mp4 */
+        function openEnvelopeAndStartVideo(event) {
+            const deskEnv = document.getElementById('desk-envelope');
+            const deskSeal = document.getElementById('desk-seal');
+            const gateway = document.getElementById('desk-gateway');
             const video = document.getElementById('intro-video');
 
-            gateway.classList.add('fade-out');
-            video.currentTime = 0;
-            video.muted = false;
-            video.play().catch(e => console.log("Playback error:", e));
+            createSparkleParticles(event.clientX, event.clientY);
+            deskSeal.classList.add('break');
+
+            setTimeout(() => {
+                deskEnv.classList.add('open');
+
+                setTimeout(() => {
+                    gateway.classList.add('fade-out');
+                    video.currentTime = 0;
+                    video.muted = false;
+                    video.play().catch(e => console.log("Video Play Error:", e));
+                }, 800);
+            }, 400);
         }
 
-        /* VIDEO NEAR-END DETECTION FOR SEAMLESS VISUAL CROSS-FADE */
+        /* STEP 4: VIDEO ENDS -> LETTER FLIES FORWARD FULLSCREEN */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
@@ -1044,7 +1117,7 @@
             });
 
             video.addEventListener('ended', () => {
-                video.loop = true; // Loops video silently so its sound track keeps playing
+                video.loop = true;
                 video.play();
                 if (!hasTriggeredTransition) {
                     overlay.classList.add('reveal');
@@ -1053,53 +1126,69 @@
             });
         }
 
-        /* MAGICAL UNROLL TRANSITION TO STORY (VIDEO AUDIO STAYS PLAYING IN BACKGROUND) */
-        function executeMagicalOpening(event) {
-            const cardWrapper = document.getElementById('card-wrapper');
+        /* STEP 5 & 6: LETTER BECOMES PARCHMENT, INK WRITES, & REVEALS WEBSITE */
+        function transformLetterToParchment(event) {
+            const overlayLayer = document.getElementById('parchment-overlay');
+            const parchmentCard = document.getElementById('parchment-card');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
 
-            // 1. Create Stardust Sparkles at Click Position
             createSparkleParticles(event.clientX, event.clientY);
 
-            // 2. Add Magical Opening Transform to invitation.jpg
-            cardWrapper.classList.add('magical-open');
-
-            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING IN BACKGROUND)
+            overlayLayer.style.display = 'flex';
             setTimeout(() => {
-                storyScene.classList.remove('hidden');
-                storyScene.classList.add('active');
+                parchmentCard.classList.add('bloom');
 
+                // Ink Reveals Text
                 setTimeout(() => {
-                    videoScene.style.opacity = '0';
-                    
+                    document.getElementById('ink-1').classList.add('written');
                     setTimeout(() => {
-                        videoScene.classList.add('hidden');
-                        videoScene.classList.remove('active');
-                        storyScene.scrollIntoView({ behavior: 'smooth' });
-                    }, 800);
+                        document.getElementById('ink-2').classList.add('written');
+                        setTimeout(() => {
+                            document.getElementById('ink-3').classList.add('written');
+
+                            // Parchment Expands Fullscreen into Website Story Section
+                            setTimeout(() => {
+                                parchmentCard.classList.add('expand-fullscreen');
+
+                                setTimeout(() => {
+                                    videoScene.classList.add('hidden');
+                                    videoScene.classList.remove('active');
+                                    overlayLayer.style.display = 'none';
+
+                                    storyScene.classList.remove('hidden');
+                                    storyScene.classList.add('active');
+                                    storyScene.scrollIntoView({ behavior: 'smooth' });
+                                }, 1000);
+                            }, 1000);
+                        }, 500);
+                    }, 500);
                 }, 600);
-            }, 800);
+            }, 100);
         }
 
-        /* VIDEO AUDIO FADES OUT ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
-        function fadeVideoSoundAndGoMenu() {
+        /* STEP 7: MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
+        function switchSoundtrackAndGoMenu() {
             const video = document.getElementById('intro-video');
-            fadeVideoAudioOut(video);
-            scrollToSection('scene-menu');
-        }
+            const bgMusic = document.getElementById('bg-music');
 
-        function fadeVideoAudioOut(videoEl) {
-            if (!videoEl || videoEl.paused) return;
-            const fadeInterval = setInterval(() => {
-                if (videoEl.volume > 0.08) {
-                    videoEl.volume -= 0.08;
-                } else {
-                    videoEl.pause();
-                    videoEl.volume = 1;
-                    clearInterval(fadeInterval);
-                }
-            }, 50);
+            // Fade out video audio
+            if (video) {
+                const fadeInterval = setInterval(() => {
+                    if (video.volume > 0.08) {
+                        video.volume -= 0.08;
+                    } else {
+                        video.pause();
+                        clearInterval(fadeInterval);
+                    }
+                }, 50);
+            }
+
+            // Start Couple Track (song.mp3)
+            bgMusic.currentTime = 0;
+            bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+
+            scrollToSection('scene-menu');
         }
 
         function createSparkleParticles(x, y) {
