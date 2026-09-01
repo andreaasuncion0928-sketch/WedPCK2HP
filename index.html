@@ -79,7 +79,7 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 2s ease, filter 2s ease;
+            transition: opacity 3s cubic-bezier(0.4, 0, 0.2, 1), filter 3s ease;
         }
 
         .stage.hidden {
@@ -203,7 +203,7 @@
             background: #000;
             position: relative;
             z-index: 10;
-            transition: opacity 2s ease;
+            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .video-wrapper {
@@ -225,12 +225,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 2.5s ease, opacity 2.5s ease;
-        }
-
-        .video-wrapper video.seamless-dissolve {
-            opacity: 0;
-            filter: blur(8px) brightness(0.2);
+            transition: filter 3s ease, opacity 3s ease;
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -246,8 +241,8 @@
             border: 1px solid var(--antique-gold);
             margin: 2rem 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 2s ease, transform 2s ease;
+            transform: translateY(15px);
+            transition: opacity 3s cubic-bezier(0.25, 1, 0.5, 1), transform 3s ease;
         }
 
         #scene-story.active .chapter-container {
@@ -789,7 +784,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -939,7 +934,7 @@
             setupVideoEndCheck();
         });
 
-        /* STEP 1: INITIAL GATEWAY CLICK -> PLAYS HPintrowithaudio.mp4 */
+        /* GATEWAY CLICK -> STARTS VIDEO AT 1.25x PLAYBACK SPEED */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -954,19 +949,21 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
+                    video.playbackRate = 1.20; // 1.2x Speed boost for a punchier video intro
                     video.muted = false;
                     video.play().catch(e => console.log("Video Play Error:", e));
                 }, 800);
             }, 400);
         }
 
-        /* DIRECT DISSOLVE TO 'YOU ARE CORDIALLY INVITED / OUR STORY' WHILE VIDEO AUDIO PLAYS */
+        /* 21-SECOND VIDEO TIMING & UNNOTICED DIRECT DISSOLVE TO 'YOU ARE CORDIALLY INVITED' */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
             video.addEventListener('timeupdate', () => {
-                if ((video.currentTime >= 10.5 || (video.duration && video.duration - video.currentTime <= 0.8)) && !hasTriggeredTransition) {
+                // Starts smooth fade ~1.5s before completion based on 1.2x playback rate
+                if ((video.currentTime >= 19.2 || (video.duration && video.duration - video.currentTime <= 1.5)) && !hasTriggeredTransition) {
                     hasTriggeredTransition = true;
                     transitionDirectlyToStory();
                 }
@@ -985,11 +982,11 @@
             const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            // Video loops silently behind so its audio track continues uninterrupted
+            // Video continues playing audio seamlessly in background
             video.loop = true;
             video.play();
 
-            // Smooth cross-fade directly into Our Story
+            // Imperceptible 2.5s Cross-Fade directly into Our Story
             videoScene.style.opacity = '0';
             storyScene.classList.remove('hidden');
             storyScene.classList.add('active');
@@ -998,7 +995,7 @@
                 videoScene.classList.add('hidden');
                 videoScene.classList.remove('active');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
-            }, 1200);
+            }, 1800);
         }
 
         /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
