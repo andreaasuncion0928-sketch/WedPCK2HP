@@ -115,7 +115,7 @@
             object-fit: cover;
         }
 
-        /* CENTERED OVERLAY BUTTON OVER VIDEO */
+        /* OVERLAY BUTTON OVER VIDEO (HIDDEN UNTIL 16s) */
         .video-action-overlay {
             position: absolute;
             bottom: 30px;
@@ -624,7 +624,7 @@
                 Your browser does not support video playback.
             </video>
 
-            <div class="video-action-overlay active" id="video-action-overlay">
+            <div class="video-action-overlay" id="video-action-overlay">
                 <button class="btn-magic" style="background: rgba(255,253,248,0.95); color: var(--midnight); box-shadow: 0 0 30px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
                     See Invitation Details →
                 </button>
@@ -857,7 +857,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -973,9 +973,6 @@
             document.getElementById('story-paragraph').innerText = wedding.story.paragraph;
             document.getElementById('story-highlight').innerText = wedding.story.highlight;
             document.getElementById('story-closing').innerText = wedding.story.closing;
-            document.getElementById('milestone-year').innerText = wedding.story.year;
-            document.getElementById('milestone-label').innerText = wedding.story.yearLabel;
-            document.getElementById('milestone-desc').innerText = wedding.story.yearDescription;
 
             document.getElementById('ceremony-venue').innerText = wedding.ceremony.venue.toUpperCase();
             document.getElementById('ceremony-time').innerText = `${wedding.ceremony.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.ceremony.time}`;
@@ -1004,12 +1001,13 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO */
+        /* GATEWAY CLICK -> STARTS VIDEO & SCHEDULES BUTTON AT 16 SECONDS */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
             const gateway = document.getElementById('desk-gateway');
             const video = document.getElementById('intro-video');
+            const overlayBtn = document.getElementById('video-action-overlay');
 
             deskSeal.classList.add('break');
 
@@ -1019,14 +1017,34 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                     video.currentTime = 0;
-                    video.playbackRate = 1.20;
                     video.muted = false;
 
                     const playPromise = video.play();
+                    
+                    // Track video playback time to reveal button at exactly 16 seconds
+                    let revealed = false;
+                    const revealButton = () => {
+                        if (!revealed) {
+                            revealed = true;
+                            overlayBtn.classList.add('active');
+                        }
+                    };
+
+                    video.addEventListener('timeupdate', () => {
+                        if (video.currentTime >= 16) {
+                            revealButton();
+                        }
+                    });
+
+                    // Fallback timer at 16 seconds in case browser timeupdate events are delayed
+                    setTimeout(() => {
+                        revealButton();
+                    }, 16000);
+
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            proceedToCordiallyInvited();
+                            revealButton(); // Show button immediately if autoplay fails
                         });
                     }
                 }, 800);
@@ -1043,7 +1061,7 @@
                 videoOverlay.classList.remove('active');
             }
 
-            // Layer 2 overlay activates directly over active video (ZERO WHITE GAP)
+            // Activate Layer 2 overlay directly over active video
             inviteScene.classList.add('active-overlay');
 
             setTimeout(() => {
