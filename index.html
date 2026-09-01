@@ -136,7 +136,7 @@
             object-fit: cover;
         }
 
-        /* INITIALLY HIDDEN OVERLAY - APPEARS ONLY WHEN VIDEO IS PAUSED */
+        /* OVERLAY - SHOWN ONLY AFTER VIDEO COMPLETES */
         .invitation-overlay {
             position: absolute;
             top: 0;
@@ -145,7 +145,7 @@
             height: 100%;
             background: rgba(17, 19, 34, 0.65);
             backdrop-filter: blur(4px);
-            display: none; /* Strictly hidden at start */
+            display: none; /* Hidden while video plays */
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -509,9 +509,8 @@
 
                 <div class="invitation-overlay" id="video-overlay">
                     <div class="invitation-card-btn" onclick="openInvitationDetails()">
-                        <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender);">You Are Cordially Invited</p>
-                        <h2 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 5px;">ELENA & ADRIAN</h2>
-                        <p class="tap-instruction">OPEN INVITATION</p>
+                        <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender);">An Invitation Has Arrived</p>
+                        <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
                     </div>
                 </div>
             </div>
@@ -519,7 +518,7 @@
 
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container fade-in-up">
-                <p class="chapter-subtitle" style="margin-bottom: 0.5rem;">An Invitation to Celebrate</p>
+                <p class="chapter-subtitle" style="margin-bottom: 0.5rem;">You Are Cordially Invited</p>
                 <h1 class="chapter-title" id="couple-names">ELENA & ADRIAN</h1>
                 <p style="text-align: center; font-family: var(--font-serif); letter-spacing: 2px; color: var(--gray); margin-bottom: 2.5rem;" id="cover-date-loc">
                     31 JANUARY 2028 · MANILA
@@ -894,35 +893,21 @@
             startCountdown();
             initParticles();
             setupIntersectionObserver();
-            setupVideoTimeCheck();
+            setupVideoEndCheck();
         });
 
-        /* AUTOMATIC VIDEO TIMING SYSTEM */
-        function setupVideoTimeCheck() {
+        /* VIDEO END CHECK - PAUSES AT LAST FRAME & REVEALS CLICK INSTRUCTION */
+        function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
-            let hasPausedAtPoint = false;
 
-            // Trigger when video ends or reaches 6 seconds mark
-            const triggerPauseAndShowCard = () => {
-                if (!hasPausedAtPoint) {
-                    video.pause();
-                    hasPausedAtPoint = true;
-                    overlay.classList.add('reveal');
-                }
-            };
-
-            video.addEventListener('timeupdate', () => {
-                // Pause at 6.0 seconds (adjust number to match desired scene pause)
-                if (video.currentTime >= 6.0) {
-                    triggerPauseAndShowCard();
-                }
+            video.addEventListener('ended', () => {
+                video.pause();
+                overlay.classList.add('reveal');
             });
-
-            video.addEventListener('ended', triggerPauseAndShowCard);
         }
 
-        /* TRANSITION DIRECTLY FROM VIDEO OVERLAY TO STORY DETAILS */
+        /* TRANSITION FROM PAUSED VIDEO OVERLAY TO YOU ARE CORDIALLY INVITED DETAILS */
         function openInvitationDetails() {
             transitionStage('scene-video-intro', 'scene-story');
         }
