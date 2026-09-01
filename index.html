@@ -136,16 +136,16 @@
             object-fit: cover;
         }
 
-        /* OVERLAY ON PAUSE AT 0.07 SEC */
+        /* INITIALLY HIDDEN OVERLAY - SHOWS ONLY AT 0.06 SEC */
         .invitation-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(17, 19, 34, 0.55);
+            background: rgba(17, 19, 34, 0.65);
             backdrop-filter: blur(4px);
-            display: flex;
+            display: none; /* Hidden by default */
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -156,6 +156,7 @@
         }
 
         .invitation-overlay.active {
+            display: flex !important;
             opacity: 1;
             pointer-events: auto;
         }
@@ -510,7 +511,7 @@
                     <div class="invitation-card-btn" onclick="openInvitationDetails()">
                         <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender);">You Are Cordially Invited</p>
                         <h2 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 5px;">ELENA & ADRIAN</h2>
-                        <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
+                        <p class="tap-instruction">OPEN INVITATION</p>
                     </div>
                 </div>
             </div>
@@ -896,15 +897,15 @@
             setupVideoTimeCheck();
         });
 
-        /* AUTOMATIC VIDEO PAUSE AT 0.07 SECONDS */
+        /* AUTOMATIC VIDEO PAUSE AT 0.06 SECONDS TO REVEAL CARD */
         function setupVideoTimeCheck() {
             const video = document.getElementById('intro-video');
             const overlay = document.getElementById('video-overlay');
             let hasPausedAtPoint = false;
 
             video.addEventListener('timeupdate', () => {
-                // Pause video when playback reaches 0.07 seconds (or 7 seconds depending on target length)
-                if (video.currentTime >= 0.07 && !hasPausedAtPoint) {
+                // Triggers pause and displays card at 0.06s
+                if (video.currentTime >= 0.06 && !hasPausedAtPoint) {
                     video.pause();
                     hasPausedAtPoint = true;
                     overlay.classList.add('active');
