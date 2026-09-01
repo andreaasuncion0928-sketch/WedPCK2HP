@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            transition: opacity 1.2s ease;
+            transition: opacity 1.6s ease;
         }
 
         .video-wrapper {
@@ -115,29 +115,6 @@
             object-fit: cover;
         }
 
-        /* CENTERED BUTTON OVERLAY ON CONTINUOUS VIDEO */
-        .video-action-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(17, 19, 34, 0.35);
-            backdrop-filter: blur(2px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
-            z-index: 15;
-        }
-
-        .video-action-overlay.active {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-        }
-
         /* LAYER 2: INVITATION OVERLAY CARD */
         #scene-invite-card {
             position: fixed;
@@ -149,11 +126,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.85);
+            background: rgba(17, 19, 34, 0.75);
             backdrop-filter: blur(6px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 0;
         }
 
@@ -297,7 +274,7 @@
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.85);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .chapter-container.zoom-in-parchment {
@@ -628,12 +605,6 @@
                 <source src="HPintrowithaudio.mp4" type="video/mp4">
                 Your browser does not support video playback.
             </video>
-
-            <div class="video-action-overlay" id="video-action-overlay">
-                <button class="btn-magic" style="background: rgba(255,253,248,0.95); color: var(--midnight); box-shadow: 0 0 30px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
-                    See Invitation Details →
-                </button>
-            </div>
         </div>
     </section>
 
@@ -1010,7 +981,7 @@
             setupVideoEndCheck();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO WITH AUTOMATIC BUTTON REVEAL */
+        /* GATEWAY CLICK -> STARTS VIDEO */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1032,70 +1003,49 @@
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            showActionButtonOverlay();
+                            transitionToInvitationCard();
                         });
                     }
                 }, 800);
             }, 400);
         }
 
-        /* REVEALS ACTION BUTTON OVERLAY ON CONTINUOUS LOOPING VIDEO */
+        /* DISSOLVES TO INVITATION CARD 1.2s BEFORE VIDEO ENDS (PREVENTS FREEZING COMPLETELY) */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
-            let hasTriggeredOverlay = false;
+            let hasTriggeredTransition = false;
 
-            function showOverlayNow() {
-                if (!hasTriggeredOverlay) {
-                    hasTriggeredOverlay = true;
-                    showActionButtonOverlay();
+            function triggerTransition() {
+                if (!hasTriggeredTransition) {
+                    hasTriggeredTransition = true;
+                    transitionToInvitationCard();
                 }
             }
 
-            // Triggers button reveal 0.5s before end, or on ended event
-            video.addEventListener('ended', () => {
-                video.loop = true; // Set to loop seamlessly
-                video.play();
-                showOverlayNow();
-            });
-
-            video.addEventListener('error', showOverlayNow);
+            video.addEventListener('ended', triggerTransition);
+            video.addEventListener('error', triggerTransition);
 
             video.addEventListener('timeupdate', () => {
-                if (video.duration && (video.duration - video.currentTime <= 0.5)) {
-                    showOverlayNow();
+                // Triggers cross-fade 1.2s before completion while video motion is fluid
+                if (video.duration && (video.duration - video.currentTime <= 1.2)) {
+                    triggerTransition();
                 }
             });
         }
 
-        function showActionButtonOverlay() {
-            const overlayBtn = document.getElementById('video-action-overlay');
-            const video = document.getElementById('intro-video');
-
-            // Video continues playing in loop so motion never freezes
-            if (video) {
-                video.loop = true;
-                if (video.paused) {
-                    video.play().catch(e => {});
-                }
-            }
-
-            if (overlayBtn) {
-                overlayBtn.classList.add('active'); // Fades in "See Invitation Details" button
-            }
-        }
-
-        /* BUTTON CLICK -> OPENS YOU ARE CORDIALLY INVITED PAGE */
-        function proceedToCordiallyInvited() {
+        /* SEAMLESS CROSS-FADE DIRECTLY TO YOU ARE CORDIALLY INVITED PAGE */
+        function transitionToInvitationCard() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
-            const videoOverlay = document.getElementById('video-action-overlay');
+            const videoScene = document.getElementById('scene-video-intro');
 
-            if (videoOverlay) {
-                videoOverlay.classList.remove('active');
-            }
-
-            // Layer 2 overlay activates directly over active video Layer 1
+            // Layer 2 overlay activates directly over active video
             inviteScene.classList.add('active-overlay');
+
+            // Softly fade down video layer behind the card
+            if (videoScene) {
+                videoScene.style.opacity = '0';
+            }
 
             setTimeout(() => {
                 cardBox.classList.add('zoom-in-parchment');
@@ -1183,7 +1133,9 @@
 
             setTimeout(() => {
                 inviteScene.classList.remove('active-overlay');
-                videoScene.style.display = 'none';
+                if (videoScene) {
+                    videoScene.style.display = 'none';
+                }
                 
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
