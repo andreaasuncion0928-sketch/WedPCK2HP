@@ -115,7 +115,7 @@
             object-fit: cover;
         }
 
-        /* OVERLAY BUTTON OVER VIDEO (HIDDEN UNTIL 16s) */
+        /* OVERLAY BUTTON OVER VIDEO (HIDDEN UNTIL 16.63s) */
         .video-action-overlay {
             position: absolute;
             bottom: 30px;
@@ -618,7 +618,6 @@
                 id="intro-video" 
                 playsinline 
                 preload="auto"
-                loop
             >
                 <source src="HPintrowithaudio.mp4" type="video/mp4">
                 Your browser does not support video playback.
@@ -1001,7 +1000,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SCHEDULES BUTTON AT 16 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & FREEZES/SHOWS BUTTON AT EXACTLY 16.63 SECONDS */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1021,30 +1020,32 @@
 
                     const playPromise = video.play();
                     
-                    // Track video playback time to reveal button at exactly 16 seconds
                     let revealed = false;
-                    const revealButton = () => {
+                    const freezeAndShowButton = () => {
                         if (!revealed) {
                             revealed = true;
-                            overlayBtn.classList.add('active');
+                            video.pause(); // Freeze video frame at exactly 16.63s
+                            video.currentTime = 16.63;
+                            overlayBtn.classList.add('active'); // Reveal button
                         }
                     };
 
+                    // Monitor exact playback timestamp
                     video.addEventListener('timeupdate', () => {
-                        if (video.currentTime >= 16) {
-                            revealButton();
+                        if (video.currentTime >= 16.63) {
+                            freezeAndShowButton();
                         }
                     });
 
-                    // Fallback timer at 16 seconds in case browser timeupdate events are delayed
+                    // Precise timer fallback calculated at 16630 ms
                     setTimeout(() => {
-                        revealButton();
-                    }, 16000);
+                        freezeAndShowButton();
+                    }, 16630);
 
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            revealButton(); // Show button immediately if autoplay fails
+                            freezeAndShowButton(); // Show button immediately if autoplay fails
                         });
                     }
                 }, 800);
@@ -1061,7 +1062,7 @@
                 videoOverlay.classList.remove('active');
             }
 
-            // Activate Layer 2 overlay directly over active video
+            // Activate Layer 2 overlay directly over frozen video
             inviteScene.classList.add('active-overlay');
 
             setTimeout(() => {
