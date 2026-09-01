@@ -14,7 +14,7 @@
         :root {
             --midnight: #111322;
             --midnight-soft: #191A2A;
-            --ink: #111111; /* Deep rich black for contrast */
+            --ink: #000000; /* Pure Black Ink */
             --paper: #FFFDF8;
             --parchment: #F3EBDD;
             --lavender: #6A4B7C;
@@ -265,7 +265,7 @@
             max-width: 800px;
             width: 100%;
             background: var(--paper);
-            color: var(--ink);
+            color: #000000 !important;
             padding: 3.5rem 2.5rem;
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px var(--lavender-glow);
@@ -309,7 +309,7 @@
         /* FAST MAGICAL TYPEWRITER CURSOR */
         .typing-cursor::after {
             content: '│';
-            color: #000000;
+            color: #000000 !important;
             animation: blink 0.4s infinite alternate;
             font-weight: bold;
         }
@@ -319,34 +319,58 @@
             100% { opacity: 1; }
         }
 
-        /* --- HIGH VISIBILITY BLACK TYPOGRAPHY FOR PARCHMENT --- */
+        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY --- */
+        #type-subtitle {
+            font-family: var(--font-script) !important;
+            font-size: 2.5rem !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+        }
+
+        #type-title {
+            font-family: var(--font-serif) !important;
+            font-size: 2.6rem !important;
+            letter-spacing: 3px !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+        }
+
+        #type-date {
+            font-family: var(--font-serif) !important;
+            font-size: 1.1rem !important;
+            letter-spacing: 2.5px !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8) !important;
+        }
+
         .chapter-title {
             font-family: var(--font-serif);
             font-size: 2.3rem;
             letter-spacing: 3px;
-            color: #000000; /* Solid Black */
+            color: #000000 !important;
             text-align: center;
             margin-bottom: 0.5rem;
             font-weight: 700;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
         }
 
         .chapter-subtitle {
             font-family: var(--font-script);
             font-size: 2.2rem;
-            color: #111111; /* Dark Ink Black */
+            color: #000000 !important;
             text-align: center;
             margin-bottom: 1rem;
-            font-weight: bold;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+            font-weight: 700;
         }
 
         .script-handwriting {
             font-family: var(--font-script);
             font-size: 2.4rem;
-            color: #000000;
+            color: #000000 !important;
             line-height: 1.4;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         /* --- NAVIGATION MENU --- */
@@ -442,9 +466,9 @@
         }
 
         .btn-magic {
-            background: rgba(17, 19, 34, 0.85);
+            background: rgba(17, 19, 34, 0.9);
             border: 2px solid var(--antique-gold);
-            color: #FFFFFF;
+            color: #FFFFFF !important;
             padding: 12px 24px;
             font-family: var(--font-serif);
             letter-spacing: 2px;
@@ -461,7 +485,7 @@
 
         .btn-magic:hover {
             background: var(--antique-gold);
-            color: var(--midnight);
+            color: var(--midnight) !important;
             box-shadow: 0 0 20px var(--gold-glow);
         }
 
@@ -589,6 +613,8 @@
 
         @media (max-width: 600px) {
             .chapter-container { padding: 2.5rem 1.2rem; }
+            #type-subtitle { font-size: 2rem !important; }
+            #type-title { font-size: 2rem !important; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -640,7 +666,7 @@
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 650px;">
             <p class="chapter-subtitle" id="type-subtitle"></p>
             <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
-            <p style="font-family: var(--font-serif); letter-spacing: 2.5px; color: #111111; font-weight: 700; margin-top: 1rem; min-height: 1.5rem;" id="type-date"></p>
+            <p id="type-date"></p>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
                 Read Our Story →
@@ -825,7 +851,7 @@
 
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container zoom-in-parchment fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VS SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: #444444;">
                     Please let us know if you'll be joining us.
                 </p>
