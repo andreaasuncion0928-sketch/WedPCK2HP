@@ -306,27 +306,48 @@
             100% { box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 45px rgba(212, 168, 240, 0.75), 0 0 25px var(--gold-glow); }
         }
 
-        /* FAST MAGICAL TYPEWRITER CURSOR */
-        .typing-cursor::after {
-            content: '│';
-            color: #000000 !important;
-            animation: blink 0.4s infinite alternate;
-            font-weight: 900;
+        /* --- MODERN HARRY POTTER ENCHANTED INK ANIMATION --- */
+        .magic-glyph {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(6px);
+            transform: scale(1.3) translateY(-2px);
+            transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.45s ease;
+            white-space: pre;
         }
 
-        @keyframes blink {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .magic-glyph.inked {
+            opacity: 1;
+            filter: blur(0px);
+            transform: scale(1) translateY(0);
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.25);
         }
 
-        /* --- BOLD, HIGH-VISIBILITY BLACK TYPOGRAPHY FOR PARCHMENT --- */
+        /* GLOWING MAGIC QUILL CURSOR */
+        .magic-quill-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background-color: var(--antique-gold);
+            vertical-align: middle;
+            margin-left: 2px;
+            box-shadow: 0 0 8px #ffd700, 0 0 15px #ff8c00;
+            animation: magicQuillPulse 0.6s infinite alternate;
+        }
+
+        @keyframes magicQuillPulse {
+            0% { opacity: 0.3; transform: scaleY(0.8); }
+            100% { opacity: 1; transform: scaleY(1.1); }
+        }
+
+        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY --- */
         #type-subtitle {
             font-family: var(--font-script) !important;
             font-size: 2.8rem !important;
             color: #000000 !important;
             font-weight: 800 !important;
-            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.15) !important;
             margin-bottom: 0.5rem;
+            min-height: 3.2rem;
         }
 
         #type-title {
@@ -335,7 +356,7 @@
             letter-spacing: 3px !important;
             color: #000000 !important;
             font-weight: 800 !important;
-            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.2) !important;
+            min-height: 3.5rem;
         }
 
         #type-date {
@@ -344,9 +365,8 @@
             letter-spacing: 3px !important;
             color: #000000 !important;
             font-weight: 900 !important; /* Extra Bold Date */
-            text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.25) !important;
             margin-top: 1rem;
-            min-height: 1.5rem;
+            min-height: 2rem;
         }
 
         .chapter-title {
@@ -478,7 +498,7 @@
             font-family: var(--font-serif);
             letter-spacing: 2px;
             font-size: 0.9rem;
-            font-weight: 700 !important; /* Bold Button Text */
+            font-weight: 700 !important;
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
@@ -671,7 +691,7 @@
     <section id="scene-invite-card">
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 650px;">
             <p class="chapter-subtitle" id="type-subtitle"></p>
-            <h1 class="chapter-title" id="type-title" style="min-height: 2.5rem;"></h1>
+            <h1 class="chapter-title" id="type-title"></h1>
             <p id="type-date"></p>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
@@ -1099,61 +1119,73 @@
             }, 300);
         }
 
-        /* FAST MAGICAL TYPEWRITER ANIMATION FOR INVITATION DETAILS */
+        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION */
         function runFastMagicalTyping() {
             const subtitleEl = document.getElementById('type-subtitle');
             const titleEl = document.getElementById('type-title');
             const dateEl = document.getElementById('type-date');
             const btnEl = document.getElementById('btn-read-story');
 
-            if (!subtitleEl || subtitleEl.innerText.length > 0) return;
+            if (!subtitleEl || subtitleEl.children.length > 0) return;
 
             const text1 = "You Are Cordially Invited";
             const text2 = "ELENA & ADRIAN";
             const text3 = "31 JANUARY 2028 · MANILA";
 
-            let i = 0, j = 0, k = 0;
-
-            subtitleEl.classList.add('typing-cursor');
-
-            function typeLine1() {
-                if (i < text1.length) {
-                    subtitleEl.innerText += text1.charAt(i);
-                    i++;
-                    setTimeout(typeLine1, 28);
-                } else {
-                    subtitleEl.classList.remove('typing-cursor');
-                    titleEl.classList.add('typing-cursor');
-                    setTimeout(typeLine2, 120);
+            // Creates interactive glyph spans for smooth enchanted ink effect
+            function buildGlyphs(container, text) {
+                container.innerHTML = '';
+                const glyphSpans = [];
+                for (let char of text) {
+                    const span = document.createElement('span');
+                    span.className = 'magic-glyph';
+                    span.textContent = char;
+                    container.appendChild(span);
+                    glyphSpans.push(span);
                 }
+                
+                // Add magical quill cursor indicator
+                const cursor = document.createElement('span');
+                cursor.className = 'magic-quill-cursor';
+                container.appendChild(cursor);
+                
+                return { glyphs: glyphSpans, cursor };
             }
 
-            function typeLine2() {
-                if (j < text2.length) {
-                    titleEl.innerText += text2.charAt(j);
-                    j++;
-                    setTimeout(typeLine2, 38);
-                } else {
-                    titleEl.classList.remove('typing-cursor');
-                    dateEl.classList.add('typing-cursor');
-                    setTimeout(typeLine3, 120);
+            const line1 = buildGlyphs(subtitleEl, text1);
+
+            // Slower, organic enchanted ink speed (120ms - 150ms per character)
+            function animateGlyphSequence(lineObj, onComplete) {
+                let index = 0;
+                function revealNext() {
+                    if (index < lineObj.glyphs.length) {
+                        lineObj.glyphs[index].classList.add('inked');
+                        index++;
+                        // Random delay between 110ms and 160ms for a human, magical pacing
+                        const delay = Math.floor(Math.random() * 50) + 110;
+                        setTimeout(revealNext, delay);
+                    } else {
+                        // Remove quill cursor on section completion
+                        if (lineObj.cursor && lineObj.cursor.parentNode) {
+                            lineObj.cursor.parentNode.removeChild(lineObj.cursor);
+                        }
+                        if (onComplete) setTimeout(onComplete, 400); // Elegant pause between lines
+                    }
                 }
+                revealNext();
             }
 
-            function typeLine3() {
-                if (k < text3.length) {
-                    dateEl.innerText += text3.charAt(k);
-                    k++;
-                    setTimeout(typeLine3, 28);
-                } else {
-                    dateEl.classList.remove('typing-cursor');
-                    
-                    btnEl.style.opacity = '1';
-                    btnEl.style.pointerEvents = 'auto';
-                }
-            }
-
-            typeLine1();
+            // Execute line 1 -> line 2 -> line 3 -> reveal button
+            animateGlyphSequence(line1, () => {
+                const line2 = buildGlyphs(titleEl, text2);
+                animateGlyphSequence(line2, () => {
+                    const line3 = buildGlyphs(dateEl, text3);
+                    animateGlyphSequence(line3, () => {
+                        btnEl.style.opacity = '1';
+                        btnEl.style.pointerEvents = 'auto';
+                    });
+                });
+            });
         }
 
         /* BUTTON CLICK -> OPENS OUR STORY PAGE & STOPS VIDEO SOUND */
