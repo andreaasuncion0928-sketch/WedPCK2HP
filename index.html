@@ -108,7 +108,7 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO STAGING --- */
+        /* --- SCENE 1: VIDEO INTRO STAGING WITH OVERLAY --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -136,60 +136,53 @@
             object-fit: cover;
         }
 
-        .video-overlay-btn {
+        /* OVERLAY ON PAUSE AT 0.07 SEC */
+        .invitation-overlay {
             position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            background: rgba(17, 19, 34, 0.75);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--antique-gold);
-            color: var(--antique-gold);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-family: var(--font-serif);
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition-med);
-        }
-
-        .video-overlay-btn:hover {
-            background: var(--antique-gold);
-            color: var(--midnight);
-        }
-
-        /* --- SCENE 2: IMAGE INVITATION CARD (PNG) --- */
-        .image-invitation-container {
-            position: relative;
-            max-width: 420px;
+            top: 0;
+            left: 0;
             width: 100%;
-            cursor: pointer;
-            text-align: center;
-            perspective: 1000px;
-            transition: transform 0.5s ease;
+            height: 100%;
+            background: rgba(17, 19, 34, 0.55);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
         }
 
-        .image-invitation-container:hover {
-            transform: scale(1.02);
+        .invitation-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .invitation-png {
-            width: 100%;
-            height: auto;
+        .invitation-card-btn {
+            background: rgba(255, 253, 248, 0.95);
+            color: var(--ink);
+            border: 2px solid var(--antique-gold);
+            padding: 2rem 2.5rem;
             border-radius: 6px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 25px var(--lavender-glow);
-            border: 1px solid var(--antique-gold);
-            display: block;
-            margin: 0 auto;
+            box-shadow: 0 0 35px var(--lavender-glow);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            max-width: 320px;
+        }
+
+        .invitation-card-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(212, 168, 240, 0.6);
         }
 
         .tap-instruction {
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             font-family: var(--font-serif);
-            letter-spacing: 3px;
-            font-size: 0.9rem;
+            letter-spacing: 2.5px;
+            font-size: 0.85rem;
             color: var(--antique-gold);
             text-transform: uppercase;
             animation: pulse 2s infinite alternate;
@@ -508,22 +501,18 @@
                     muted 
                     playsinline 
                     preload="auto"
-                    onended="handleVideoEnded()"
                 >
                     <source src="HPintro.mp4" type="video/mp4">
                     Your browser does not support video playback.
                 </video>
 
-                <button class="video-overlay-btn" onclick="handleVideoEnded()">
-                    Skip / Open Invitation →
-                </button>
-            </div>
-        </section>
-
-        <section class="stage hidden" id="scene-image-invitation">
-            <div class="image-invitation-container" onclick="openInvitationDetails()">
-                <img src="invitation.png" alt="Wedding Invitation Card" class="invitation-png" onerror="this.src='https://via.placeholder.com/400x560?text=Elena+%26+Adrian+Invitation'">
-                <p class="tap-instruction">TAP THE INVITATION TO OPEN DETAILS</p>
+                <div class="invitation-overlay" id="video-overlay">
+                    <div class="invitation-card-btn" onclick="openInvitationDetails()">
+                        <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender);">You Are Cordially Invited</p>
+                        <h2 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 5px;">ELENA & ADRIAN</h2>
+                        <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -904,15 +893,28 @@
             startCountdown();
             initParticles();
             setupIntersectionObserver();
+            setupVideoTimeCheck();
         });
 
-        /* VIDEO INTRO TRANSITION LOGIC */
-        function handleVideoEnded() {
-            transitionStage('scene-video-intro', 'scene-image-invitation');
+        /* AUTOMATIC VIDEO PAUSE AT 0.07 SECONDS */
+        function setupVideoTimeCheck() {
+            const video = document.getElementById('intro-video');
+            const overlay = document.getElementById('video-overlay');
+            let hasPausedAtPoint = false;
+
+            video.addEventListener('timeupdate', () => {
+                // Pause video when playback reaches 0.07 seconds (or 7 seconds depending on target length)
+                if (video.currentTime >= 0.07 && !hasPausedAtPoint) {
+                    video.pause();
+                    hasPausedAtPoint = true;
+                    overlay.classList.add('active');
+                }
+            });
         }
 
+        /* TRANSITION DIRECTLY FROM VIDEO OVERLAY TO STORY DETAILS */
         function openInvitationDetails() {
-            transitionStage('scene-image-invitation', 'scene-story');
+            transitionStage('scene-video-intro', 'scene-story');
         }
 
         /* STAGE NAVIGATION HELPERS */
