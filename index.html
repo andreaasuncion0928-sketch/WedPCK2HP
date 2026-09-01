@@ -49,6 +49,61 @@
             scroll-behavior: smooth;
         }
 
+        /* --- ENTRY GATEWAY (UNLOCKS AUDIO PERMISSION) --- */
+        .gateway-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, #191A2A 0%, #111322 100%);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        .gateway-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .gateway-card {
+            background: rgba(255, 253, 248, 0.95);
+            color: var(--ink);
+            border: 2px double var(--antique-gold);
+            padding: 3rem 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 0 50px var(--lavender-glow), 0 0 20px var(--gold-glow);
+            text-align: center;
+            max-width: 350px;
+            width: 85%;
+            transition: transform 0.4s ease;
+        }
+
+        .gateway-card:hover {
+            transform: scale(1.03);
+        }
+
+        .gateway-btn-text {
+            margin-top: 1.5rem;
+            font-family: var(--font-serif);
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            color: var(--antique-gold);
+            text-transform: uppercase;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
         /* --- CANVAS PARTICLES --- */
         #particle-canvas {
             position: fixed;
@@ -120,8 +175,8 @@
         }
 
         .video-wrapper video.seamless-dissolve {
-            opacity: 0.15;
-            filter: blur(8px) brightness(0.25);
+            opacity: 0;
+            filter: blur(8px) brightness(0.2);
         }
 
         /* SEAMLESS CROSS-FADE OVERLAY FOR INVITATION.JPG */
@@ -252,25 +307,20 @@
             margin: 2rem 0;
         }
 
-        /* MAGICAL BLOOM ENTRANCE FOR DETAILS & OUR STORY */
+        /* MAGICAL BLOOM ENTRANCE FOR DETAILS */
         #scene-story.active .chapter-container {
-            animation: magicalDetailsBloom 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: magicalDetailsBloom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes magicalDetailsBloom {
             0% {
                 opacity: 0;
-                transform: scale(0.85) rotateX(15deg) translateY(30px);
-                filter: brightness(2) drop-shadow(0 0 40px var(--lavender-light));
-            }
-            50% {
-                opacity: 0.8;
-                filter: brightness(1.3) drop-shadow(0 0 25px var(--antique-gold));
+                transform: scale(0.9) translateY(20px);
+                filter: brightness(1.8) drop-shadow(0 0 30px var(--lavender-light));
             }
             100% {
                 opacity: 1;
-                transform: scale(1) rotateX(0deg) translateY(0);
-                box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow);
+                transform: scale(1) translateY(0);
                 filter: brightness(1);
             }
         }
@@ -547,6 +597,14 @@
 
     <canvas id="particle-canvas"></canvas>
 
+    <div class="gateway-screen" id="gateway" onclick="enterInvitationExperience()">
+        <div class="gateway-card">
+            <p style="font-family: var(--font-script); font-size: 2.2rem; color: var(--lavender);">An Invitation Has Arrived</p>
+            <h2 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 5px;">ELENA & ADRIAN</h2>
+            <p class="gateway-btn-text">TAP TO ENTER</p>
+        </div>
+    </div>
+
     <div class="lightbox-modal" id="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
@@ -558,7 +616,6 @@
             <div class="video-wrapper">
                 <video 
                     id="intro-video" 
-                    autoplay 
                     playsinline 
                     preload="auto"
                 >
@@ -617,7 +674,7 @@
                 <p style="font-size: 0.9rem; color: var(--gray);" id="milestone-desc">The year everything changed.</p>
             </article>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+            <button class="btn-magic" onclick="fadeVideoSoundAndGoMenu()" style="margin-top: 2rem;">
                 Explore The Letter's Chapters →
             </button>
         </section>
@@ -961,6 +1018,17 @@
             setupVideoEndCheck();
         });
 
+        /* FIRST TAP / CLICK UNLOCKS BROWSER AUDIO & STARTS 0:00 VIDEO PLAYBACK */
+        function enterInvitationExperience() {
+            const gateway = document.getElementById('gateway');
+            const video = document.getElementById('intro-video');
+
+            gateway.classList.add('fade-out');
+            video.currentTime = 0;
+            video.muted = false;
+            video.play().catch(e => console.log("Playback error:", e));
+        }
+
         /* VIDEO NEAR-END DETECTION FOR SEAMLESS VISUAL CROSS-FADE */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
@@ -985,7 +1053,7 @@
             });
         }
 
-        /* MAGICAL TRANSITION ON CLICK: VIDEO AUDIO CONTINUES PLAYING */
+        /* MAGICAL UNROLL TRANSITION TO STORY (VIDEO AUDIO STAYS PLAYING IN BACKGROUND) */
         function executeMagicalOpening(event) {
             const cardWrapper = document.getElementById('card-wrapper');
             const videoScene = document.getElementById('scene-video-intro');
@@ -997,7 +1065,7 @@
             // 2. Add Magical Opening Transform to invitation.jpg
             cardWrapper.classList.add('magical-open');
 
-            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING)
+            // 3. Transition to Story Details (VIDEO AUDIO CONTINUES PLAYING IN BACKGROUND)
             setTimeout(() => {
                 storyScene.classList.remove('hidden');
                 storyScene.classList.add('active');
@@ -1014,45 +1082,24 @@
             }, 800);
         }
 
-        /* INSTANTLY STOPS VIDEO AUDIO WHEN CLICKING "CLICK TO OPEN INVITATION" */
-        function stopVideoAudioInstantly() {
+        /* VIDEO AUDIO FADES OUT ONLY WHEN USER CLICKS EXPLORE CHAPTERS */
+        function fadeVideoSoundAndGoMenu() {
             const video = document.getElementById('intro-video');
-            if (video) {
-                video.muted = true;
-                video.pause();
-            }
+            fadeVideoAudioOut(video);
+            scrollToSection('scene-menu');
         }
 
-        /* MAGICAL TRANSITION ON CLICK WITH INSTANT AUDIO STOP */
-        function executeMagicalOpening(event) {
-            const cardWrapper = document.getElementById('card-wrapper');
-            const videoScene = document.getElementById('scene-video-intro');
-            const storyScene = document.getElementById('scene-story');
-
-            // 1. Stop Video Audio Instantly
-            stopVideoAudioInstantly();
-
-            // 2. Create Stardust Sparkles at Click Position
-            createSparkleParticles(event.clientX, event.clientY);
-
-            // 3. Add Magical Opening Transform to invitation.jpg
-            cardWrapper.classList.add('magical-open');
-
-            // 4. Transition to Story Details with Magical Entrance
-            setTimeout(() => {
-                storyScene.classList.remove('hidden');
-                storyScene.classList.add('active');
-
-                setTimeout(() => {
-                    videoScene.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        videoScene.classList.add('hidden');
-                        videoScene.classList.remove('active');
-                        storyScene.scrollIntoView({ behavior: 'smooth' });
-                    }, 800);
-                }, 600);
-            }, 800);
+        function fadeVideoAudioOut(videoEl) {
+            if (!videoEl || videoEl.paused) return;
+            const fadeInterval = setInterval(() => {
+                if (videoEl.volume > 0.08) {
+                    videoEl.volume -= 0.08;
+                } else {
+                    videoEl.pause();
+                    videoEl.volume = 1;
+                    clearInterval(fadeInterval);
+                }
+            }, 50);
         }
 
         function createSparkleParticles(x, y) {
