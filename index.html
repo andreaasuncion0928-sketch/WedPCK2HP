@@ -1057,7 +1057,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS WITH 3.5s AUDIO FADE */
+        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1081,10 +1081,8 @@
                     const executeSeamlessTransition = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
-                            
-                            // Smoothly fade video audio over 3.5 seconds
-                            fadeVideoAudioSmoothly(video);
-                            
+                            // Keep video playing audio in background, pause visuals at 17s frame
+                            video.currentTime = 17.0;
                             proceedToCordiallyInvitedSeamless();
                         }
                     };
@@ -1107,24 +1105,6 @@
                     }
                 }, 800);
             }, 400);
-        }
-
-        /* GENTLE 3.5 SECOND AUDIO FADE-OUT LOGIC */
-        function fadeVideoAudioSmoothly(video) {
-            if (!video) return;
-            const fadeDuration = 3500; // 3.5 seconds
-            const intervalTime = 100;  // step every 100ms
-            const step = video.volume / (fadeDuration / intervalTime);
-
-            const audioInterval = setInterval(() => {
-                if (video.volume > step) {
-                    video.volume = Math.max(0, video.volume - step);
-                } else {
-                    video.volume = 0;
-                    video.pause();
-                    clearInterval(audioInterval);
-                }
-            }, intervalTime);
         }
 
         /* SEAMLESS TRANSITION -> PARCHMENT.JPG EMERGES DIRECTLY FROM THE OPENING LETTER */
@@ -1207,24 +1187,39 @@
             });
         }
 
-        /* BUTTON CLICK -> OPENS OUR STORY PAGE & STOPS VIDEO SOUND */
+        /* GENTLE 3.5 SECOND AUDIO FADE-OUT LOGIC (FIRES WHEN "CHECK THE DETAILS" IS CLICKED) */
+        function fadeVideoAudioSmoothly(video, callback) {
+            if (!video) {
+                if (callback) callback();
+                return;
+            }
+            const fadeDuration = 3500; // 3.5 seconds
+            const intervalTime = 100;  // step every 100ms
+            const step = (video.volume || 1.0) / (fadeDuration / intervalTime);
+
+            const audioInterval = setInterval(() => {
+                if (video.volume > step) {
+                    video.volume = Math.max(0, video.volume - step);
+                } else {
+                    video.volume = 0;
+                    video.pause();
+                    clearInterval(audioInterval);
+                    if (callback) callback();
+                }
+            }, intervalTime);
+        }
+
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> FADES AUDIO, OPENS OUR STORY PAGE */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
             const storyScene = document.getElementById('scene-story');
             const video = document.getElementById('intro-video');
 
-            if (video) {
-                const fadeAudio = setInterval(() => {
-                    if (video.volume > 0.08) {
-                        video.volume -= 0.08;
-                    } else {
-                        video.pause();
-                        clearInterval(fadeAudio);
-                    }
-                }, 50);
-            }
+            // 1. Gently fade out the video audio over 3.5 seconds
+            fadeVideoAudioSmoothly(video);
 
+            // 2. Smoothly transition screens
             inviteScene.style.opacity = '0';
 
             setTimeout(() => {
