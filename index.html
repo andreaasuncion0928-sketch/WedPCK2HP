@@ -80,7 +80,7 @@
             align-items: center;
             opacity: 1;
             padding: 2rem 1rem;
-            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .stage.hidden {
@@ -961,22 +961,23 @@
             }, 400);
         }
 
-        /* 21-SECOND VIDEO TIMING -> SEAMLESS TRANSITION TO TYPING CARD */
+        /* BULLETPROOF VIDEO COMPLETION LISTENER */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
             let hasTriggeredTransition = false;
 
-            video.addEventListener('timeupdate', () => {
-                if ((video.currentTime >= 18.5 || (video.duration && video.duration - video.currentTime <= 2.5)) && !hasTriggeredTransition) {
-                    hasTriggeredTransition = true;
-                    transitionToInvitationCard();
-                }
-            });
-
-            video.addEventListener('ended', () => {
+            function triggerNextStage() {
                 if (!hasTriggeredTransition) {
                     hasTriggeredTransition = true;
                     transitionToInvitationCard();
+                }
+            }
+
+            video.addEventListener('ended', triggerNextStage);
+
+            video.addEventListener('timeupdate', () => {
+                if (video.duration && (video.duration - video.currentTime <= 0.8)) {
+                    triggerNextStage();
                 }
             });
         }
@@ -1002,7 +1003,7 @@
             }, 1800);
         }
 
-        /* FAST MAGICAL HARRY POTTER TYPEWRITER ANIMATION */
+        /* FAST MAGICAL TYPEWRITER ANIMATION */
         function runFastMagicalTyping() {
             const subtitleEl = document.getElementById('type-subtitle');
             const titleEl = document.getElementById('type-title');
@@ -1021,7 +1022,7 @@
                 if (i < text1.length) {
                     subtitleEl.innerText += text1.charAt(i);
                     i++;
-                    setTimeout(typeLine1, 30); // Fast 30ms typing speed
+                    setTimeout(typeLine1, 30);
                 } else {
                     subtitleEl.classList.remove('typing-cursor');
                     titleEl.classList.add('typing-cursor');
