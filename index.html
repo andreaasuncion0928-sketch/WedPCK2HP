@@ -91,7 +91,7 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.2s ease;
         }
 
         .video-wrapper {
@@ -115,7 +115,7 @@
             object-fit: cover;
         }
 
-        /* FROZEN VIDEO BUTTON OVERLAY */
+        /* CENTERED BUTTON OVERLAY ON CONTINUOUS VIDEO */
         .video-action-overlay {
             position: absolute;
             top: 0;
@@ -125,7 +125,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.45);
+            background: rgba(17, 19, 34, 0.35);
             backdrop-filter: blur(2px);
             opacity: 0;
             pointer-events: none;
@@ -297,7 +297,7 @@
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.85);
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .chapter-container.zoom-in-parchment {
@@ -631,7 +631,7 @@
 
             <div class="video-action-overlay" id="video-action-overlay">
                 <button class="btn-magic" style="background: rgba(255,253,248,0.95); color: var(--midnight); box-shadow: 0 0 30px var(--gold-glow);" onclick="proceedToCordiallyInvited()">
-                    View Invitation Details →
+                    See Invitation Details →
                 </button>
             </div>
         </div>
@@ -862,7 +862,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1010,7 +1010,7 @@
             setupVideoEndCheck();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO */
+        /* GATEWAY CLICK -> STARTS VIDEO WITH AUTOMATIC BUTTON REVEAL */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1032,59 +1032,59 @@
                     if (playPromise !== undefined) {
                         playPromise.catch(e => {
                             console.log("Video Play Error:", e);
-                            freezeVideoAndShowButton();
+                            showActionButtonOverlay();
                         });
                     }
                 }, 800);
             }, 400);
         }
 
-        /* AUTOMATIC METADATA DURATION DETECTION + EVENT LISTENERS */
+        /* REVEALS ACTION BUTTON OVERLAY ON CONTINUOUS LOOPING VIDEO */
         function setupVideoEndCheck() {
             const video = document.getElementById('intro-video');
-            let hasTriggeredFreeze = false;
+            let hasTriggeredOverlay = false;
 
-            function triggerFreeze() {
-                if (!hasTriggeredFreeze) {
-                    hasTriggeredFreeze = true;
-                    freezeVideoAndShowButton();
+            function showOverlayNow() {
+                if (!hasTriggeredOverlay) {
+                    hasTriggeredOverlay = true;
+                    showActionButtonOverlay();
                 }
             }
 
-            // DYNAMIC DURATION LOGIC: Reads exact length as soon as video loads
-            video.addEventListener('loadedmetadata', () => {
-                const totalDuration = video.duration; // Reads video length dynamically
-                
-                // Calculates precise trigger point right before video completion
-                const triggerPoint = Math.max(0, totalDuration - 0.4);
-
-                video.addEventListener('timeupdate', () => {
-                    if (video.currentTime >= triggerPoint) {
-                        triggerFreeze();
-                    }
-                });
+            // Triggers button reveal 0.5s before end, or on ended event
+            video.addEventListener('ended', () => {
+                video.loop = true; // Set to loop seamlessly
+                video.play();
+                showOverlayNow();
             });
 
-            // Universal Fallback Listeners
-            video.addEventListener('ended', triggerFreeze);
-            video.addEventListener('error', triggerFreeze);
+            video.addEventListener('error', showOverlayNow);
+
+            video.addEventListener('timeupdate', () => {
+                if (video.duration && (video.duration - video.currentTime <= 0.5)) {
+                    showOverlayNow();
+                }
+            });
         }
 
-        /* FREEZES VIDEO AT LAST FRAME & SHOWS BUTTON OVERLAY */
-        function freezeVideoAndShowButton() {
-            const video = document.getElementById('intro-video');
+        function showActionButtonOverlay() {
             const overlayBtn = document.getElementById('video-action-overlay');
+            const video = document.getElementById('intro-video');
 
-            if (video && !video.paused) {
-                video.pause(); // Freezes last visual frame
+            // Video continues playing in loop so motion never freezes
+            if (video) {
+                video.loop = true;
+                if (video.paused) {
+                    video.play().catch(e => {});
+                }
             }
 
             if (overlayBtn) {
-                overlayBtn.classList.add('active'); // Reveals button
+                overlayBtn.classList.add('active'); // Fades in "See Invitation Details" button
             }
         }
 
-        /* BUTTON CLICK -> TRANSITIONS TO YOU ARE CORDIALLY INVITED */
+        /* BUTTON CLICK -> OPENS YOU ARE CORDIALLY INVITED PAGE */
         function proceedToCordiallyInvited() {
             const inviteScene = document.getElementById('scene-invite-card');
             const cardBox = document.getElementById('invite-card-box');
@@ -1094,7 +1094,7 @@
                 videoOverlay.classList.remove('active');
             }
 
-            // Layer 2 overlay activates directly over frozen video frame (ZERO WHITE GAP)
+            // Layer 2 overlay activates directly over active video Layer 1
             inviteScene.classList.add('active-overlay');
 
             setTimeout(() => {
@@ -1151,6 +1151,7 @@
                     setTimeout(typeLine3, 28);
                 } else {
                     dateEl.classList.remove('typing-cursor');
+                    
                     btnEl.style.opacity = '1';
                     btnEl.style.pointerEvents = 'auto';
                 }
