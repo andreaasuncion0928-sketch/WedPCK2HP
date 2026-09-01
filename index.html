@@ -126,11 +126,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(17, 19, 34, 0.65);
-            backdrop-filter: blur(3px);
+            background: rgba(17, 19, 34, 0.75);
+            backdrop-filter: blur(12px); /* Hides underlying video frame while keeping audio active */
             opacity: 0;
             pointer-events: none;
-            transition: opacity 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 2.2s cubic-bezier(0.25, 1, 0.5, 1);
             padding: 0;
         }
 
@@ -681,6 +681,7 @@
                 id="intro-video" 
                 playsinline 
                 preload="auto"
+                loop
             >
                 <source src="HPintrowithaudio.mp4" type="video/mp4">
                 Your browser does not support video playback.
@@ -1057,7 +1058,7 @@
             setupIntersectionObserver();
         });
 
-        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS */
+        /* GATEWAY CLICK -> STARTS VIDEO & SEAMLESSLY TRANSITIONS AT EXACTLY 17 SECONDS WHILE AUDIO CONTINUES */
         function openEnvelopeAndStartVideo(event) {
             const deskEnv = document.getElementById('desk-envelope');
             const deskSeal = document.getElementById('desk-seal');
@@ -1081,8 +1082,8 @@
                     const executeSeamlessTransition = () => {
                         if (!transitionTriggered) {
                             transitionTriggered = true;
-                            // Keep video playing audio in background, pause visuals at 17s frame
-                            video.currentTime = 17.0;
+                            // Keep video loop active so browser audio playback NEVER pauses
+                            video.loop = true;
                             proceedToCordiallyInvitedSeamless();
                         }
                     };
@@ -1209,7 +1210,7 @@
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("CHECK THE DETAILS") -> FADES AUDIO, OPENS OUR STORY PAGE */
+        /* BUTTON CLICK ("CHECK THE DETAILS") -> FADES AUDIO OVER 3.5s & OPENS OUR STORY PAGE */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const videoScene = document.getElementById('scene-video-intro');
