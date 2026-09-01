@@ -19,8 +19,9 @@
             --parchment: #F3EBDD;
             --lavender: #9A84A1;
             --lavender-light: #D4A8F0;
-            --lavender-glow: rgba(212, 168, 240, 0.35);
+            --lavender-glow: rgba(212, 168, 240, 0.45);
             --antique-gold: #B49A68;
+            --gold-glow: rgba(180, 154, 104, 0.6);
             --gray: #666666;
             
             --font-serif: 'Cormorant Garamond', serif;
@@ -108,7 +109,7 @@
             display: none !important;
         }
 
-        /* --- SCENE 1: VIDEO INTRO STAGING WITH SMOOTH FADE --- */
+        /* --- SCENE 1: VIDEO INTRO & MAGICAL PARCHMENT OVERLAY --- */
         #scene-video-intro {
             padding: 0;
             overflow: hidden;
@@ -128,28 +129,30 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--lavender-glow);
             overflow: hidden;
             background: #000;
+            perspective: 1200px;
         }
 
         .video-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 1.2s ease;
+            transition: opacity 1.2s ease, filter 1.2s ease;
         }
 
         .video-wrapper video.dimmed {
-            opacity: 0.45; /* Softly dims the last video frame */
+            opacity: 0.35;
+            filter: blur(2px);
         }
 
-        /* CINEMATIC OVERLAY TRANSITION */
+        /* INVITATION OVERLAY CARD */
         .invitation-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(17, 19, 34, 0.5) 0%, rgba(11, 13, 27, 0.85) 100%);
-            backdrop-filter: blur(6px);
+            background: radial-gradient(circle, rgba(17, 19, 34, 0.4) 0%, rgba(11, 13, 27, 0.88) 100%);
+            backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -157,7 +160,7 @@
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.95);
+            transform: scale(0.92);
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -178,6 +181,7 @@
             cursor: pointer;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             max-width: 340px;
+            position: relative;
         }
 
         .invitation-card-btn:hover {
@@ -198,6 +202,65 @@
         @keyframes pulse {
             0% { opacity: 0.5; transform: scale(0.98); }
             100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* --- MAGICAL WAX SEAL & UNROLL ANIMATION --- */
+        .magic-wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #8b0000 0%, #361b3b 100%);
+            border: 3px double var(--antique-gold);
+            border-radius: 50%;
+            color: var(--antique-gold);
+            font-family: var(--font-serif);
+            font-weight: bold;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px var(--gold-glow), inset 0 0 15px rgba(0,0,0,0.8);
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+
+        .magic-wax-seal.pop {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .magic-wax-seal.crack {
+            transform: translate(-50%, -50%) scale(1.8);
+            opacity: 0;
+            filter: blur(10px);
+        }
+
+        .magic-parchment-unfold {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scaleX(0.05) scaleY(0.01);
+            width: 90vw;
+            max-width: 800px;
+            height: 80vh;
+            background: var(--paper);
+            border: 2px solid var(--antique-gold);
+            box-shadow: 0 0 80px var(--lavender-glow), 0 0 40px var(--gold-glow);
+            z-index: 40;
+            pointer-events: none;
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+            border-radius: 4px;
+        }
+
+        .magic-parchment-unfold.open {
+            opacity: 1;
+            transform: translate(-50%, -50%) scaleX(1) scaleY(1);
         }
 
         /* --- MAIN CHAPTER STYLING --- */
@@ -485,6 +548,9 @@
 
     <canvas id="particle-canvas"></canvas>
 
+    <div class="magic-wax-seal" id="magic-seal">E & A</div>
+    <div class="magic-parchment-unfold" id="magic-parchment"></div>
+
     <button class="audio-control" id="audio-toggle" aria-label="Toggle Atmosphere Sound">
         <span>♪</span> <span id="audio-status">SOUND ON</span>
     </button>
@@ -514,7 +580,7 @@
                 </video>
 
                 <div class="invitation-overlay" id="video-overlay">
-                    <div class="invitation-card-btn" onclick="openInvitationDetails()">
+                    <div class="invitation-card-btn" onclick="triggerMagicalOpening()">
                         <p style="font-family: var(--font-script); font-size: 1.9rem; color: var(--lavender);">An Invitation Has Arrived</p>
                         <h3 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 6px; color: var(--midnight);">ELENA & ADRIAN</h3>
                         <p class="tap-instruction">CLICK TO OPEN INVITATION</p>
@@ -910,7 +976,6 @@
 
             video.addEventListener('ended', () => {
                 video.pause();
-                // Dims video background and fades in overlay simultaneously
                 video.classList.add('dimmed');
                 setTimeout(() => {
                     overlay.classList.add('reveal');
@@ -918,9 +983,30 @@
             });
         }
 
-        /* TRANSITION FROM OVERLAY TO DETAILS */
-        function openInvitationDetails() {
-            transitionStage('scene-video-intro', 'scene-story');
+        /* HARRY POTTER STYLE MAGICAL PARCHMENT REVEAL TRANSITION */
+        function triggerMagicalOpening() {
+            const seal = document.getElementById('magic-seal');
+            const parchment = document.getElementById('magic-parchment');
+
+            // 1. Pop Wax Seal
+            seal.classList.add('pop');
+
+            setTimeout(() => {
+                // 2. Shatter Wax Seal & Expand Golden Scroll
+                seal.classList.add('crack');
+                parchment.classList.add('open');
+
+                setTimeout(() => {
+                    // 3. Complete Stage Transition to Invitation Story
+                    transitionStage('scene-video-intro', 'scene-story');
+                    
+                    // Reset Magic Layers after Stage Switch
+                    setTimeout(() => {
+                        seal.classList.remove('pop', 'crack');
+                        parchment.classList.remove('open');
+                    }, 1000);
+                }, 1000);
+            }, 600);
         }
 
         /* STAGE NAVIGATION HELPERS */
