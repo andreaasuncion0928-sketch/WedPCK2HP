@@ -164,7 +164,7 @@
             display: none !important;
         }
 
-        /* --- INITIAL GATEWAY SCREEN --- */
+        /* --- FULL-PAGE GIANT ENVELOPE GATEWAY SCREEN --- */
         .envelope-gateway-screen {
             position: fixed;
             top: 0;
@@ -174,10 +174,11 @@
             background: radial-gradient(circle, #191A2A 0%, #0B0D1B 100%);
             z-index: 5000;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            perspective: 1200px;
+            perspective: 1500px;
+            padding: 0;
+            overflow: hidden;
             transition: opacity 1.2s ease, visibility 1.2s ease;
         }
 
@@ -187,38 +188,58 @@
             pointer-events: none;
         }
 
+        /* Full-Bleed Page Envelope Body */
         .desk-envelope {
-            width: 320px;
-            height: 220px;
+            width: 92vw;
+            max-width: 900px;
+            height: 85vh;
+            max-height: 620px;
             background: var(--parchment);
+            background-image: url('parchment.jpg');
+            background-size: cover;
+            background-position: center;
             position: relative;
-            border-radius: 6px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px var(--lavender-glow);
+            border-radius: 8px;
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95), 0 0 50px var(--lavender-glow);
             border: 2px solid var(--antique-gold);
             transform-style: preserve-3d;
             cursor: pointer;
             text-align: center;
-            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
         .desk-envelope:hover {
-            transform: scale(1.04) rotateX(-5deg);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 50px var(--gold-glow);
+            transform: scale(1.015) rotateX(-2deg);
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.98), 0 0 65px var(--gold-glow);
         }
 
+        /* Oversized Triangular Top Flap */
         .envelope-flap {
             position: absolute;
             top: 0;
             left: 0;
-            width: 0;
+            width: 100%;
             height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 120px solid #EAE0D0;
+            border-left: 46vw solid transparent;
+            border-right: 46vw solid transparent;
+            border-top: 42vh solid #E3D3C0;
             transform-origin: top;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+        }
+
+        @media (min-width: 980px) {
+            .envelope-flap {
+                border-left-width: 450px;
+                border-right-width: 450px;
+                border-top-width: 310px;
+            }
         }
 
         .desk-envelope.open .envelope-flap {
@@ -226,32 +247,33 @@
             z-index: 1;
         }
 
+        /* Oversized Wax Seal */
         .wax-seal {
             position: absolute;
-            top: 80px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%) scale(1);
-            width: 54px;
-            height: 54px;
+            transform: translate(-50%, -50%) scale(1);
+            width: 86px;
+            height: 86px;
             background: radial-gradient(circle, #8b0000 0%, #361b3b 100%);
             border-radius: 50%;
-            border: 2px dashed var(--antique-gold);
+            border: 3px dashed var(--antique-gold);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--antique-gold);
             font-family: var(--font-serif);
             font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.7), 0 0 15px var(--gold-glow);
+            font-size: 1.8rem;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.85), 0 0 25px var(--gold-glow);
             z-index: 6;
             transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
         }
 
         .wax-seal.break {
-            transform: translateX(-50%) scale(1.6);
+            transform: translate(-50%, -50%) scale(1.8);
             opacity: 0;
-            filter: blur(10px) brightness(2);
+            filter: blur(12px) brightness(2);
         }
 
         .magical-light-beam {
@@ -259,9 +281,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,253,248,1) 0%, rgba(212,168,240,0.8) 40%, rgba(180,154,104,0) 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,253,248,1) 0%, rgba(212,168,240,0.85) 40%, rgba(180,154,104,0) 70%);
             border-radius: 50%;
             z-index: 10;
             pointer-events: none;
@@ -271,7 +293,7 @@
 
         .desk-envelope.open .magical-light-beam {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(5);
+            transform: translate(-50%, -50%) scale(6);
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -807,8 +829,15 @@
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
             .photo-card { width: 95px; height: 120px; }
-            .desk-envelope { width: 280px; height: 190px; }
-            .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 105px; }
+            
+            /* Full Screen Envelope Responsive Mobile Flaps */
+            .desk-envelope { width: 96vw; height: 88vh; padding: 1rem; }
+            .envelope-flap {
+                border-left-width: 48vw;
+                border-right-width: 48vw;
+                border-top-width: 44vh;
+            }
+            .wax-seal { width: 70px; height: 70px; font-size: 1.4rem; }
 
             /* Mobile-specific adjustments for Our Story memory stack */
             .story-editorial-card { padding: 1.5rem 0.8rem 1.2rem 0.8rem !important; }
@@ -828,9 +857,9 @@
             <div class="wax-seal" id="desk-seal">E & A</div>
             <div class="magical-light-beam"></div>
 
-            <p style="font-family: var(--font-script); font-size: 1.8rem; color: var(--lavender); margin-top: 3.5rem;">An invitation awaits.</p>
-            <h3 style="font-family: var(--font-serif); letter-spacing: 2px; margin-top: 4px; color: var(--midnight);">ELENA & ADRIAN</h3>
-            <p style="margin-top: 1.2rem; font-family: var(--font-serif); letter-spacing: 2px; font-size: 0.75rem; color: var(--antique-gold); text-transform: uppercase;">CLICK TO OPEN</p>
+            <p style="font-family: var(--font-script); font-size: 2.5rem; color: #111111; margin-top: 6rem; font-weight: bold; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">An invitation awaits.</p>
+            <h2 style="font-family: var(--font-serif); letter-spacing: 4px; margin-top: 8px; color: var(--midnight); font-size: 2rem; font-weight: 700;">ELENA & ADRIAN</h2>
+            <p style="margin-top: 2rem; font-family: var(--font-serif); letter-spacing: 3px; font-size: 0.85rem; color: var(--antique-gold); text-transform: uppercase; font-weight: 700;">CLICK TO OPEN INVITATION</p>
         </div>
     </div>
 
