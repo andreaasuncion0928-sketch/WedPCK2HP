@@ -444,7 +444,7 @@
             text-shadow: 0 0 10px var(--gold-spark);
         }
 
-        /* --- MAGICAL WRITING QUILL PEN WITH SVG FEATHER & GLOWING NIB --- */
+        /* --- MAGICAL WRITING ENLARGED FEATHER QUILL PEN --- */
         .magic-glyph {
             display: inline-block;
             opacity: 0;
@@ -461,16 +461,16 @@
             text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
         }
 
-        /* DYNAMIC SVG FEATHER QUILL WITH SCRIBING MOTION */
+        /* ENLARGED DYNAMIC FEATHER QUILL WITH GOLDEN GLOW & SCRIBING MOTION */
         .floating-quill-pen {
             display: inline-block;
-            width: 32px;
-            height: 38px;
+            width: 54px;  /* Enlarged quill dimensions */
+            height: 62px;
             vertical-align: middle;
             margin-left: 2px;
-            transform-origin: 0% 100%; /* Anchor directly at nib tip */
-            transform: rotate(-35deg) translate(-2px, -6px);
-            filter: drop-shadow(0 0 8px var(--gold-spark)) drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.35));
+            transform-origin: 0% 100%; /* Anchor tip directly on text line */
+            transform: rotate(-38deg) translate(-4px, -18px);
+            filter: drop-shadow(0 0 12px var(--gold-spark)) drop-shadow(-4px 4px 6px rgba(0,0,0,0.4));
             animation: quillWriteMotion 0.22s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -483,8 +483,8 @@
         }
 
         @keyframes quillWriteMotion {
-            0% { transform: rotate(-30deg) translate(-1px, -4px) scale(1); }
-            100% { transform: rotate(-44deg) translate(2px, -8px) scale(1.06); }
+            0% { transform: rotate(-32deg) translate(-2px, -14px) scale(1); }
+            100% { transform: rotate(-46deg) translate(3px, -20px) scale(1.08); }
         }
 
         /* --- TYPOGRAPHY HIERARCHY & BALANCED SIZES (WORD WRAP NO-SPLIT GUARANTEED) --- */
@@ -960,6 +960,7 @@
             #type-line2 { font-size: 1.2rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
+            .floating-quill-pen { width: 42px; height: 48px; transform: rotate(-38deg) translate(-2px, -12px); }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -1539,7 +1540,7 @@
             runFastMagicalTyping();
         }
 
-        /* BALANCED MAGICAL ANIMATED SVG QUILL WRITING ANIMATION */
+        /* BALANCED MAGICAL ANIMATED SVG FEATHER QUILL WRITING ANIMATION */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
