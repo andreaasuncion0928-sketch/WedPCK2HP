@@ -128,12 +128,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, rgba(28, 30, 54, 0.75) 0%, rgba(11, 13, 27, 0.9) 80%);
-            backdrop-filter: blur(5px);
+            background: radial-gradient(circle at center, rgba(28, 30, 54, 0.85) 0%, rgba(11, 13, 27, 0.95) 80%);
+            backdrop-filter: blur(8px);
             opacity: 0;
             pointer-events: none;
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             padding: 1rem;
+        }
+
+        /* Dedicated Spark Canvas for Invitation Landing */
+        #invite-spark-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 21;
         }
 
         #scene-invite-card.active-overlay {
@@ -395,15 +406,16 @@
 
         /* Custom Parchment Background aligned with Intro Gate Envelope Style */
         .parchment-texture-card {
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.92) 0%, rgba(243, 235, 221, 0.98) 100%), url('parchment.jpg');
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.94) 0%, rgba(243, 235, 221, 0.98) 100%), url('parchment.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             border: 2px solid var(--antique-gold);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.9), 0 0 45px var(--gold-glow);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.95), 0 0 60px var(--gold-glow);
             opacity: 0;
             transform: scale(0.75) translateY(20px);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 22;
         }
 
         .parchment-texture-card.seamless-emerge {
@@ -418,45 +430,21 @@
         }
 
         @keyframes magicalBloomGlow {
-            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px var(--lavender-glow); }
-            100% { box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 45px rgba(212, 168, 240, 0.75), 0 0 25px var(--gold-glow); }
+            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 25px var(--lavender-glow); }
+            100% { box-shadow: 0 30px 75px rgba(0,0,0,0.95), 0 0 60px rgba(212, 168, 240, 0.8), 0 0 35px var(--gold-spark); }
         }
 
-        /* --- MODERN HARRY POTTER ENCHANTED INK ANIMATION --- */
-        .magic-glyph {
-            display: inline-block;
-            opacity: 0;
-            filter: blur(6px);
-            transform: scale(1.3) translateY(-2px);
-            transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.45s ease;
-            white-space: pre;
+        /* Decorative Gold Emblem Above Reveal Card */
+        .enchanted-crest-symbol {
+            font-size: 1.6rem;
+            color: var(--antique-gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: 6px;
+            opacity: 0.9;
+            text-shadow: 0 0 10px var(--gold-spark);
         }
 
-        .magic-glyph.inked {
-            opacity: 1;
-            filter: blur(0px);
-            transform: scale(1) translateY(0);
-            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.9), 0px 1px 2px rgba(0, 0, 0, 0.25);
-        }
-
-        /* GLOWING MAGIC QUILL CURSOR */
-        .magic-quill-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.1em;
-            background-color: var(--antique-gold);
-            vertical-align: middle;
-            margin-left: 2px;
-            box-shadow: 0 0 8px #ffd700, 0 0 15px #ff8c00;
-            animation: magicQuillPulse 0.6s infinite alternate;
-        }
-
-        @keyframes magicQuillPulse {
-            0% { opacity: 0.3; transform: scaleY(0.8); }
-            100% { opacity: 1; transform: scaleY(1.1); }
-        }
-
-        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY FOR INVITATION CARD --- */
+        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY FOR INVITATION CARD (WORD-WRAP FIXED) --- */
         #type-line1 {
             font-family: var(--font-serif) !important;
             font-size: 2.2rem !important;
@@ -465,6 +453,9 @@
             font-weight: 800 !important;
             text-transform: uppercase;
             min-height: 2.8rem;
+            word-break: keep-all !important; /* Prevents word splitting */
+            overflow-wrap: normal !important;
+            hyphens: none !important;
         }
 
         #type-line2 {
@@ -474,6 +465,9 @@
             font-weight: 700 !important;
             margin: 0.5rem 0;
             min-height: 2.5rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
         }
 
         #type-line3 {
@@ -484,6 +478,9 @@
             font-weight: 800 !important;
             margin-bottom: 0.8rem;
             min-height: 3.5rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
         }
 
         #type-line4 {
@@ -493,6 +490,9 @@
             color: #000000 !important;
             font-weight: 900 !important;
             min-height: 2rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
         }
 
         .chapter-title {
@@ -912,10 +912,10 @@
 
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1rem; }
-            #type-line1 { font-size: 1.6rem !important; }
+            #type-line1 { font-size: 1.5rem !important; letter-spacing: 2px !important; }
             #type-line2 { font-size: 1.7rem !important; }
-            #type-line3 { font-size: 2.2rem !important; }
-            #type-line4 { font-size: 1.05rem !important; }
+            #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
+            #type-line4 { font-size: 1.05rem !important; letter-spacing: 2px !important; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -990,11 +990,15 @@
     </section>
 
     <section id="scene-invite-card">
+        <canvas id="invite-spark-canvas"></canvas>
+
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 680px; position: relative;">
             <div class="filigree-corner filigree-tl"></div>
             <div class="filigree-corner filigree-tr"></div>
             <div class="filigree-corner filigree-bl"></div>
             <div class="filigree-corner filigree-br"></div>
+
+            <div class="enchanted-crest-symbol">✦ · ❦ · ✦</div>
 
             <p id="type-line1"></p>
             <p id="type-line2"></p>
@@ -1385,6 +1389,7 @@
             startCountdown();
             initParticles();
             initEnvelopeParticles();
+            initInviteParticles();
             setupIntersectionObserver();
             setupDragScroll();
         });
@@ -1480,7 +1485,7 @@
             runFastMagicalTyping();
         }
 
-        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION WITH UPDATED COPY LAYOUT */
+        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION (WORD WRAP NO-SPLIT GUARANTEED) */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
@@ -1844,6 +1849,48 @@
                 requestAnimationFrame(animateSparks);
             }
             animateSparks();
+        }
+
+        /* DEDICATED MAGICAL SPARKS ON INVITATION REVEAL LANDING CARD */
+        function initInviteParticles() {
+            const canvas = document.getElementById('invite-spark-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const symbols = ['✧', '✦', '✦', '♦'];
+            const inviteSparks = Array.from({ length: 35 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 12 + 8,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: -Math.random() * 0.5 - 0.15,
+                opacity: Math.random() * 0.7 + 0.3,
+                glyph: symbols[Math.floor(Math.random() * symbols.length)]
+            }));
+
+            function animateInviteSparks() {
+                ctx.clearRect(0, 0, width, height);
+                inviteSparks.forEach(s => {
+                    s.x += s.speedX;
+                    s.y += s.speedY;
+                    if (s.y < -20) {
+                        s.y = height + 20;
+                        s.x = Math.random() * width;
+                    }
+                    ctx.fillStyle = `rgba(255, 215, 0, ${s.opacity})`;
+                    ctx.font = `${s.size}px serif`;
+                    ctx.fillText(s.glyph, s.x, s.y);
+                });
+                requestAnimationFrame(animateInviteSparks);
+            }
+            animateInviteSparks();
         }
 
         /* GLOBAL PARTICLES BACKGROUND */
