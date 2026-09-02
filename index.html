@@ -404,14 +404,14 @@
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Custom Parchment Background aligned with Intro Gate Envelope Style */
+        /* Custom Parchment Background with Corner Fade Vignette & Glow Aura */
         .parchment-texture-card {
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.94) 0%, rgba(243, 235, 221, 0.98) 100%), url('parchment.jpg');
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.96) 0%, rgba(243, 235, 221, 0.98) 100%), url('parchment.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             border: 2px solid var(--antique-gold);
-            box-shadow: 0 30px 90px rgba(0,0,0,0.95), 0 0 60px var(--gold-glow);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.95), 0 0 60px var(--gold-glow), inset 0 0 45px rgba(17, 19, 34, 0.45); /* Multi-angle inward edge opacity fade */
             opacity: 0;
             transform: scale(0.75) translateY(20px);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -430,8 +430,23 @@
         }
 
         @keyframes magicalBloomGlow {
-            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 25px var(--lavender-glow); }
-            100% { box-shadow: 0 30px 75px rgba(0,0,0,0.95), 0 0 60px rgba(212, 168, 240, 0.8), 0 0 35px var(--gold-spark); }
+            0% { box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 25px var(--lavender-glow), inset 0 0 35px rgba(17, 19, 34, 0.35); }
+            100% { box-shadow: 0 30px 75px rgba(0,0,0,0.95), 0 0 60px rgba(212, 168, 240, 0.8), 0 0 35px var(--gold-spark), inset 0 0 50px rgba(17, 19, 34, 0.5); }
+        }
+
+        /* MAGICAL TEXT BACKGROUND AURA CONTAINER */
+        .text-glow-wrapper {
+            position: relative;
+            padding: 1rem 0.5rem;
+            border-radius: 8px;
+            background: radial-gradient(ellipse at center, rgba(212, 168, 240, 0.22) 0%, rgba(197, 160, 89, 0.12) 45%, rgba(0,0,0,0) 80%);
+            backdrop-filter: blur(1px);
+            animation: textAuraPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textAuraPulse {
+            0% { background: radial-gradient(ellipse at center, rgba(212, 168, 240, 0.18) 0%, rgba(197, 160, 89, 0.08) 50%, rgba(0,0,0,0) 80%); }
+            100% { background: radial-gradient(ellipse at center, rgba(212, 168, 240, 0.32) 0%, rgba(255, 215, 0, 0.18) 55%, rgba(0,0,0,0) 85%); }
         }
 
         /* Decorative Gold Emblem Above Reveal Card */
@@ -444,7 +459,7 @@
             text-shadow: 0 0 10px var(--gold-spark);
         }
 
-        /* --- MAGICAL WRITING ENLARGED FEATHER QUILL PEN --- */
+        /* --- MAGICAL INK GLYPH REVEAL (NO QUILL) --- */
         .magic-glyph {
             display: inline-block;
             opacity: 0;
@@ -458,33 +473,7 @@
             opacity: 1;
             filter: blur(0px);
             transform: translateY(0) scale(1);
-            text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
-        }
-
-        /* ENLARGED DYNAMIC FEATHER QUILL WITH GOLDEN GLOW & SCRIBING MOTION */
-        .floating-quill-pen {
-            display: inline-block;
-            width: 54px;  /* Enlarged quill dimensions */
-            height: 62px;
-            vertical-align: middle;
-            margin-left: 2px;
-            transform-origin: 0% 100%; /* Anchor tip directly on text line */
-            transform: rotate(-38deg) translate(-4px, -18px);
-            filter: drop-shadow(0 0 12px var(--gold-spark)) drop-shadow(-4px 4px 6px rgba(0,0,0,0.4));
-            animation: quillWriteMotion 0.22s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .floating-quill-pen svg {
-            width: 100%;
-            height: 100%;
-            fill: url(#goldGradient);
-        }
-
-        @keyframes quillWriteMotion {
-            0% { transform: rotate(-32deg) translate(-2px, -14px) scale(1); }
-            100% { transform: rotate(-46deg) translate(3px, -20px) scale(1.08); }
+            text-shadow: 0px 0px 2px rgba(255, 215, 0, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.5);
         }
 
         /* --- TYPOGRAPHY HIERARCHY & BALANCED SIZES (WORD WRAP NO-SPLIT GUARANTEED) --- */
@@ -960,7 +949,6 @@
             #type-line2 { font-size: 1.2rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
-            .floating-quill-pen { width: 42px; height: 48px; transform: rotate(-38deg) translate(-2px, -12px); }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -1016,16 +1004,6 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <linearGradient id="goldGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#C5A059" />
-                <stop offset="50%" stop-color="#FFD700" />
-                <stop offset="100%" stop-color="#FFF8DC" />
-            </linearGradient>
-        </defs>
-    </svg>
-
     <div class="lightbox-modal" id="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
@@ -1055,10 +1033,12 @@
 
             <div class="enchanted-crest-symbol">✦ · ❦ · ✦</div>
 
-            <p id="type-line1"></p>
-            <p id="type-line2"></p>
-            <h1 id="type-line3"></h1>
-            <p id="type-line4"></p>
+            <div class="text-glow-wrapper">
+                <p id="type-line1"></p>
+                <p id="type-line2"></p>
+                <h1 id="type-line3"></h1>
+                <p id="type-line4"></p>
+            </div>
 
             <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
                 CHECK THE DETAILS →
@@ -1540,7 +1520,7 @@
             runFastMagicalTyping();
         }
 
-        /* BALANCED MAGICAL ANIMATED SVG FEATHER QUILL WRITING ANIMATION */
+        /* BALANCED MAGICAL INK ANIMATION (WITHOUT QUILL BAR OR PEN) */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
@@ -1555,7 +1535,7 @@
             const text3 = "ELENA & ADRIAN";
             const text4 = "31 JANUARY 2028 · MANILA";
 
-            // Creates interactive glyph spans along with the animated floating SVG feather quill pen
+            // Creates interactive glyph spans for smooth enchanted ink effect
             function buildGlyphs(container, text) {
                 container.innerHTML = '';
                 const glyphSpans = [];
@@ -1566,19 +1546,12 @@
                     container.appendChild(span);
                     glyphSpans.push(span);
                 }
-                
-                // Add animated hovering golden SVG feather quill
-                const quillPen = document.createElement('span');
-                quillPen.className = 'floating-quill-pen';
-                quillPen.innerHTML = `<svg viewBox="0 0 100 100"><path d="M10,90 C30,85 50,70 65,50 C80,30 90,10 95,5 C95,5 80,15 65,25 C50,35 30,55 10,90 Z M10,90 L2,98 L12,92 Z" /></svg>`;
-                container.appendChild(quillPen);
-                
-                return { glyphs: glyphSpans, quill: quillPen };
+                return { glyphs: glyphSpans };
             }
 
             const line1 = buildGlyphs(line1El, text1);
 
-            // Smooth writing quill pacing (40ms - 70ms per character)
+            // Smooth ink stroke reveal pacing (40ms - 70ms per character)
             function animateGlyphSequence(lineObj, onComplete) {
                 let index = 0;
                 function revealNext() {
@@ -1588,15 +1561,6 @@
                         const delay = Math.floor(Math.random() * 30) + 40; 
                         setTimeout(revealNext, delay);
                     } else {
-                        // Fade out quill pen from line once completed
-                        if (lineObj.quill && lineObj.quill.parentNode) {
-                            lineObj.quill.style.opacity = '0';
-                            setTimeout(() => {
-                                if (lineObj.quill.parentNode) {
-                                    lineObj.quill.parentNode.removeChild(lineObj.quill);
-                                }
-                            }, 300);
-                        }
                         if (onComplete) setTimeout(onComplete, 200); 
                     }
                 }
