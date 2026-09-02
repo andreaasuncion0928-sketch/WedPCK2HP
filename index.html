@@ -444,27 +444,27 @@
             text-shadow: 0 0 10px var(--gold-spark);
         }
 
-        /* --- STRICT PURE BLACK HIGH VISIBILITY TYPOGRAPHY FOR INVITATION CARD (WORD-WRAP FIXED) --- */
+        /* --- TYPOGRAPHY HIERARCHY & BALANCED SIZES (WORD WRAP NO-SPLIT GUARANTEED) --- */
         #type-line1 {
             font-family: var(--font-serif) !important;
-            font-size: 2.2rem !important;
-            letter-spacing: 4px !important;
+            font-size: 2rem !important; /* Prominent heading */
+            letter-spacing: 3px !important;
             color: #000000 !important;
             font-weight: 800 !important;
             text-transform: uppercase;
-            min-height: 2.8rem;
-            word-break: keep-all !important; /* Prevents word splitting */
+            min-height: 2.6rem;
+            word-break: keep-all !important;
             overflow-wrap: normal !important;
             hyphens: none !important;
         }
 
         #type-line2 {
             font-family: var(--font-script) !important;
-            font-size: 2.2rem !important;
+            font-size: 1.4rem !important; /* Smaller, supporting script */
             color: var(--lavender) !important;
-            font-weight: 700 !important;
-            margin: 0.5rem 0;
-            min-height: 2.5rem;
+            font-weight: 600 !important;
+            margin: 0.3rem 0;
+            min-height: 2rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
             hyphens: none !important;
@@ -472,11 +472,11 @@
 
         #type-line3 {
             font-family: var(--font-serif) !important;
-            font-size: 2.8rem !important;
+            font-size: 2.8rem !important; /* Most prominent focal element */
             letter-spacing: 4px !important;
             color: #000000 !important;
             font-weight: 800 !important;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             min-height: 3.5rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
@@ -485,11 +485,11 @@
 
         #type-line4 {
             font-family: var(--font-serif) !important;
-            font-size: 1.25rem !important;
-            letter-spacing: 3px !important;
+            font-size: 1.15rem !important; /* Smaller, clean date */
+            letter-spacing: 2.5px !important;
             color: #000000 !important;
-            font-weight: 900 !important;
-            min-height: 2rem;
+            font-weight: 700 !important;
+            min-height: 1.8rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
             hyphens: none !important;
@@ -912,10 +912,10 @@
 
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1rem; }
-            #type-line1 { font-size: 1.5rem !important; letter-spacing: 2px !important; }
-            #type-line2 { font-size: 1.7rem !important; }
+            #type-line1 { font-size: 1.45rem !important; letter-spacing: 2px !important; }
+            #type-line2 { font-size: 1.2rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
-            #type-line4 { font-size: 1.05rem !important; letter-spacing: 2px !important; }
+            #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .video-wrapper { height: 75vh; }
@@ -1250,7 +1250,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1485,7 +1485,7 @@
             runFastMagicalTyping();
         }
 
-        /* MODERN SLOWER HARRY POTTER ENCHANTED INK ANIMATION (WORD WRAP NO-SPLIT GUARANTEED) */
+        /* BALANCED MAGICAL ENCHANTED INK ANIMATION (40ms-70ms PER CHARACTER PACING) */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
@@ -1522,20 +1522,20 @@
 
             const line1 = buildGlyphs(line1El, text1);
 
-            // Slower, organic enchanted ink speed (110ms - 160ms per character)
+            // Balanced, engaging enchanted ink speed (40ms - 70ms per character)
             function animateGlyphSequence(lineObj, onComplete) {
                 let index = 0;
                 function revealNext() {
                     if (index < lineObj.glyphs.length) {
                         lineObj.glyphs[index].classList.add('inked');
                         index++;
-                        const delay = Math.floor(Math.random() * 50) + 110;
+                        const delay = Math.floor(Math.random() * 30) + 40; // Fast yet smooth pacing
                         setTimeout(revealNext, delay);
                     } else {
                         if (lineObj.cursor && lineObj.cursor.parentNode) {
                             lineObj.cursor.parentNode.removeChild(lineObj.cursor);
                         }
-                        if (onComplete) setTimeout(onComplete, 400);
+                        if (onComplete) setTimeout(onComplete, 200); // Shorter line pause
                     }
                 }
                 revealNext();
