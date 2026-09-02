@@ -444,6 +444,44 @@
             text-shadow: 0 0 10px var(--gold-spark);
         }
 
+        /* --- MAGICAL WRITING QUILL & ENCHANTED INK ANIMATION --- */
+        .magic-glyph {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(3px) scale(0.92);
+            transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.4s ease;
+            white-space: pre;
+        }
+
+        .magic-glyph.inked {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0) scale(1);
+            text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ANIMATED HOVERING GOLDEN FEATHER QUILL PEN */
+        .floating-quill-pen {
+            display: inline-block;
+            font-size: 1.6em;
+            line-height: 1;
+            vertical-align: middle;
+            margin-left: 2px;
+            color: var(--antique-gold);
+            transform: rotate(-35deg) translate(-2px, -8px);
+            transform-origin: bottom left;
+            filter: drop-shadow(0 0 6px var(--gold-spark));
+            animation: quillScribeMotion 0.3s ease-in-out infinite alternate;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes quillScribeMotion {
+            0% { transform: rotate(-30deg) translate(-2px, -8px); }
+            100% { transform: rotate(-42deg) translate(2px, -12px); }
+        }
+
         /* --- TYPOGRAPHY HIERARCHY & BALANCED SIZES (WORD WRAP NO-SPLIT GUARANTEED) --- */
         #type-line1 {
             font-family: var(--font-serif) !important;
@@ -1250,7 +1288,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--ink);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1485,7 +1523,7 @@
             runFastMagicalTyping();
         }
 
-        /* BALANCED MAGICAL ENCHANTED INK ANIMATION (40ms-70ms PER CHARACTER PACING) */
+        /* BALANCED MAGICAL ANIMATED QUILL WRITING ANIMATION */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
@@ -1500,7 +1538,7 @@
             const text3 = "ELENA & ADRIAN";
             const text4 = "31 JANUARY 2028 · MANILA";
 
-            // Creates interactive glyph spans for smooth enchanted ink effect
+            // Creates interactive glyph spans along with the animated floating quill pen
             function buildGlyphs(container, text) {
                 container.innerHTML = '';
                 const glyphSpans = [];
@@ -1512,30 +1550,37 @@
                     glyphSpans.push(span);
                 }
                 
-                // Add magical quill cursor indicator
-                const cursor = document.createElement('span');
-                cursor.className = 'magic-quill-cursor';
-                container.appendChild(cursor);
+                // Add animated hovering golden feather quill
+                const quillPen = document.createElement('span');
+                quillPen.className = 'floating-quill-pen';
+                quillPen.textContent = '✒';
+                container.appendChild(quillPen);
                 
-                return { glyphs: glyphSpans, cursor };
+                return { glyphs: glyphSpans, quill: quillPen };
             }
 
             const line1 = buildGlyphs(line1El, text1);
 
-            // Balanced, engaging enchanted ink speed (40ms - 70ms per character)
+            // Smooth writing quill pacing (40ms - 70ms per character)
             function animateGlyphSequence(lineObj, onComplete) {
                 let index = 0;
                 function revealNext() {
                     if (index < lineObj.glyphs.length) {
                         lineObj.glyphs[index].classList.add('inked');
                         index++;
-                        const delay = Math.floor(Math.random() * 30) + 40; // Fast yet smooth pacing
+                        const delay = Math.floor(Math.random() * 30) + 40; 
                         setTimeout(revealNext, delay);
                     } else {
-                        if (lineObj.cursor && lineObj.cursor.parentNode) {
-                            lineObj.cursor.parentNode.removeChild(lineObj.cursor);
+                        // Fade out quill pen from line once completed
+                        if (lineObj.quill && lineObj.quill.parentNode) {
+                            lineObj.quill.style.opacity = '0';
+                            setTimeout(() => {
+                                if (lineObj.quill.parentNode) {
+                                    lineObj.quill.parentNode.removeChild(lineObj.quill);
+                                }
+                            }, 300);
                         }
-                        if (onComplete) setTimeout(onComplete, 200); // Shorter line pause
+                        if (onComplete) setTimeout(onComplete, 200); 
                     }
                 }
                 revealNext();
