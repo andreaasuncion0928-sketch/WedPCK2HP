@@ -444,7 +444,7 @@
             text-shadow: 0 0 10px var(--gold-spark);
         }
 
-        /* --- MAGICAL WRITING QUILL PEN WITH REALISTIC FEATHER NIB --- */
+        /* --- MAGICAL WRITING QUILL PEN WITH SVG FEATHER & GLOWING NIB --- */
         .magic-glyph {
             display: inline-block;
             opacity: 0;
@@ -461,25 +461,30 @@
             text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
         }
 
-        /* ANIMATED HOVERING GOLDEN FEATHER QUILL PEN WITH GLOWING NIB */
+        /* DYNAMIC SVG FEATHER QUILL WITH SCRIBING MOTION */
         .floating-quill-pen {
             display: inline-block;
-            font-size: 1.85em;
-            line-height: 1;
+            width: 32px;
+            height: 38px;
             vertical-align: middle;
             margin-left: 2px;
-            color: var(--antique-gold);
-            transform: rotate(-42deg) translate(-2px, -12px);
-            transform-origin: bottom left;
-            filter: drop-shadow(0 0 6px var(--gold-spark)) drop-shadow(-2px 2px 2px rgba(0,0,0,0.3));
-            animation: quillScribeStroke 0.28s ease-in-out infinite alternate;
+            transform-origin: 0% 100%; /* Anchor directly at nib tip */
+            transform: rotate(-35deg) translate(-2px, -6px);
+            filter: drop-shadow(0 0 8px var(--gold-spark)) drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.35));
+            animation: quillWriteMotion 0.22s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
 
-        @keyframes quillScribeStroke {
-            0% { transform: rotate(-38deg) translate(-2px, -10px) scale(1); }
-            100% { transform: rotate(-48deg) translate(2px, -14px) scale(1.05); }
+        .floating-quill-pen svg {
+            width: 100%;
+            height: 100%;
+            fill: url(#goldGradient);
+        }
+
+        @keyframes quillWriteMotion {
+            0% { transform: rotate(-30deg) translate(-1px, -4px) scale(1); }
+            100% { transform: rotate(-44deg) translate(2px, -8px) scale(1.06); }
         }
 
         /* --- TYPOGRAPHY HIERARCHY & BALANCED SIZES (WORD WRAP NO-SPLIT GUARANTEED) --- */
@@ -1010,6 +1015,16 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C5A059" />
+                <stop offset="50%" stop-color="#FFD700" />
+                <stop offset="100%" stop-color="#FFF8DC" />
+            </linearGradient>
+        </defs>
+    </svg>
+
     <div class="lightbox-modal" id="lightbox">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
@@ -1524,7 +1539,7 @@
             runFastMagicalTyping();
         }
 
-        /* BALANCED MAGICAL ANIMATED QUILL WRITING ANIMATION */
+        /* BALANCED MAGICAL ANIMATED SVG QUILL WRITING ANIMATION */
         function runFastMagicalTyping() {
             const line1El = document.getElementById('type-line1');
             const line2El = document.getElementById('type-line2');
@@ -1539,7 +1554,7 @@
             const text3 = "ELENA & ADRIAN";
             const text4 = "31 JANUARY 2028 · MANILA";
 
-            // Creates interactive glyph spans along with the animated floating quill pen
+            // Creates interactive glyph spans along with the animated floating SVG feather quill pen
             function buildGlyphs(container, text) {
                 container.innerHTML = '';
                 const glyphSpans = [];
@@ -1551,10 +1566,10 @@
                     glyphSpans.push(span);
                 }
                 
-                // Add animated hovering golden feather quill
+                // Add animated hovering golden SVG feather quill
                 const quillPen = document.createElement('span');
                 quillPen.className = 'floating-quill-pen';
-                quillPen.textContent = '✒';
+                quillPen.innerHTML = `<svg viewBox="0 0 100 100"><path d="M10,90 C30,85 50,70 65,50 C80,30 90,10 95,5 C95,5 80,15 65,25 C50,35 30,55 10,90 Z M10,90 L2,98 L12,92 Z" /></svg>`;
                 container.appendChild(quillPen);
                 
                 return { glyphs: glyphSpans, quill: quillPen };
