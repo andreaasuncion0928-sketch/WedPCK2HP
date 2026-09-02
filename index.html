@@ -12,7 +12,7 @@
     <style>
         /* --- CSS VARIABLES & THEMING --- */
         :root {
-            --midnight: #111322;
+            --midnight: #0B0D1B;
             --midnight-soft: #191A2A;
             --ink: #000000; /* Pure Black Ink */
             --paper: #FFFDF8;
@@ -20,8 +20,9 @@
             --lavender: #6A4B7C;
             --lavender-light: #D4A8F0;
             --lavender-glow: rgba(212, 168, 240, 0.45);
-            --antique-gold: #8C6F36;
-            --gold-glow: rgba(180, 154, 104, 0.4);
+            --antique-gold: #C5A059;
+            --gold-glow: rgba(197, 160, 89, 0.6);
+            --gold-spark: #FFD700;
             --gray: #333333;
             
             --font-serif: 'Cormorant Garamond', serif;
@@ -164,22 +165,33 @@
             display: none !important;
         }
 
-        /* --- FULL-PAGE GIANT ENVELOPE GATEWAY SCREEN --- */
+        /* --- ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY SCREEN --- */
         .envelope-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle, #191A2A 0%, #0B0D1B 100%);
+            background: radial-gradient(circle at center, #1C1E36 0%, #0B0D1B 80%);
             z-index: 5000;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1500px;
+            perspective: 1600px;
             padding: 0;
             overflow: hidden;
             transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        /* Floating Magical Runes & Atmospheric Sparks Canvas */
+        #envelope-spark-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
         }
 
         .envelope-gateway-screen.fade-out {
@@ -188,19 +200,19 @@
             pointer-events: none;
         }
 
-        /* Full-Bleed Page Envelope Body */
+        /* Full-Bleed Page Envelope Body with Filigree & Aura */
         .desk-envelope {
             width: 92vw;
-            max-width: 900px;
-            height: 85vh;
-            max-height: 620px;
+            max-width: 920px;
+            height: 86vh;
+            max-height: 640px;
             background: var(--parchment);
-            background-image: url('parchment.jpg');
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.9) 0%, rgba(243, 235, 221, 0.95) 100%), url('parchment.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
             border-radius: 8px;
-            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.95), 0 0 50px var(--lavender-glow);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95), 0 0 60px var(--gold-glow), inset 0 0 30px rgba(197, 160, 89, 0.3);
             border: 2px solid var(--antique-gold);
             transform-style: preserve-3d;
             cursor: pointer;
@@ -210,13 +222,34 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+            animation: envelopeFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes envelopeFloat {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            100% { transform: translateY(-8px) rotateX(1.5deg); }
         }
 
         .desk-envelope:hover {
-            transform: scale(1.015) rotateX(-2deg);
-            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.98), 0 0 65px var(--gold-glow);
+            transform: scale(1.02) translateY(-12px) rotateX(-2deg) !important;
+            box-shadow: 0 45px 110px rgba(0, 0, 0, 0.98), 0 0 80px rgba(255, 215, 0, 0.5), inset 0 0 40px var(--gold-glow);
         }
+
+        /* Enchanted Gold Filigree Corners */
+        .filigree-corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--antique-gold);
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0.85;
+        }
+        .filigree-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+        .filigree-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+        .filigree-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+        .filigree-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
         /* Oversized Triangular Top Flap */
         .envelope-flap {
@@ -227,18 +260,18 @@
             height: 0;
             border-left: 46vw solid transparent;
             border-right: 46vw solid transparent;
-            border-top: 42vh solid #E3D3C0;
+            border-top: 42vh solid #E6D5C3;
             transform-origin: top;
-            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35));
         }
 
         @media (min-width: 980px) {
             .envelope-flap {
-                border-left-width: 450px;
-                border-right-width: 450px;
-                border-top-width: 310px;
+                border-left-width: 460px;
+                border-right-width: 460px;
+                border-top-width: 320px;
             }
         }
 
@@ -247,15 +280,15 @@
             z-index: 1;
         }
 
-        /* Oversized Wax Seal */
+        /* Enchanted Wax Seal with Glowing Aura */
         .wax-seal {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(1);
-            width: 86px;
-            height: 86px;
-            background: radial-gradient(circle, #8b0000 0%, #361b3b 100%);
+            width: 92px;
+            height: 92px;
+            background: radial-gradient(circle at 35% 35%, #b21f1f 0%, #4a0000 70%, #200000 100%);
             border-radius: 50%;
             border: 3px dashed var(--antique-gold);
             display: flex;
@@ -264,16 +297,22 @@
             color: var(--antique-gold);
             font-family: var(--font-serif);
             font-weight: bold;
-            font-size: 1.8rem;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.85), 0 0 25px var(--gold-glow);
+            font-size: 1.9rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.85), 0 0 35px var(--gold-glow), inset 0 0 15px rgba(255, 215, 0, 0.4);
             z-index: 6;
-            transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+            transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+            animation: sealPulse 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes sealPulse {
+            0% { box-shadow: 0 8px 30px rgba(0,0,0,0.85), 0 0 25px var(--gold-glow); }
+            100% { box-shadow: 0 10px 40px rgba(0,0,0,0.95), 0 0 50px rgba(255, 215, 0, 0.8), 0 0 20px var(--gold-spark); }
         }
 
         .wax-seal.break {
-            transform: translate(-50%, -50%) scale(1.8);
+            transform: translate(-50%, -50%) scale(2.2);
             opacity: 0;
-            filter: blur(12px) brightness(2);
+            filter: blur(16px) brightness(2.5);
         }
 
         .magical-light-beam {
@@ -281,9 +320,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,253,248,1) 0%, rgba(212,168,240,0.85) 40%, rgba(180,154,104,0) 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,253,248,1) 0%, rgba(212,168,240,0.9) 35%, rgba(197,160,89,0.7) 60%, rgba(11,13,27,0) 80%);
             border-radius: 50%;
             z-index: 10;
             pointer-events: none;
@@ -293,7 +332,48 @@
 
         .desk-envelope.open .magical-light-beam {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(6);
+            transform: translate(-50%, -50%) scale(6.5);
+        }
+
+        .envelope-caption-title {
+            font-family: var(--font-script);
+            font-size: 2.8rem;
+            color: #111111;
+            margin-top: 6.5rem;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 10px var(--gold-glow);
+            letter-spacing: 1px;
+        }
+
+        .envelope-couple-heading {
+            font-family: var(--font-serif);
+            letter-spacing: 5px;
+            margin-top: 8px;
+            color: var(--midnight);
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .envelope-action-btn {
+            margin-top: 2.2rem;
+            font-family: var(--font-serif);
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            color: var(--antique-gold);
+            text-transform: uppercase;
+            font-weight: 800;
+            background: rgba(17, 19, 34, 0.05);
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--antique-gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .desk-envelope:hover .envelope-action-btn {
+            background: var(--antique-gold);
+            color: var(--midnight);
+            box-shadow: 0 0 25px var(--gold-spark);
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -838,6 +918,8 @@
                 border-top-width: 44vh;
             }
             .wax-seal { width: 70px; height: 70px; font-size: 1.4rem; }
+            .envelope-caption-title { font-size: 2rem; margin-top: 5rem; }
+            .envelope-couple-heading { font-size: 1.7rem; }
 
             /* Mobile-specific adjustments for Our Story memory stack */
             .story-editorial-card { padding: 1.5rem 0.8rem 1.2rem 0.8rem !important; }
@@ -852,14 +934,21 @@
     <canvas id="particle-canvas"></canvas>
 
     <div class="envelope-gateway-screen" id="desk-gateway">
+        <canvas id="envelope-spark-canvas"></canvas>
+
         <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <div class="filigree-corner filigree-tl"></div>
+            <div class="filigree-corner filigree-tr"></div>
+            <div class="filigree-corner filigree-bl"></div>
+            <div class="filigree-corner filigree-br"></div>
+
             <div class="envelope-flap"></div>
             <div class="wax-seal" id="desk-seal">E & A</div>
             <div class="magical-light-beam"></div>
 
-            <p style="font-family: var(--font-script); font-size: 2.5rem; color: #111111; margin-top: 6rem; font-weight: bold; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">An invitation awaits.</p>
-            <h2 style="font-family: var(--font-serif); letter-spacing: 4px; margin-top: 8px; color: var(--midnight); font-size: 2rem; font-weight: 700;">ELENA & ADRIAN</h2>
-            <p style="margin-top: 2rem; font-family: var(--font-serif); letter-spacing: 3px; font-size: 0.85rem; color: var(--antique-gold); text-transform: uppercase; font-weight: 700;">CLICK TO OPEN INVITATION</p>
+            <p class="envelope-caption-title">An Enchanted Love Letter</p>
+            <h2 class="envelope-couple-heading">ELENA & ADRIAN</h2>
+            <div class="envelope-action-btn">CLICK WAX SEAL TO OPEN</div>
         </div>
     </div>
 
@@ -1278,6 +1367,7 @@
             renderGallery();
             startCountdown();
             initParticles();
+            initEnvelopeParticles();
             setupIntersectionObserver();
             setupDragScroll();
         });
@@ -1692,6 +1782,49 @@
             }, 500);
         }
 
+        /* DEDICATED ENVELOPE MAGICAL DUST RUNES & SPARKS */
+        function initEnvelopeParticles() {
+            const canvas = document.getElementById('envelope-spark-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const glyphs = ['✧', '✦', '✦', '✧', '♦'];
+            const sparks = Array.from({ length: 45 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 14 + 10,
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: -Math.random() * 0.6 - 0.2,
+                opacity: Math.random() * 0.6 + 0.2,
+                glyph: glyphs[Math.floor(Math.random() * glyphs.length)]
+            }));
+
+            function animateSparks() {
+                ctx.clearRect(0, 0, width, height);
+                sparks.forEach(s => {
+                    s.x += s.speedX;
+                    s.y += s.speedY;
+                    if (s.y < -20) {
+                        s.y = height + 20;
+                        s.x = Math.random() * width;
+                    }
+                    ctx.fillStyle = `rgba(255, 215, 0, ${s.opacity})`;
+                    ctx.font = `${s.size}px serif`;
+                    ctx.fillText(s.glyph, s.x, s.y);
+                });
+                requestAnimationFrame(animateSparks);
+            }
+            animateSparks();
+        }
+
+        /* GLOBAL PARTICLES BACKGROUND */
         function initParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
