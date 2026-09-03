@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elena & Adrian — The Wedding Invitation</title>
     
+    <script>
+        (function() {
+            if (window.location.hostname.includes('github.io')) {
+                const pathSegments = window.location.pathname.split('/').filter(Boolean);
+                if (pathSegments.length > 0) {
+                    const repoName = pathSegments[0];
+                    const base = document.createElement('base');
+                    base.href = '/' + repoName + '/';
+                    document.head.appendChild(base);
+                }
+            }
+        })();
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -117,7 +131,7 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: GATEWAY SCREEN WITH INTRO.JPG BACKGROUND --- */
+        /* --- LAYER 1: GATEWAY SCREEN WITH INTRO.JPG BACKGROUND & DUAL-FORMAT FALLBACK --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -127,7 +141,9 @@
             background-color: #FDF4F5;
             background-image: 
                 radial-gradient(circle at center, rgba(255, 253, 251, 0.45) 0%, rgba(240, 224, 227, 0.75) 100%), 
-                url('intro.jpg');
+                url('intro.jpg'),
+                url('./intro.jpg'),
+                url('intro.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -148,7 +164,7 @@
         .minimal-intro-card {
             width: 100%;
             max-width: 620px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(226, 157, 167, 0.5);
             box-shadow: 0 20px 50px rgba(173, 83, 98, 0.08), 0 0 40px var(--peony-glow);
@@ -286,7 +302,9 @@
             background-color: #FAF6F1;
             background-image: 
                 radial-gradient(circle at center, rgba(255, 255, 255, 0.93) 0%, rgba(253, 244, 245, 0.96) 100%), 
-                url('intro.jpg');
+                url('intro.jpg'),
+                url('./intro.jpg'),
+                url('intro.jpeg');
             background-size: cover;
             background-position: center;
             border: 1px solid var(--peony-rose);
@@ -344,7 +362,7 @@
         #type-line4 {
             font-family: var(--font-serif) !important;
             font-size: 1.15rem !important;
-            letter-spacing: 2.5px !important;
+            letter-spacing: 3px !important;
             color: var(--text-muted) !important;
             font-weight: 600 !important;
             min-height: 1.8rem;
