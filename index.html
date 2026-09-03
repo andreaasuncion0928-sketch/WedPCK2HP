@@ -10,13 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- NOSTALGIC WEDDING FLORAL THEMING --- */
+        /* --- WEDDING THEMING & INTRO.JPG ALIGNED VARIABLES --- */
         :root {
             --cream-bg: #FFFDF9;
             --blush-soft: #FDF4F5;
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
-            --peony-glow: rgba(226, 157, 167, 0.3);
+            --peony-glow: rgba(226, 157, 167, 0.35);
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -80,7 +80,7 @@
             padding: 2rem 1rem;
         }
 
-        /* --- BOTANICAL WEDDING FLORAL ILLUSTRATIONS --- */
+        /* --- BOTANICAL WEDDING FLORAL ACCENTS --- */
         .floral-corner {
             position: absolute;
             width: 70px;
@@ -117,14 +117,17 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: MINIMALIST & NOSTALGIC GATEWAY --- */
+        /* --- LAYER 1: GATEWAY SCREEN WITH INTRO.JPG BACKGROUND --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #FFFDFB 0%, #F9F0F1 70%, #F0E0E3 100%);
+            background: radial-gradient(circle at center, rgba(255, 253, 251, 0.45) 0%, rgba(240, 224, 227, 0.75) 100%), url('intro.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -142,10 +145,10 @@
         .minimal-intro-card {
             width: 100%;
             max-width: 620px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 157, 167, 0.4);
-            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.06), 0 0 40px var(--peony-glow);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 157, 167, 0.5);
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.08), 0 0 40px var(--peony-glow);
             border-radius: 4px;
             padding: 4.5rem 2.5rem;
             text-align: center;
@@ -156,7 +159,7 @@
 
         .minimal-intro-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 25px 65px rgba(173, 83, 98, 0.12), 0 0 50px var(--peony-glow);
+            box-shadow: 0 25px 65px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
         }
 
         .nostalgic-subtitle {
@@ -192,7 +195,7 @@
             padding: 8px 22px;
             border-radius: 30px;
             border: 1px solid var(--peony-rose);
-            background: rgba(253, 244, 245, 0.6);
+            background: rgba(253, 244, 245, 0.8);
             transition: all 0.4s ease;
             opacity: 0;
             animation: softFadeUp 1.4s ease forwards 1s;
@@ -211,7 +214,7 @@
             }
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD (ALIGNED WITH INTRO.JPG THEME) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -222,7 +225,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(253, 244, 245, 0.94);
+            background: rgba(253, 244, 245, 0.92);
             backdrop-filter: blur(10px);
             opacity: 0;
             pointer-events: none;
@@ -259,7 +262,7 @@
             display: none !important;
         }
 
-        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
+        /* --- MAIN CHAPTER STYLING & INTRO-ALIGNED PARCHMENT CONTAINER --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -277,7 +280,7 @@
         }
 
         .parchment-texture-card {
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(253, 244, 245, 0.98) 100%), url('parchment.jpg');
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.93) 0%, rgba(253, 244, 245, 0.96) 100%), url('intro.jpg');
             background-size: cover;
             background-position: center;
             border: 1px solid var(--peony-rose);
@@ -768,8 +771,8 @@
             #type-line2 { font-size: 1.3rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
-            .hero-couple-title { font-size: 2rem; letter-spacing: 3px; }
-            .hero-unfolds-subtitle { font-size: 2.5rem; }
+            .minimal-couple-title { font-size: 2rem; letter-spacing: 3px; }
+            .nostalgic-subtitle { font-size: 2.5rem; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
@@ -1051,7 +1054,7 @@
 
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VS SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
