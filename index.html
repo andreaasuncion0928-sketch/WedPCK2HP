@@ -10,22 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- PINK PEONY ROMANTIC THEMING & VARIABLES --- */
+        /* --- NOSTALGIC WEDDING FLORAL THEMING --- */
         :root {
             --cream-bg: #FFFDF9;
-            --peony-blush: #FDF0F2;
-            --peony-soft: #FBE8EA;
-            --peony-pink: #E892A0;
-            --peony-deep: #B85B6C;
-            --peony-glow: rgba(232, 146, 160, 0.35);
+            --blush-soft: #FDF4F5;
+            --peony-rose: #E29DA7;
+            --peony-deep: #AD5362;
+            --peony-glow: rgba(226, 157, 167, 0.3);
             
-            --champagne-gold: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.25);
+            --champagne-gold: #C5A059;
+            --gold-glow: rgba(197, 160, 89, 0.25);
             
             --paper: #FFFFFF;
-            --parchment: #FAF6F0;
-            --text-dark: #2A2426;
-            --text-muted: #665A5C;
+            --parchment: #FAF6F1;
+            --text-dark: #2C2527;
+            --text-muted: #6B5E62;
             
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Poppins', sans-serif;
@@ -52,7 +51,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- CANVAS PARTICLES --- */
+        /* --- CANVAS PETALS & PARTICLES --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -81,16 +80,51 @@
             padding: 2rem 1rem;
         }
 
-        /* LAYER 1: ROMANTIC STORYBOOK HERO GATEWAY */
+        /* --- BOTANICAL WEDDING FLORAL ILLUSTRATIONS --- */
+        .floral-corner {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+            opacity: 0.75;
+            z-index: 4;
+            transition: opacity 0.4s ease;
+        }
+        .floral-corner svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--peony-rose);
+            stroke-width: 1.2;
+        }
+        .floral-tl { top: 12px; left: 12px; }
+        .floral-tr { top: 12px; right: 12px; transform: scaleX(-1); }
+        .floral-bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+        .floral-br { bottom: 12px; right: 12px; transform: scale(-1); }
+
+        .floral-header-spray {
+            width: 110px;
+            height: 35px;
+            margin: 0 auto 0.5rem auto;
+            opacity: 0.85;
+            display: block;
+        }
+        .floral-header-spray svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--champagne-gold);
+            stroke-width: 1.2;
+        }
+
+        /* --- LAYER 1: MINIMALIST & NOSTALGIC GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #FFF9FA 0%, #F8ECEE 60%, #EED8DC 100%), url('parchment.jpg');
-            background-size: cover;
-            background-position: center;
+            background: radial-gradient(circle at center, #FFFDFB 0%, #F9F0F1 70%, #F0E0E3 100%);
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -105,119 +139,69 @@
             pointer-events: none;
         }
 
-        .hero-love-card {
+        .minimal-intro-card {
             width: 100%;
-            max-width: 680px;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(232, 146, 160, 0.4);
-            box-shadow: 0 20px 60px rgba(184, 91, 108, 0.08), 0 0 45px var(--peony-glow);
-            border-radius: 8px;
-            padding: 4rem 2rem 3.5rem 2rem;
+            max-width: 620px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 157, 167, 0.4);
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.06), 0 0 40px var(--peony-glow);
+            border-radius: 4px;
+            padding: 4.5rem 2.5rem;
             text-align: center;
             position: relative;
+            cursor: pointer;
             transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
         }
 
-        .hero-love-card:hover {
-            box-shadow: 0 30px 80px rgba(184, 91, 108, 0.15), 0 0 60px var(--peony-glow);
+        .minimal-intro-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 65px rgba(173, 83, 98, 0.12), 0 0 50px var(--peony-glow);
         }
 
-        /* Elegant Gold & Peony Corner Filigree */
-        .corner-filigree {
-            position: absolute;
-            width: 38px;
-            height: 38px;
-            border: 1px solid var(--peony-pink);
-            pointer-events: none;
-            opacity: 0.65;
-        }
-        .filigree-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
-        .filigree-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
-        .filigree-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
-        .filigree-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
-
-        .hero-unfolds-subtitle {
+        .nostalgic-subtitle {
             font-family: var(--font-script);
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: var(--peony-deep);
             margin-bottom: 0.2rem;
             opacity: 0;
             transform: translateY(10px);
-            animation: softFadeUp 1.4s ease forwards 0.3s;
+            animation: softFadeUp 1.4s ease forwards 0.2s;
         }
 
-        .hero-couple-title {
+        .minimal-couple-title {
             font-family: var(--font-serif);
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             letter-spacing: 6px;
             color: var(--text-dark);
             font-weight: 600;
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem;
             opacity: 0;
             transform: translateY(10px);
-            animation: softFadeUp 1.4s ease forwards 0.7s;
+            animation: softFadeUp 1.4s ease forwards 0.6s;
         }
 
-        /* CREATIVE PINK PEONY WAX SEAL CLICKABLE TRIGGER */
-        .peony-seal-wrapper {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: softFadeUp 1.4s ease forwards 1.1s;
-        }
-
-        .peony-wax-seal {
-            width: 82px;
-            height: 82px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #F4A6B2 0%, #D86B7C 60%, #B85B6C 100%);
-            border: 2px dashed var(--champagne-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-size: 2rem;
-            box-shadow: 0 10px 30px rgba(184, 91, 108, 0.35), 0 0 25px var(--peony-glow);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-            position: relative;
-        }
-
-        .peony-wax-seal::after {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            border-radius: 50%;
-            border: 1px solid var(--peony-pink);
-            opacity: 0.5;
-            animation: ringPulse 2.4s ease-in-out infinite;
-        }
-
-        @keyframes ringPulse {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.15); opacity: 0.1; }
-            100% { transform: scale(0.95); opacity: 0.7; }
-        }
-
-        .peony-seal-wrapper:hover .peony-wax-seal {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(184, 91, 108, 0.45), 0 0 35px var(--gold-glow);
-        }
-
-        .seal-action-hint {
+        .minimal-open-prompt {
+            display: inline-block;
             font-family: var(--font-serif);
             font-size: 0.8rem;
             letter-spacing: 3px;
-            color: var(--peony-deep);
             text-transform: uppercase;
-            margin-top: 1.2rem;
+            color: var(--peony-deep);
             font-weight: 600;
+            padding: 8px 22px;
+            border-radius: 30px;
+            border: 1px solid var(--peony-rose);
+            background: rgba(253, 244, 245, 0.6);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: softFadeUp 1.4s ease forwards 1s;
+        }
+
+        .minimal-intro-card:hover .minimal-open-prompt {
+            background: var(--peony-rose);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px var(--peony-glow);
         }
 
         @keyframes softFadeUp {
@@ -227,7 +211,7 @@
             }
         }
 
-        /* LAYER 2: INVITATION OVERLAY CARD */
+        /* --- LAYER 2: INVITATION OVERLAY CARD --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -238,8 +222,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(253, 240, 242, 0.94);
-            backdrop-filter: blur(12px);
+            background: rgba(253, 244, 245, 0.94);
+            backdrop-filter: blur(10px);
             opacity: 0;
             pointer-events: none;
             transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
@@ -256,7 +240,7 @@
             transform: translateY(-30px);
         }
 
-        /* LAYER 3: WEBPAGE SCROLL CONTENT */
+        /* --- LAYER 3: WEBPAGE SCROLL CONTENT --- */
         #scene-story {
             position: relative;
             z-index: 30;
@@ -282,10 +266,10 @@
             background: var(--paper);
             color: var(--text-dark) !important;
             padding: 3.5rem 2.5rem;
-            border-radius: 6px;
-            box-shadow: 0 15px 45px rgba(184, 91, 108, 0.05), 0 0 35px var(--peony-glow);
+            border-radius: 4px;
+            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
             position: relative;
-            border: 1px solid rgba(232, 146, 160, 0.4);
+            border: 1px solid rgba(226, 157, 167, 0.4);
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.95);
@@ -293,11 +277,11 @@
         }
 
         .parchment-texture-card {
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(253, 240, 242, 0.98) 100%), url('parchment.jpg');
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(253, 244, 245, 0.98) 100%), url('parchment.jpg');
             background-size: cover;
             background-position: center;
-            border: 1px solid var(--peony-pink);
-            box-shadow: 0 20px 60px rgba(184, 91, 108, 0.08), 0 0 45px var(--peony-glow);
+            border: 1px solid var(--peony-rose);
+            box-shadow: 0 20px 60px rgba(173, 83, 98, 0.08), 0 0 45px var(--peony-glow);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
@@ -309,18 +293,10 @@
             transform: translateY(0) !important;
         }
 
-        .enchanted-crest-symbol {
-            font-size: 1.4rem;
-            color: var(--peony-pink);
-            margin-bottom: 1rem;
-            letter-spacing: 6px;
-            opacity: 0.85;
-        }
-
         /* --- TYPOGRAPHY HIERARCHY --- */
         #type-line1 {
             font-family: var(--font-serif) !important;
-            font-size: 2rem !important;
+            font-size: 1.9rem !important;
             letter-spacing: 4px !important;
             color: var(--text-dark) !important;
             font-weight: 600 !important;
@@ -336,7 +312,7 @@
             font-size: 1.6rem !important;
             color: var(--peony-deep) !important;
             font-weight: 500 !important;
-            margin: 0.4rem 0;
+            margin: 0.3rem 0;
             min-height: 2rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
@@ -345,7 +321,7 @@
 
         #type-line3 {
             font-family: var(--font-serif) !important;
-            font-size: 2.8rem !important;
+            font-size: 2.7rem !important;
             letter-spacing: 5px !important;
             color: var(--text-dark) !important;
             font-weight: 700 !important;
@@ -358,7 +334,7 @@
 
         #type-line4 {
             font-family: var(--font-serif) !important;
-            font-size: 1.15rem !important;
+            font-size: 1.1rem !important;
             letter-spacing: 3px !important;
             color: var(--text-muted) !important;
             font-weight: 600 !important;
@@ -411,7 +387,7 @@
         .story-divider {
             width: 50px;
             height: 1px;
-            background: var(--peony-pink);
+            background: var(--peony-rose);
             margin: 0.8rem auto 1.2rem auto;
             opacity: 0.5;
         }
@@ -474,8 +450,8 @@
             background: #FFFFFF;
             padding: 8px 8px 24px 8px;
             border-radius: 3px;
-            border: 1px solid rgba(232, 146, 160, 0.3);
-            box-shadow: 0 8px 20px rgba(184, 91, 108, 0.06);
+            border: 1px solid rgba(226, 157, 167, 0.3);
+            box-shadow: 0 8px 20px rgba(173, 83, 98, 0.06);
             transition: transform 0.35s var(--transition-slow), box-shadow 0.35s ease;
             position: relative;
             user-select: none;
@@ -499,7 +475,7 @@
         .memory-photo-card:hover {
             transform: scale(1.04) rotate(0deg) !important;
             z-index: 10;
-            box-shadow: 0 14px 30px rgba(184, 91, 108, 0.18), 0 0 20px var(--peony-glow) !important;
+            box-shadow: 0 14px 30px rgba(173, 83, 98, 0.18), 0 0 20px var(--peony-glow) !important;
         }
 
         .scroll-hint-indicator {
@@ -545,7 +521,7 @@
 
         .nav-card {
             background: var(--paper);
-            border: 1px solid rgba(232, 146, 160, 0.3);
+            border: 1px solid rgba(226, 157, 167, 0.3);
             color: var(--text-dark);
             padding: 1.2rem 1.5rem;
             border-radius: 4px;
@@ -553,14 +529,14 @@
             transition: var(--transition-med);
             text-align: center;
             flex: 1 1 140px;
-            box-shadow: 0 4px 15px rgba(184, 91, 108, 0.03);
+            box-shadow: 0 4px 15px rgba(173, 83, 98, 0.03);
         }
 
         .nav-card:hover {
-            background: var(--peony-blush);
+            background: var(--blush-soft);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px var(--peony-glow);
-            border-color: var(--peony-pink);
+            border-color: var(--peony-rose);
         }
 
         .nav-card h3 {
@@ -587,13 +563,13 @@
 
         .countdown-box {
             background: var(--paper);
-            border: 1px solid var(--peony-pink);
+            border: 1px solid var(--peony-rose);
             color: var(--text-dark);
             padding: 12px 18px;
-            border-radius: 6px;
+            border-radius: 4px;
             text-align: center;
             min-width: 70px;
-            box-shadow: 0 4px 15px rgba(184, 91, 108, 0.05);
+            box-shadow: 0 4px 15px rgba(173, 83, 98, 0.05);
         }
 
         .countdown-num {
@@ -613,13 +589,13 @@
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
             background: var(--paper);
-            border: 1px solid rgba(232, 146, 160, 0.3);
+            border: 1px solid rgba(226, 157, 167, 0.3);
             padding: 1.8rem;
-            border-radius: 6px;
+            border-radius: 4px;
             margin-bottom: 1.5rem;
             transition: var(--transition-med);
             text-align: left;
-            box-shadow: 0 4px 15px rgba(184, 91, 108, 0.03);
+            box-shadow: 0 4px 15px rgba(173, 83, 98, 0.03);
         }
 
         .unfold-card h3 {
@@ -632,7 +608,7 @@
 
         .btn-magic {
             background: var(--paper);
-            border: 1px solid var(--peony-pink);
+            border: 1px solid var(--peony-rose);
             color: var(--peony-deep) !important;
             padding: 10px 24px;
             font-family: var(--font-serif);
@@ -650,7 +626,7 @@
         }
 
         .btn-magic:hover {
-            background: var(--peony-pink);
+            background: var(--peony-rose);
             color: #FFFFFF !important;
             box-shadow: 0 0 20px var(--peony-glow);
         }
@@ -673,8 +649,8 @@
             height: 160px;
             background: #FFF;
             padding: 8px 8px 25px 8px;
-            box-shadow: 0 8px 20px rgba(184, 91, 108, 0.08);
-            border: 1px solid #F2E6E8;
+            box-shadow: 0 8px 20px rgba(173, 83, 98, 0.08);
+            border: 1px solid #F3E6E8;
             transform: rotate(calc(var(--r, 0) * 1deg));
             cursor: pointer;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -683,7 +659,7 @@
         .photo-card:hover {
             transform: scale(1.08) rotate(0deg) !important;
             z-index: 10;
-            box-shadow: 0 12px 30px rgba(184, 91, 108, 0.18);
+            box-shadow: 0 12px 30px rgba(173, 83, 98, 0.18);
         }
 
         .photo-card img {
@@ -699,7 +675,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(253, 240, 242, 0.95);
+            background: rgba(253, 244, 245, 0.95);
             backdrop-filter: blur(10px);
             z-index: 10000;
             display: flex;
@@ -719,7 +695,7 @@
             max-width: 90%;
             max-height: 80vh;
             border: 6px solid #FFFFFF;
-            box-shadow: 0 20px 50px rgba(184, 91, 108, 0.15), 0 0 30px var(--peony-glow);
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.15), 0 0 30px var(--peony-glow);
             border-radius: 4px;
             object-fit: contain;
         }
@@ -761,7 +737,7 @@
 
         .form-group input, .form-group select {
             background: #FFFFFF;
-            border: 1px solid rgba(232, 146, 160, 0.4);
+            border: 1px solid rgba(226, 157, 167, 0.4);
             padding: 12px;
             color: var(--text-dark);
             font-family: var(--font-sans);
@@ -770,7 +746,7 @@
         }
 
         .form-group input:focus, .form-group select:focus {
-            border-color: var(--peony-pink);
+            border-color: var(--peony-rose);
             box-shadow: 0 0 10px var(--peony-glow);
         }
 
@@ -793,7 +769,7 @@
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
             .hero-couple-title { font-size: 2rem; letter-spacing: 3px; }
-            .hero-unfolds-subtitle { font-size: 2.4rem; }
+            .hero-unfolds-subtitle { font-size: 2.5rem; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
@@ -807,21 +783,23 @@
     <canvas id="particle-canvas"></canvas>
 
     <div class="fairytale-gateway-screen" id="desk-gateway">
-        <div class="hero-love-card">
-            <div class="corner-filigree filigree-tl"></div>
-            <div class="corner-filigree filigree-tr"></div>
-            <div class="corner-filigree filigree-bl"></div>
-            <div class="corner-filigree filigree-br"></div>
-
-            <p class="hero-unfolds-subtitle">A Love Story Unfolds</p>
-            <h1 class="hero-couple-title">ELENA & ADRIAN</h1>
-            
-            <div class="peony-seal-wrapper" onclick="openEnvelopeAndStartInvitation(event)">
-                <div class="peony-wax-seal">
-                    <span>❦</span>
-                </div>
-                <div class="seal-action-hint">TAP THE SEAL TO OPEN</div>
+        <div class="minimal-intro-card" onclick="openEnvelopeAndStartInvitation(event)">
+            <div class="floral-corner floral-tl">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
             </div>
+            <div class="floral-corner floral-tr">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+            <div class="floral-corner floral-bl">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+            <div class="floral-corner floral-br">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+
+            <p class="nostalgic-subtitle">A Love Story Unfolds</p>
+            <h1 class="minimal-couple-title">ELENA & ADRIAN</h1>
+            <div class="minimal-open-prompt">OPEN INVITATION →</div>
         </div>
     </div>
 
@@ -840,12 +818,22 @@
 
     <section id="scene-invite-card">
         <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 680px;">
-            <div class="corner-filigree filigree-tl"></div>
-            <div class="corner-filigree filigree-tr"></div>
-            <div class="corner-filigree filigree-bl"></div>
-            <div class="corner-filigree filigree-br"></div>
+            <div class="floral-corner floral-tl">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+            <div class="floral-corner floral-tr">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+            <div class="floral-corner floral-bl">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
+            <div class="floral-corner floral-br">
+                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+            </div>
 
-            <div class="enchanted-crest-symbol">✦ · ❦ · ✦</div>
+            <div class="floral-header-spray">
+                <svg viewBox="0 0 200 60"><path d="M10,30 Q60,10 100,30 Q140,50 190,30 M50,25 Q70,5 90,25 M110,35 Q130,55 150,35" /><circle cx="100" cy="30" r="5" fill="#D4AF37" /></svg>
+            </div>
 
             <div class="text-glow-wrapper">
                 <p id="type-line1"></p>
@@ -1063,7 +1051,7 @@
 
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VS SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
@@ -1099,7 +1087,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1241,7 +1229,7 @@
             setupDragScroll();
         });
 
-        /* PEONY WAX SEAL CLICK -> OPENS INVITATION OVERLAY & PLAYS SOUNDTRACK */
+        /* MINIMALIST INTRO CLICK -> OPENS INVITATION OVERLAY & PLAYS SOUNDTRACK */
         function openEnvelopeAndStartInvitation(event) {
             const gateway = document.getElementById('desk-gateway');
             
@@ -1575,7 +1563,7 @@
             }, 500);
         }
 
-        /* GLOBAL ROMANTIC PEONY PARTICLES BACKGROUND */
+        /* GLOBAL ROMANTIC PEONY PARTICLES & DUST BACKGROUND */
         function initParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
