@@ -124,7 +124,10 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(255, 253, 251, 0.45) 0%, rgba(240, 224, 227, 0.75) 100%), url('intro.jpg');
+            background-color: #FDF4F5;
+            background-image: 
+                radial-gradient(circle at center, rgba(255, 253, 251, 0.45) 0%, rgba(240, 224, 227, 0.75) 100%), 
+                url('intro.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -214,7 +217,7 @@
             }
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD (ALIGNED WITH INTRO.JPG THEME) --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -262,7 +265,7 @@
             display: none !important;
         }
 
-        /* --- MAIN CHAPTER STYLING & INTRO-ALIGNED PARCHMENT CONTAINER --- */
+        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -280,7 +283,10 @@
         }
 
         .parchment-texture-card {
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.93) 0%, rgba(253, 244, 245, 0.96) 100%), url('intro.jpg');
+            background-color: #FAF6F1;
+            background-image: 
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.93) 0%, rgba(253, 244, 245, 0.96) 100%), 
+                url('intro.jpg');
             background-size: cover;
             background-position: center;
             border: 1px solid var(--peony-rose);
@@ -312,7 +318,7 @@
 
         #type-line2 {
             font-family: var(--font-script) !important;
-            font-size: 1.6rem !important;
+            font-size: 1.4rem !important;
             color: var(--peony-deep) !important;
             font-weight: 500 !important;
             margin: 0.3rem 0;
@@ -337,8 +343,8 @@
 
         #type-line4 {
             font-family: var(--font-serif) !important;
-            font-size: 1.1rem !important;
-            letter-spacing: 3px !important;
+            font-size: 1.15rem !important;
+            letter-spacing: 2.5px !important;
             color: var(--text-muted) !important;
             font-weight: 600 !important;
             min-height: 1.8rem;
