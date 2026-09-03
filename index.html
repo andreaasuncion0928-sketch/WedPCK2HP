@@ -1,107 +1,1602 @@
-Update the existing wedding digital invitation code while keeping the current page structure, content, sections, navigation, responsiveness, and functionality intact.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elena & Adrian — The Wedding Invitation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-### MAIN DESIGN CHANGE
+    <style>
+        /* --- ROMANTIC FAIRYTALE THEMING & VARIABLES --- */
+        :root {
+            --cream-bg: #FFFDF8;
+            --champagne-soft: #F7F3EC;
+            --paper: #FFFFFF;
+            --parchment: #F9F6F0;
+            
+            --lavender-accent: #9B72CF;
+            --lavender-soft: #E2D4F7;
+            --lavender-glow: rgba(155, 114, 207, 0.25);
+            
+            --champagne-gold: #C5A059;
+            --gold-glow: rgba(197, 160, 89, 0.35);
+            --gold-spark: #F3E5AB;
+            
+            --sage-accent: #8A9A86;
+            --text-dark: #1A1A1A;
+            --text-muted: #555555;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Poppins', sans-serif;
+            --font-script: 'Great Vibes', cursive;
+            
+            --transition-slow: 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-med: 0.6s ease;
+        }
 
-Remove the current Harry Potter-inspired feel and transform the design into a **romantic, elegant, magical wedding invitation**.
+        /* --- BASE RESET --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-The goal is **“modern fairytale magic”**, not Harry Potter.
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream-bg);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-### REMOVE
+        /* --- CANVAS PARTICLES --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
 
-* Remove the owl video/animation completely.
-* Remove any owl-related visuals, references, or effects.
-* Remove anything that strongly resembles Harry Potter, Hogwarts, wizarding, spells, or fantasy movie branding.
-* Remove overly dark, mysterious, or gothic styling.
-* Avoid wand, castle, spellbook, lightning, or Hogwarts-inspired elements.
-* Do not introduce new Harry Potter references.
+        /* --- STAGE CONTAINER & FIXED STACKED LAYERS --- */
+        .stage-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+        }
 
-### REPLACE WITH A ROMANTIC MAGICAL ATMOSPHERE
+        .stage {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
 
-Create a subtle magical effect using:
+        /* LAYER 1: ROMANTIC STORYBOOK HERO GATEWAY */
+        .fairytale-gateway-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #FCFAFAF0 0%, #F5EFEA 100%), url('parchment.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            transition: opacity 1.4s ease, visibility 1.4s ease;
+        }
 
-* Soft glowing particles
-* Tiny floating sparkles/stardust
-* Gentle light trails
-* Subtle shimmer
-* Soft glowing highlights
-* Very delicate floating dust/light particles
-* Slow, elegant animations
-* A dreamy cinematic glow
+        .fairytale-gateway-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-The magic should feel **romantic, sophisticated, and wedding-appropriate**, not childish or fantasy-game-like.
+        .hero-love-card {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--champagne-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06), 0 0 40px var(--gold-glow);
+            border-radius: 4px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
+        }
 
-### COLOR DIRECTION
+        .hero-love-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1), 0 0 50px var(--lavender-glow);
+        }
 
-Keep the existing vibrant lavender as an accent, but refine the overall palette into:
+        /* Elegant Gold Corner Accents */
+        .corner-filigree {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 1px solid var(--champagne-gold);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .filigree-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+        .filigree-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+        .filigree-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+        .filigree-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
-* Ivory / warm cream as the primary background
-* Soft champagne
-* Elegant lavender
-* Very subtle sage accents where appropriate
-* Warm white highlights
+        .once-upon-time {
+            font-family: var(--font-script);
+            font-size: 2.8rem;
+            color: var(--lavender-accent);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: softFadeUp 1.4s ease forwards 0.3s;
+        }
 
-Use lavender mainly for glowing accents, buttons, highlights, or subtle gradients rather than making every section purple.
+        .hero-couple-title {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            letter-spacing: 6px;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: softFadeUp 1.4s ease forwards 0.8s;
+        }
 
-### TYPOGRAPHY
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: softFadeUp 1.4s ease forwards 1.2s;
+        }
 
-Move away from anything that resembles Harry Potter typography.
+        .hero-enter-btn {
+            display: inline-block;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            border: 1px solid var(--champagne-gold);
+            padding: 10px 24px;
+            background: transparent;
+            border-radius: 30px;
+            transition: var(--transition-med);
+            opacity: 0;
+            animation: softFadeUp 1.4s ease forwards 1.6s;
+        }
 
-Use:
+        .hero-love-card:hover .hero-enter-btn {
+            background: var(--champagne-gold);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
 
-* An elegant editorial serif for the couple's names and major headings
-* A clean modern sans-serif for supporting text and wedding details
-* Generous spacing
-* Sophisticated typography hierarchy
+        @keyframes softFadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-The typography should feel like a **luxury wedding editorial / modern fairytale**, not a fantasy franchise.
+        /* LAYER 2: INVITATION OVERLAY CARD */
+        #scene-invite-card {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 253, 248, 0.92);
+            backdrop-filter: blur(12px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
+            padding: 1rem;
+        }
 
-### HERO / OPENING SECTION
+        #scene-invite-card.active-overlay {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
 
-Redesign the opening experience so it feels like entering a magical love story.
+        #scene-invite-card.slide-up-out {
+            opacity: 0 !important;
+            transform: translateY(-30px);
+        }
 
-Instead of the owl video, start with a subtle atmospheric animation:
+        /* LAYER 3: WEBPAGE SCROLL CONTENT */
+        #scene-story {
+            position: relative;
+            z-index: 30;
+            margin-top: 100vh;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
+        }
 
-1. Begin with a soft, elegant background.
-2. Tiny glowing particles gradually appear.
-3. The particles gently drift and create a subtle magical trail.
-4. The light slowly reveals the text.
-5. Introduce:
+        #scene-story.page-up-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
 
-“Once upon a time…”
+        .stage.hidden {
+            display: none !important;
+        }
 
-Then reveal the couple's names prominently.
+        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
+        .chapter-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--paper);
+            color: var(--text-dark) !important;
+            padding: 3.5rem 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.04), 0 0 30px var(--lavender-glow);
+            position: relative;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            margin: 2rem 0;
+            text-align: center;
+            transform: scale(0.95);
+            transition: transform 1.2s var(--transition-slow);
+        }
 
-The animation should be slow, smooth, elegant, and cinematic. Avoid excessive effects.
+        .parchment-texture-card {
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(249, 246, 240, 0.98) 100%), url('parchment.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--champagne-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06), 0 0 40px var(--gold-glow);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
+            z-index: 22;
+        }
 
-### OVERALL DESIGN FEEL
+        .parchment-texture-card.seamless-emerge {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
 
-The invitation should communicate:
+        .enchanted-crest-symbol {
+            font-size: 1.4rem;
+            color: var(--champagne-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 6px;
+            opacity: 0.85;
+        }
 
-**romantic + magical + intimate + elegant + modern + timeless**
+        /* --- TYPOGRAPHY HIERARCHY --- */
+        #type-line1 {
+            font-family: var(--font-serif) !important;
+            font-size: 2rem !important;
+            letter-spacing: 4px !important;
+            color: var(--text-dark) !important;
+            font-weight: 600 !important;
+            text-transform: uppercase;
+            min-height: 2.6rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
+        }
 
-Think:
-“a love story brought to life”
+        #type-line2 {
+            font-family: var(--font-script) !important;
+            font-size: 1.6rem !important;
+            color: var(--lavender-accent) !important;
+            font-weight: 500 !important;
+            margin: 0.4rem 0;
+            min-height: 2rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
+        }
 
-rather than:
-“Harry Potter wedding.”
+        #type-line3 {
+            font-family: var(--font-serif) !important;
+            font-size: 2.8rem !important;
+            letter-spacing: 5px !important;
+            color: var(--text-dark) !important;
+            font-weight: 700 !important;
+            margin-bottom: 0.6rem;
+            min-height: 3.5rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
+        }
 
-### IMPORTANT
+        #type-line4 {
+            font-family: var(--font-serif) !important;
+            font-size: 1.15rem !important;
+            letter-spacing: 3px !important;
+            color: var(--text-muted) !important;
+            font-weight: 600 !important;
+            min-height: 1.8rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            hyphens: none !important;
+        }
 
-Do not rebuild the entire website from scratch.
+        .chapter-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            color: var(--text-dark) !important;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
 
-Preserve the existing:
+        .chapter-subtitle {
+            font-family: var(--font-script);
+            font-size: 2.4rem;
+            color: var(--lavender-accent) !important;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-* Content
-* Sections
-* RSVP functionality
-* Navigation
-* Existing responsive behavior
-* Existing interactions
-* Existing wedding information
-* Existing photos unless specifically necessary
+        .script-handwriting {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--text-dark) !important;
+            line-height: 1.4;
+        }
 
-Focus primarily on **rebranding the visual direction, removing the owl/Harry Potter elements, and replacing them with subtle romantic magical effects**.
+        /* --- EDITORIAL "MEMORIES BETWEEN THE PAGES" OUR STORY SECTION --- */
+        .story-editorial-card {
+            padding: 2.5rem 2rem !important;
+            max-width: 780px !important;
+            margin: 1.5rem auto !important;
+            text-align: center;
+            position: relative;
+        }
 
-Make the final result feel cohesive across all sections, so the magical aesthetic continues throughout the invitation without becoming repetitive or overwhelming.
+        .story-editorial-card .chapter-title {
+            font-size: 1.8rem !important;
+            margin-bottom: 0.8rem !important;
+            letter-spacing: 3px !important;
+        }
 
-The final design should look like a **premium modern wedding website with a subtle fairytale atmosphere**.
+        .story-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--champagne-gold);
+            margin: 0.8rem auto 1.2rem auto;
+            opacity: 0.5;
+        }
+
+        .story-text-compact {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 1rem auto;
+            font-weight: 400;
+        }
+
+        .story-section-title {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--champagne-gold);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        /* COMPACT MEMORY STACK (HORIZONTAL SCROLL) */
+        .memory-stack-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin: 0.5rem 0 1rem 0;
+            padding: 10px 0;
+        }
+
+        .memory-stack-track {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 12px 15px;
+            -webkit-overflow-scrolling: touch;
+            cursor: grab;
+        }
+
+        .memory-stack-track::-webkit-scrollbar {
+            display: none;
+        }
+        .memory-stack-track {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .memory-stack-track:active {
+            cursor: grabbing;
+        }
+
+        .memory-photo-card {
+            flex: 0 0 190px;
+            height: 240px;
+            scroll-snap-align: center;
+            background: #FFFFFF;
+            padding: 8px 8px 24px 8px;
+            border-radius: 2px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.35s var(--transition-slow), box-shadow 0.35s ease;
+            position: relative;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .memory-photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1px;
+            pointer-events: none;
+        }
+
+        .memory-photo-card:nth-child(1) { transform: rotate(-2deg); }
+        .memory-photo-card:nth-child(2) { transform: rotate(1deg); }
+        .memory-photo-card:nth-child(3) { transform: rotate(-1deg); }
+        .memory-photo-card:nth-child(4) { transform: rotate(2deg); }
+        .memory-photo-card:nth-child(5) { transform: rotate(-1deg); }
+
+        .memory-photo-card:hover {
+            transform: scale(1.04) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12), 0 0 20px var(--gold-glow) !important;
+        }
+
+        .scroll-hint-indicator {
+            font-size: 0.7rem;
+            color: #888888;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .story-text-group {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1.4s ease, transform 1.4s var(--transition-slow);
+        }
+
+        .scene-story-animated .story-text-group {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1.0s var(--transition-slow), transform 1.0s var(--transition-slow);
+        }
+
+        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+
+        /* --- NAVIGATION MENU --- */
+        .nav-chapters {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .nav-card {
+            background: var(--paper);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            color: var(--text-dark);
+            padding: 1.2rem 1.5rem;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: var(--transition-med);
+            text-align: center;
+            flex: 1 1 140px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .nav-card:hover {
+            background: var(--champagne-soft);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(155, 114, 207, 0.15);
+            border-color: var(--champagne-gold);
+        }
+
+        .nav-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .nav-card p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* --- ODOMETER COUNTDOWN --- */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+
+        .countdown-box {
+            background: var(--paper);
+            border: 1px solid var(--champagne-gold);
+            color: var(--text-dark);
+            padding: 12px 18px;
+            border-radius: 4px;
+            text-align: center;
+            min-width: 70px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .countdown-num {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--lavender-accent);
+        }
+
+        .countdown-label {
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            color: var(--champagne-gold);
+            text-transform: uppercase;
+        }
+
+        /* --- CARDS & BUTTONS --- */
+        .unfold-card {
+            background: var(--paper);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 1.8rem;
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-med);
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .unfold-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .btn-magic {
+            background: var(--paper);
+            border: 1px solid var(--champagne-gold);
+            color: var(--text-dark) !important;
+            padding: 10px 22px;
+            font-family: var(--font-serif);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 600 !important;
+            cursor: pointer;
+            transition: var(--transition-med);
+            text-transform: uppercase;
+            margin-top: 1rem;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            border-radius: 30px;
+        }
+
+        .btn-magic:hover {
+            background: var(--champagne-gold);
+            color: #FFFFFF !important;
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        /* --- GALLERY --- */
+        .gallery-envelope-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            min-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+
+        .photo-card {
+            width: 130px;
+            height: 160px;
+            background: #FFF;
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 1px solid #EAEAEA;
+            transform: rotate(calc(var(--r, 0) * 1deg));
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.08) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- LIGHTBOX MODAL --- */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 253, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 6px solid #FFFFFF;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1), 0 0 30px var(--gold-glow);
+            border-radius: 2px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10001;
+            user-select: none;
+        }
+
+        /* --- RSVP FORM --- */
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            background: #FFFFFF;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            padding: 12px;
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--champagne-gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* --- FADE ANIMATIONS --- */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .chapter-container { padding: 2rem 1.2rem; }
+            #type-line1 { font-size: 1.45rem !important; letter-spacing: 2px !important; }
+            #type-line2 { font-size: 1.3rem !important; }
+            #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
+            #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
+            .hero-couple-title { font-size: 2rem; letter-spacing: 3px; }
+            .once-upon-time { font-size: 2.2rem; }
+            .chapter-title { font-size: 1.8rem; }
+            .chapter-subtitle { font-size: 1.8rem; }
+            .photo-card { width: 95px; height: 120px; }
+            .memory-photo-card { flex: 0 0 140px; height: 180px; }
+            .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="fairytale-gateway-screen" id="desk-gateway">
+        <div class="hero-love-card" onclick="openEnvelopeAndStartInvitation(event)">
+            <div class="corner-filigree filigree-tl"></div>
+            <div class="corner-filigree filigree-tr"></div>
+            <div class="corner-filigree filigree-bl"></div>
+            <div class="corner-filigree filigree-br"></div>
+
+            <p class="once-upon-time">Once upon a time...</p>
+            <h1 class="hero-couple-title">ELENA & ADRIAN</h1>
+            <p class="hero-subtitle">A LOVE STORY UNFOLDS</p>
+            <div class="hero-enter-btn">BEGIN OUR STORY →</div>
+        </div>
+    </div>
+
+    <audio id="invite-music" loop preload="auto">
+        <source src="openinvite.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="lightbox-modal" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
+    </div>
+
+    <section id="scene-invite-card">
+        <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 680px;">
+            <div class="corner-filigree filigree-tl"></div>
+            <div class="corner-filigree filigree-tr"></div>
+            <div class="corner-filigree filigree-bl"></div>
+            <div class="corner-filigree filigree-br"></div>
+
+            <div class="enchanted-crest-symbol">✦ · ❦ · ✦</div>
+
+            <div class="text-glow-wrapper">
+                <p id="type-line1"></p>
+                <p id="type-line2"></p>
+                <h1 id="type-line3"></h1>
+                <p id="type-line4"></p>
+            </div>
+
+            <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                READ OUR STORY →
+            </button>
+        </article>
+    </section>
+
+    <main class="stage-container" id="stage-wrapper">
+
+        <section class="stage hidden" id="scene-story">
+            <article class="chapter-container story-editorial-card">
+                
+                <div class="story-text-group">
+                    <h2 class="chapter-title">OUR STORY</h2>
+                    <div class="story-divider"></div>
+                    
+                    <p class="script-handwriting" style="font-size: 2.2rem; margin-bottom: 0.6rem; color: var(--lavender-accent) !important;">
+                        It started with coffee.
+                    </p>
+
+                    <p class="story-text-compact" id="story-paragraph">
+                        We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
+                    </p>
+
+                    <p class="script-handwriting" style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--lavender-accent) !important;">
+                        we became us.
+                    </p>
+
+                    <p style="font-size: 1.05rem; font-family: var(--font-serif); color: var(--text-dark); font-weight: 600;">
+                        And now, we're getting married.
+                    </p>
+                </div>
+
+                <div class="story-section-title stagger-item stagger-photo-stack">MOMENTS WE'VE KEPT</div>
+
+                <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
+                    <div class="memory-stack-track" id="memory-track">
+                        <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
+                            <img src="photo1.jpg" alt="Memory 1" onerror="this.src='photo1.jpeg'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo2.jpg')">
+                            <img src="photo2.jpg" alt="Memory 2" onerror="this.src='photo2.jpeg'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo3.jpg')">
+                            <img src="photo3.jpg" alt="Memory 3" onerror="this.src='photo3.jpeg'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo4.jpg')">
+                            <img src="photo4.jpg" alt="Memory 4" onerror="this.src='photo4.jpeg'">
+                        </div>
+                        <div class="memory-photo-card" onclick="openLightbox('photo5.jpg')">
+                            <img src="photo5.jpg" alt="Memory 5" onerror="this.src='photo5.jpeg'">
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories · click to enlarge →</div>
+
+                <button class="btn-magic stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
+                    VIEW THE WEDDING DETAILS →
+                </button>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-menu">
+            <h2 class="chapter-title">WEDDING CHAPTERS</h2>
+            <p style="color: var(--champagne-gold); letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 1rem;">
+                ELENA & ADRIAN — 31 · 01 · 2028
+            </p>
+
+            <div class="countdown-container" id="countdown-odometer">
+                <div class="countdown-box"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-label">Mins</div></div>
+                <div class="countdown-box"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Secs</div></div>
+            </div>
+
+            <nav class="nav-chapters">
+                <div class="nav-card" onclick="scrollToSection('scene-day')">
+                    <h3>THE DAY</h3>
+                    <p>When & where to find us</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-entourage')">
+                    <h3>THE ENTOURAGE</h3>
+                    <p>Those who walk beside us</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-details')">
+                    <h3>DETAILS</h3>
+                    <p>Everything you need to know</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-gallery')">
+                    <h3>GALLERY</h3>
+                    <p>The moments we've kept</p>
+                </div>
+                <div class="nav-card" onclick="scrollToSection('scene-rsvp')">
+                    <h3>RSVP</h3>
+                    <p>Save your seat</p>
+                </div>
+            </nav>
+        </section>
+
+        <section class="stage hidden" id="scene-day">
+            <article class="chapter-container fade-in-up">
+                <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
+                <h2 class="chapter-title">THE DETAILS</h2>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    Two places. One promise. A day we will always remember.
+                </p>
+
+                <div class="unfold-card">
+                    <h3 id="ceremony-venue">SAN SEBASTIAN CHURCH</h3>
+                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--champagne-gold); font-weight: 600;" id="ceremony-time">
+                        MANILA · TUESDAY, JANUARY 31, 2028 · 3:00 PM
+                    </p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);" id="ceremony-desc">
+                        Where our forever begins.
+                    </p>
+                    <a id="ceremony-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
+                </div>
+
+                <div class="unfold-card">
+                    <h3 id="reception-venue">MANILA HOTEL</h3>
+                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--champagne-gold); font-weight: 600;" id="reception-time">
+                        MANILA · TUESDAY, JANUARY 31, 2028 · 6:00 PM
+                    </p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);" id="reception-desc">
+                        A celebration to remember.
+                    </p>
+                    <a id="reception-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
+                </div>
+
+                <div style="margin-top: 2.5rem; text-align: center;">
+                    <button class="btn-magic" onclick="toggleProgramFlow()">
+                        Program Flow ↓
+                    </button>
+                    <div id="program-flow-content" style="display: none; text-align: left; margin-top: 1.5rem;" class="unfold-card"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-entourage">
+            <article class="chapter-container fade-in-up">
+                <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">With Our Beloved Families</p>
+                <h2 class="chapter-title">THE ENTOURAGE</h2>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    Those who hold our hands, guide our steps, and stand beside us as we say 'I do.'
+                </p>
+
+                <div id="entourage-list" style="display: grid; gap: 20px;"></div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-details">
+            <article class="chapter-container fade-in-up">
+                <h2 class="chapter-title">EVERYTHING YOU NEED TO KNOW</h2>
+                
+                <div class="unfold-card" style="margin-top: 1.5rem;">
+                    <h3 id="dress-code-title">BLACK & WHITE</h3>
+                    <p style="font-size: 0.85rem; color: var(--champagne-gold); font-weight: 600;" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
+                    <div style="margin-top: 10px; font-size: 0.9rem; line-height: 1.6;">
+                        <p><strong>LADIES:</strong> <span id="dress-code-ladies">Black, white, ivory, or monochrome formalwear.</span></p>
+                        <p><strong>GENTLEMEN:</strong> <span id="dress-code-gents">Black suit, tuxedo, white shirt, or classic monochrome formalwear.</span></p>
+                    </div>
+                </div>
+
+                <div class="unfold-card">
+                    <h3>REGISTRY & GIFTS</h3>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-dark);">
+                        We are immensely grateful for your love and support. Your presence at our wedding is the greatest gift of all. If you wish to bless us with a gift, a contribution towards our future together or our gift registry would be deeply appreciated.
+                    </p>
+                    <div style="margin-top: 12px; font-size: 0.85rem;">
+                        <p><strong>Send Monetary Gift (<span id="gift-label">GCash / Maya</span>):</strong> <span id="gift-number">0917-XXX-XXXX</span></p>
+                        <a id="gift-link" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 6px 12px; margin-top: 8px;">
+                            View Online Gift Registry →
+                        </a>
+                    </div>
+                </div>
+
+                <div class="unfold-card">
+                    <h3>FREQUENTLY ASKED QUESTIONS</h3>
+                    <div id="faq-list" style="margin-top: 10px;"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-gallery">
+            <h2 class="chapter-title">MOMENTS ALONG THE WAY</h2>
+            <p style="color: var(--champagne-gold); font-size: 0.85rem; letter-spacing: 1.5px;">
+                OUR FAVORITE MEMORIES
+            </p>
+
+            <div class="gallery-envelope-container" id="gallery-container"></div>
+
+            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+                ← Back to Chapters
+            </button>
+        </section>
+
+        <section class="stage hidden" id="scene-rsvp">
+            <article class="chapter-container fade-in-up" style="max-width: 550px;">
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+                    Please let us know if you'll be joining us.
+                </p>
+
+                <form class="rsvp-form" id="rsvp-form" onsubmit="submitRSVP(event)">
+                    <div class="form-group">
+                        <label for="rsvp-name">Your Name</label>
+                        <input type="text" id="rsvp-name" required placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-attend">Will You Join Us?</label>
+                        <select id="rsvp-attend" required>
+                            <option value="Happily, yes">Happily, yes</option>
+                            <option value="Regretfully, no">Regretfully, no</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-guests">Number of Guests</label>
+                        <select id="rsvp-guests">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-magic" style="margin-top: 1rem;">
+                        Confirm RSVP →
+                    </button>
+                </form>
+
+                <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
+                    <p class="script-handwriting" style="color: var(--lavender-accent) !important;">You're on the list.</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
+                        We can't wait to celebrate with you.
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="stage hidden" id="scene-outro" style="text-align: center;">
+            <h1 class="chapter-title" style="font-size: 3rem;">ELENA & ADRIAN</h1>
+            <p style="color: var(--champagne-gold); letter-spacing: 2px; font-size: 0.9rem;">31 JANUARY 2028 · MANILA</p>
+            <p class="script-handwriting" style="color: var(--lavender-accent); margin-top: 3rem;">Until we celebrate together.</p>
+        </section>
+
+    </main>
+
+    <script>
+        /* MASTER WEDDING CONFIGURATION */
+        const wedding = {
+            couple: "Elena & Adrian",
+            bride: "Elena",
+            groom: "Adrian",
+
+            date: "January 31, 2028",
+            day: "Tuesday",
+            location: "Manila, Philippines",
+            coverDateLoc: "31 JANUARY 2028 · MANILA",
+
+            ceremony: {
+                venue: "San Sebastian Church",
+                city: "Manila",
+                time: "3:00 PM",
+                description: "Where our forever begins.",
+                mapUrl: "https://maps.google.com/?q=San+Sebastian+Church+Manila"
+            },
+
+            reception: {
+                venue: "Manila Hotel",
+                city: "Manila",
+                time: "6:00 PM",
+                description: "A celebration to remember.",
+                mapUrl: "https://maps.google.com/?q=Manila+Hotel+Manila"
+            },
+
+            story: {
+                year: "2015",
+                yearLabel: "Our Year",
+                yearDescription: "The year everything changed.",
+                opening: "It started with coffee.",
+                paragraph: "We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.",
+                highlight: "we became us.",
+                closing: "And now, we're getting married."
+            },
+
+            dressCode: {
+                title: "BLACK & WHITE",
+                subtitle: "Keep it classic. Keep it timeless.",
+                ladies: "Black, white, ivory, or monochrome formalwear.",
+                gentlemen: "Black suit, tuxedo, white shirt, or classic monochrome formalwear."
+            },
+
+            gifts: {
+                paymentLabel: "GCash / Maya",
+                paymentNumber: "0917-XXX-XXXX",
+                registryName: "Crate & Barrel",
+                registryUrl: "https://www.crateandbarrel.com"
+            }
+        };
+
+        const galleryImages = [
+            "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg",
+            "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
+        ];
+
+        const programFlow = [
+            { time: "5:00 PM", title: "Cocktails & Registration", desc: "Guests arrive for registration, welcome drinks, cocktails, and acoustic music before taking their seats." },
+            { time: "6:00 PM", title: "Start of Program", desc: "Our host formally opens the evening and welcomes our beloved family and friends to the celebration." },
+            { time: "6:15 PM", title: "Grand Entrance", desc: "Welcoming the newlyweds as they make their first official entrance as husband and wife." },
+            { time: "6:30 PM", title: "Short Interview & Welcome", desc: "A quick chat with the couple to share their excitement and set the joyful tone for the night." },
+            { time: "6:45 PM", title: "First Dance", desc: "Elena and Adrian take the floor for their very first dance as a married couple." },
+            { time: "7:00 PM", title: "Cake Cutting & Toast", desc: "The traditional cutting of the wedding cake followed by heartfelt toasts and raising a glass to love." },
+            { time: "7:15 PM", title: "Dinner & Speeches", desc: "A sumptuous meal served alongside messages, stories, and toasts from special guests." },
+            { time: "8:30 PM", title: "Socials & Party", desc: "The dance floor opens! Enjoy drinks, music, and celebrating under the stars with us." }
+        ];
+
+        const entourageData = [
+            { role: "PARENTS OF THE BRIDE", names: ["Mr. Roberto Santos", "Mrs. Carmen Santos"] },
+            { role: "PARENTS OF THE GROOM", names: ["Mr. Fernando Reyes", "Mrs. Alicia Reyes"] },
+            { role: "MAID OF HONOR", names: ["Sophia Santos"] },
+            { role: "BEST MAN", names: ["Marco Reyes"] },
+            { role: "PRINCIPAL SPONSORS", names: [
+                "Mr. Ricardo Cruz & Mrs. Elena Cruz",
+                "Mr. Gabriel Gomez & Mrs. Teresa Gomez",
+                "Mr. Antonio Morales & Mrs. Beatrix Morales"
+            ]},
+            { role: "BRIDESMAIDS & GROOMSMEN", names: [
+                "Isabella Santos · Lucas Torres",
+                "Clara Mendoza · Mateo Ramos",
+                "Julianna Navarro · Gabriel Navarro"
+            ]}
+        ];
+
+        const faqData = [
+            { q: "Is there available parking at the venues?", a: "Yes! Dedicated street and courtyard parking is available at San Sebastian Church. For the reception, Manila Hotel offers full valet parking service as well as a multi-level guest parking garage." },
+            { q: "Can I request special dietary accommodations?", a: "Absolutely. If you have severe food allergies, vegetarian/vegan preferences, or religious dietary requirements, please indicate them when submitting your RSVP response." },
+            { q: "Can I bring a plus-one?", a: "Please follow the number of seats indicated on your formal invitation envelope." }
+        ];
+
+        /* DOM INITIALIZATION */
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('story-paragraph').innerText = wedding.story.paragraph;
+
+            document.getElementById('ceremony-venue').innerText = wedding.ceremony.venue.toUpperCase();
+            document.getElementById('ceremony-time').innerText = `${wedding.ceremony.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.ceremony.time}`;
+            document.getElementById('ceremony-desc').innerText = wedding.ceremony.description;
+            document.getElementById('ceremony-map').href = wedding.ceremony.mapUrl;
+
+            document.getElementById('reception-venue').innerText = wedding.reception.venue.toUpperCase();
+            document.getElementById('reception-time').innerText = `${wedding.reception.city.toUpperCase()} · ${wedding.day.toUpperCase()}, ${wedding.date.toUpperCase()} · ${wedding.reception.time}`;
+            document.getElementById('reception-desc').innerText = wedding.reception.description;
+            document.getElementById('reception-map').href = wedding.reception.mapUrl;
+
+            document.getElementById('dress-code-title').innerText = wedding.dressCode.title;
+            document.getElementById('dress-code-sub').innerText = wedding.dressCode.subtitle;
+            document.getElementById('dress-code-ladies').innerText = wedding.dressCode.ladies;
+            document.getElementById('dress-code-gents').innerText = wedding.dressCode.gentlemen;
+            document.getElementById('gift-label').innerText = wedding.gifts.paymentLabel;
+            document.getElementById('gift-number').innerText = wedding.gifts.paymentNumber;
+            document.getElementById('gift-link').href = wedding.gifts.registryUrl;
+
+            renderProgramFlow();
+            renderEntourage();
+            renderFAQ();
+            renderGallery();
+            startCountdown();
+            initParticles();
+            setupIntersectionObserver();
+            setupDragScroll();
+        });
+
+        /* HERO CARD CLICK -> OPENS INVITATION OVERLAY & PLAYS SOUNDTRACK */
+        function openEnvelopeAndStartInvitation(event) {
+            const gateway = document.getElementById('desk-gateway');
+            
+            gateway.classList.add('fade-out');
+            playInvitePageSound();
+
+            setTimeout(() => {
+                proceedToCordiallyInvitedSeamless();
+            }, 600);
+        }
+
+        /* PLAYS OPENINVITE.MP3 WHEN PARCHMENT PAGE APPEARS */
+        function playInvitePageSound() {
+            const inviteAudio = document.getElementById('invite-music');
+            if (inviteAudio) {
+                inviteAudio.currentTime = 0;
+                inviteAudio.muted = false;
+                inviteAudio.volume = 1.0;
+                inviteAudio.play().catch(e => console.log("Invite Audio Play Warning:", e));
+            }
+        }
+
+        /* SEAMLESS TRANSITION -> REVEALS INVITATION OVERLAY CARD */
+        function proceedToCordiallyInvitedSeamless() {
+            const inviteScene = document.getElementById('scene-invite-card');
+            const cardBox = document.getElementById('invite-card-box');
+
+            inviteScene.classList.add('active-overlay');
+            cardBox.classList.add('seamless-emerge');
+            runRomanticTyping();
+        }
+
+        /* ROMANTIC ELEGANT TEXT FADE ANIMATION */
+        function runRomanticTyping() {
+            const line1El = document.getElementById('type-line1');
+            const line2El = document.getElementById('type-line2');
+            const line3El = document.getElementById('type-line3');
+            const line4El = document.getElementById('type-line4');
+            const btnEl = document.getElementById('btn-read-story');
+
+            if (!line1El || line1El.children.length > 0) return;
+
+            const text1 = "YOU ARE CORDIALLY INVITED";
+            const text2 = "to celebrate the wedding of";
+            const text3 = "ELENA & ADRIAN";
+            const text4 = "31 JANUARY 2028 · MANILA";
+
+            function buildGlyphs(container, text) {
+                container.innerHTML = '';
+                const glyphSpans = [];
+                for (let char of text) {
+                    const span = document.createElement('span');
+                    span.className = 'magic-glyph';
+                    span.textContent = char;
+                    container.appendChild(span);
+                    glyphSpans.push(span);
+                }
+                return { glyphs: glyphSpans };
+            }
+
+            const line1 = buildGlyphs(line1El, text1);
+
+            function animateGlyphSequence(lineObj, onComplete) {
+                let index = 0;
+                function revealNext() {
+                    if (index < lineObj.glyphs.length) {
+                        lineObj.glyphs[index].classList.add('inked');
+                        index++;
+                        const delay = Math.floor(Math.random() * 25) + 30; 
+                        setTimeout(revealNext, delay);
+                    } else {
+                        if (onComplete) setTimeout(onComplete, 180); 
+                    }
+                }
+                revealNext();
+            }
+
+            animateGlyphSequence(line1, () => {
+                const line2 = buildGlyphs(line2El, text2);
+                animateGlyphSequence(line2, () => {
+                    const line3 = buildGlyphs(line3El, text3);
+                    animateGlyphSequence(line3, () => {
+                        const line4 = buildGlyphs(line4El, text4);
+                        animateGlyphSequence(line4, () => {
+                            btnEl.style.opacity = '1';
+                            btnEl.style.pointerEvents = 'auto';
+                        });
+                    });
+                });
+            });
+        }
+
+        /* FAST & BALANCED FADE-IN FOR SONG.MP3 RIGHT WHEN CLICKED */
+        function playSongTrackImmediate(songAudio) {
+            if (!songAudio) return;
+            const targetVolume = 0.55; 
+            const fadeDuration = 300; 
+            const intervalTime = 30;   
+            const totalSteps = fadeDuration / intervalTime;
+            let currentStep = 0;
+
+            songAudio.currentTime = 0;
+            songAudio.volume = 0;
+            songAudio.play().catch(e => console.log("Song Play Warning:", e));
+
+            const fadeInterval = setInterval(() => {
+                currentStep++;
+                const progress = currentStep / totalSteps;
+                const newVolume = Math.min(targetVolume, progress * targetVolume);
+
+                songAudio.volume = newVolume;
+
+                if (currentStep >= totalSteps) {
+                    songAudio.volume = targetVolume;
+                    clearInterval(fadeInterval);
+                }
+            }, intervalTime);
+        }
+
+        /* BUTTON CLICK ("READ OUR STORY"): 
+           1. STOP OPENINVITE.MP3
+           2. PLAY SONG.MP3 IMMEDIATELY
+           3. SLOWLY TRANSITION TO OUR STORY PAGE
+        */
+        function openOurStorySection() {
+            const inviteScene = document.getElementById('scene-invite-card');
+            const storyScene = document.getElementById('scene-story');
+            const inviteAudio = document.getElementById('invite-music');
+            const bgMusic = document.getElementById('bg-music');
+
+            if (inviteAudio) {
+                inviteAudio.pause();
+                inviteAudio.currentTime = 0;
+            }
+
+            playSongTrackImmediate(bgMusic);
+
+            let pageRevealed = false;
+            const revealOurStoryPage = () => {
+                if (!pageRevealed) {
+                    pageRevealed = true;
+                    inviteScene.classList.add('slide-up-out');
+                    storyScene.classList.remove('hidden');
+                    
+                    requestAnimationFrame(() => {
+                        storyScene.classList.add('active');
+                        storyScene.classList.add('page-up-active');
+                        storyScene.classList.add('scene-story-animated');
+                        storyScene.scrollIntoView({ behavior: 'smooth' });
+                    });
+
+                    setTimeout(() => {
+                        inviteScene.classList.remove('active-overlay');
+                        inviteScene.classList.remove('slide-up-out');
+                    }, 1200);
+                }
+            };
+
+            if (bgMusic) {
+                bgMusic.addEventListener('timeupdate', function onTimeUpdate() {
+                    if (bgMusic.currentTime >= 1.5) {
+                        revealOurStoryPage();
+                        bgMusic.removeEventListener('timeupdate', onTimeUpdate);
+                    }
+                });
+            }
+
+            setTimeout(() => {
+                revealOurStoryPage();
+            }, 1500);
+        }
+
+        /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
+        function setupDragScroll() {
+            const track = document.getElementById('memory-track');
+            if (!track) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+            track.addEventListener('mouseleave', () => { isDown = false; });
+            track.addEventListener('mouseup', () => { isDown = false; });
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 1.8;
+                track.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        /* MUSIC CHANGES TO COUPLE SOUNDTRACK WHEN EXPLORING CHAPTERS */
+        function switchSoundtrackAndGoMenu() {
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic && bgMusic.paused) {
+                bgMusic.currentTime = 0;
+                bgMusic.volume = 0.55;
+                bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
+            }
+
+            scrollToSection('scene-menu');
+        }
+
+        function scrollToSection(stageId) {
+            const target = document.getElementById(stageId);
+            target.classList.remove('hidden');
+            setTimeout(() => {
+                target.classList.add('active');
+                target.scrollIntoView({ behavior: 'smooth' });
+            }, 50);
+        }
+
+        /* ODOMETER COUNTDOWN */
+        function startCountdown() {
+            const targetDate = new Date("January 31, 2028 15:00:00").getTime();
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                    document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                    document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
+                    document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+                }
+            }, 1000);
+        }
+
+        function renderProgramFlow() {
+            const container = document.getElementById('program-flow-content');
+            container.innerHTML = programFlow.map(item => `
+                <div style="margin-bottom: 15px; border-bottom: 1px dashed rgba(197, 160, 89, 0.3); padding-bottom: 10px;">
+                    <div style="font-weight: 600; color: var(--text-dark); font-size: 0.95rem;">${item.time} — ${item.title}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">${item.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleProgramFlow() {
+            const container = document.getElementById('program-flow-content');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function renderEntourage() {
+            const container = document.getElementById('entourage-list');
+            container.innerHTML = entourageData.map(group => `
+                <div class="unfold-card" style="margin-bottom: 0;">
+                    <h4 style="font-family: var(--font-serif); font-size: 0.9rem; letter-spacing: 2px; color: var(--champagne-gold);">${group.role}</h4>
+                    <div style="margin-top: 8px; font-size: 0.95rem; font-weight: 500; color: var(--text-dark);">
+                        ${group.names.join('<br>')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ() {
+            const container = document.getElementById('faq-list');
+            container.innerHTML = faqData.map(item => `
+                <div style="margin-bottom: 12px;">
+                    <p style="font-weight: 600; font-size: 0.9rem; color: var(--text-dark);">Q: ${item.q}</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">A: ${item.a}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = galleryImages.map((src, idx) => {
+                const randomRot = (Math.random() * 12 - 6).toFixed(1);
+                return `
+                    <div class="photo-card" style="--r: ${randomRot};" onclick="openLightbox('${src}')">
+                        <img src="${src}" alt="Gallery photo ${idx + 1}" onerror="this.src='https://via.placeholder.com/150?text=Photo+${idx+1}'">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* LIGHTBOX FUNCTIONALITY ENHANCED WITH FULLY-QUALIFIED ABSOLUTE URL PATH RESOLUTION */
+        function openLightbox(src) {
+            const modal = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            if (img && modal) {
+                const targetUrl = new URL(src, window.location.href).href;
+                
+                img.onerror = function() {
+                    if (this.src.endsWith('.jpg')) {
+                        this.src = this.src.replace('.jpg', '.jpeg');
+                    } else if (this.src.endsWith('.jpeg')) {
+                        this.src = this.src.replace('.jpeg', '.jpg');
+                    }
+                    this.onerror = null;
+                };
+
+                img.src = targetUrl;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function submitRSVP(e) {
+            e.preventDefault();
+            const form = document.getElementById('rsvp-form');
+            const confirm = document.getElementById('rsvp-confirmation');
+
+            form.style.opacity = '0';
+            setTimeout(() => {
+                form.style.display = 'none';
+                confirm.style.display = 'block';
+
+                setTimeout(() => {
+                    scrollToSection('scene-outro');
+                }, 3500);
+            }, 500);
+        }
+
+        /* GLOBAL ROMANTIC FAIRYTALE PARTICLES BACKGROUND */
+        function initParticles() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = Array.from({ length: 40 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 2 + 0.8,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: -Math.random() * 0.4 - 0.1,
+                opacity: Math.random() * 0.5 + 0.2
+            }));
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.y < 0) p.y = height;
+                    ctx.fillStyle = `rgba(155, 114, 207, ${p.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.id === 'scene-story') {
+                            entry.target.classList.add('scene-story-animated');
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.fade-in-up, #scene-story').forEach(el => observer.observe(el));
+        }
+    </script>
+</body>
+</html>
