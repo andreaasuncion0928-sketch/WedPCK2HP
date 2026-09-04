@@ -375,6 +375,8 @@
             margin: 0 auto 2.2rem auto;
             font-weight: 300;
             letter-spacing: 0.2px;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
         }
 
         .story-and-now-label {
@@ -416,6 +418,7 @@
             display: inline-block;
             padding: 10px 20px;
             margin-bottom: 2rem;
+            max-width: 100%;
         }
 
         .cloud-headline-wrapper::before,
@@ -470,16 +473,19 @@
 
         .story-headline-married {
             font-family: var(--font-serif);
-            font-size: clamp(1.6rem, 5vw, 2.2rem);
-            letter-spacing: clamp(3px, 1.2vw, 5px);
+            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            letter-spacing: clamp(2px, 1vw, 5px);
             color: var(--peony-deep);
             font-weight: 600;
-            line-height: 1.25;
+            line-height: 1.3;
             text-transform: uppercase;
             margin: 0;
             display: inline-block;
             position: relative;
             z-index: 3;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            white-space: normal;
         }
 
         .story-headline-married .story-glyph {
@@ -601,6 +607,7 @@
             margin-top: -0.2rem;
             margin-bottom: 1rem;
             opacity: 0.8;
+            word-break: keep-all !important;
         }
 
         .story-text-group {
@@ -639,6 +646,8 @@
             text-transform: uppercase;
             font-weight: 500;
             margin-bottom: 0.5rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
         }
 
         .chapters-sub-title {
@@ -649,6 +658,8 @@
             text-transform: uppercase;
             font-weight: 400;
             margin-bottom: 2.5rem;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
         }
 
         /* COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR */
@@ -696,6 +707,7 @@
             opacity: 0.85;
             text-transform: uppercase;
             font-weight: 500;
+            word-break: keep-all !important;
         }
 
         /* CHAPTER NAVIGATION TILES WITH UN-SLICED TEXT WRAPPING */
@@ -720,8 +732,8 @@
         }
 
         .nav-card {
-            flex: 0 0 175px;
-            min-width: 175px;
+            flex: 0 0 180px;
+            min-width: 180px;
             height: 165px;
             scroll-snap-align: center;
             border-radius: 16px;
@@ -732,7 +744,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem 0.8rem;
+            padding: 1rem 0.6rem;
             text-align: center;
             box-shadow: 
                 10px 15px 25px rgba(185, 165, 160, 0.28),
@@ -844,6 +856,7 @@
             color: var(--text-dark);
             margin-bottom: 0.5rem;
             font-weight: 600;
+            word-break: keep-all !important;
         }
 
         .btn-magic {
@@ -863,6 +876,7 @@
             text-decoration: none;
             box-shadow: 0 4px 15px var(--peony-glow);
             border-radius: 30px;
+            word-break: keep-all !important;
         }
 
         .btn-magic:hover {
