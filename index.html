@@ -106,27 +106,6 @@
             padding: 2rem 1rem;
         }
 
-        /* --- BOTANICAL WEDDING FLORAL CORNER ACCENTS --- */
-        .floral-corner {
-            position: absolute;
-            width: 65px;
-            height: 65px;
-            pointer-events: none;
-            opacity: 0.7;
-            z-index: 15;
-        }
-        .floral-corner svg {
-            width: 100%;
-            height: 100%;
-            fill: none;
-            stroke: var(--peony-rose);
-            stroke-width: 1.2;
-        }
-        .floral-tl { top: 18px; left: 18px; }
-        .floral-tr { top: 18px; right: 18px; transform: scaleX(-1); }
-        .floral-bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
-        .floral-br { bottom: 18px; right: 18px; transform: scale(-1); }
-
         /* --- LAYER 1: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG --- */
         .fairytale-gateway-screen {
             position: fixed;
@@ -265,7 +244,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD (EXACT SCREENSHOT MATCH) --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD FEATURING 2NDPAGE.JPG --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -277,11 +256,11 @@
             align-items: center;
             justify-content: center;
             background-color: #FDF0F3;
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(248, 226, 230, 0.8) 100%);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, rgba(248, 226, 230, 0.9) 100%);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
-            padding: 1rem;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1.5rem;
             overflow: hidden;
         }
 
@@ -292,156 +271,77 @@
 
         #scene-invite-card.slide-up-out {
             opacity: 0 !important;
-            transform: translateY(-30px);
+            transform: translateY(-40px) scale(0.98);
+            pointer-events: none !important;
+            display: none !important;
         }
 
-        /* Full Screen Faded Background Photo using picture18.jpeg */
-        .scene-bg-photo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('picture18.jpeg'), url('./picture18.jpeg'), url('picture18.jpg'), url('photo18.jpg');
-            background-size: cover;
-            background-position: center 28%;
-            opacity: 0.45;
-            filter: brightness(1.05) contrast(0.95);
-            z-index: 1;
-        }
-
-        .scene-bg-overlay-tint {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(253, 240, 243, 0.25) 0%, rgba(253, 240, 243, 0.65) 100%);
-            z-index: 2;
-        }
-
-        /* Outer Frame Container for Overlapping Head Shot */
-        .invite-card-hero-frame {
+        /* Container for 2ndpage.jpg Composition */
+        .second-page-card-container {
             position: relative;
-            max-width: 860px;
+            max-width: 900px;
             width: 92vw;
-            z-index: 10;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 140px; /* Offset to allow photo popout at top */
+            filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
+            transform: scale(0.96);
+            transition: transform 1s var(--transition-slow);
         }
 
-        /* POP-OUT COUPLE SUBJECT PHOTO OVERLAPPING CARD'S TOP LINE EXACTLY */
-        .hero-popout-subject {
+        #scene-invite-card.active-overlay .second-page-card-container {
+            transform: scale(1);
+        }
+
+        .second-page-img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Interactive Click Hotspot for "READ OUR STORY →" */
+        .hotspot-read-story {
             position: absolute;
-            bottom: calc(100% - 24px); /* Elbows/arms lean precisely on card's top edge */
+            bottom: 23%;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            max-width: 580px;
-            height: 230px;
-            z-index: 30; /* Front layer over white card border */
-            pointer-events: none;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        .hero-popout-subject img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
-            filter: drop-shadow(0 12px 25px rgba(226, 157, 167, 0.3));
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-        }
-
-        /* MAIN WHITE PARCHMENT CARD */
-        .chapter-container {
-            max-width: 860px;
-            width: 100%;
-            background: #FFFFFF;
-            color: var(--text-dark) !important;
-            padding: 3.8rem 2rem 3rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 25px 65px rgba(226, 157, 167, 0.25), 0 0 40px rgba(255, 183, 206, 0.35);
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            margin: 0;
-            text-align: center;
-            z-index: 20;
-        }
-
-        .parchment-texture-card {
-            background-color: #FFFFFF;
-            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFFDFB 100%);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
-        }
-
-        .parchment-texture-card.seamless-emerge {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* --- 2ND PAGE CONTENT LAYOUT --- */
-        .invite-landing-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 2rem;
-            padding-bottom: 0.5rem;
-        }
-
-        /* "ELENA & ADRIAN" EXACT SERIF STYLING */
-        #type-line3 {
-            font-family: var(--font-serif) !important;
-            font-size: 3.5rem !important;
-            letter-spacing: 9px !important;
-            color: #1A1415 !important;
-            font-weight: 500 !important;
-            text-transform: uppercase;
-            margin: 0.5rem 0 2.2rem 0;
-            word-break: keep-all !important;
-            hyphens: none !important;
-        }
-
-        /* PILL-BUTTON "READ OUR STORY →" EXACT MATCH */
-        .btn-read-story-compact {
-            background: #FFFFFF;
-            border: 1px solid rgba(226, 157, 167, 0.6);
-            color: var(--peony-deep) !important;
-            padding: 11px 34px;
-            font-family: var(--font-sans);
-            letter-spacing: 2.5px;
-            font-size: 0.72rem;
-            font-weight: 500 !important;
+            width: 220px;
+            height: 48px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.35s ease;
-            text-transform: uppercase;
-            display: inline-block;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(226, 157, 167, 0.12);
-            border-radius: 40px;
+            z-index: 30;
+            background: rgba(255, 255, 255, 0.01);
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .btn-read-story-compact:hover {
-            background: var(--baby-pink);
-            color: #FFFFFF !important;
-            border-color: var(--baby-pink);
-            box-shadow: 0 6px 20px var(--peony-glow);
-            transform: translateY(-2px);
+        .hotspot-read-story:hover {
+            background: rgba(255, 183, 206, 0.2);
+            box-shadow: 0 0 25px rgba(255, 183, 206, 0.6);
+            transform: translateX(-50%) scale(1.04);
+        }
+
+        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
+        .chapter-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--paper);
+            color: var(--text-dark) !important;
+            padding: 3.5rem 2rem;
+            border-radius: 6px;
+            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
+            position: relative;
+            border: 1px solid rgba(255, 183, 206, 0.5);
+            margin: 2rem 0;
+            text-align: center;
         }
 
         /* --- EDITORIAL OUR STORY SECTION --- */
         .story-editorial-card {
-            padding: 3rem 2rem 2.5rem 2rem !important;
-            max-width: 740px !important;
+            padding: 3.5rem 2rem 3rem 2rem !important;
+            max-width: 760px !important;
             margin: 1.5rem auto !important;
             text-align: center;
             position: relative;
@@ -1069,13 +969,10 @@
         /* --- MOBILE RESPONSIVE TUNING --- */
         @media (max-width: 600px) {
             .chapter-container { padding: 2.2rem 1.2rem; }
-            #type-line3 { font-size: 2.2rem !important; letter-spacing: 4px !important; margin: 0.8rem 0 1.2rem 0; }
             .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
-            
-            .hero-popout-subject { height: 160px; bottom: calc(100% - 18px); }
-            .invite-card-hero-frame { margin-top: 100px; }
-            .invite-landing-layout { padding-top: 25px; }
+
+            .hotspot-read-story { width: 160px; height: 36px; bottom: 21%; }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 4px; }
             .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 2rem; }
@@ -1132,44 +1029,14 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY WITH TOP POP-OUT HERO (EXACT SCREENSHOT LAYOUT MATCH) -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG) -->
     <section id="scene-invite-card">
-        <!-- FULL SCREEN FADED BACKGROUND PHOTO -->
-        <div class="scene-bg-photo"></div>
-        <div class="scene-bg-overlay-tint"></div>
+        <div class="second-page-card-container">
+            <!-- Exact 2nd Page Artwork using 2ndpage.jpg -->
+            <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="second-page-img" id="second-page-img">
 
-        <div class="invite-card-hero-frame">
-            
-            <!-- POP-OUT COUPLE SUBJECT OVERLAPPING TOP CARD BORDER LINE -->
-            <div class="hero-popout-subject">
-                <img src="picture18.jpeg" alt="Elena & Adrian" id="hero-portrait-img" onerror="this.src='photo18.jpg'">
-            </div>
-
-            <article class="chapter-container parchment-texture-card" id="invite-card-box">
-                <div class="floral-corner floral-tl">
-                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-                </div>
-                <div class="floral-corner floral-tr">
-                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-                </div>
-                <div class="floral-corner floral-bl">
-                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-                </div>
-                <div class="floral-corner floral-br">
-                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-                </div>
-
-                <!-- LANDING LAYOUT MATCHING YOUR REFERENCE IMAGE -->
-                <div class="invite-landing-layout">
-                    <!-- MIDDLE: ELENA & ADRIAN -->
-                    <h1 id="type-line3"></h1>
-
-                    <!-- BOTTOM: PILL BUTTON "READ OUR STORY →" -->
-                    <button class="btn-read-story-compact" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
-                        READ OUR STORY →
-                    </button>
-                </div>
-            </article>
+            <!-- Click Hotspot overlaying the READ OUR STORY button -->
+            <div class="hotspot-read-story" onclick="openOurStorySection()" title="Read Our Story"></div>
         </div>
     </section>
 
@@ -1610,16 +1477,16 @@
                 };
             }
 
-            // Fallback for hero portrait pointing directly to picture18.jpeg
-            const heroImg = document.getElementById('hero-portrait-img');
-            if (heroImg) {
-                heroImg.onerror = function() {
-                    if (this.src.endsWith('.png')) {
-                        this.src = 'picture18.jpeg';
-                    } else if (this.src.endsWith('.jpeg')) {
-                        this.src = 'picture18.jpg';
-                    } else if (this.src.endsWith('.jpg')) {
-                        this.src = 'photo18.jpg';
+            // Fallback for 2ndpage.jpg
+            const secondPageImg = document.getElementById('second-page-img');
+            if (secondPageImg) {
+                secondPageImg.onerror = function() {
+                    if (this.src.endsWith('.jpg')) {
+                        this.src = '2ndpage.JPG';
+                    } else if (this.src.endsWith('.JPG')) {
+                        this.src = '2ndpage.png';
+                    } else if (this.src.endsWith('.png')) {
+                        this.src = '2ndpage.PNG';
                     }
                 };
             }
@@ -1656,56 +1523,7 @@
         /* SEAMLESS TRANSITION -> REVEALS INVITATION OVERLAY CARD */
         function proceedToCordiallyInvitedSeamless() {
             const inviteScene = document.getElementById('scene-invite-card');
-            const cardBox = document.getElementById('invite-card-box');
-
             inviteScene.classList.add('active-overlay');
-            cardBox.classList.add('seamless-emerge');
-            runRomanticTyping();
-        }
-
-        /* ROMANTIC ELEGANT TEXT REVEAL */
-        function runRomanticTyping() {
-            const line3El = document.getElementById('type-line3');
-            const btnEl = document.getElementById('btn-read-story');
-
-            if (!line3El || line3El.children.length > 0) return;
-
-            const text3 = "ELENA & ADRIAN";
-
-            function buildGlyphs(container, text) {
-                container.innerHTML = '';
-                const glyphSpans = [];
-                for (let char of text) {
-                    const span = document.createElement('span');
-                    span.className = 'magic-glyph';
-                    span.textContent = char;
-                    container.appendChild(span);
-                    glyphSpans.push(span);
-                }
-                return { glyphs: glyphSpans };
-            }
-
-            const line3 = buildGlyphs(line3El, text3);
-
-            function animateGlyphSequence(lineObj, onComplete) {
-                let index = 0;
-                function revealNext() {
-                    if (index < lineObj.glyphs.length) {
-                        lineObj.glyphs[index].classList.add('inked');
-                        index++;
-                        const delay = Math.floor(Math.random() * 20) + 25; 
-                        setTimeout(revealNext, delay);
-                    } else {
-                        if (onComplete) setTimeout(onComplete, 150); 
-                    }
-                }
-                revealNext();
-            }
-
-            animateGlyphSequence(line3, () => {
-                btnEl.style.opacity = '1';
-                btnEl.style.pointerEvents = 'auto';
-            });
         }
 
         /* FAST & BALANCED FADE-IN FOR SONG.MP3 RIGHT WHEN CLICKED */
@@ -1738,7 +1556,7 @@
         /* BUTTON CLICK ("READ OUR STORY"): 
            1. STOP OPENINVITE.MP3
            2. PLAY SONG.MP3 IMMEDIATELY
-           3. SLOWLY TRANSITION TO OUR STORY PAGE
+           3. SLOWLY TRANSITION TO OUR STORY PAGE (DETACHING OVERLAY COMPLETELY)
         */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
@@ -1757,7 +1575,12 @@
             const revealOurStoryPage = () => {
                 if (!pageRevealed) {
                     pageRevealed = true;
+                    
+                    // Detach Page 2 overlay completely
                     inviteScene.classList.add('slide-up-out');
+                    inviteScene.classList.remove('active-overlay');
+
+                    // Unhide Our Story Scene
                     storyScene.classList.remove('hidden');
                     
                     requestAnimationFrame(() => {
@@ -1766,17 +1589,12 @@
                         storyScene.classList.add('scene-story-animated');
                         storyScene.scrollIntoView({ behavior: 'smooth' });
                     });
-
-                    setTimeout(() => {
-                        inviteScene.classList.remove('active-overlay');
-                        inviteScene.classList.remove('slide-up-out');
-                    }, 1200);
                 }
             };
 
             if (bgMusic) {
                 bgMusic.addEventListener('timeupdate', function onTimeUpdate() {
-                    if (bgMusic.currentTime >= 1.5) {
+                    if (bgMusic.currentTime >= 1.2) {
                         revealOurStoryPage();
                         bgMusic.removeEventListener('timeupdate', onTimeUpdate);
                     }
@@ -1785,7 +1603,7 @@
 
             setTimeout(() => {
                 revealOurStoryPage();
-            }, 1500);
+            }, 1200);
         }
 
         /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
