@@ -77,7 +77,6 @@
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
-            white-space: normal;
         }
 
         /* --- CANVAS RISING PETALS PARTICLES --- */
@@ -113,7 +112,7 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) WITH PHYSICAL LETTER REVEAL --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -127,8 +126,8 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            perspective: 1200px;
-            transition: opacity 0.8s ease 1s, visibility 0.8s ease 1s;
+            perspective: 1400px;
+            transition: opacity 1.0s ease 1.2s, visibility 1.0s ease 1.2s;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -161,25 +160,25 @@
             z-index: 10;
         }
 
-        /* --- CLOSED FLAP STATE (Points downward in front of envelope) --- */
-        .envelope-3d-flap {
+        /* CLOSED 3D TOP FLAP */
+        .envelope-top-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 52%;
+            height: 50%;
             background: var(--envelope-flap);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
-            transform: rotateX(0deg); /* CLOSED DEFAULT STATE */
+            transform: rotateX(0deg);
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 30; /* Sits in front when closed */
+            z-index: 30;
             border-bottom: 1px solid rgba(226, 157, 167, 0.4);
             filter: drop-shadow(0 4px 6px rgba(173, 83, 98, 0.15));
         }
 
-        /* --- REAL 2ND PAGE LETTER EMERGES FROM INSIDE THE ENVELOPE --- */
-        .envelope-letter-card {
+        /* PHYSICAL LETTER (2NDPAGE.JPG) SLIDING UP OUT OF ENVELOPE */
+        .envelope-sliding-letter {
             position: absolute;
             top: 5%;
             left: 50%;
@@ -188,23 +187,23 @@
             max-width: 720px;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            z-index: 5; /* Inside the pocket behind front image */
+            box-shadow: 0 15px 40px rgba(173, 83, 98, 0.25);
+            z-index: 5;
             opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, opacity 0.6s ease 0.3s;
+            transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, opacity 0.8s ease 0.3s;
             pointer-events: none;
         }
 
-        /* OPENING ANIMATION STATE ON TAP */
-        .png-envelope-container.opening .envelope-3d-flap {
-            transform: rotateX(-180deg); /* Flips Upward to open */
-            z-index: 1; /* Retracts behind letter */
+        /* OPENING ANIMATION STATE ON CLICK */
+        .png-envelope-container.opening .envelope-top-flap {
+            transform: rotateX(-180deg);
+            z-index: 1;
         }
 
-        .png-envelope-container.opening .envelope-letter-card {
+        .png-envelope-container.opening .envelope-sliding-letter {
             opacity: 1;
-            transform: translateX(-50%) translateY(-75%) scale(1.02); /* Glides Out smoothly */
-            z-index: 40; /* Rises to top layer */
+            transform: translateX(-50%) translateY(-82%) scale(1.05);
+            z-index: 40;
         }
 
         .png-envelope-container.opening .envelope-text-wrapper {
@@ -320,6 +319,12 @@
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
+            transform: translateY(20px) scale(0.96);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #scene-invite-card.active-overlay .second-page-card-container {
+            transform: translateY(0) scale(1);
         }
 
         .second-page-img {
@@ -521,9 +526,10 @@
             }
         }
 
+        /* NO SLICED WORD DEFENSE ON WE'RE GETTING MARRIED */
         .story-headline-married {
             font-family: var(--font-serif);
-            font-size: clamp(1.1rem, 3.8vw, 2.2rem);
+            font-size: clamp(1.05rem, 3.6vw, 2.2rem);
             letter-spacing: clamp(1px, 0.5vw, 4px);
             color: var(--peony-deep);
             font-weight: 600;
@@ -537,6 +543,12 @@
             word-wrap: normal !important;
             overflow-wrap: normal !important;
             white-space: normal;
+        }
+
+        .story-headline-married .headline-word-token {
+            display: inline-block;
+            white-space: nowrap;
+            word-break: keep-all !important;
         }
 
         .story-headline-married .story-glyph {
@@ -1125,8 +1137,11 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- 3D Opening Flap -->
-            <div class="envelope-3d-flap"></div>
+            <!-- Closed 3D Top Flap -->
+            <div class="envelope-top-flap"></div>
+
+            <!-- Physical Letter (2ndpage.jpg) Sliding Out of Envelope -->
+            <img src="2ndpage.jpg" alt="Invitation Letter" class="envelope-sliding-letter" id="envelope-preview-letter">
 
             <!-- Main Envelope Body -->
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
@@ -1617,22 +1632,45 @@
                     }
                 };
             }
+
+            // Fallback for preview letter
+            const previewLetterImg = document.getElementById('envelope-preview-letter');
+            if (previewLetterImg) {
+                previewLetterImg.onerror = function() {
+                    this.src = '2ndpage.png';
+                };
+            }
         });
 
-        /* PREPARES INDIVIDUAL LETTER SPANS FOR MAGICAL TEXT REVEAL */
+        /* PREPARES WORD TOKENS FOR MAGICAL TEXT REVEAL WITHOUT SLICING */
         function prepareMagicalHeadlineText() {
             const headlineEl = document.getElementById('magical-married-title');
             if (!headlineEl) return;
 
             const text = headlineEl.textContent.trim();
+            const words = text.split(' ');
             headlineEl.innerHTML = '';
 
-            for (let char of text) {
-                const span = document.createElement('span');
-                span.className = 'story-glyph';
-                span.textContent = char;
-                headlineEl.appendChild(span);
-            }
+            words.forEach((word, wIdx) => {
+                const wordToken = document.createElement('span');
+                wordToken.className = 'headline-word-token';
+
+                for (let char of word) {
+                    const span = document.createElement('span');
+                    span.className = 'story-glyph';
+                    span.textContent = char;
+                    wordToken.appendChild(span);
+                }
+
+                headlineEl.appendChild(wordToken);
+
+                if (wIdx < words.length - 1) {
+                    const spaceSpan = document.createElement('span');
+                    spaceSpan.className = 'story-glyph';
+                    spaceSpan.textContent = ' ';
+                    headlineEl.appendChild(spaceSpan);
+                }
+            });
         }
 
         /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE CLOUD MIST MAGICAL REVEAL */
@@ -1670,7 +1708,7 @@
                 setTimeout(() => {
                     proceedToCordiallyInvitedSeamless();
                 }, 300);
-            }, 800);
+            }, 1100);
         }
 
         /* REVEALS ELENA & ADRIAN PAGE DIRECTLY */
