@@ -34,6 +34,7 @@
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
+            --envelope-flap: #f9e3e2; /* Envelope Flap Theme Match */
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -70,8 +71,8 @@
 
         /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
         h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
+            word-break: normal !important;
             overflow-wrap: break-word !important;
-            word-break: keep-all !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
@@ -117,7 +118,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #f9e3e2 !important; /* Specific envelope intro background */
+            background: var(--envelope-flap) !important; /* Specific envelope intro background */
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -583,49 +584,49 @@
             margin-bottom: 2.5rem;
         }
 
-        /* RECESSED NEUMORPHIC COUNTDOWN TILES */
+        /* COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR */
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 22px;
-            margin: 0 auto 3.5rem auto;
+            gap: 16px;
+            margin: 0 auto 3rem auto;
             width: 100%;
-            max-width: 680px;
+            max-width: 520px;
             flex-wrap: nowrap;
         }
 
         .countdown-box {
             flex: 1 1 0;
-            height: 125px;
-            min-width: 90px;
-            background: #F3ECE6;
-            border-radius: 14px;
+            height: 85px; /* Smaller, compact tile height */
+            min-width: 70px;
+            background: var(--envelope-flap) !important; /* Exact envelope flap color */
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             box-shadow: 
-                inset 6px 6px 12px rgba(180, 160, 155, 0.45),
-                inset -6px -6px 12px #FFFFFF,
-                0 1px 2px rgba(255,255,255,0.8);
-            border: 1px solid rgba(230, 215, 210, 0.6);
-            padding: 10px;
+                0 6px 18px rgba(180, 160, 155, 0.22),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(226, 157, 167, 0.35);
+            padding: 6px;
         }
 
         .countdown-num {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
+            font-size: 1.85rem;
             font-weight: 600;
             color: var(--peony-deep);
             line-height: 1;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .countdown-label {
             font-family: var(--font-sans);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--champagne-gold);
+            font-size: 0.6rem;
+            letter-spacing: 1.8px;
+            color: var(--peony-deep);
+            opacity: 0.85;
             text-transform: uppercase;
             font-weight: 500;
         }
@@ -924,23 +925,29 @@
             transform: translateY(0);
         }
 
+        /* --- MOBILE RESPONSIVE TUNING --- */
         @media (max-width: 600px) {
-            .chapter-container { padding: 2.2rem 1.2rem; }
-            .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
+            .chapter-container { padding: 2.2rem 1rem; }
+            .envelope-caption-title { font-size: 1.2rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
 
             .hotspot-read-story { width: 160px; height: 36px; bottom: 21%; }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 4px; }
-            .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 2rem; }
-            .countdown-container { gap: 10px; margin-bottom: 2.5rem; }
-            .countdown-box { height: 95px; min-width: 65px; border-radius: 10px; }
-            .countdown-num { font-size: 1.6rem; }
-            .countdown-label { font-size: 0.55rem; letter-spacing: 1px; }
+            .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 1.8rem; }
+            .countdown-container { gap: 8px; margin-bottom: 2rem; max-width: 100%; }
+            .countdown-box { height: 75px; min-width: 55px; border-radius: 8px; padding: 4px; }
+            .countdown-num { font-size: 1.35rem; }
+            .countdown-label { font-size: 0.5rem; letter-spacing: 1px; }
             
             .nav-card { flex: 0 0 145px; height: 145px; padding: 0.8rem; border-radius: 14px; }
             .nav-card h3 { font-size: 1rem; }
             .nav-card p { font-size: 0.68rem; }
+
+            .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
+            .story-script-heading { font-size: 1.5rem; }
+            .story-body-text { font-size: 0.85rem; line-height: 1.6; }
+            .story-headline-married { font-size: 1.7rem; letter-spacing: 3px; }
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
@@ -1074,7 +1081,7 @@
                 ELENA & ADRIAN — 31 · 01 · 2028
             </p>
 
-            <!-- 3D RECESSED COUNTDOWN TILES -->
+            <!-- COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR -->
             <div class="countdown-container" id="countdown-odometer">
                 <div class="countdown-box"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
                 <div class="countdown-box"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
@@ -1283,7 +1290,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
