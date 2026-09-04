@@ -110,14 +110,14 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (EXACT #f9e3e2 BACKGROUND) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #f9e3e2 !important; /* Envelope page specific background */
+            background: #f9e3e2 !important; /* Specific envelope intro background */
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -228,7 +228,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (RESTORED BACKGROUND) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (FEATURING 2NDPAGE.JPG) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -970,12 +970,12 @@
         </div>
     </div>
 
-    <!-- YOU ARE CORDIALLY INVITED SOUNDTRACK (openinvite.mp3) -->
+    <!-- YOU ARE CORDIALLY INVITED SOUNDTRACK -->
     <audio id="invite-music" loop preload="auto">
-        <source src="openinvite.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- MAIN COUPLE SOUNDTRACK (song.mp3) -->
+    <!-- MAIN COUPLE SOUNDTRACK -->
     <audio id="bg-music" loop preload="auto">
         <source src="song.mp3" type="audio/mpeg">
     </audio>
@@ -1449,32 +1449,28 @@
             }
         });
 
-        /* 1. ENVELOPE CLICK -> DIRECTLY TO ELENA & ADRIAN PAGE */
+        /* 1. ENVELOPE CLICK -> STARTS SONG.MP3 IMMEDIATELY & DIRECTS TO ELENA & ADRIAN PAGE */
         function openEnvelopeAndStartVideo(event) {
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
+            const bgMusic = document.getElementById('bg-music');
 
             pngEnv.classList.add('opening');
 
+            // Immediately start song.mp3 for Elena & Adrian page
+            if (bgMusic) {
+                bgMusic.currentTime = 0;
+                bgMusic.volume = 0.55;
+                bgMusic.play().catch(e => console.log("Song Play Warning:", e));
+            }
+
             setTimeout(() => {
                 gateway.classList.add('fade-out');
-                playInvitePageSound();
 
                 setTimeout(() => {
                     proceedToCordiallyInvitedSeamless();
                 }, 200);
             }, 400);
-        }
-
-        /* PLAYS OPENINVITE.MP3 FOR ELENA & ADRIAN PAGE */
-        function playInvitePageSound() {
-            const inviteAudio = document.getElementById('invite-music');
-            if (inviteAudio) {
-                inviteAudio.currentTime = 0;
-                inviteAudio.muted = false;
-                inviteAudio.volume = 1.0;
-                inviteAudio.play().catch(e => console.log("Invite Audio Play Warning:", e));
-            }
         }
 
         /* REVEALS ELENA & ADRIAN PAGE DIRECTLY */
@@ -1483,29 +1479,16 @@
             inviteScene.classList.add('active-overlay');
         }
 
-        /* INSTANT AUDIO TRIGGER WITHOUT DELAY */
-        function triggerInstantSongAudio(songAudio) {
-            if (!songAudio) return;
-            songAudio.currentTime = 0;
-            songAudio.volume = 0.55;
-            songAudio.play().catch(e => console.log("Instant Song Play Warning:", e));
-        }
-
-        /* 2. READ OUR STORY CLICK -> INSTANT AUDIO + SHOWS OUR STORY PAGE */
+        /* 2. READ OUR STORY CLICK -> CONTINUOUS SONG.MP3 PLAYBACK + SHOWS OUR STORY PAGE */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const storyScene = document.getElementById('scene-story');
-            const inviteAudio = document.getElementById('invite-music');
             const bgMusic = document.getElementById('bg-music');
 
-            // Instantly stop invite soundtrack
-            if (inviteAudio) {
-                inviteAudio.pause();
-                inviteAudio.currentTime = 0;
+            // Keep song.mp3 playing continuously without resetting
+            if (bgMusic && bgMusic.paused) {
+                bgMusic.play().catch(e => console.log("Continuous Song Play Error:", e));
             }
-
-            // INSTANTLY START song.mp3 without delay
-            triggerInstantSongAudio(bgMusic);
 
             // Hide page 2 overlay completely
             inviteScene.classList.add('slide-up-out');
@@ -1551,8 +1534,6 @@
         function switchSoundtrackAndGoMenu() {
             const bgMusic = document.getElementById('bg-music');
             if (bgMusic && bgMusic.paused) {
-                bgMusic.currentTime = 0;
-                bgMusic.volume = 0.55;
                 bgMusic.play().catch(e => console.log("Soundtrack Play Error:", e));
             }
 
