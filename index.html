@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elena & Adrian — The Wedding Invitation</title>
 
+    <!-- Auto-resolve GitHub Pages Subfolder Relative Paths -->
+    <script>
+        (function() {
+            if (window.location.hostname.includes('github.io')) {
+                const pathSegments = window.location.pathname.split('/').filter(Boolean);
+                if (pathSegments.length > 0) {
+                    const repoName = pathSegments[0];
+                    const base = document.createElement('base');
+                    base.href = '/' + repoName + '/';
+                    document.head.appendChild(base);
+                }
+            }
+        })();
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,10 +33,10 @@
             --blush-soft: #FFF0F4;
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
-            --peony-glow: rgba(255, 183, 206, 0.4);
+            --peony-glow: rgba(255, 183, 206, 0.55);
             
             --champagne-gold: #C5A059;
-            --gold-glow: rgba(197, 160, 89, 0.25);
+            --gold-glow: rgba(197, 160, 89, 0.35);
             
             --paper: #FFFFFF;
             --parchment: #FAF6F1;
@@ -53,7 +68,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- CANVAS RISING PETALS PARTICLES --- */
+        /* --- CANVAS PETALS & PARTICLES --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -88,8 +103,8 @@
             width: 80px;
             height: 80px;
             pointer-events: none;
-            opacity: 0.8;
-            z-index: 4;
+            opacity: 0.85;
+            z-index: 6;
             transition: opacity 0.4s ease;
         }
         .floral-corner svg {
@@ -120,14 +135,14 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED FULL-PAGE GATEWAY (CLEAN SOLID BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #FFFDFB 0%, #FDF0F3 70%, #F8E2E6 100%);
+            background-color: var(--cream-bg);
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -144,17 +159,21 @@
             pointer-events: none;
         }
 
-        /* Full-Bleed Glowing Envelope Body */
+        /* Solid Glowing Envelope Body with Side Glows */
         .desk-envelope {
             width: 92vw;
             max-width: 920px;
             height: 86vh;
             max-height: 640px;
-            background: rgba(255, 255, 255, 0.96);
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.98) 0%, rgba(255, 240, 244, 0.98) 100%);
+            background: #FFFFFF;
             position: relative;
             border-radius: 8px;
-            box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
+            box-shadow: 
+                -15px 0 35px var(--peony-glow), 
+                15px 0 35px var(--peony-glow),
+                0 30px 90px rgba(173, 83, 98, 0.25), 
+                0 0 40px var(--gold-glow), 
+                inset 0 0 25px rgba(255, 183, 206, 0.25);
             border: 2px solid var(--baby-pink);
             transform-style: preserve-3d;
             cursor: pointer;
@@ -166,25 +185,77 @@
             padding: 2.5rem;
             transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
             animation: envelopeFloatGlow 3.5s ease-in-out infinite alternate;
+            overflow: visible;
         }
 
         @keyframes envelopeFloatGlow {
             0% { 
                 transform: translateY(0px) rotateX(0deg); 
-                box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 40px var(--peony-glow);
+                box-shadow: 
+                    -15px 0 30px var(--peony-glow), 
+                    15px 0 30px var(--peony-glow),
+                    0 30px 90px rgba(173, 83, 98, 0.22), 
+                    0 0 30px var(--peony-glow);
             }
             100% { 
-                transform: translateY(-8px) rotateX(1.2deg); 
-                box-shadow: 0 45px 110px rgba(173, 83, 98, 0.22), 0 0 70px rgba(255, 183, 206, 0.65);
+                transform: translateY(-10px) rotateX(1.5deg); 
+                box-shadow: 
+                    -25px 0 50px rgba(255, 183, 206, 0.8), 
+                    25px 0 50px rgba(255, 183, 206, 0.8),
+                    0 45px 110px rgba(173, 83, 98, 0.32), 
+                    0 0 60px rgba(255, 183, 206, 0.75), 
+                    0 0 30px var(--gold-glow);
             }
         }
 
         .desk-envelope:hover {
-            transform: scale(1.015) translateY(-10px) !important;
-            box-shadow: 0 50px 120px rgba(173, 83, 98, 0.28), 0 0 80px rgba(255, 183, 206, 0.75);
+            transform: scale(1.02) translateY(-12px) !important;
+            box-shadow: 
+                -30px 0 60px rgba(255, 183, 206, 0.9), 
+                30px 0 60px rgba(255, 183, 206, 0.9),
+                0 50px 120px rgba(173, 83, 98, 0.38), 
+                0 0 80px rgba(255, 183, 206, 0.85);
         }
 
-        /* Oversized Triangular Top Flap */
+        /* Solid Side Flaps for Realistic Envelope Geometry with Glowing Edges */
+        .envelope-side-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 43vh solid transparent;
+            border-bottom: 43vh solid transparent;
+            border-left: 44vw solid #FAF2F4;
+            z-index: 4;
+            pointer-events: none;
+            filter: drop-shadow(-8px 0 15px rgba(255, 183, 206, 0.6));
+        }
+
+        .envelope-side-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-top: 43vh solid transparent;
+            border-bottom: 43vh solid transparent;
+            border-right: 44vw solid #FAF2F4;
+            z-index: 4;
+            pointer-events: none;
+            filter: drop-shadow(8px 0 15px rgba(255, 183, 206, 0.6));
+        }
+
+        @media (min-width: 980px) {
+            .envelope-side-left, .envelope-side-right {
+                border-top-width: 320px;
+                border-bottom-width: 320px;
+            }
+            .envelope-side-left { border-left-width: 440px; }
+            .envelope-side-right { border-right-width: 440px; }
+        }
+
+        /* Solid Triangular Top Flap */
         .envelope-flap {
             position: absolute;
             top: 0;
@@ -197,7 +268,7 @@
             transform-origin: top;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
-            filter: drop-shadow(0 10px 20px rgba(226, 157, 167, 0.25));
+            filter: drop-shadow(0 10px 20px rgba(226, 157, 167, 0.35));
         }
 
         @media (min-width: 980px) {
@@ -266,7 +337,7 @@
             color: var(--peony-deep);
             text-transform: lowercase;
             font-weight: 500;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 8px 24px;
             border-radius: 30px;
             border: 1px solid var(--baby-pink);
@@ -294,7 +365,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(253, 244, 245, 0.94);
+            background: rgba(253, 244, 245, 0.92);
             backdrop-filter: blur(10px);
             opacity: 0;
             pointer-events: none;
@@ -350,7 +421,6 @@
 
         .parchment-texture-card {
             background-color: #FAF6F1;
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(255, 240, 244, 0.98) 100%);
             border: 1px solid var(--baby-pink);
             box-shadow: 0 20px 60px rgba(173, 83, 98, 0.08), 0 0 45px var(--peony-glow);
             opacity: 0;
@@ -855,7 +925,7 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: GLOWING FULL-SCREEN ENCHANTMENT ENVELOPE -->
+    <!-- 1. HERO OPENING: GLOWING SOLID ENCHANTMENT ENVELOPE GATEWAY -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <!-- BOTANICAL WEDDING FLORAL CORNERS -->
@@ -872,6 +942,9 @@
                 <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
             </div>
 
+            <!-- SOLID SIDE & TOP ENVELOPE FLAPS WITH MAGICAL GLOW -->
+            <div class="envelope-side-left"></div>
+            <div class="envelope-side-right"></div>
             <div class="envelope-flap"></div>
             <div class="magical-light-beam"></div>
 
@@ -1126,7 +1199,7 @@
             </article>
         </section>
 
-        <!-- GALLERY (PRESERVED IN FULL WITH ALL 10 PHOTOGRAPHS) -->
+        <!-- GALLERY -->
         <section class="stage hidden" id="scene-gallery">
             <h2 class="chapter-title">MOMENTS ALONG THE WAY</h2>
             <p style="color: var(--champagne-gold); font-size: 0.85rem; letter-spacing: 1.5px;">
@@ -1318,7 +1391,7 @@
             renderFAQ();
             renderGallery();
             startCountdown();
-            initRisingPetalsParticles();
+            initParticles();
             setupIntersectionObserver();
             setupDragScroll();
         });
@@ -1448,11 +1521,7 @@
             }, intervalTime);
         }
 
-        /* BUTTON CLICK ("READ OUR STORY"): 
-           1. STOP OPENINVITE.MP3
-           2. PLAY SONG.MP3 IMMEDIATELY
-           3. SLOWLY TRANSITION TO OUR STORY PAGE
-        */
+        /* BUTTON CLICK ("READ OUR STORY") */
         function openOurStorySection() {
             const inviteScene = document.getElementById('scene-invite-card');
             const storyScene = document.getElementById('scene-story');
@@ -1618,7 +1687,7 @@
             }).join('');
         }
 
-        /* LIGHTBOX FUNCTIONALITY ENHANCED WITH FULLY-QUALIFIED ABSOLUTE URL PATH RESOLUTION */
+        /* LIGHTBOX FUNCTIONALITY */
         function openLightbox(src) {
             const modal = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
@@ -1662,8 +1731,8 @@
             }, 500);
         }
 
-        /* GENTLE RISING SMALL FLOWER PETALS CANVAS ANIMATION */
-        function initRisingPetalsParticles() {
+        /* GLOBAL ROMANTIC PEONY PARTICLES & DUST BACKGROUND */
+        function initParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             let width = canvas.width = window.innerWidth;
@@ -1674,71 +1743,29 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            // Create organic petal instances initialized near bottom of screen
-            function createPetal(randomY = false) {
-                return {
-                    x: Math.random() * width,
-                    y: randomY ? Math.random() * height : height + Math.random() * 50 + 10,
-                    size: Math.random() * 4 + 3.5, // Small, delicate petal size
-                    speedY: -(Math.random() * 0.6 + 0.3), // Gentle upward drift
-                    swayAmplitude: Math.random() * 1.5 + 0.5,
-                    swaySpeed: Math.random() * 0.02 + 0.008,
-                    swayAngle: Math.random() * Math.PI * 2,
-                    rotation: Math.random() * Math.PI * 2,
-                    rotationSpeed: (Math.random() - 0.5) * 0.015,
-                    maxOpacity: Math.random() * 0.45 + 0.35,
-                    opacity: 0
-                };
-            }
+            const particles = Array.from({ length: 42 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 2.2 + 0.8,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: -Math.random() * 0.4 - 0.1,
+                opacity: Math.random() * 0.5 + 0.2
+            }));
 
-            const petals = Array.from({ length: 45 }, () => createPetal(true));
-
-            function drawPetalShape(x, y, radius, rotation, opacity) {
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(rotation);
-                ctx.fillStyle = `rgba(255, 183, 206, ${opacity})`;
-                
-                // Draw delicate curved rose/peony petal silhouette
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-radius * 0.8, -radius * 1.2, -radius * 1.2, -radius * 0.2, 0, radius);
-                ctx.bezierCurveTo(radius * 1.2, -radius * 0.2, radius * 0.8, -radius * 1.2, 0, 0);
-                ctx.fill();
-                ctx.restore();
-            }
-
-            function animateRisingPetals() {
+            function animate() {
                 ctx.clearRect(0, 0, width, height);
-
-                petals.forEach((p, index) => {
-                    // Update positions with swaying motion
+                particles.forEach(p => {
+                    p.x += p.speedX;
                     p.y += p.speedY;
-                    p.swayAngle += p.swaySpeed;
-                    p.x += Math.sin(p.swayAngle) * p.swayAmplitude * 0.5;
-                    p.rotation += p.rotationSpeed;
-
-                    // Fade-in near bottom, fade-out near top for seamless romantic lifecycle
-                    const fadeZone = 120;
-                    if (p.y > height - fadeZone) {
-                        p.opacity = Math.min(p.maxOpacity, (height - p.y) / fadeZone * p.maxOpacity);
-                    } else if (p.y < fadeZone) {
-                        p.opacity = Math.max(0, (p.y / fadeZone) * p.maxOpacity);
-                    } else {
-                        p.opacity = p.maxOpacity;
-                    }
-
-                    drawPetalShape(p.x, p.y, p.size, p.rotation, p.opacity);
-
-                    // Respawn petal below viewport once it floats above screen
-                    if (p.y < -30 || p.opacity <= 0 && p.y < fadeZone) {
-                        petals[index] = createPetal(false);
-                    }
+                    if (p.y < 0) p.y = height;
+                    ctx.fillStyle = `rgba(255, 183, 206, ${p.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
                 });
-
-                requestAnimationFrame(animateRisingPetals);
+                requestAnimationFrame(animate);
             }
-            animateRisingPetals();
+            animate();
         }
 
         function setupIntersectionObserver() {
