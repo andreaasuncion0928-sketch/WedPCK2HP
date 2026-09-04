@@ -85,8 +85,8 @@
         /* --- BOTANICAL WEDDING FLORAL ACCENTS --- */
         .floral-corner {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             pointer-events: none;
             opacity: 0.8;
             z-index: 15;
@@ -100,10 +100,10 @@
             stroke-width: 1.4;
             filter: drop-shadow(0 0 6px var(--peony-glow));
         }
-        .floral-tl { top: 12px; left: 12px; }
-        .floral-tr { top: 12px; right: 12px; transform: scaleX(-1); }
-        .floral-bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
-        .floral-br { bottom: 12px; right: 12px; transform: scale(-1); }
+        .floral-tl { top: 16px; left: 16px; }
+        .floral-tr { top: 16px; right: 16px; transform: scaleX(-1); }
+        .floral-bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+        .floral-br { bottom: 16px; right: 16px; transform: scale(-1); }
 
         .floral-header-spray {
             width: 120px;
@@ -120,7 +120,7 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: ENCHANTED COMPACT ENVELOPE GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -144,26 +144,22 @@
             pointer-events: none;
         }
 
-        /* Balanced Envelope Dimensions */
+        /* Full-Bleed Glowing Envelope Body (Restored Dimensions) */
         .desk-envelope {
-            width: 84vw;
-            max-width: 720px;
-            height: 60vh;
-            max-height: 460px;
+            width: 92vw;
+            max-width: 920px;
+            height: 86vh;
+            max-height: 640px;
             background: #FFFFFF;
-            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFF5F7 100%);
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.98) 0%, rgba(255, 240, 244, 0.98) 100%);
             position: relative;
             border-radius: 8px;
-            box-shadow: 0 25px 75px rgba(173, 83, 98, 0.16), 0 0 45px var(--peony-glow);
+            box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
             border: 2px solid var(--baby-pink);
             transform-style: preserve-3d;
             cursor: pointer;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            padding: 2.5rem;
             transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
             animation: envelopeFloatGlow 3.5s ease-in-out infinite alternate;
         }
@@ -171,40 +167,40 @@
         @keyframes envelopeFloatGlow {
             0% { 
                 transform: translateY(0px) rotateX(0deg); 
-                box-shadow: 0 25px 75px rgba(173, 83, 98, 0.16), 0 0 40px var(--peony-glow);
+                box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 40px var(--peony-glow);
             }
             100% { 
                 transform: translateY(-8px) rotateX(1.2deg); 
-                box-shadow: 0 35px 95px rgba(173, 83, 98, 0.22), 0 0 65px rgba(255, 183, 206, 0.7);
+                box-shadow: 0 45px 110px rgba(173, 83, 98, 0.22), 0 0 70px rgba(255, 183, 206, 0.65);
             }
         }
 
         .desk-envelope:hover {
-            transform: scale(1.02) translateY(-8px) !important;
-            box-shadow: 0 45px 110px rgba(173, 83, 98, 0.28), 0 0 80px rgba(255, 183, 206, 0.85);
+            transform: scale(1.015) translateY(-10px) !important;
+            box-shadow: 0 50px 120px rgba(173, 83, 98, 0.28), 0 0 80px rgba(255, 183, 206, 0.75);
         }
 
-        /* 100% Solid Baby Pink Top Flap (Calculated to avoid covering center text) */
+        /* Original Full Height Flap with 100% Opacity Solid Baby Pink */
         .envelope-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 0;
-            border-left: 42vw solid transparent;
-            border-right: 42vw solid transparent;
-            border-top: 20vh solid #FFB7CE; /* 100% Solid Baby Pink */
+            border-left: 46vw solid transparent;
+            border-right: 46vw solid transparent;
+            border-top: 42vh solid #FFB7CE; /* 100% Solid Baby Pink */
             transform-origin: top;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
-            filter: drop-shadow(0 8px 14px rgba(173, 83, 98, 0.25));
+            filter: drop-shadow(0 10px 20px rgba(226, 157, 167, 0.25));
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 980px) {
             .envelope-flap {
-                border-left-width: 360px;
-                border-right-width: 360px;
-                border-top-width: 160px;
+                border-left-width: 460px;
+                border-right-width: 460px;
+                border-top-width: 320px;
             }
         }
 
@@ -233,36 +229,39 @@
             transform: translate(-50%, -50%) scale(6.5);
         }
 
-        /* HIGH-PRIORITY TEXT CONTAINER — 100% VISIBLE & CLEARS THE FLAP */
+        /* ACCURATELY POSITIONED TEXT LAYER CLEARING THE V-POINT OF THE FLAP */
         .envelope-text-wrapper {
-            position: relative;
-            z-index: 99; /* Higher than flap to guarantee visibility */
-            margin-top: 8vh;
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            z-index: 99; /* Higher layer priority */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background: transparent !important;
-            box-shadow: none !important;
             border: none !important;
+            box-shadow: none !important;
             pointer-events: auto;
         }
 
         /* ELEGANT ENCHANTED BLACK TYPOGRAPHY */
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             color: #000000 !important;
             font-weight: 700;
             letter-spacing: 4px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
         }
 
         .envelope-action-btn {
-            margin-top: 0.8rem;
+            margin-top: 0.6rem;
             font-family: var(--font-serif);
             letter-spacing: 3px;
             font-size: 1.1rem;
@@ -844,8 +843,8 @@
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 140px; height: 180px; }
             .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
-            .desk-envelope { width: 88vw; height: 60vh; padding: 1.5rem; }
-            .envelope-text-wrapper { margin-top: 6vh; }
+            .desk-envelope { width: 92vw; height: 80vh; padding: 1.5rem; }
+            .envelope-text-wrapper { bottom: 10%; }
         }
     </style>
 </head>
@@ -854,7 +853,7 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: GLOWING COMPACT ENCHANTMENT ENVELOPE -->
+    <!-- 1. HERO OPENING: GLOWING FULL-SCREEN ENCHANTMENT ENVELOPE -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <!-- BOTANICAL WEDDING FLORAL CORNERS -->
@@ -874,7 +873,7 @@
             <div class="envelope-flap"></div>
             <div class="magical-light-beam"></div>
 
-            <!-- DIRECT TEXT CONTAINER WITHOUT BACKGROUND (100% VISIBLE ABOVE FLAP) -->
+            <!-- DIRECT TEXT CONTAINER POSITIONED ACCURATELY BELOW FLAP POINT -->
             <div class="envelope-text-wrapper">
                 <p class="envelope-caption-title">A Personal Invitation</p>
                 <div class="envelope-action-btn">tap to open</div>
