@@ -40,7 +40,7 @@
             
             --paper: #FFFFFF;
             --parchment: #FAF6F1;
-            --text-dark: #2C2527;
+            --text-dark: #1A1415;
             --text-muted: #6B5E62;
             
             --font-serif: 'Cormorant Garamond', serif;
@@ -61,17 +61,17 @@
         html, body {
             width: 100%;
             height: 100%;
-            background-color: var(--cream-bg);
+            background-color: #FDF0F3;
             color: var(--text-dark);
             font-family: var(--font-sans);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- PREVENT MID-WORD SLICING & HYPHENATION ACROSS THE BOARD --- */
-        h1, h2, h3, h4, p, span, a, button, div {
-            overflow-wrap: break-word;
-            word-break: keep-all;
+        /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
+        h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
+            overflow-wrap: break-word !important;
+            word-break: keep-all !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
@@ -106,43 +106,26 @@
             padding: 2rem 1rem;
         }
 
-        /* --- BOTANICAL WEDDING FLORAL ACCENTS --- */
+        /* --- BOTANICAL WEDDING FLORAL CORNER ACCENTS --- */
         .floral-corner {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.7;
             z-index: 15;
-            transition: opacity 0.4s ease;
         }
         .floral-corner svg {
             width: 100%;
             height: 100%;
             fill: none;
-            stroke: var(--baby-pink);
-            stroke-width: 1.4;
-            filter: drop-shadow(0 0 6px var(--peony-glow));
-        }
-        .floral-tl { top: 16px; left: 16px; }
-        .floral-tr { top: 16px; right: 16px; transform: scaleX(-1); }
-        .floral-bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
-        .floral-br { bottom: 16px; right: 16px; transform: scale(-1); }
-
-        .floral-header-spray {
-            width: 120px;
-            height: 38px;
-            margin: 0 auto 0.5rem auto;
-            opacity: 0.85;
-            display: block;
-        }
-        .floral-header-spray svg {
-            width: 100%;
-            height: 100%;
-            fill: none;
-            stroke: var(--champagne-gold);
+            stroke: var(--peony-rose);
             stroke-width: 1.2;
         }
+        .floral-tl { top: 18px; left: 18px; }
+        .floral-tr { top: 18px; right: 18px; transform: scaleX(-1); }
+        .floral-bl { bottom: 18px; left: 18px; transform: scaleY(-1); }
+        .floral-br { bottom: 18px; right: 18px; transform: scale(-1); }
 
         /* --- LAYER 1: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG --- */
         .fairytale-gateway-screen {
@@ -282,7 +265,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD (EXACT SCREENSHOT MATCH) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -293,12 +276,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(253, 244, 245, 0.94);
-            backdrop-filter: blur(10px);
+            background-color: #FDF0F3;
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(248, 226, 230, 0.8) 100%);
             opacity: 0;
             pointer-events: none;
             transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
             padding: 1rem;
+            overflow: hidden;
         }
 
         #scene-invite-card.active-overlay {
@@ -311,51 +295,92 @@
             transform: translateY(-30px);
         }
 
-        /* --- LAYER 3: WEBPAGE SCROLL CONTENT --- */
-        #scene-story {
-            position: relative;
-            z-index: 30;
-            margin-top: 100vh;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
-        }
-
-        #scene-story.page-up-active {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .stage.hidden {
-            display: none !important;
-        }
-
-        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
-        .chapter-container {
-            max-width: 800px;
+        /* Full Screen Faded Background Photo using picture18.jpeg */
+        .scene-bg-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: var(--paper);
-            color: var(--text-dark) !important;
-            padding: 3.5rem 2rem;
-            border-radius: 6px;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
+            height: 100%;
+            background-image: url('picture18.jpeg'), url('./picture18.jpeg'), url('picture18.jpg'), url('photo18.jpg');
+            background-size: cover;
+            background-position: center 28%;
+            opacity: 0.45;
+            filter: brightness(1.05) contrast(0.95);
+            z-index: 1;
+        }
+
+        .scene-bg-overlay-tint {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(253, 240, 243, 0.25) 0%, rgba(253, 240, 243, 0.65) 100%);
+            z-index: 2;
+        }
+
+        /* Outer Frame Container for Overlapping Head Shot */
+        .invite-card-hero-frame {
             position: relative;
-            border: 1px solid rgba(255, 183, 206, 0.5);
-            margin: 2rem 0;
+            max-width: 860px;
+            width: 92vw;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 140px; /* Offset to allow photo popout at top */
+        }
+
+        /* POP-OUT COUPLE SUBJECT PHOTO OVERLAPPING CARD'S TOP LINE EXACTLY */
+        .hero-popout-subject {
+            position: absolute;
+            bottom: calc(100% - 24px); /* Elbows/arms lean precisely on card's top edge */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 580px;
+            height: 230px;
+            z-index: 30; /* Front layer over white card border */
+            pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-popout-subject img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            filter: drop-shadow(0 12px 25px rgba(226, 157, 167, 0.3));
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+        }
+
+        /* MAIN WHITE PARCHMENT CARD */
+        .chapter-container {
+            max-width: 860px;
+            width: 100%;
+            background: #FFFFFF;
+            color: var(--text-dark) !important;
+            padding: 3.8rem 2rem 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 25px 65px rgba(226, 157, 167, 0.25), 0 0 40px rgba(255, 183, 206, 0.35);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            margin: 0;
             text-align: center;
-            transform: scale(0.95);
-            transition: transform 1.2s var(--transition-slow);
+            z-index: 20;
         }
 
         .parchment-texture-card {
-            background-color: #FAF6F1;
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(255, 240, 244, 0.98) 100%);
-            border: 1px solid var(--baby-pink);
-            box-shadow: 0 20px 60px rgba(173, 83, 98, 0.08), 0 0 45px var(--peony-glow);
+            background-color: #FFFFFF;
+            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFFDFB 100%);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
-            z-index: 22;
         }
 
         .parchment-texture-card.seamless-emerge {
@@ -363,50 +388,54 @@
             transform: translateY(0) !important;
         }
 
-        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY --- */
+        /* --- 2ND PAGE CONTENT LAYOUT --- */
         .invite-landing-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 240px;
-            padding: 1rem 0;
+            padding-top: 2rem;
+            padding-bottom: 0.5rem;
         }
 
+        /* "ELENA & ADRIAN" EXACT SERIF STYLING */
         #type-line3 {
             font-family: var(--font-serif) !important;
-            font-size: 3.2rem !important;
-            letter-spacing: 6px !important;
-            color: var(--text-dark) !important;
-            font-weight: 700 !important;
+            font-size: 3.5rem !important;
+            letter-spacing: 9px !important;
+            color: #1A1415 !important;
+            font-weight: 500 !important;
             text-transform: uppercase;
-            margin: 1.5rem 0 2rem 0;
+            margin: 0.5rem 0 2.2rem 0;
             word-break: keep-all !important;
             hyphens: none !important;
         }
 
+        /* PILL-BUTTON "READ OUR STORY →" EXACT MATCH */
         .btn-read-story-compact {
-            background: var(--paper);
-            border: 1px solid var(--baby-pink);
+            background: #FFFFFF;
+            border: 1px solid rgba(226, 157, 167, 0.6);
             color: var(--peony-deep) !important;
-            padding: 10px 24px;
+            padding: 11px 34px;
             font-family: var(--font-sans);
-            letter-spacing: 2px;
-            font-size: 0.78rem;
+            letter-spacing: 2.5px;
+            font-size: 0.72rem;
             font-weight: 500 !important;
             cursor: pointer;
-            transition: var(--transition-med);
+            transition: all 0.35s ease;
             text-transform: uppercase;
             display: inline-block;
             text-decoration: none;
-            box-shadow: 0 4px 15px var(--peony-glow);
-            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(226, 157, 167, 0.12);
+            border-radius: 40px;
         }
 
         .btn-read-story-compact:hover {
             background: var(--baby-pink);
             color: #FFFFFF !important;
-            box-shadow: 0 0 20px var(--peony-glow);
+            border-color: var(--baby-pink);
+            box-shadow: 0 6px 20px var(--peony-glow);
+            transform: translateY(-2px);
         }
 
         /* --- EDITORIAL OUR STORY SECTION --- */
@@ -652,7 +681,7 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING WITH PHOTO BACKGROUNDS (PHOTO 1-5) --- */
+        /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
@@ -727,7 +756,7 @@
             font-weight: 500;
         }
 
-        /* CHAPTER NAVIGATION TILES WITH BALANCED PHOTO BACKGROUNDS */
+        /* CHAPTER NAVIGATION TILES WITH PHOTO BACKGROUNDS */
         .nav-chapters {
             display: flex;
             justify-content: center;
@@ -779,7 +808,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.38; /* Balanced Opacity for Readability */
+            opacity: 0.50;
             transition: transform 0.6s var(--transition-slow), opacity 0.4s ease;
             z-index: 1;
         }
@@ -790,7 +819,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(250, 245, 240, 0.88) 0%, rgba(253, 240, 244, 0.82) 100%);
+            background: linear-gradient(135deg, rgba(250, 245, 240, 0.82) 0%, rgba(253, 240, 244, 0.76) 100%);
             z-index: 2;
             transition: background 0.4s ease;
         }
@@ -811,40 +840,39 @@
 
         .nav-card:hover .nav-card-bg {
             transform: scale(1.08);
-            opacity: 0.48;
+            opacity: 0.60;
         }
 
         .nav-card:hover .nav-card-overlay {
-            background: linear-gradient(135deg, rgba(255, 250, 245, 0.82) 0%, rgba(255, 240, 244, 0.75) 100%);
+            background: linear-gradient(135deg, rgba(255, 250, 245, 0.78) 0%, rgba(255, 240, 244, 0.70) 100%);
         }
 
         .nav-card h3 {
             font-family: var(--font-serif);
             font-size: 1.15rem;
             letter-spacing: 2px;
-            color: #2C2527;
+            color: #1A1415 !important;
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 6px;
             line-height: 1.2;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
         }
 
         .nav-card p {
             font-family: var(--font-sans);
             font-size: 0.72rem;
-            color: #4A4446;
+            color: #2C2527 !important;
             line-height: 1.35;
-            font-weight: 400;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
         }
 
-        /* RE-MAPPED PHOTO ASSIGNMENTS TO PHOTO 1-5 */
-        .tile-bg-day { background-image: url('photo1.jpg'), url('./photo1.jpg'), url('photo1.jpeg'); }
-        .tile-bg-entourage { background-image: url('photo2.jpg'), url('./photo2.jpg'), url('photo2.jpeg'); }
-        .tile-bg-details { background-image: url('photo3.jpg'), url('./photo3.jpg'), url('photo3.jpeg'); }
-        .tile-bg-gallery { background-image: url('photo4.jpg'), url('./photo4.jpg'), url('photo4.jpeg'); }
-        .tile-bg-rsvp { background-image: url('photo5.jpg'), url('./photo5.jpg'), url('photo5.jpeg'); }
+        .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('photo11.jpg'), url('Photo1.jpeg'), url('photo1.jpg'); }
+        .tile-bg-entourage { background-image: url('Photo12.jpeg'), url('./Photo12.jpeg'), url('Photo12.jpg'), url('photo12.jpg'), url('Photo2.jpeg'), url('photo2.jpg'); }
+        .tile-bg-details { background-image: url('Photo13.jpeg'), url('./Photo13.jpeg'), url('Photo13.jpg'), url('photo13.jpg'), url('Photo3.jpeg'), url('photo3.jpg'); }
+        .tile-bg-gallery { background-image: url('Photo14.jpeg'), url('./Photo14.jpeg'), url('Photo14.jpg'), url('photo14.jpg'), url('Photo4.jpeg'), url('photo4.jpg'); }
+        .tile-bg-rsvp { background-image: url('Photo15.jpeg'), url('./Photo15.jpeg'), url('Photo15.jpg'), url('photo15.jpg'), url('Photo5.jpeg'), url('photo5.jpg'); }
 
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
@@ -1040,11 +1068,15 @@
 
         /* --- MOBILE RESPONSIVE TUNING --- */
         @media (max-width: 600px) {
-            .chapter-container { padding: 2rem 1rem; }
-            #type-line3 { font-size: 2.2rem !important; letter-spacing: 3px !important; margin: 1rem 0 1.5rem 0; }
+            .chapter-container { padding: 2.2rem 1.2rem; }
+            #type-line3 { font-size: 2.2rem !important; letter-spacing: 4px !important; margin: 0.8rem 0 1.2rem 0; }
             .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
             
+            .hero-popout-subject { height: 160px; bottom: calc(100% - 18px); }
+            .invite-card-hero-frame { margin-top: 100px; }
+            .invite-landing-layout { padding-top: 25px; }
+
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 4px; }
             .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 2rem; }
             .countdown-container { gap: 10px; margin-bottom: 2.5rem; }
@@ -1100,37 +1132,45 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (DATE REMOVED) -->
+    <!-- 2. INVITATION LANDING OVERLAY WITH TOP POP-OUT HERO (EXACT SCREENSHOT LAYOUT MATCH) -->
     <section id="scene-invite-card">
-        <article class="chapter-container parchment-texture-card" id="invite-card-box" style="max-width: 640px;">
-            <div class="floral-corner floral-tl">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-tr">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-bl">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-br">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+        <!-- FULL SCREEN FADED BACKGROUND PHOTO -->
+        <div class="scene-bg-photo"></div>
+        <div class="scene-bg-overlay-tint"></div>
+
+        <div class="invite-card-hero-frame">
+            
+            <!-- POP-OUT COUPLE SUBJECT OVERLAPPING TOP CARD BORDER LINE -->
+            <div class="hero-popout-subject">
+                <img src="picture18.jpeg" alt="Elena & Adrian" id="hero-portrait-img" onerror="this.src='photo18.jpg'">
             </div>
 
-            <div class="floral-header-spray">
-                <svg viewBox="0 0 200 60"><path d="M10,30 Q60,10 100,30 Q140,50 190,30 M50,25 Q70,5 90,25 M110,35 Q130,55 150,35" /><circle cx="100" cy="30" r="5" fill="#D4AF37" /></svg>
-            </div>
+            <article class="chapter-container parchment-texture-card" id="invite-card-box">
+                <div class="floral-corner floral-tl">
+                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+                </div>
+                <div class="floral-corner floral-tr">
+                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+                </div>
+                <div class="floral-corner floral-bl">
+                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+                </div>
+                <div class="floral-corner floral-br">
+                    <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
+                </div>
 
-            <!-- LANDING LAYOUT (DATE REMOVED) -->
-            <div class="invite-landing-layout">
-                <!-- MIDDLE: ELENA & ADRIAN -->
-                <h1 id="type-line3"></h1>
+                <!-- LANDING LAYOUT MATCHING YOUR REFERENCE IMAGE -->
+                <div class="invite-landing-layout">
+                    <!-- MIDDLE: ELENA & ADRIAN -->
+                    <h1 id="type-line3"></h1>
 
-                <!-- BOTTOM: SMALL READ OUR STORY → BUTTON -->
-                <button class="btn-read-story-compact" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
-                    READ OUR STORY →
-                </button>
-            </div>
-        </article>
+                    <!-- BOTTOM: PILL BUTTON "READ OUR STORY →" -->
+                    <button class="btn-read-story-compact" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                        READ OUR STORY →
+                    </button>
+                </div>
+            </article>
+        </div>
     </section>
 
     <main class="stage-container" id="stage-wrapper">
@@ -1203,7 +1243,7 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (WITH PHOTO BACKGROUND TILES PHOTO 1-5) -->
+        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (WITH 50% PHOTO BACKGROUND TILES) -->
         <section class="stage hidden" id="scene-menu">
             <h2 class="chapters-main-title">W E D D I N G   C H A P T E R S</h2>
             <p class="chapters-sub-title">
@@ -1218,7 +1258,7 @@
                 <div class="countdown-box"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Secs</div></div>
             </div>
 
-            <!-- FLOATING CHAPTER TILES WITH BALANCED PHOTO BACKGROUNDS (PHOTO 1-5) -->
+            <!-- FLOATING CHAPTER TILES WITH 50% OPACITY PHOTO BACKGROUNDS -->
             <nav class="nav-chapters">
                 <div class="nav-card" onclick="scrollToSection('scene-day')">
                     <div class="nav-card-bg tile-bg-day"></div>
@@ -1569,6 +1609,20 @@
                     this.src = './envelope.png';
                 };
             }
+
+            // Fallback for hero portrait pointing directly to picture18.jpeg
+            const heroImg = document.getElementById('hero-portrait-img');
+            if (heroImg) {
+                heroImg.onerror = function() {
+                    if (this.src.endsWith('.png')) {
+                        this.src = 'picture18.jpeg';
+                    } else if (this.src.endsWith('.jpeg')) {
+                        this.src = 'picture18.jpg';
+                    } else if (this.src.endsWith('.jpg')) {
+                        this.src = 'photo18.jpg';
+                    }
+                };
+            }
         });
 
         /* SYNCHRONIZED FADE OUT ON CLICK */
@@ -1907,7 +1961,6 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            // Very low density for un-cluttered luxury feeling
             const particleCount = 14;
 
             function createPetal(randomY = false) {
