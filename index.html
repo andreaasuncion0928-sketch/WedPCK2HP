@@ -47,7 +47,7 @@
             --font-sans: 'Poppins', sans-serif;
             --font-script: 'Great Vibes', cursive;
             
-            --transition-slow: 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-slow: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             --transition-med: 0.6s ease;
         }
 
@@ -150,7 +150,7 @@
             perspective: 1600px;
             padding: 1.5rem;
             overflow: hidden;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s ease;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -159,7 +159,7 @@
             pointer-events: none;
         }
 
-        /* Interactive Envelope Image Container with Enchanted Aura Glow */
+        /* Interactive Envelope Image Container */
         .png-envelope-container {
             position: relative;
             max-width: 820px;
@@ -168,7 +168,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.6s var(--transition-slow), filter 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, filter 0.8s ease;
             animation: floatEnvelopePng 3.8s ease-in-out infinite alternate;
         }
 
@@ -198,13 +198,84 @@
             user-select: none;
         }
 
-        /* Enchanted Transition State on Click */
+        /* Synchronized Fade Out Animation for Image and Text */
         .png-envelope-container.opening {
             animation: none !important;
-            transform: scale(1.18) rotateX(15deg) translateY(-20px) !important;
-            filter: brightness(1.25) drop-shadow(0 0 90px rgba(255, 183, 206, 1)) !important;
+            transform: scale(1.08) translateY(-15px) !important;
+            filter: brightness(1.15) drop-shadow(0 0 60px rgba(255, 183, 206, 0.9)) !important;
+            opacity: 0 !important;
+        }
+
+        /* LAYERED ENVELOPE TYPOGRAPHY */
+        .envelope-text-wrapper {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            z-index: 25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            pointer-events: auto;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .envelope-caption-title {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            color: #000000 !important;
+            font-weight: 500;
+            letter-spacing: 1px;
             opacity: 0;
-            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease, filter 0.9s ease;
+            animation: softFadeUp 1.2s ease forwards 0.3s;
+        }
+
+        .envelope-divider-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 140px;
+            margin: 0.8rem 0 1rem 0;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.5s;
+        }
+
+        .envelope-divider-line::before,
+        .envelope-divider-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--peony-rose);
+            opacity: 0.6;
+        }
+
+        .envelope-divider-line span {
+            font-size: 0.8rem;
+            color: var(--peony-rose);
+        }
+
+        .envelope-action-btn {
+            font-family: var(--font-sans);
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            color: #000000 !important;
+            font-weight: 400;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.7s;
+            transition: transform 0.3s ease;
+        }
+
+        .png-envelope-container:hover .envelope-action-btn {
+            transform: translateY(-2px);
         }
 
         /* --- LAYER 2: INVITATION OVERLAY CARD --- */
@@ -261,7 +332,7 @@
             width: 100%;
             background: var(--paper);
             color: var(--text-dark) !important;
-            padding: 3.5rem 2.5rem;
+            padding: 4rem 2.5rem 3.5rem 2.5rem;
             border-radius: 6px;
             box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
             position: relative;
@@ -288,55 +359,67 @@
             transform: translateY(0) !important;
         }
 
-        /* --- TYPOGRAPHY HIERARCHY --- */
-        #type-line1 {
-            font-family: var(--font-serif) !important;
-            font-size: 1.9rem !important;
-            letter-spacing: 4px !important;
-            color: var(--text-dark) !important;
-            font-weight: 600 !important;
-            text-transform: uppercase;
-            min-height: 2.6rem;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
-            hyphens: none !important;
+        /* --- RE-ARCHITECTED "YOU ARE CORDIALLY INVITED" LANDING LAYOUT --- */
+        .invite-landing-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
         }
 
-        #type-line2 {
-            font-family: var(--font-script) !important;
-            font-size: 1.6rem !important;
-            color: var(--peony-deep) !important;
-            font-weight: 500 !important;
-            margin: 0.3rem 0;
-            min-height: 2rem;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
-            hyphens: none !important;
-        }
-
+        /* MIDDLE: ELENA & ADRIAN (LARGE ELEGANT SERIF) */
         #type-line3 {
             font-family: var(--font-serif) !important;
-            font-size: 2.7rem !important;
-            letter-spacing: 5px !important;
+            font-size: 3.4rem !important;
+            letter-spacing: 6px !important;
             color: var(--text-dark) !important;
             font-weight: 700 !important;
-            margin-bottom: 0.6rem;
-            min-height: 3.5rem;
+            text-transform: uppercase;
+            margin: 0.5rem 0 0.8rem 0;
+            min-height: 4rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
             hyphens: none !important;
         }
 
+        /* BELOW: 31 JANUARY 2028 · MANILA */
         #type-line4 {
             font-family: var(--font-serif) !important;
-            font-size: 1.15rem !important;
-            letter-spacing: 3px !important;
-            color: var(--text-muted) !important;
+            font-size: 1.2rem !important;
+            letter-spacing: 3.5px !important;
+            color: var(--peony-deep) !important;
             font-weight: 600 !important;
+            margin-bottom: 2rem;
             min-height: 1.8rem;
             word-break: keep-all !important;
             overflow-wrap: normal !important;
             hyphens: none !important;
+        }
+
+        /* BOTTOM: SMALL READ OUR STORY → BUTTON */
+        .btn-read-story-compact {
+            background: var(--paper);
+            border: 1px solid var(--baby-pink);
+            color: var(--peony-deep) !important;
+            padding: 8px 20px;
+            font-family: var(--font-sans);
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: 500 !important;
+            cursor: pointer;
+            transition: var(--transition-med);
+            text-transform: uppercase;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 4px 15px var(--peony-glow);
+            border-radius: 30px;
+        }
+
+        .btn-read-story-compact:hover {
+            background: var(--baby-pink);
+            color: #FFFFFF !important;
+            box-shadow: 0 0 20px var(--peony-glow);
         }
 
         .chapter-title {
@@ -757,12 +840,27 @@
             transform: translateY(0);
         }
 
+        /* GLYPH ANIMATION */
+        .magic-glyph {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(6px);
+            transform: translateY(3px);
+            transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+            white-space: pre;
+        }
+
+        .magic-glyph.inked {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
         @media (max-width: 600px) {
-            .chapter-container { padding: 2rem 1.2rem; }
-            #type-line1 { font-size: 1.45rem !important; letter-spacing: 2px !important; }
-            #type-line2 { font-size: 1.3rem !important; }
-            #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
-            #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
+            .chapter-container { padding: 2.5rem 1.2rem; }
+            #type-line3 { font-size: 2.5rem !important; letter-spacing: 3px !important; }
+            #type-line4 { font-size: 1rem !important; letter-spacing: 2px !important; }
+            .envelope-caption-title { font-size: 1.9rem; letter-spacing: 2px; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
@@ -781,6 +879,15 @@
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
+
+            <!-- DIRECT TEXT CONTAINER POSITIONED ACCURATELY -->
+            <div class="envelope-text-wrapper">
+                <p class="envelope-caption-title">A Personal Invitation</p>
+                <div class="envelope-divider-line">
+                    <span>✦</span>
+                </div>
+                <div class="envelope-action-btn">Tap to open</div>
+            </div>
         </div>
     </div>
 
@@ -820,17 +927,19 @@
                 <svg viewBox="0 0 200 60"><path d="M10,30 Q60,10 100,30 Q140,50 190,30 M50,25 Q70,5 90,25 M110,35 Q130,55 150,35" /><circle cx="100" cy="30" r="5" fill="#D4AF37" /></svg>
             </div>
 
-            <div class="text-glow-wrapper">
-                <p id="type-line1"></p>
-                <p id="type-line2"></p>
+            <!-- SPECIFIED RE-ARCHITECTED LANDING LAYOUT -->
+            <div class="invite-landing-layout">
+                <!-- MIDDLE: ELENA & ADRIAN -->
                 <h1 id="type-line3"></h1>
+                
+                <!-- BELOW: 31 JANUARY 2028 · MANILA -->
                 <p id="type-line4"></p>
-            </div>
 
-            <!-- BUTTON TO READ OUR STORY -->
-            <button class="btn-magic" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
-                READ OUR STORY →
-            </button>
+                <!-- BOTTOM: SMALL READ OUR STORY → BUTTON -->
+                <button class="btn-read-story-compact" id="btn-read-story" onclick="openOurStorySection()" style="opacity: 0; pointer-events: none; transition: opacity 0.8s ease;">
+                    READ OUR STORY →
+                </button>
+            </div>
         </article>
     </section>
 
@@ -1234,11 +1343,12 @@
             }
         });
 
-        /* GATEWAY CLICK -> ENCHANTED TRANSITION TO INVITATION */
+        /* SYNCHRONIZED FADE OUT ON CLICK */
         function openEnvelopeAndStartVideo(event) {
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
 
+            // Concurrently fade image and text in unison
             pngEnv.classList.add('opening');
 
             setTimeout(() => {
@@ -1247,8 +1357,8 @@
 
                 setTimeout(() => {
                     proceedToCordiallyInvitedSeamless();
-                }, 400);
-            }, 750);
+                }, 300);
+            }, 500);
         }
 
         /* PLAYS OPENINVITE.MP3 WHEN PARCHMENT PAGE APPEARS */
@@ -1272,18 +1382,14 @@
             runRomanticTyping();
         }
 
-        /* ROMANTIC ELEGANT TEXT FADE ANIMATION */
+        /* ROMANTIC ELEGANT TEXT REVEAL */
         function runRomanticTyping() {
-            const line1El = document.getElementById('type-line1');
-            const line2El = document.getElementById('type-line2');
             const line3El = document.getElementById('type-line3');
             const line4El = document.getElementById('type-line4');
             const btnEl = document.getElementById('btn-read-story');
 
-            if (!line1El || line1El.children.length > 0) return;
+            if (!line3El || line3El.children.length > 0) return;
 
-            const text1 = "YOU ARE CORDIALLY INVITED";
-            const text2 = "to celebrate the wedding of";
             const text3 = "ELENA & ADRIAN";
             const text4 = "31 JANUARY 2028 · MANILA";
 
@@ -1300,7 +1406,7 @@
                 return { glyphs: glyphSpans };
             }
 
-            const line1 = buildGlyphs(line1El, text1);
+            const line3 = buildGlyphs(line3El, text3);
 
             function animateGlyphSequence(lineObj, onComplete) {
                 let index = 0;
@@ -1308,26 +1414,20 @@
                     if (index < lineObj.glyphs.length) {
                         lineObj.glyphs[index].classList.add('inked');
                         index++;
-                        const delay = Math.floor(Math.random() * 25) + 30; 
+                        const delay = Math.floor(Math.random() * 20) + 25; 
                         setTimeout(revealNext, delay);
                     } else {
-                        if (onComplete) setTimeout(onComplete, 180); 
+                        if (onComplete) setTimeout(onComplete, 150); 
                     }
                 }
                 revealNext();
             }
 
-            animateGlyphSequence(line1, () => {
-                const line2 = buildGlyphs(line2El, text2);
-                animateGlyphSequence(line2, () => {
-                    const line3 = buildGlyphs(line3El, text3);
-                    animateGlyphSequence(line3, () => {
-                        const line4 = buildGlyphs(line4El, text4);
-                        animateGlyphSequence(line4, () => {
-                            btnEl.style.opacity = '1';
-                            btnEl.style.pointerEvents = 'auto';
-                        });
-                    });
+            animateGlyphSequence(line3, () => {
+                const line4 = buildGlyphs(line4El, text4);
+                animateGlyphSequence(line4, () => {
+                    btnEl.style.opacity = '1';
+                    btnEl.style.pointerEvents = 'auto';
                 });
             });
         }
