@@ -136,61 +136,49 @@
             pointer-events: none;
         }
 
-        /* Envelope Frame Container */
+        /* Original Sliced Transparent Outer Wrapper to Preserve Flowers */
         .envelope-frame-wrapper {
             position: relative;
-            max-width: 820px;
-            width: 90vw;
+            max-width: 900px;
+            width: 95vw;
             height: auto;
-            max-height: 85vh;
+            max-height: 88vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 12px;
-            padding: 2.5rem 1.5rem 1.8rem 1.5rem;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.12), 0 0 35px var(--peony-glow);
-            border: 1px solid rgba(255, 183, 206, 0.6);
-        }
-
-        /* Open Envelope Triangular Top Flap Accent */
-        .envelope-frame-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 28%;
-            background: rgba(249, 227, 226, 0.85);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            border-bottom: 1px solid rgba(226, 157, 167, 0.3);
-            pointer-events: none;
-            z-index: 2;
+            background: transparent !important;
+            border-radius: 0;
+            padding: 0;
+            border: none !important;
+            box-shadow: none !important;
         }
 
         .card-content-box {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 680px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        /* 2ndpage.jpg Inset in the Center */
+        /* Smaller Inset 2ndpage.jpg Rested On Top Without Covering Flowers */
         .inset-card-img {
-            width: 100%;
+            width: 70%;
+            max-width: 420px;
             height: auto;
-            max-height: 58vh;
+            max-height: 42vh;
             object-fit: contain;
             display: block;
-            border-radius: 6px;
-            box-shadow: 0 10px 30px rgba(173, 83, 98, 0.12);
+            border-radius: 8px;
+            background: transparent !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: 0 10px 30px rgba(173, 83, 98, 0.22);
         }
 
-        /* Single Action Button Below Inset Card */
+        /* Single Action Button "YOU ARE INVITED →" */
         .btn-you-are-invited {
             background: var(--paper);
             border: 1px solid var(--baby-pink);
@@ -203,7 +191,7 @@
             cursor: pointer;
             transition: var(--transition-med);
             text-transform: uppercase;
-            margin-top: 1.2rem;
+            margin-top: 1.4rem;
             display: inline-block;
             text-decoration: none;
             box-shadow: 0 4px 15px var(--peony-glow);
@@ -950,7 +938,12 @@
 
             .envelope-frame-wrapper { 
                 width: 96vw; 
-                padding: 1.8rem 0.8rem 1.2rem 0.8rem;
+                padding: 1rem 0.5rem;
+            }
+
+            .inset-card-img {
+                width: 82%;
+                max-height: 48vh;
             }
 
             .btn-you-are-invited {
@@ -988,14 +981,14 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING GATEWAY: ENVELOPE FRAME WITH INSET CARD (MATCHES REFERENCE) -->
+    <!-- 1. HERO OPENING GATEWAY: ENVELOPE FRAME WITH TRANSPARENT INSET CARD -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="envelope-frame-wrapper">
             <div class="card-content-box">
-                <!-- 2ndpage.jpg Inset in Center of Envelope Frame -->
+                <!-- 2ndpage.jpg Inset in Center without covering envelope -->
                 <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="inset-card-img" id="envelope-preview-letter" onerror="this.src='2ndpage.png'">
                 
-                <!-- Single Button "You Are Invited ->" -->
+                <!-- Single Action Button "YOU ARE INVITED →" -->
                 <button class="btn-you-are-invited" onclick="openOurStoryDirectly()">
                     YOU ARE INVITED →
                 </button>
