@@ -89,7 +89,7 @@
             height: 80px;
             pointer-events: none;
             opacity: 0.8;
-            z-index: 4;
+            z-index: 15;
             transition: opacity 0.4s ease;
         }
         .floral-corner svg {
@@ -150,8 +150,8 @@
             max-width: 920px;
             height: 86vh;
             max-height: 640px;
-            background: rgba(255, 255, 255, 0.96);
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.98) 0%, rgba(255, 240, 244, 0.98) 100%);
+            background: rgba(255, 255, 255, 0.98);
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.99) 0%, rgba(255, 240, 244, 0.99) 100%);
             position: relative;
             border-radius: 8px;
             box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
@@ -193,18 +193,18 @@
             height: 0;
             border-left: 46vw solid transparent;
             border-right: 46vw solid transparent;
-            border-top: 42vh solid #FCE4EC;
+            border-top: 38vh solid #FCE4EC;
             transform-origin: top;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
-            filter: drop-shadow(0 10px 20px rgba(226, 157, 167, 0.25));
+            filter: drop-shadow(0 8px 16px rgba(226, 157, 167, 0.3));
         }
 
         @media (min-width: 980px) {
             .envelope-flap {
                 border-left-width: 460px;
                 border-right-width: 460px;
-                border-top-width: 320px;
+                border-top-width: 290px;
             }
         }
 
@@ -222,7 +222,7 @@
             height: 600px;
             background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,183,206,0.85) 40%, rgba(226,157,167,0) 75%);
             border-radius: 50%;
-            z-index: 10;
+            z-index: 12;
             pointer-events: none;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
             opacity: 0;
@@ -233,36 +233,45 @@
             transform: translate(-50%, -50%) scale(6.5);
         }
 
+        /* HIGH-PRIORITY STACKED WRAPPER FOR TEXT OVER ENVELOPE FLAP */
+        .envelope-text-wrapper {
+            position: relative;
+            z-index: 25; /* Always render cleanly over flap */
+            margin-top: 14vh; /* Clear flap tip */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* ELEGANT ENCHANTED BLACK ENVELOPE TYPOGRAPHY */
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: #000000 !important;
-            margin-top: 3.5rem;
             font-weight: 600;
             letter-spacing: 4px;
             text-transform: uppercase;
-            z-index: 6;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
         }
 
         .envelope-action-btn {
-            margin-top: 1.2rem;
+            margin-top: 0.8rem;
             font-family: var(--font-serif);
             letter-spacing: 3.5px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #000000 !important;
             text-transform: lowercase;
             font-style: italic;
-            font-weight: 500;
+            font-weight: 600;
             background: rgba(255, 255, 255, 0.95);
             padding: 8px 28px;
             border-radius: 30px;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.35s ease;
-            z-index: 6;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
@@ -271,7 +280,7 @@
             background: #000000;
             color: #FFFFFF !important;
             border-color: #000000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
 
         /* --- LAYER 2: INVITATION OVERLAY CARD --- */
@@ -830,13 +839,14 @@
             #type-line2 { font-size: 1.3rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
-            .envelope-caption-title { font-size: 2.2rem; letter-spacing: 2px; }
+            .envelope-caption-title { font-size: 2rem; letter-spacing: 2px; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 140px; height: 180px; }
             .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
             .desk-envelope { width: 95vw; height: 88vh; padding: 1.5rem; }
+            .envelope-text-wrapper { margin-top: 18vh; }
         }
     </style>
 </head>
@@ -865,8 +875,11 @@
             <div class="envelope-flap"></div>
             <div class="magical-light-beam"></div>
 
-            <p class="envelope-caption-title">A Personal Invitation</p>
-            <div class="envelope-action-btn">tap to open</div>
+            <!-- WRAPPER CONTAINER GUARANTEEING TOP VISIBILITY ABOVE FLAP -->
+            <div class="envelope-text-wrapper">
+                <p class="envelope-caption-title">A Personal Invitation</p>
+                <div class="envelope-action-btn">tap to open</div>
+            </div>
         </div>
     </div>
 
