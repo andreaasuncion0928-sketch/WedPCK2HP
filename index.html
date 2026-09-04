@@ -282,7 +282,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD WITH 70% OPACITY LEANING POP-OUT --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD (MATCHING REFERENCE IMAGE) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -311,48 +311,41 @@
             transform: translateY(-30px);
         }
 
-        /* Context Frame for Overlapping Upper Edge */
+        /* Outer Frame Context for WIDE LEANING OVERLAP */
         .invite-card-hero-frame {
             position: relative;
-            max-width: 640px;
+            max-width: 820px;
             width: 100%;
-            margin-top: 70px; /* Offset space so faces sit on top of card line */
+            margin-top: 100px; /* Offset space for photo height above card */
         }
 
-        /* Hero Image Container Overlapping the Top Line */
+        /* Wide Unclipped Photo Banner Sitting Directly on Top Line */
         .hero-popout-wrapper {
             position: absolute;
-            top: -85px;
+            bottom: calc(100% - 65px); /* Positioned so arms & faces rest on the upper border line */
             left: 50%;
             transform: translateX(-50%);
-            width: 210px;
-            height: 190px;
-            border-radius: 120px 120px 16px 16px; /* Elegant arched top frame */
-            padding: 4px;
-            background: linear-gradient(135deg, rgba(255, 183, 206, 0.9), rgba(197, 160, 89, 0.8));
-            box-shadow: 0 16px 35px rgba(173, 83, 98, 0.22), 0 0 30px var(--peony-glow);
-            z-index: 35; /* Places photo directly on top of upper white edge */
-            transition: transform 0.4s ease;
-        }
-
-        .hero-popout-wrapper:hover {
-            transform: translateX(-50%) translateY(-3px) scale(1.02);
+            width: 82%;
+            max-width: 620px;
+            height: 280px;
+            z-index: 35; /* On top of card edge */
+            pointer-events: none;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
         }
 
         .hero-popout-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%; /* Centers and faces front */
-            border-radius: 116px 116px 12px 12px;
-            border: 3px solid #FFFFFF;
+            object-position: center 25%;
             display: block;
-            opacity: 0.70; /* 70% OPACITY AS REQUESTED */
+            opacity: 0.85; /* Soft fairytale blend */
+            /* Gradient Mask to smoothly fade the photo into background and card */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
             transition: opacity 0.4s ease;
-        }
-
-        .hero-popout-wrapper:hover .hero-popout-img {
-            opacity: 0.85; /* Subtle illumination on hover */
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -362,10 +355,10 @@
             background: var(--paper);
             color: var(--text-dark) !important;
             padding: 3.5rem 2rem;
-            border-radius: 6px;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
+            border-radius: 12px;
+            box-shadow: 0 18px 50px rgba(173, 83, 98, 0.08), 0 0 35px var(--peony-glow);
             position: relative;
-            border: 1px solid rgba(255, 183, 206, 0.5);
+            border: 1px solid rgba(255, 183, 206, 0.6);
             margin: 2rem 0;
             text-align: center;
             transform: scale(0.95);
@@ -373,10 +366,10 @@
         }
 
         .parchment-texture-card {
-            background-color: #FAF6F1;
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(255, 240, 244, 0.98) 100%);
-            border: 1px solid var(--baby-pink);
-            box-shadow: 0 20px 60px rgba(173, 83, 98, 0.08), 0 0 45px var(--peony-glow);
+            background-color: #FFFDFB;
+            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFF5F7 100%);
+            border: 1px solid rgba(255, 183, 206, 0.7);
+            box-shadow: 0 20px 60px rgba(173, 83, 98, 0.1), 0 0 45px var(--peony-glow);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1.2s var(--transition-slow), transform 1.2s var(--transition-slow);
@@ -388,51 +381,53 @@
             transform: translateY(0) !important;
         }
 
-        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY WITH LEANING POP-OUT SPACING --- */
+        /* --- 2ND PAGE LAYOUT MATCHING YOUR REFERENCE IMAGE EXACTLY --- */
         .invite-landing-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-top: 95px; /* Creates spacing below overlapping photo */
-            padding-bottom: 0.5rem;
+            padding-top: 55px; /* Clean spacing below leaning photo */
+            padding-bottom: 2rem;
         }
 
         #type-line3 {
             font-family: var(--font-serif) !important;
-            font-size: 3rem !important;
-            letter-spacing: 6px !important;
-            color: var(--text-dark) !important;
-            font-weight: 700 !important;
+            font-size: 3.4rem !important;
+            letter-spacing: 8px !important;
+            color: #1A1415 !important;
+            font-weight: 500 !important;
             text-transform: uppercase;
-            margin: 0.8rem 0 1.8rem 0;
+            margin: 1rem 0 2rem 0;
             word-break: keep-all !important;
             hyphens: none !important;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
         }
 
+        /* Elegant Pill-Shaped Button */
         .btn-read-story-compact {
-            background: var(--paper);
-            border: 1px solid var(--baby-pink);
+            background: #FFFFFF;
+            border: 1px solid rgba(226, 157, 167, 0.6);
             color: var(--peony-deep) !important;
-            padding: 10px 24px;
+            padding: 12px 32px;
             font-family: var(--font-sans);
-            letter-spacing: 2px;
-            font-size: 0.78rem;
+            letter-spacing: 2.5px;
+            font-size: 0.75rem;
             font-weight: 500 !important;
             cursor: pointer;
-            transition: var(--transition-med);
+            transition: all 0.35s ease;
             text-transform: uppercase;
             display: inline-block;
             text-decoration: none;
-            box-shadow: 0 4px 15px var(--peony-glow);
-            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(226, 157, 167, 0.15);
+            border-radius: 40px;
         }
 
         .btn-read-story-compact:hover {
             background: var(--baby-pink);
             color: #FFFFFF !important;
-            box-shadow: 0 0 20px var(--peony-glow);
+            border-color: var(--baby-pink);
+            box-shadow: 0 6px 20px var(--peony-glow);
+            transform: translateY(-2px);
         }
 
         /* --- EDITORIAL OUR STORY SECTION --- */
@@ -1087,13 +1082,13 @@
         /* --- MOBILE RESPONSIVE TUNING --- */
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1rem; }
-            #type-line3 { font-size: 2.2rem !important; letter-spacing: 3px !important; margin: 0.8rem 0 1.2rem 0; }
+            #type-line3 { font-size: 2.2rem !important; letter-spacing: 4px !important; margin: 0.5rem 0 1.2rem 0; }
             .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
             
-            .hero-popout-wrapper { width: 140px; height: 140px; top: -50px; }
-            .invite-card-hero-frame { margin-top: 45px; }
-            .invite-landing-layout { padding-top: 70px; }
+            .hero-popout-wrapper { width: 92%; height: 210px; bottom: calc(100% - 45px); }
+            .invite-card-hero-frame { margin-top: 75px; }
+            .invite-landing-layout { padding-top: 40px; }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 4px; }
             .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 2rem; }
@@ -1150,11 +1145,11 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY WITH TOP POP-OUT HERO (PICTURE18.JPEG) -->
+    <!-- 2. INVITATION LANDING OVERLAY WITH TOP POP-OUT HERO (MATCHING REFERENCE IMAGE) -->
     <section id="scene-invite-card">
         <div class="invite-card-hero-frame">
             
-            <!-- POP-OUT HERO PORTRAIT OVERLAPPING TOP BORDER LINE -->
+            <!-- POP-OUT WIDE PHOTO BANNER OVERLAPPING TOP BORDER LINE -->
             <div class="hero-popout-wrapper">
                 <img src="picture18.jpeg" alt="Elena & Adrian" class="hero-popout-img" id="hero-portrait-img">
             </div>
@@ -1173,11 +1168,7 @@
                     <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
                 </div>
 
-                <div class="floral-header-spray">
-                    <svg viewBox="0 0 200 60"><path d="M10,30 Q60,10 100,30 Q140,50 190,30 M50,25 Q70,5 90,25 M110,35 Q130,55 150,35" /><circle cx="100" cy="30" r="5" fill="#D4AF37" /></svg>
-                </div>
-
-                <!-- LANDING LAYOUT WITH OFFSET SPACING -->
+                <!-- LANDING LAYOUT MATCHING YOUR REFERENCE IMAGE -->
                 <div class="invite-landing-layout">
                     <!-- MIDDLE: ELENA & ADRIAN -->
                     <h1 id="type-line3"></h1>
@@ -1441,7 +1432,7 @@
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
