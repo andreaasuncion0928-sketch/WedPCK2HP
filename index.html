@@ -28,7 +28,7 @@
     <style>
         /* --- BABY PINK (#FFB7CE) & PEONY THEMING --- */
         :root {
-            --cream-bg: #FAF5F0;
+            --cream-bg: #FFFDF9;
             --baby-pink: #FFB7CE;
             --blush-soft: #FFF0F4;
             --peony-rose: #E29DA7;
@@ -61,7 +61,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            background-color: var(--baby-pink);
+            background-color: var(--cream-bg);
             color: var(--text-dark);
             font-family: var(--font-sans);
             overflow-x: hidden;
@@ -110,14 +110,14 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (SOLID BABY PINK BACKGROUND) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (EXACT #f9e3e2 BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--baby-pink) !important; /* Whole Baby Pink Background */
+            background: #f9e3e2 !important; /* Envelope page specific background */
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -228,7 +228,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (2NDPAGE.JPG) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (RESTORED BACKGROUND) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -239,7 +239,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--baby-pink);
+            background-color: var(--cream-bg);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.8s ease;
@@ -307,7 +308,7 @@
             box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
             position: relative;
             border: 1px solid rgba(255, 183, 206, 0.5);
-            margin: 0;
+            margin: 2rem 0;
             text-align: center;
         }
 
@@ -533,6 +534,26 @@
             margin-bottom: 1rem;
             opacity: 0.8;
         }
+
+        .story-text-group {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1.4s ease, transform 1.4s var(--transition-slow);
+        }
+
+        .scene-story-animated .story-text-group {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1.0s var(--transition-slow), transform 1.0s var(--transition-slow);
+        }
+
+        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
         /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
@@ -933,7 +954,7 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
