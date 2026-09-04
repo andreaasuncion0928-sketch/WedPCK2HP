@@ -415,7 +415,7 @@
             color: var(--peony-rose);
         }
 
-        /* MAGICAL ANIMATED HEADLINE FOR "WE'RE GETTING MARRIED." */
+        /* MAGICAL ETHEREAL WHITE LIGHT SLOW REVEAL HEADLINE */
         .story-headline-married {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -429,21 +429,28 @@
             position: relative;
         }
 
-        /* MAGICAL GLYPH LETTER STYLING */
+        /* INDIVIDUAL CHARACTER WHITE AURA SLOW UNFOLD */
         .story-headline-married .story-glyph {
             display: inline-block;
             opacity: 0;
-            filter: blur(8px);
-            transform: translateY(10px) scale(0.95);
-            transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #FFFFFF; /* Initial White Aura State */
+            filter: blur(12px); /* Ethereal white glow blur */
+            transform: translateY(8px) scale(0.92);
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        color 1.4s ease, 
+                        filter 1.4s ease, 
+                        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        text-shadow 1.4s ease;
             white-space: pre;
         }
 
+        /* REVEAL STATE: FADES FROM WHITE BLUR TO DEEP PEONY SERIF */
         .story-headline-married .story-glyph.magical-appear {
             opacity: 1;
+            color: var(--peony-deep); /* Emerges into Dusty Rose Ink */
             filter: blur(0px);
             transform: translateY(0) scale(1);
-            text-shadow: 0 0 12px var(--peony-glow), 0 0 20px rgba(255, 183, 206, 0.5);
+            text-shadow: 0 0 15px rgba(255, 183, 206, 0.5), 0 0 25px rgba(226, 157, 167, 0.3);
         }
 
         .story-heart-flourish {
@@ -1052,7 +1059,7 @@
                         <span>✦</span>
                     </div>
 
-                    <!-- 6. MAGICAL ANIMATED HEADLINE: "WE'RE GETTING MARRIED." -->
+                    <!-- 6. MAGICAL ETHEREAL WHITE LIGHT SLOW REVEAL HEADLINE -->
                     <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
 
                     <!-- 7. HEART FLOURISH DIVIDER -->
@@ -1491,13 +1498,13 @@
             }
         }
 
-        /* MAGICAL TEXT REVEAL TRIGGER FUNCTION */
+        /* SLOW ETHEREAL WHITE LIGHT TO PEONY INK MAGICAL TEXT REVEAL */
         function playMagicalHeadlineReveal() {
             const glyphs = document.querySelectorAll('#magical-married-title .story-glyph');
             glyphs.forEach((glyph, index) => {
                 setTimeout(() => {
                     glyph.classList.add('magical-appear');
-                }, index * 45 + 100);
+                }, index * 75 + 150); // Slow, impressive staggered timing
             });
         }
 
@@ -1551,7 +1558,7 @@
                 storyScene.classList.add('scene-story-animated');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
                 
-                // Trigger Magical Text Reveal
+                // Trigger Slow White Aura Magical Text Reveal
                 playMagicalHeadlineReveal();
             });
         }
