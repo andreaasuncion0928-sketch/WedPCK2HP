@@ -71,8 +71,9 @@
 
         /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
         h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
-            word-break: normal !important;
-            overflow-wrap: break-word !important;
+            word-break: keep-all !important;
+            word-wrap: normal !important;
+            overflow-wrap: normal !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
@@ -124,7 +125,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.5rem;
             overflow: hidden;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
@@ -137,19 +138,19 @@
 
         .png-envelope-container {
             position: relative;
-            max-width: 860px;
-            width: 92vw;
+            max-width: 900px;
+            width: 95vw;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.6s ease, transform 0.4s ease;
         }
 
         .png-envelope-img {
             width: 100%;
             height: auto;
-            max-height: 82vh;
+            max-height: 85vh;
             object-fit: contain;
             display: block;
             pointer-events: none;
@@ -181,7 +182,7 @@
 
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
             color: #000000 !important;
             font-weight: 300;
             letter-spacing: 5px;
@@ -246,7 +247,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.8s ease;
-            padding: 1rem;
+            padding: 0.8rem;
             overflow: hidden;
         }
 
@@ -263,8 +264,8 @@
 
         .second-page-card-container {
             position: relative;
-            max-width: 950px;
-            width: 96vw;
+            max-width: 980px;
+            width: 98vw;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -274,7 +275,7 @@
         .second-page-img {
             width: 100%;
             height: auto;
-            max-height: 88vh;
+            max-height: 90vh;
             object-fit: contain;
             display: block;
             border-radius: 8px;
@@ -285,8 +286,8 @@
             bottom: 23%;
             left: 50%;
             transform: translateX(-50%);
-            width: 220px;
-            height: 48px;
+            width: 230px;
+            height: 52px;
             border-radius: 30px;
             cursor: pointer;
             z-index: 30;
@@ -314,7 +315,7 @@
             text-align: center;
         }
 
-        /* --- EDITORIAL OUR STORY SECTION (RE-SPACED WITHOUT REMOVED TEXTS) --- */
+        /* --- EDITORIAL OUR STORY SECTION --- */
         .story-editorial-card {
             padding: 3.5rem 2rem 3rem 2rem !important;
             max-width: 760px !important;
@@ -371,7 +372,7 @@
             line-height: 1.8;
             color: #4A4446;
             max-width: 580px;
-            margin: 0 auto 2.2rem auto; /* Adjusted spacing */
+            margin: 0 auto 2.2rem auto;
             font-weight: 300;
             letter-spacing: 0.2px;
         }
@@ -414,7 +415,7 @@
             position: relative;
             display: inline-block;
             padding: 10px 20px;
-            margin-bottom: 2rem; /* Adjusted spacing to memory stack */
+            margin-bottom: 2rem;
         }
 
         .cloud-headline-wrapper::before,
@@ -592,6 +593,16 @@
             box-shadow: 0 14px 30px rgba(173, 83, 98, 0.18), 0 0 20px var(--peony-glow) !important;
         }
 
+        .scroll-hint-indicator {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
         .story-text-group {
             opacity: 0;
             transform: translateY(12px);
@@ -709,8 +720,8 @@
         }
 
         .nav-card {
-            flex: 0 0 170px;
-            min-width: 170px;
+            flex: 0 0 175px;
+            min-width: 175px;
             height: 165px;
             scroll-snap-align: center;
             border-radius: 16px;
@@ -791,6 +802,7 @@
             line-height: 1.25;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
             word-break: keep-all !important;
+            word-wrap: normal !important;
             overflow-wrap: normal !important;
             white-space: normal;
         }
@@ -803,6 +815,7 @@
             font-weight: 500;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
             word-break: keep-all !important;
+            word-wrap: normal !important;
             overflow-wrap: normal !important;
             white-space: normal;
         }
@@ -989,26 +1002,43 @@
             transform: translateY(0);
         }
 
+        /* --- MOBILE ENHARCED VISUAL ZOOM & WRAPPING FIXES --- */
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1rem; }
-            .envelope-caption-title { font-size: 1.2rem; letter-spacing: 3px; }
+            .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
 
-            .png-envelope-container { width: 98vw; }
-            .png-envelope-img { max-height: 88vh; }
+            /* Enlarged Mobile Intro Envelope */
+            .png-envelope-container { 
+                width: 105vw; 
+                transform: scale(1.12);
+            }
+            .png-envelope-img { max-height: 92vh; }
 
-            .second-page-card-container { width: 98vw; }
-            .second-page-img { max-height: 88vh; }
+            /* Enlarged Mobile 2nd Page Frame */
+            .second-page-card-container { 
+                width: 105vw; 
+                transform: scale(1.12);
+            }
+            .second-page-img { max-height: 92vh; }
 
-            .hotspot-read-story { width: 170px; height: 42px; bottom: 21%; }
+            .hotspot-read-story { width: 180px; height: 44px; bottom: 21%; }
 
+            .chapters-main-title { font-size: 1.6rem; letter-spacing: 3px; }
+            .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
             .countdown-container { gap: 8px; margin-bottom: 2rem; max-width: 100%; }
             .countdown-box { height: 75px; min-width: 55px; border-radius: 8px; padding: 4px; }
             .countdown-num { font-size: 1.35rem; }
             .countdown-label { font-size: 0.5rem; letter-spacing: 1px; }
             
-            .nav-card { flex: 0 0 150px; min-width: 150px; height: 150px; padding: 0.8rem 0.5rem; border-radius: 14px; }
-            .nav-card h3 { font-size: 0.95rem; letter-spacing: 1px; }
+            .nav-card { 
+                flex: 0 0 160px; 
+                min-width: 160px; 
+                height: 155px; 
+                padding: 0.8rem 0.4rem; 
+                border-radius: 14px; 
+            }
+            .nav-card h3 { font-size: 0.92rem; letter-spacing: 1px; }
             .nav-card p { font-size: 0.65rem; }
 
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
