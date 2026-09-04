@@ -77,6 +77,7 @@
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
+            white-space: normal;
         }
 
         /* --- CANVAS RISING PETALS PARTICLES --- */
@@ -112,7 +113,7 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) WITH PHYSICAL LETTER REVEAL --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) WITH REAL PHYSICAL LETTER EXTRACTION --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -127,19 +128,22 @@
             padding: 0.5rem;
             overflow: hidden;
             perspective: 1400px;
-            transition: opacity 1.0s ease 1.2s, visibility 1.0s ease 1.2s;
+            transition: opacity 1.0s ease 1.6s, visibility 1.0s ease 1.6s, filter 1.0s ease 1.2s;
         }
 
         .fairytale-gateway-screen.fade-out {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+            filter: blur(8px);
         }
 
-        .png-envelope-container {
+        .envelope-3d-wrapper {
             position: relative;
             max-width: 820px;
             width: 90vw;
+            height: 520px;
+            max-height: 75vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,25 +152,75 @@
             transform-style: preserve-3d;
         }
 
-        .png-envelope-img {
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            object-fit: contain;
-            display: block;
-            pointer-events: none;
-            user-select: none;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* CLOSED 3D TOP FLAP */
-        .envelope-top-flap {
+        /* 1. ENVELOPE BACK INTERIOR POCKET */
+        .envelope-back {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 50%;
+            height: 100%;
+            background: #f2cecf;
+            border-radius: 12px;
+            box-shadow: inset 0 0 30px rgba(173, 83, 98, 0.2);
+            z-index: 1;
+        }
+
+        /* 2. PHYSICAL INVITATION PAPER INSIDE THE SLOT */
+        .envelope-slot-content {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%) translateY(0%) scale(0.85);
+            width: 86%;
+            max-width: 680px;
+            height: auto;
+            z-index: 5; /* Sits between Back & Front Pockets */
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(173, 83, 98, 0.15);
+            transition: transform 2.0s cubic-bezier(0.16, 1, 0.3, 1) 0.4s, filter 1.2s ease 1.0s;
+            pointer-events: none;
+        }
+
+        .envelope-slot-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* 3. ENVELOPE FRONT POCKET (PUNCHED POCKET SHAPE) */
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 75%;
+            background: #f9e3e2;
+            clip-path: polygon(0 30%, 50% 0, 100% 30%, 100% 100%, 0 100%);
+            z-index: 10;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 -5px 20px rgba(173, 83, 98, 0.12);
+        }
+
+        .png-envelope-base-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 12;
+            opacity: 0.95;
+        }
+
+        /* 4. CLOSED 3D TOP FLAP */
+        .envelope-3d-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 52%;
             background: var(--envelope-flap);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
@@ -177,36 +231,20 @@
             filter: drop-shadow(0 4px 6px rgba(173, 83, 98, 0.15));
         }
 
-        /* PHYSICAL LETTER (2NDPAGE.JPG) SLIDING UP OUT OF ENVELOPE */
-        .envelope-sliding-letter {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%) translateY(0) scale(0.85);
-            width: 88%;
-            max-width: 720px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 15px 40px rgba(173, 83, 98, 0.25);
-            z-index: 5;
-            opacity: 0;
-            transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, opacity 0.8s ease 0.3s;
-            pointer-events: none;
-        }
-
-        /* OPENING ANIMATION STATE ON CLICK */
-        .png-envelope-container.opening .envelope-top-flap {
+        /* OPENING ANIMATION SEQUENCE ON TAP */
+        .envelope-3d-wrapper.opening .envelope-3d-flap {
             transform: rotateX(-180deg);
-            z-index: 1;
+            z-index: 2;
         }
 
-        .png-envelope-container.opening .envelope-sliding-letter {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-82%) scale(1.05);
-            z-index: 40;
+        .envelope-3d-wrapper.opening .envelope-slot-content {
+            /* Emerges gently, moves upward, scales to center */
+            transform: translateX(-50%) translateY(-75%) scale(1.18);
+            z-index: 45;
+            filter: drop-shadow(0 25px 60px rgba(173, 83, 98, 0.3));
         }
 
-        .png-envelope-container.opening .envelope-text-wrapper {
+        .envelope-3d-wrapper.opening .envelope-text-wrapper {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -295,7 +333,7 @@
             background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s ease 0.6s;
+            transition: opacity 0.8s ease 1.2s;
             padding: 0.8rem;
             overflow: hidden;
         }
@@ -319,12 +357,12 @@
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
-            transform: translateY(20px) scale(0.96);
+            transform: scale(0.98);
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #scene-invite-card.active-overlay .second-page-card-container {
-            transform: translateY(0) scale(1);
+            transform: scale(1);
         }
 
         .second-page-img {
@@ -526,7 +564,6 @@
             }
         }
 
-        /* NO SLICED WORD DEFENSE ON WE'RE GETTING MARRIED */
         .story-headline-married {
             font-family: var(--font-serif);
             font-size: clamp(1.05rem, 3.6vw, 2.2rem);
@@ -1137,13 +1174,15 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- Closed 3D Top Flap -->
+            <!-- 1. Closed 3D Top Flap -->
             <div class="envelope-top-flap"></div>
 
-            <!-- Physical Letter (2ndpage.jpg) Sliding Out of Envelope -->
-            <img src="2ndpage.jpg" alt="Invitation Letter" class="envelope-sliding-letter" id="envelope-preview-letter">
+            <!-- 2. Physical Letter (2ndpage.jpg) Sealed Inside Slot -->
+            <div class="envelope-slot-content">
+                <img src="2ndpage.jpg" alt="Invitation Letter" id="envelope-preview-letter" onerror="this.src='2ndpage.png'">
+            </div>
 
-            <!-- Main Envelope Body -->
+            <!-- 3. Main Envelope Body (Front Pocket) -->
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
 
             <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
@@ -1687,13 +1726,13 @@
             });
         }
 
-        /* 1. ENVELOPE CLICK -> FLAP OPENS, LETTER SLIDES OUT, STARTS SONG.MP3 IMMEDIATELY & DIRECTS TO ELENA & ADRIAN PAGE */
+        /* 1. ENVELOPE CLICK -> FLAP OPENS, LETTER EMERGES FROM INSIDE, SLIDES UP & EXPANDS INTO 2ND PAGE */
         function openEnvelopeAndStartVideo(event) {
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
 
-            // Trigger Envelope 3D Opening & Letter Slide-Out
+            // Trigger Envelope 3D Flap Opening & Slot Letter Pull-Out
             pngEnv.classList.add('opening');
 
             if (bgMusic) {
@@ -1702,13 +1741,14 @@
                 bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
+            // Smooth handoff transition as the letter reaches center
             setTimeout(() => {
                 gateway.classList.add('fade-out');
 
                 setTimeout(() => {
                     proceedToCordiallyInvitedSeamless();
-                }, 300);
-            }, 1100);
+                }, 400);
+            }, 1200);
         }
 
         /* REVEALS ELENA & ADRIAN PAGE DIRECTLY */
