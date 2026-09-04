@@ -68,7 +68,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- PREVENT MID-WORD SLICING & HYPHENATION ACCROSS THE BOARD --- */
+        /* --- PREVENT MID-WORD SLICING & HYPHENATION ACROSS THE BOARD --- */
         h1, h2, h3, h4, p, span, a, button, div {
             overflow-wrap: break-word;
             word-break: keep-all;
@@ -77,7 +77,7 @@
             -ms-hyphens: none !important;
         }
 
-        /* --- CANVAS RISING PETALS PARTICLES --- */
+        /* --- CANVAS RISING PETALS PARTICLES (VISIBLE ON INTRO & THROUGHOUT) --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -363,7 +363,7 @@
             transform: translateY(0) !important;
         }
 
-        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY (DATE REMOVED) --- */
+        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY --- */
         .invite-landing-layout {
             display: flex;
             flex-direction: column;
@@ -420,7 +420,7 @@
             position: relative;
         }
 
-        /* 1. HEADER: OUR STORY (BALANCED SERIF) */
+        /* 1. HEADER: OUR STORY */
         .story-header-title {
             font-family: var(--font-serif);
             font-size: 1.3rem;
@@ -454,7 +454,7 @@
             color: var(--peony-rose);
         }
 
-        /* 2. "It started with coffee." (RE-BALANCED SIZE) */
+        /* 2. "It started with coffee." */
         .story-script-heading {
             font-family: var(--font-script);
             font-size: 1.85rem;
@@ -476,7 +476,7 @@
             letter-spacing: 0.2px;
         }
 
-        /* 4. "we became us." (BALANCED SUBHEADING) */
+        /* 4. "we became us." */
         .story-script-subheading {
             font-family: var(--font-script);
             font-size: 1.6rem;
@@ -519,7 +519,7 @@
             color: var(--peony-rose);
         }
 
-        /* 6. "WE'RE GETTING MARRIED." (RE-BALANCED HEADLINE) */
+        /* 6. "WE'RE GETTING MARRIED." */
         .story-headline-married {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -1273,7 +1273,7 @@
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
@@ -1785,7 +1785,7 @@
             }, 500);
         }
 
-        /* GENTLE RISING PETALS & FLOWERS PARTICLES CANVAS ANIMATION */
+        /* RE-ENGINEERED SUBTLE, DREAMY, SLOW ORGANIC PETALS SYSTEM */
         function initRisingPetalsParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
@@ -1797,59 +1797,82 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            // Create organic petal and flower instances initialized near bottom of screen
+            // Very low density for un-cluttered luxury feeling
+            const particleCount = 14;
+
             function createPetal(randomY = false) {
                 return {
+                    // Spread along bottom edges naturally
                     x: Math.random() * width,
-                    y: randomY ? Math.random() * height : height + Math.random() * 50 + 10,
-                    size: Math.random() * 4.5 + 3.5, // Delicate particle size
-                    speedY: -(Math.random() * 0.65 + 0.3), // Gentle upward drift
-                    swayAmplitude: Math.random() * 1.5 + 0.5,
-                    swaySpeed: Math.random() * 0.02 + 0.008,
+                    y: randomY ? Math.random() * height : height + Math.random() * 60 + 20,
+                    size: Math.random() * 3.5 + 3.0, // Small, weightless sizes
+                    speedY: -(Math.random() * 0.35 + 0.15), // Very slow upward motion
+                    
+                    // Organic sine curve sway physics
+                    swayAmplitude: Math.random() * 1.8 + 0.8,
+                    swayFrequency: Math.random() * 0.012 + 0.004,
                     swayAngle: Math.random() * Math.PI * 2,
+                    
                     rotation: Math.random() * Math.PI * 2,
-                    rotationSpeed: (Math.random() - 0.5) * 0.015,
-                    maxOpacity: Math.random() * 0.45 + 0.35,
+                    rotationSpeed: (Math.random() - 0.5) * 0.008,
+                    
+                    // Fading & Twinkle dynamics
+                    baseOpacity: Math.random() * 0.35 + 0.25,
                     opacity: 0,
-                    isFlower: Math.random() > 0.65 // Some particles render as 5-petal flower blossoms
+                    twinkleSpeed: Math.random() * 0.02 + 0.005,
+                    twinkleTimer: Math.random() * Math.PI * 2,
+                    isFlower: Math.random() > 0.7,
+                    blurAmount: Math.random() * 1.5 // Soft blurred depth
                 };
             }
 
-            const particles = Array.from({ length: 48 }, () => createPetal(true));
+            const particles = Array.from({ length: particleCount }, () => createPetal(true));
 
-            // Draw single petal
-            function drawPetalShape(x, y, radius, rotation, opacity) {
+            // Soft Petal Drawer
+            function drawPetalShape(x, y, radius, rotation, opacity, blur) {
                 ctx.save();
                 ctx.translate(x, y);
                 ctx.rotate(rotation);
+                
+                // Soft depth blur filter
+                if (blur > 0.8) {
+                    ctx.filter = `blur(${blur.toFixed(1)}px)`;
+                }
+
                 ctx.fillStyle = `rgba(255, 183, 206, ${opacity})`;
                 
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-radius * 0.8, -radius * 1.2, -radius * 1.2, -radius * 0.2, 0, radius);
-                ctx.bezierCurveTo(radius * 1.2, -radius * 0.2, radius * 0.8, -radius * 1.2, 0, 0);
+                ctx.bezierCurveTo(-radius * 0.7, -radius * 1.1, -radius * 1.1, -radius * 0.2, 0, radius);
+                ctx.bezierCurveTo(radius * 1.1, -radius * 0.2, radius * 0.7, -radius * 1.1, 0, 0);
                 ctx.fill();
+                
                 ctx.restore();
             }
 
-            // Draw full 5-petal flower blossom
-            function drawFlowerShape(x, y, radius, rotation, opacity) {
+            // Soft 5-Petal Flower Drawer
+            function drawFlowerShape(x, y, radius, rotation, opacity, blur) {
                 ctx.save();
                 ctx.translate(x, y);
                 ctx.rotate(rotation);
-                ctx.fillStyle = `rgba(226, 157, 167, ${opacity})`;
+
+                if (blur > 0.8) {
+                    ctx.filter = `blur(${blur.toFixed(1)}px)`;
+                }
+
+                ctx.fillStyle = `rgba(226, 157, 167, ${opacity * 0.85})`;
                 
                 for (let i = 0; i < 5; i++) {
                     ctx.rotate((Math.PI * 2) / 5);
                     ctx.beginPath();
-                    ctx.arc(0, radius * 0.6, radius * 0.5, 0, Math.PI * 2);
+                    ctx.arc(0, radius * 0.5, radius * 0.45, 0, Math.PI * 2);
                     ctx.fill();
                 }
 
-                // Center flower pistil dot
-                ctx.fillStyle = `rgba(197, 160, 89, ${opacity * 0.9})`;
+                // Shimmering pistil dot
+                ctx.fillStyle = `rgba(197, 160, 89, ${opacity * 0.85})`;
                 ctx.beginPath();
-                ctx.arc(0, 0, radius * 0.3, 0, Math.PI * 2);
+                ctx.arc(0, 0, radius * 0.25, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.restore();
@@ -1859,30 +1882,46 @@
                 ctx.clearRect(0, 0, width, height);
 
                 particles.forEach((p, index) => {
-                    // Update positions with swaying motion
+                    // Slow upward physics
                     p.y += p.speedY;
-                    p.swayAngle += p.swaySpeed;
-                    p.x += Math.sin(p.swayAngle) * p.swayAmplitude * 0.5;
+                    p.swayAngle += p.swayFrequency;
+                    
+                    // Organic slightly curved path
+                    p.x += Math.sin(p.swayAngle) * p.swayAmplitude * 0.6;
                     p.rotation += p.rotationSpeed;
 
-                    // Fade-in near bottom, fade-out near top for seamless romantic lifecycle
-                    const fadeZone = 120;
+                    // Subtle Twinkle / Shimmer dynamics
+                    p.twinkleTimer += p.twinkleSpeed;
+                    const twinkleFactor = Math.sin(p.twinkleTimer) * 0.15;
+
+                    // Soft emergence & fade out lifecycle
+                    const fadeZone = 140;
+                    let targetOpacity = p.baseOpacity + twinkleFactor;
+
                     if (p.y > height - fadeZone) {
-                        p.opacity = Math.min(p.maxOpacity, (height - p.y) / fadeZone * p.maxOpacity);
+                        p.opacity = Math.min(targetOpacity, ((height - p.y) / fadeZone) * targetOpacity);
                     } else if (p.y < fadeZone) {
-                        p.opacity = Math.max(0, (p.y / fadeZone) * p.maxOpacity);
+                        p.opacity = Math.max(0, (p.y / fadeZone) * targetOpacity);
                     } else {
-                        p.opacity = p.maxOpacity;
+                        // Gently fade out if particle drifts directly over central text axis to preserve legibility
+                        const distFromCenter = Math.abs(p.x - width / 2);
+                        if (distFromCenter < 220) {
+                            p.opacity = Math.max(0.1, targetOpacity * (distFromCenter / 220));
+                        } else {
+                            p.opacity = targetOpacity;
+                        }
                     }
 
-                    if (p.isFlower) {
-                        drawFlowerShape(p.x, p.y, p.size, p.rotation, p.opacity);
-                    } else {
-                        drawPetalShape(p.x, p.y, p.size, p.rotation, p.opacity);
+                    if (p.opacity > 0) {
+                        if (p.isFlower) {
+                            drawFlowerShape(p.x, p.y, p.size, p.rotation, p.opacity, p.blurAmount);
+                        } else {
+                            drawPetalShape(p.x, p.y, p.size, p.rotation, p.opacity, p.blurAmount);
+                        }
                     }
 
-                    // Respawn particle below viewport once it floats above screen
-                    if (p.y < -30 || p.opacity <= 0 && p.y < fadeZone) {
+                    // Respawn below screen once particle completes journey
+                    if (p.y < -40 || (p.opacity <= 0 && p.y < fadeZone)) {
                         particles[index] = createPetal(false);
                     }
                 });
