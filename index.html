@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* --- BABY PINK (#FFB7CE) & PEONY THEMING --- */
@@ -85,10 +85,10 @@
         /* --- BOTANICAL WEDDING FLORAL ACCENTS --- */
         .floral-corner {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.75;
             z-index: 15;
             transition: opacity 0.4s ease;
         }
@@ -96,14 +96,14 @@
             width: 100%;
             height: 100%;
             fill: none;
-            stroke: var(--baby-pink);
-            stroke-width: 1.4;
-            filter: drop-shadow(0 0 6px var(--peony-glow));
+            stroke: var(--peony-rose);
+            stroke-width: 1.2;
+            filter: drop-shadow(0 0 4px var(--peony-glow));
         }
-        .floral-tl { top: 16px; left: 16px; }
-        .floral-tr { top: 16px; right: 16px; transform: scaleX(-1); }
-        .floral-bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
-        .floral-br { bottom: 16px; right: 16px; transform: scale(-1); }
+        .floral-tl { top: 20px; left: 20px; }
+        .floral-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+        .floral-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+        .floral-br { bottom: 20px; right: 20px; transform: scale(-1); }
 
         .floral-header-spray {
             width: 120px;
@@ -120,14 +120,14 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED COMPACT ENVELOPE GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #FFFDFB 0%, #FDF0F3 70%, #F8E2E6 100%);
+            background: radial-gradient(circle at center, #FFF5F7 0%, #FDF0F3 60%, #F8E2E6 100%);
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -144,22 +144,26 @@
             pointer-events: none;
         }
 
-        /* Full-Bleed Glowing Envelope Body (Restored Dimensions) */
+        /* Envelope Container Styled Exactly to Image */
         .desk-envelope {
-            width: 92vw;
-            max-width: 920px;
-            height: 86vh;
-            max-height: 640px;
+            width: 86vw;
+            max-width: 780px;
+            height: 62vh;
+            max-height: 520px;
             background: #FFFFFF;
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.98) 0%, rgba(255, 240, 244, 0.98) 100%);
+            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFF5F7 100%);
             position: relative;
-            border-radius: 8px;
-            box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
-            border: 2px solid var(--baby-pink);
+            border-radius: 12px;
+            box-shadow: 0 25px 60px rgba(226, 157, 167, 0.22), 0 0 45px var(--peony-glow);
+            border: 1px solid rgba(255, 183, 206, 0.7);
             transform-style: preserve-3d;
             cursor: pointer;
             text-align: center;
-            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; /* Align text block perfectly in bottom half */
+            padding-bottom: 7vh;
             transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
             animation: envelopeFloatGlow 3.5s ease-in-out infinite alternate;
         }
@@ -167,40 +171,40 @@
         @keyframes envelopeFloatGlow {
             0% { 
                 transform: translateY(0px) rotateX(0deg); 
-                box-shadow: 0 30px 90px rgba(173, 83, 98, 0.15), 0 0 40px var(--peony-glow);
+                box-shadow: 0 25px 60px rgba(226, 157, 167, 0.22), 0 0 40px var(--peony-glow);
             }
             100% { 
                 transform: translateY(-8px) rotateX(1.2deg); 
-                box-shadow: 0 45px 110px rgba(173, 83, 98, 0.22), 0 0 70px rgba(255, 183, 206, 0.65);
+                box-shadow: 0 35px 80px rgba(226, 157, 167, 0.32), 0 0 65px rgba(255, 183, 206, 0.75);
             }
         }
 
         .desk-envelope:hover {
-            transform: scale(1.015) translateY(-10px) !important;
-            box-shadow: 0 50px 120px rgba(173, 83, 98, 0.28), 0 0 80px rgba(255, 183, 206, 0.75);
+            transform: scale(1.015) translateY(-6px) !important;
+            box-shadow: 0 40px 95px rgba(226, 157, 167, 0.35), 0 0 80px rgba(255, 183, 206, 0.85);
         }
 
-        /* Original Full Height Flap with 100% Opacity Solid Baby Pink */
+        /* 100% Solid Baby Pink Top Flap Matching the Image Geometry */
         .envelope-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 0;
-            border-left: 46vw solid transparent;
-            border-right: 46vw solid transparent;
-            border-top: 42vh solid #FFB7CE; /* 100% Solid Baby Pink */
+            border-left: 43vw solid transparent;
+            border-right: 43vw solid transparent;
+            border-top: 29vh solid #FFB7CE; /* Solid Baby Pink Flap */
             transform-origin: top;
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 5;
-            filter: drop-shadow(0 10px 20px rgba(226, 157, 167, 0.25));
+            filter: drop-shadow(0 8px 16px rgba(226, 157, 167, 0.35));
         }
 
-        @media (min-width: 980px) {
+        @media (min-width: 900px) {
             .envelope-flap {
-                border-left-width: 460px;
-                border-right-width: 460px;
-                border-top-width: 320px;
+                border-left-width: 390px;
+                border-right-width: 390px;
+                border-top-width: 240px;
             }
         }
 
@@ -229,14 +233,10 @@
             transform: translate(-50%, -50%) scale(6.5);
         }
 
-        /* ACCURATELY POSITIONED TEXT LAYER CLEARING THE V-POINT OF THE FLAP */
+        /* TEXT WRAPPER POSITIONED BELOW FLAP TIP */
         .envelope-text-wrapper {
-            position: absolute;
-            bottom: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            z-index: 99; /* Higher layer priority */
+            position: relative;
+            z-index: 25;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -247,28 +247,50 @@
             pointer-events: auto;
         }
 
-        /* ELEGANT ENCHANTED BLACK TYPOGRAPHY */
+        /* EXACT "A Personal Invitation" TYPOGRAPHY MATCH */
         .envelope-caption-title {
             font-family: var(--font-serif);
             font-size: 2.8rem;
             color: #000000 !important;
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            letter-spacing: 1px;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
         }
 
+        /* ELEGANT DIVIDER WITH SPARK ICON MATCHING IMAGE */
+        .envelope-divider-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 140px;
+            margin: 0.8rem 0 1rem 0;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.5s;
+        }
+
+        .envelope-divider-line::before,
+        .envelope-divider-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--peony-rose);
+            opacity: 0.6;
+        }
+
+        .envelope-divider-line span {
+            font-size: 0.8rem;
+            color: var(--peony-rose);
+        }
+
+        /* EXACT "Tap to open" TYPOGRAPHY MATCH */
         .envelope-action-btn {
-            margin-top: 0.6rem;
-            font-family: var(--font-serif);
-            letter-spacing: 3px;
-            font-size: 1.1rem;
+            font-family: var(--font-sans);
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
             color: #000000 !important;
-            text-transform: lowercase;
-            font-style: italic;
-            font-weight: 600;
+            font-weight: 400;
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
@@ -837,14 +859,13 @@
             #type-line2 { font-size: 1.3rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
-            .envelope-caption-title { font-size: 1.8rem; letter-spacing: 2px; }
+            .envelope-caption-title { font-size: 1.9rem; letter-spacing: 2px; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 140px; height: 180px; }
             .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
-            .desk-envelope { width: 92vw; height: 80vh; padding: 1.5rem; }
-            .envelope-text-wrapper { bottom: 10%; }
+            .desk-envelope { width: 90vw; height: 60vh; padding: 1.5rem; padding-bottom: 5vh; }
         }
     </style>
 </head>
@@ -853,7 +874,7 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: GLOWING FULL-SCREEN ENCHANTMENT ENVELOPE -->
+    <!-- 1. HERO OPENING: GLOWING COMPACT ENCHANTMENT ENVELOPE -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <!-- BOTANICAL WEDDING FLORAL CORNERS -->
@@ -873,10 +894,13 @@
             <div class="envelope-flap"></div>
             <div class="magical-light-beam"></div>
 
-            <!-- DIRECT TEXT CONTAINER POSITIONED ACCURATELY BELOW FLAP POINT -->
+            <!-- DIRECT TEXT CONTAINER ACCURATELY MATCHING YOUR REFERENCE IMAGE -->
             <div class="envelope-text-wrapper">
                 <p class="envelope-caption-title">A Personal Invitation</p>
-                <div class="envelope-action-btn">tap to open</div>
+                <div class="envelope-divider-line">
+                    <span>✦</span>
+                </div>
+                <div class="envelope-action-btn">Tap to open</div>
             </div>
         </div>
     </div>
