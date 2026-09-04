@@ -69,13 +69,14 @@
             scroll-behavior: smooth;
         }
 
-        /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
+        /* --- STRICT NO SLICED WORDS GLOBAL WRAPPING --- */
         h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
-            word-break: normal !important;
-            overflow-wrap: break-word !important;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
+            white-space: normal;
         }
 
         /* --- CANVAS RISING PETALS PARTICLES --- */
@@ -424,7 +425,6 @@
             margin-bottom: 1.2rem;
         }
 
-        /* WHITE CLOUD FOG PUFFS (BEFORE & AFTER) */
         .cloud-headline-wrapper::before,
         .cloud-headline-wrapper::after {
             content: '';
@@ -450,7 +450,6 @@
             filter: blur(24px);
         }
 
-        /* CLOUD FOG SWELLS & DISPERSES WHILE TEXT APPEARS */
         .cloud-headline-wrapper.cloud-active::before,
         .cloud-headline-wrapper.cloud-active::after {
             opacity: 1;
@@ -470,7 +469,7 @@
                 transform: translate(-50%, -50%) scale(1.15);
             }
             100% {
-                opacity: 0.15; /* Soft remaining misty aura */
+                opacity: 0.15;
                 filter: blur(28px);
                 transform: translate(-50%, -50%) scale(1.35);
             }
@@ -490,12 +489,11 @@
             z-index: 3;
         }
 
-        /* ALL CHARACTERS REVEAL SIMULTANEOUSLY FROM THE CLOUD MIST */
         .story-headline-married .story-glyph {
             display: inline-block;
             opacity: 0;
-            color: #FFFFFF; /* Pure Cloud White Initial State */
-            filter: blur(16px); /* White mist blur */
+            color: #FFFFFF;
+            filter: blur(16px);
             transform: scale(0.94);
             transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1), 
                         color 2.5s ease, 
@@ -505,7 +503,6 @@
             white-space: pre;
         }
 
-        /* MAGICAL REVEAL STATE: FADES FROM WHITE MIST INTO PEONY INK */
         .story-headline-married .story-glyph.magical-appear {
             opacity: 1;
             color: var(--peony-deep);
@@ -653,8 +650,8 @@
 
         .chapters-main-title {
             font-family: var(--font-serif);
-            font-size: 2.6rem;
-            letter-spacing: 7px;
+            font-size: 2.4rem;
+            letter-spacing: 5px;
             color: #2C2527;
             text-transform: uppercase;
             font-weight: 500;
@@ -664,7 +661,7 @@
         .chapters-sub-title {
             font-family: var(--font-sans);
             font-size: 0.85rem;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: var(--champagne-gold);
             text-transform: uppercase;
             font-weight: 400;
@@ -718,7 +715,7 @@
             font-weight: 500;
         }
 
-        /* CHAPTER NAVIGATION TILES WITH PHOTO BACKGROUNDS */
+        /* CHAPTER NAVIGATION TILES WITH UN-SLICED TEXT WRAPPING */
         .nav-chapters {
             display: flex;
             justify-content: center;
@@ -740,7 +737,8 @@
         }
 
         .nav-card {
-            flex: 0 0 165px;
+            flex: 0 0 170px;
+            min-width: 170px;
             height: 165px;
             scroll-snap-align: center;
             border-radius: 16px;
@@ -751,7 +749,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1.2rem;
+            padding: 1rem 0.8rem;
             text-align: center;
             box-shadow: 
                 10px 15px 25px rgba(185, 165, 160, 0.28),
@@ -790,6 +788,7 @@
             position: relative;
             z-index: 3;
             width: 100%;
+            min-width: 0;
         }
 
         .nav-card:hover {
@@ -811,23 +810,29 @@
 
         .nav-card h3 {
             font-family: var(--font-serif);
-            font-size: 1.15rem;
-            letter-spacing: 2px;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
             color: #1A1415 !important;
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 6px;
-            line-height: 1.2;
+            line-height: 1.25;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            white-space: normal;
         }
 
         .nav-card p {
             font-family: var(--font-sans);
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: #2C2527 !important;
             line-height: 1.35;
             font-weight: 500;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            white-space: normal;
         }
 
         .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('photo11.jpg'), url('Photo1.jpeg'), url('photo1.jpg'); }
@@ -1013,27 +1018,27 @@
         }
 
         @media (max-width: 600px) {
-            .chapter-container { padding: 2.2rem 1.2rem; }
+            .chapter-container { padding: 2rem 1rem; }
             .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
 
             .hotspot-read-story { width: 160px; height: 36px; bottom: 21%; }
 
-            .chapters-main-title { font-size: 1.8rem; letter-spacing: 4px; }
-            .chapters-sub-title { font-size: 0.75rem; letter-spacing: 2.5px; margin-bottom: 2rem; }
+            .chapters-main-title { font-size: 1.6rem; letter-spacing: 3px; }
+            .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
             .countdown-container { gap: 8px; margin-bottom: 2rem; max-width: 100%; }
             .countdown-box { height: 75px; min-width: 55px; border-radius: 8px; padding: 4px; }
             .countdown-num { font-size: 1.35rem; }
             .countdown-label { font-size: 0.5rem; letter-spacing: 1px; }
             
-            .nav-card { flex: 0 0 145px; height: 145px; padding: 0.8rem; border-radius: 14px; }
-            .nav-card h3 { font-size: 1rem; }
-            .nav-card p { font-size: 0.68rem; }
+            .nav-card { flex: 0 0 150px; min-width: 150px; height: 150px; padding: 0.8rem 0.5rem; border-radius: 14px; }
+            .nav-card h3 { font-size: 0.95rem; letter-spacing: 1px; }
+            .nav-card p { font-size: 0.65rem; }
 
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
             .story-script-heading { font-size: 1.5rem; }
             .story-body-text { font-size: 0.85rem; line-height: 1.6; }
-            .story-headline-married { font-size: 1.7rem; letter-spacing: 3px; }
+            .story-headline-married { font-size: 1.5rem; letter-spacing: 2px; }
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
