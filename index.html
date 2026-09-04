@@ -5,10 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elena & Adrian — The Wedding Invitation</title>
 
+    <!-- Auto-resolve GitHub Pages Subfolder Relative Paths -->
+    <script>
+        (function() {
+            if (window.location.hostname.includes('github.io')) {
+                const pathSegments = window.location.pathname.split('/').filter(Boolean);
+                if (pathSegments.length > 0) {
+                    const repoName = pathSegments[0];
+                    const base = document.createElement('base');
+                    base.href = '/' + repoName + '/';
+                    document.head.appendChild(base);
+                }
+            }
+        })();
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* --- BABY PINK (#FFB7CE) & PEONY THEMING --- */
@@ -85,10 +100,10 @@
         /* --- BOTANICAL WEDDING FLORAL ACCENTS --- */
         .floral-corner {
             position: absolute;
-            width: 85px;
-            height: 85px;
+            width: 80px;
+            height: 80px;
             pointer-events: none;
-            opacity: 0.75;
+            opacity: 0.8;
             z-index: 15;
             transition: opacity 0.4s ease;
         }
@@ -96,14 +111,14 @@
             width: 100%;
             height: 100%;
             fill: none;
-            stroke: var(--peony-rose);
-            stroke-width: 1.2;
-            filter: drop-shadow(0 0 4px var(--peony-glow));
+            stroke: var(--baby-pink);
+            stroke-width: 1.4;
+            filter: drop-shadow(0 0 6px var(--peony-glow));
         }
-        .floral-tl { top: 20px; left: 20px; }
-        .floral-tr { top: 20px; right: 20px; transform: scaleX(-1); }
-        .floral-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
-        .floral-br { bottom: 20px; right: 20px; transform: scale(-1); }
+        .floral-tl { top: 16px; left: 16px; }
+        .floral-tr { top: 16px; right: 16px; transform: scaleX(-1); }
+        .floral-bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+        .floral-br { bottom: 16px; right: 16px; transform: scale(-1); }
 
         .floral-header-spray {
             width: 120px;
@@ -120,22 +135,22 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: ENCHANTED COMPACT ENVELOPE GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #FFF5F7 0%, #FDF0F3 60%, #F8E2E6 100%);
+            background: radial-gradient(circle at center, #FFFDFB 0%, #FDF0F3 70%, #F8E2E6 100%);
             z-index: 5000;
             display: flex;
             align-items: center;
             justify-content: center;
             perspective: 1600px;
-            padding: 1rem;
+            padding: 1.5rem;
             overflow: hidden;
-            transition: opacity 1.4s ease, visibility 1.4s ease;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -144,163 +159,52 @@
             pointer-events: none;
         }
 
-        /* Envelope Container Styled Exactly to Image */
-        .desk-envelope {
-            width: 86vw;
-            max-width: 780px;
-            height: 62vh;
-            max-height: 520px;
-            background: #FFFFFF;
-            background-image: radial-gradient(circle at center, #FFFFFF 0%, #FFF5F7 100%);
+        /* Interactive Envelope Image Container with Enchanted Aura Glow */
+        .png-envelope-container {
             position: relative;
-            border-radius: 12px;
-            box-shadow: 0 25px 60px rgba(226, 157, 167, 0.22), 0 0 45px var(--peony-glow);
-            border: 1px solid rgba(255, 183, 206, 0.7);
-            transform-style: preserve-3d;
-            cursor: pointer;
-            text-align: center;
+            max-width: 820px;
+            width: 90vw;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: flex-end; /* Align text block perfectly in bottom half */
-            padding-bottom: 7vh;
-            transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
-            animation: envelopeFloatGlow 3.5s ease-in-out infinite alternate;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.6s var(--transition-slow), filter 0.6s ease;
+            animation: floatEnvelopePng 3.8s ease-in-out infinite alternate;
         }
 
-        @keyframes envelopeFloatGlow {
+        @keyframes floatEnvelopePng {
             0% { 
-                transform: translateY(0px) rotateX(0deg); 
-                box-shadow: 0 25px 60px rgba(226, 157, 167, 0.22), 0 0 40px var(--peony-glow);
+                transform: translateY(0px) scale(1);
+                filter: drop-shadow(0 20px 40px rgba(173, 83, 98, 0.15)) drop-shadow(0 0 25px var(--peony-glow));
             }
             100% { 
-                transform: translateY(-8px) rotateX(1.2deg); 
-                box-shadow: 0 35px 80px rgba(226, 157, 167, 0.32), 0 0 65px rgba(255, 183, 206, 0.75);
+                transform: translateY(-10px) scale(1.01);
+                filter: drop-shadow(0 30px 60px rgba(173, 83, 98, 0.22)) drop-shadow(0 0 45px rgba(255, 183, 206, 0.8));
             }
         }
 
-        .desk-envelope:hover {
-            transform: scale(1.015) translateY(-6px) !important;
-            box-shadow: 0 40px 95px rgba(226, 157, 167, 0.35), 0 0 80px rgba(255, 183, 206, 0.85);
+        .png-envelope-container:hover {
+            transform: translateY(-12px) scale(1.025) !important;
+            filter: drop-shadow(0 35px 75px rgba(173, 83, 98, 0.3)) drop-shadow(0 0 60px rgba(255, 183, 206, 0.95)) !important;
         }
 
-        /* 100% Solid Baby Pink Top Flap Matching the Image Geometry */
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .png-envelope-img {
             width: 100%;
-            height: 0;
-            border-left: 43vw solid transparent;
-            border-right: 43vw solid transparent;
-            border-top: 29vh solid #FFB7CE; /* Solid Baby Pink Flap */
-            transform-origin: top;
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 5;
-            filter: drop-shadow(0 8px 16px rgba(226, 157, 167, 0.35));
-        }
-
-        @media (min-width: 900px) {
-            .envelope-flap {
-                border-left-width: 390px;
-                border-right-width: 390px;
-                border-top-width: 240px;
-            }
-        }
-
-        .desk-envelope.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .magical-light-beam {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,183,206,0.85) 40%, rgba(226,157,167,0) 75%);
-            border-radius: 50%;
-            z-index: 12;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
             pointer-events: none;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+            user-select: none;
+        }
+
+        /* Enchanted Transition State on Click */
+        .png-envelope-container.opening {
+            animation: none !important;
+            transform: scale(1.18) rotateX(15deg) translateY(-20px) !important;
+            filter: brightness(1.25) drop-shadow(0 0 90px rgba(255, 183, 206, 1)) !important;
             opacity: 0;
-        }
-
-        .desk-envelope.open .magical-light-beam {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(6.5);
-        }
-
-        /* TEXT WRAPPER POSITIONED BELOW FLAP TIP */
-        .envelope-text-wrapper {
-            position: relative;
-            z-index: 25;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            pointer-events: auto;
-        }
-
-        /* EXACT "A Personal Invitation" TYPOGRAPHY MATCH */
-        .envelope-caption-title {
-            font-family: var(--font-serif);
-            font-size: 2.8rem;
-            color: #000000 !important;
-            font-weight: 500;
-            letter-spacing: 1px;
-            opacity: 0;
-            animation: softFadeUp 1.2s ease forwards 0.3s;
-        }
-
-        /* ELEGANT DIVIDER WITH SPARK ICON MATCHING IMAGE */
-        .envelope-divider-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 140px;
-            margin: 0.8rem 0 1rem 0;
-            opacity: 0;
-            animation: softFadeUp 1.2s ease forwards 0.5s;
-        }
-
-        .envelope-divider-line::before,
-        .envelope-divider-line::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--peony-rose);
-            opacity: 0.6;
-        }
-
-        .envelope-divider-line span {
-            font-size: 0.8rem;
-            color: var(--peony-rose);
-        }
-
-        /* EXACT "Tap to open" TYPOGRAPHY MATCH */
-        .envelope-action-btn {
-            font-family: var(--font-sans);
-            letter-spacing: 0.5px;
-            font-size: 0.95rem;
-            color: #000000 !important;
-            font-weight: 400;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            opacity: 0;
-            animation: softFadeUp 1.2s ease forwards 0.7s;
-            transition: transform 0.3s ease;
-        }
-
-        .desk-envelope:hover .envelope-action-btn {
-            transform: translateY(-2px);
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease, filter 0.9s ease;
         }
 
         /* --- LAYER 2: INVITATION OVERLAY CARD --- */
@@ -859,13 +763,12 @@
             #type-line2 { font-size: 1.3rem !important; }
             #type-line3 { font-size: 2.2rem !important; letter-spacing: 2px !important; }
             #type-line4 { font-size: 0.95rem !important; letter-spacing: 1.5px !important; }
-            .envelope-caption-title { font-size: 1.9rem; letter-spacing: 2px; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 140px; height: 180px; }
             .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
-            .desk-envelope { width: 90vw; height: 60vh; padding: 1.5rem; padding-bottom: 5vh; }
+            .png-envelope-container { width: 95vw; }
         }
     </style>
 </head>
@@ -874,34 +777,10 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: GLOWING COMPACT ENCHANTMENT ENVELOPE -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
-        <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- BOTANICAL WEDDING FLORAL CORNERS -->
-            <div class="floral-corner floral-tl">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-tr">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-bl">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-            <div class="floral-corner floral-br">
-                <svg viewBox="0 0 100 100"><path d="M10,90 Q40,40 90,10 M30,70 Q60,60 70,30 M15,45 Q45,25 60,15" /><circle cx="35" cy="65" r="4" /><circle cx="65" cy="35" r="3" /></svg>
-            </div>
-
-            <div class="envelope-flap"></div>
-            <div class="magical-light-beam"></div>
-
-            <!-- DIRECT TEXT CONTAINER ACCURATELY MATCHING YOUR REFERENCE IMAGE -->
-            <div class="envelope-text-wrapper">
-                <p class="envelope-caption-title">A Personal Invitation</p>
-                <div class="envelope-divider-line">
-                    <span>✦</span>
-                </div>
-                <div class="envelope-action-btn">Tap to open</div>
-            </div>
+        <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
         </div>
     </div>
 
@@ -1345,14 +1224,22 @@
             initRisingPetalsParticles();
             setupIntersectionObserver();
             setupDragScroll();
+
+            // Fallback for envelope.png
+            const envImg = document.getElementById('envelope-main-img');
+            if (envImg) {
+                envImg.onerror = function() {
+                    this.src = './envelope.png';
+                };
+            }
         });
 
-        /* GATEWAY CLICK -> UNFOLDS ENVELOPE & OPENS INVITATION OVERLAY */
+        /* GATEWAY CLICK -> ENCHANTED TRANSITION TO INVITATION */
         function openEnvelopeAndStartVideo(event) {
-            const deskEnv = document.getElementById('desk-envelope');
+            const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
 
-            deskEnv.classList.add('open');
+            pngEnv.classList.add('opening');
 
             setTimeout(() => {
                 gateway.classList.add('fade-out');
@@ -1361,7 +1248,7 @@
                 setTimeout(() => {
                     proceedToCordiallyInvitedSeamless();
                 }, 400);
-            }, 800);
+            }, 750);
         }
 
         /* PLAYS OPENINVITE.MP3 WHEN PARCHMENT PAGE APPEARS */
