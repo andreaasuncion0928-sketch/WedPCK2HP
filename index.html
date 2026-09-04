@@ -652,7 +652,7 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING WITH PHOTO BACKGROUNDS --- */
+        /* --- WEDDING CHAPTERS STYLING WITH PHOTO BACKGROUNDS (PHOTO11.JPEG - PHOTO15.JPEG) --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
@@ -771,7 +771,6 @@
             background-color: #F3ECE6;
         }
 
-        /* Background Image Layer inside Each Tile */
         .nav-card-bg {
             position: absolute;
             top: 0;
@@ -780,19 +779,18 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.38; /* Balanced Opacity for Image Readability */
+            opacity: 0.28; /* Reduced Opacity for Optimal Text Contrast & Legibility */
             transition: transform 0.6s var(--transition-slow), opacity 0.4s ease;
             z-index: 1;
         }
 
-        /* Semi-transparent Cream Layer for Text Contrast */
         .nav-card-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(250, 245, 240, 0.88) 0%, rgba(253, 240, 244, 0.82) 100%);
+            background: linear-gradient(135deg, rgba(250, 245, 240, 0.92) 0%, rgba(253, 240, 244, 0.88) 100%);
             z-index: 2;
             transition: background 0.4s ease;
         }
@@ -813,11 +811,11 @@
 
         .nav-card:hover .nav-card-bg {
             transform: scale(1.08);
-            opacity: 0.48;
+            opacity: 0.38;
         }
 
         .nav-card:hover .nav-card-overlay {
-            background: linear-gradient(135deg, rgba(255, 250, 245, 0.82) 0%, rgba(255, 240, 244, 0.75) 100%);
+            background: linear-gradient(135deg, rgba(255, 250, 245, 0.88) 0%, rgba(255, 240, 244, 0.82) 100%);
         }
 
         .nav-card h3 {
@@ -829,7 +827,7 @@
             text-transform: uppercase;
             margin-bottom: 6px;
             line-height: 1.2;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
         }
 
         .nav-card p {
@@ -837,16 +835,16 @@
             font-size: 0.72rem;
             color: #4A4446;
             line-height: 1.35;
-            font-weight: 400;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
         }
 
-        /* INDIVIDUAL PHOTO ASSIGNMENTS FOR TILES */
-        .tile-bg-day { background-image: url('photo11.jpg'), url('./photo11.jpg'), url('photo11.jpeg'); }
-        .tile-bg-entourage { background-image: url('photo12.jpg'), url('./photo12.jpg'), url('photo12.jpeg'); }
-        .tile-bg-details { background-image: url('photo13.jpg'), url('./photo13.jpg'), url('photo13.jpeg'); }
-        .tile-bg-gallery { background-image: url('photo14.jpg'), url('./photo14.jpg'), url('photo14.jpeg'); }
-        .tile-bg-rsvp { background-image: url('photo15.jpg'), url('./photo15.jpg'), url('photo15.jpeg'); }
+        /* RE-ASSIGNED PHOTO BACKGROUNDS (Photo11.jpeg to Photo15.jpeg with 1.jpeg Fallbacks) */
+        .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('Photo1.jpeg'); }
+        .tile-bg-entourage { background-image: url('Photo12.jpeg'), url('./Photo12.jpeg'), url('Photo12.jpg'), url('Photo2.jpeg'); }
+        .tile-bg-details { background-image: url('Photo13.jpeg'), url('./Photo13.jpeg'), url('Photo13.jpg'), url('Photo3.jpeg'); }
+        .tile-bg-gallery { background-image: url('Photo14.jpeg'), url('./Photo14.jpeg'), url('Photo14.jpg'), url('Photo4.jpeg'); }
+        .tile-bg-rsvp { background-image: url('Photo15.jpeg'), url('./Photo15.jpeg'), url('Photo15.jpg'), url('Photo5.jpeg'); }
 
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
@@ -1205,7 +1203,7 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (WITH PHOTO BACKGROUND TILES) -->
+        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (WITH PHOTO BACKGROUND TILES Photo11.jpeg to Photo15.jpeg) -->
         <section class="stage hidden" id="scene-menu">
             <h2 class="chapters-main-title">W E D D I N G   C H A P T E R S</h2>
             <p class="chapters-sub-title">
@@ -1220,7 +1218,7 @@
                 <div class="countdown-box"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Secs</div></div>
             </div>
 
-            <!-- FLOATING CHAPTER TILES WITH BALANCED PHOTO BACKGROUNDS (PHOTO 11-15) -->
+            <!-- FLOATING CHAPTER TILES WITH BALANCED PHOTO BACKGROUNDS (Photo11.jpeg - Photo15.jpeg) -->
             <nav class="nav-chapters">
                 <div class="nav-card" onclick="scrollToSection('scene-day')">
                     <div class="nav-card-bg tile-bg-day"></div>
@@ -1421,7 +1419,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
