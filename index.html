@@ -68,7 +68,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- CANVAS RISING PETALS & FLOWERS PARTICLES --- */
+        /* --- CANVAS RISING PETALS & FLOWERS PARTICLES (VISIBLE ON INTRO) --- */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -76,7 +76,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 2;
+            z-index: 6000; /* Higher than intro gateway (5000) so petals rise over intro screen */
         }
 
         /* --- STAGE CONTAINER & FIXED STACKED LAYERS --- */
@@ -1451,6 +1451,7 @@
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
 
+            // Concurrently fade image and text in unison
             pngEnv.classList.add('opening');
 
             setTimeout(() => {
