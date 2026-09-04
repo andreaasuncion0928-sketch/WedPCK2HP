@@ -282,7 +282,7 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: INVITATION OVERLAY CARD WITH TOP POP-OUT HERO (PICTURE18.JPEG) --- */
+        /* --- LAYER 2: INVITATION OVERLAY CARD WITH 70% OPACITY LEANING POP-OUT --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -311,42 +311,48 @@
             transform: translateY(-30px);
         }
 
-        /* Outer Frame Context for Top Border Overlap */
+        /* Context Frame for Overlapping Upper Edge */
         .invite-card-hero-frame {
             position: relative;
             max-width: 640px;
             width: 100%;
-            margin-top: 55px; /* Creates vertical space so their faces pop above the card */
+            margin-top: 70px; /* Offset space so faces sit on top of card line */
         }
 
         /* Hero Image Container Overlapping the Top Line */
         .hero-popout-wrapper {
             position: absolute;
-            top: -65px;
+            top: -85px;
             left: 50%;
             transform: translateX(-50%);
-            width: 175px;
-            height: 175px;
-            border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(135deg, var(--baby-pink), var(--champagne-gold));
-            box-shadow: 0 14px 35px rgba(173, 83, 98, 0.28), 0 0 25px var(--peony-glow);
-            z-index: 30; /* Ensures the portrait sits directly over the card's top border */
+            width: 210px;
+            height: 190px;
+            border-radius: 120px 120px 16px 16px; /* Elegant arched top frame */
+            padding: 4px;
+            background: linear-gradient(135deg, rgba(255, 183, 206, 0.9), rgba(197, 160, 89, 0.8));
+            box-shadow: 0 16px 35px rgba(173, 83, 98, 0.22), 0 0 30px var(--peony-glow);
+            z-index: 35; /* Places photo directly on top of upper white edge */
             transition: transform 0.4s ease;
         }
 
         .hero-popout-wrapper:hover {
-            transform: translateX(-50%) scale(1.04);
+            transform: translateX(-50%) translateY(-3px) scale(1.02);
         }
 
         .hero-popout-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top center; /* Focuses on faces */
-            border-radius: 50%;
+            object-position: center 20%; /* Centers and faces front */
+            border-radius: 116px 116px 12px 12px;
             border: 3px solid #FFFFFF;
             display: block;
+            opacity: 0.70; /* 70% OPACITY AS REQUESTED */
+            transition: opacity 0.4s ease;
+        }
+
+        .hero-popout-wrapper:hover .hero-popout-img {
+            opacity: 0.85; /* Subtle illumination on hover */
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -382,13 +388,13 @@
             transform: translateY(0) !important;
         }
 
-        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY WITH POP-OUT OFFSET --- */
+        /* --- 2ND PAGE: ELENA & ADRIAN OVERLAY WITH LEANING POP-OUT SPACING --- */
         .invite-landing-layout {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-top: 85px; /* Offset spacing for the overlapping hero photo */
+            padding-top: 95px; /* Creates spacing below overlapping photo */
             padding-bottom: 0.5rem;
         }
 
@@ -1435,7 +1441,7 @@
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
@@ -1629,7 +1635,7 @@
                     if (this.src.endsWith('.jpeg')) {
                         this.src = this.src.replace('.jpeg', '.jpg');
                     } else if (this.src.endsWith('.jpg')) {
-                        this.src = 'photo1.jpg';
+                        this.src = 'photo18.jpg';
                     }
                 };
             }
