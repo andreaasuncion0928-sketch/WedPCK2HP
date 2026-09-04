@@ -68,10 +68,10 @@
             scroll-behavior: smooth;
         }
 
-        /* --- PREVENT MID-WORD SLICING & HYPHENATION ACROSS THE BOARD --- */
-        h1, h2, h3, h4, p, span, a, button, div {
-            overflow-wrap: break-word;
-            word-break: keep-all;
+        /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
+        h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
+            overflow-wrap: break-word !important;
+            word-break: keep-all !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
@@ -652,7 +652,7 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING WITH PHOTO BACKGROUNDS (PHOTO11.JPEG - PHOTO15.JPEG) --- */
+        /* --- WEDDING CHAPTERS STYLING WITH PHOTO BACKGROUNDS --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
@@ -727,7 +727,7 @@
             font-weight: 500;
         }
 
-        /* CHAPTER NAVIGATION TILES WITH BALANCED PHOTO BACKGROUNDS */
+        /* CHAPTER NAVIGATION TILES WITH ROBUST BACKGROUND FALLBACKS */
         .nav-chapters {
             display: flex;
             justify-content: center;
@@ -779,7 +779,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0.28; /* Reduced Opacity for Optimal Text Contrast & Legibility */
+            opacity: 0.35; /* Optimized Opacity for Clear Text Visibility */
             transition: transform 0.6s var(--transition-slow), opacity 0.4s ease;
             z-index: 1;
         }
@@ -790,7 +790,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(250, 245, 240, 0.92) 0%, rgba(253, 240, 244, 0.88) 100%);
+            background: linear-gradient(135deg, rgba(250, 245, 240, 0.90) 0%, rgba(253, 240, 244, 0.85) 100%);
             z-index: 2;
             transition: background 0.4s ease;
         }
@@ -811,11 +811,11 @@
 
         .nav-card:hover .nav-card-bg {
             transform: scale(1.08);
-            opacity: 0.38;
+            opacity: 0.45;
         }
 
         .nav-card:hover .nav-card-overlay {
-            background: linear-gradient(135deg, rgba(255, 250, 245, 0.88) 0%, rgba(255, 240, 244, 0.82) 100%);
+            background: linear-gradient(135deg, rgba(255, 250, 245, 0.85) 0%, rgba(255, 240, 244, 0.80) 100%);
         }
 
         .nav-card h3 {
@@ -839,12 +839,32 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95);
         }
 
-        /* RE-ASSIGNED PHOTO BACKGROUNDS (Photo11.jpeg to Photo15.jpeg with 1.jpeg Fallbacks) */
-        .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('Photo1.jpeg'); }
-        .tile-bg-entourage { background-image: url('Photo12.jpeg'), url('./Photo12.jpeg'), url('Photo12.jpg'), url('Photo2.jpeg'); }
-        .tile-bg-details { background-image: url('Photo13.jpeg'), url('./Photo13.jpeg'), url('Photo13.jpg'), url('Photo3.jpeg'); }
-        .tile-bg-gallery { background-image: url('Photo14.jpeg'), url('./Photo14.jpeg'), url('Photo14.jpg'), url('Photo4.jpeg'); }
-        .tile-bg-rsvp { background-image: url('Photo15.jpeg'), url('./Photo15.jpeg'), url('Photo15.jpg'), url('Photo5.jpeg'); }
+        /* COMPREHENSIVE MULTI-FALLBACK CSS URL CHAINS FOR TILES 1 TO 5 */
+        .tile-bg-day { 
+            background-image: 
+                url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), 
+                url('photo11.jpg'), url('Photo1.jpeg'), url('photo1.jpg'), url('photo1.jpeg'); 
+        }
+        .tile-bg-entourage { 
+            background-image: 
+                url('Photo12.jpeg'), url('./Photo12.jpeg'), url('Photo12.jpg'), 
+                url('photo12.jpg'), url('Photo2.jpeg'), url('photo2.jpg'), url('photo2.jpeg'); 
+        }
+        .tile-bg-details { 
+            background-image: 
+                url('Photo13.jpeg'), url('./Photo13.jpeg'), url('Photo13.jpg'), 
+                url('photo13.jpg'), url('Photo3.jpeg'), url('photo3.jpg'), url('photo3.jpeg'); 
+        }
+        .tile-bg-gallery { 
+            background-image: 
+                url('Photo14.jpeg'), url('./Photo14.jpeg'), url('Photo14.jpg'), 
+                url('photo14.jpg'), url('Photo4.jpeg'), url('photo4.jpg'), url('photo4.jpeg'); 
+        }
+        .tile-bg-rsvp { 
+            background-image: 
+                url('Photo15.jpeg'), url('./Photo15.jpeg'), url('Photo15.jpg'), 
+                url('photo15.jpg'), url('Photo5.jpeg'), url('photo5.jpg'), url('photo5.jpeg'); 
+        }
 
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
