@@ -34,6 +34,7 @@
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
+            --envelope-flap: #f9e3e2;
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -415,7 +416,7 @@
             color: var(--peony-rose);
         }
 
-        /* MAGICAL ETHEREAL WHITE LIGHT SLOW REVEAL HEADLINE */
+        /* MAGICAL SIMULTANEOUS WHITE AURA SLOW REVEAL HEADLINE */
         .story-headline-married {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -429,28 +430,28 @@
             position: relative;
         }
 
-        /* INDIVIDUAL CHARACTER WHITE AURA SLOW UNFOLD */
+        /* ALL CHARACTERS REVEAL TOGETHER WITH SLOW WARM WHITE GLOW */
         .story-headline-married .story-glyph {
             display: inline-block;
             opacity: 0;
-            color: #FFFFFF; /* Initial White Aura State */
-            filter: blur(12px); /* Ethereal white glow blur */
-            transform: translateY(8px) scale(0.92);
-            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                        color 1.4s ease, 
-                        filter 1.4s ease, 
-                        transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-                        text-shadow 1.4s ease;
+            color: #FFFFFF;
+            filter: blur(14px);
+            transform: scale(0.96);
+            transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        color 2.2s ease, 
+                        filter 2.2s ease, 
+                        transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        text-shadow 2.2s ease;
             white-space: pre;
         }
 
-        /* REVEAL STATE: FADES FROM WHITE BLUR TO DEEP PEONY SERIF */
+        /* SIMULTANEOUS REVEAL TRIGGER */
         .story-headline-married .story-glyph.magical-appear {
             opacity: 1;
-            color: var(--peony-deep); /* Emerges into Dusty Rose Ink */
+            color: var(--peony-deep);
             filter: blur(0px);
-            transform: translateY(0) scale(1);
-            text-shadow: 0 0 15px rgba(255, 183, 206, 0.5), 0 0 25px rgba(226, 157, 167, 0.3);
+            transform: scale(1);
+            text-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 24px rgba(255, 183, 206, 0.5);
         }
 
         .story-heart-flourish {
@@ -1498,13 +1499,12 @@
             }
         }
 
-        /* SLOW ETHEREAL WHITE LIGHT TO PEONY INK MAGICAL TEXT REVEAL */
+        /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE AURA MAGICAL TEXT REVEAL */
         function playMagicalHeadlineReveal() {
             const glyphs = document.querySelectorAll('#magical-married-title .story-glyph');
-            glyphs.forEach((glyph, index) => {
-                setTimeout(() => {
-                    glyph.classList.add('magical-appear');
-                }, index * 75 + 150); // Slow, impressive staggered timing
+            glyphs.forEach((glyph) => {
+                // All letters fade in together at the same time
+                glyph.classList.add('magical-appear');
             });
         }
 
@@ -1558,7 +1558,7 @@
                 storyScene.classList.add('scene-story-animated');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
                 
-                // Trigger Slow White Aura Magical Text Reveal
+                // Trigger Simultaneous Slow White Light Magical Text Reveal
                 playMagicalHeadlineReveal();
             });
         }
