@@ -33,10 +33,10 @@
             --blush-soft: #FFF0F4;
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
-            --peony-glow: rgba(255, 183, 206, 0.4);
+            --peony-glow: rgba(255, 183, 206, 0.55);
             
             --champagne-gold: #C5A059;
-            --gold-glow: rgba(197, 160, 89, 0.3);
+            --gold-glow: rgba(197, 160, 89, 0.35);
             
             --paper: #FFFFFF;
             --parchment: #FAF6F1;
@@ -103,7 +103,7 @@
             width: 80px;
             height: 80px;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.85;
             z-index: 4;
             transition: opacity 0.4s ease;
         }
@@ -135,7 +135,7 @@
             stroke-width: 1.2;
         }
 
-        /* --- LAYER 1: ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED FULL-PAGE GIANT ENVELOPE GATEWAY (NEWINTRO.JPG) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -144,10 +144,10 @@
             height: 100vh;
             background-color: #FDF4F5;
             background-image: 
-                radial-gradient(circle at center, rgba(255, 253, 251, 0.4) 0%, rgba(255, 183, 206, 0.35) 100%), 
-                url('intropic.jpg'),
-                url('./intropic.jpg'),
-                url('intropic.jpeg');
+                radial-gradient(circle at center, rgba(255, 253, 251, 0.35) 0%, rgba(240, 224, 227, 0.65) 100%), 
+                url('newintro.jpg'),
+                url('./newintro.jpg'),
+                url('newintro.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -167,19 +167,19 @@
             pointer-events: none;
         }
 
-        /* Full-Bleed Page Envelope Body with Peony Aura */
+        /* Full-Bleed Glowing Envelope Body */
         .desk-envelope {
             width: 92vw;
             max-width: 920px;
             height: 86vh;
             max-height: 640px;
-            background: rgba(255, 255, 255, 0.94);
-            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.95) 0%, rgba(255, 240, 244, 0.98) 100%), url('intropic.jpg');
+            background: rgba(255, 255, 255, 0.95);
+            background-image: radial-gradient(circle at center, rgba(255, 253, 248, 0.98) 0%, rgba(255, 240, 244, 0.98) 100%), url('newintro.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
             border-radius: 8px;
-            box-shadow: 0 30px 80px rgba(173, 83, 98, 0.15), 0 0 50px var(--peony-glow);
+            box-shadow: 0 30px 90px rgba(173, 83, 98, 0.25), 0 0 60px var(--peony-glow), inset 0 0 25px rgba(255, 183, 206, 0.4);
             border: 2px solid var(--baby-pink);
             transform-style: preserve-3d;
             cursor: pointer;
@@ -190,17 +190,23 @@
             justify-content: center;
             padding: 2.5rem;
             transition: transform 0.6s var(--transition-slow), box-shadow 0.6s ease;
-            animation: envelopeFloat 4s ease-in-out infinite alternate;
+            animation: envelopeFloatGlow 3.5s ease-in-out infinite alternate;
         }
 
-        @keyframes envelopeFloat {
-            0% { transform: translateY(0px) rotateX(0deg); }
-            100% { transform: translateY(-8px) rotateX(1.2deg); }
+        @keyframes envelopeFloatGlow {
+            0% { 
+                transform: translateY(0px) rotateX(0deg); 
+                box-shadow: 0 30px 90px rgba(173, 83, 98, 0.22), 0 0 50px var(--peony-glow);
+            }
+            100% { 
+                transform: translateY(-10px) rotateX(1.5deg); 
+                box-shadow: 0 45px 110px rgba(173, 83, 98, 0.32), 0 0 80px rgba(255, 183, 206, 0.75), 0 0 30px var(--gold-glow);
+            }
         }
 
         .desk-envelope:hover {
-            transform: scale(1.015) translateY(-10px) !important;
-            box-shadow: 0 40px 100px rgba(173, 83, 98, 0.22), 0 0 70px var(--peony-glow);
+            transform: scale(1.02) translateY(-12px) !important;
+            box-shadow: 0 50px 120px rgba(173, 83, 98, 0.38), 0 0 90px rgba(255, 183, 206, 0.85);
         }
 
         /* Oversized Triangular Top Flap */
@@ -254,11 +260,11 @@
 
         .envelope-caption-title {
             font-family: var(--font-script);
-            font-size: 3.2rem;
+            font-size: 3.4rem;
             color: var(--peony-deep);
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             font-weight: 500;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 12px var(--peony-glow);
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 15px var(--peony-glow);
             letter-spacing: 1px;
             z-index: 6;
             opacity: 0;
@@ -285,7 +291,7 @@
             color: var(--peony-deep);
             text-transform: lowercase;
             font-weight: 500;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             padding: 8px 24px;
             border-radius: 30px;
             border: 1px solid var(--baby-pink);
@@ -313,7 +319,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(253, 244, 245, 0.94);
+            background: rgba(253, 244, 245, 0.92);
             backdrop-filter: blur(10px);
             opacity: 0;
             pointer-events: none;
@@ -350,7 +356,7 @@
             display: none !important;
         }
 
-        /* --- MAIN CHAPTER STYLING & INTROPIC-ALIGNED PARCHMENT CONTAINER --- */
+        /* --- MAIN CHAPTER STYLING & INTRO-ALIGNED PARCHMENT CONTAINER --- */
         .chapter-container {
             max-width: 800px;
             width: 100%;
@@ -371,9 +377,9 @@
             background-color: #FAF6F1;
             background-image: 
                 radial-gradient(circle at center, rgba(255, 255, 255, 0.93) 0%, rgba(255, 240, 244, 0.96) 100%), 
-                url('intropic.jpg'),
-                url('./intropic.jpg'),
-                url('intropic.jpeg');
+                url('newintro.jpg'),
+                url('./newintro.jpg'),
+                url('newintro.jpeg');
             background-size: cover;
             background-position: center;
             border: 1px solid var(--baby-pink);
@@ -880,7 +886,7 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: FULL-SCREEN ENCHANTMENT ENVELOPE GATEWAY -->
+    <!-- 1. HERO OPENING: GLOWING FULL-SCREEN ENCHANTMENT ENVELOPE (NEWINTRO.JPG) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="desk-envelope" id="desk-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <!-- BOTANICAL WEDDING FLORAL CORNERS -->
