@@ -23,7 +23,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
         /* --- BABY PINK (#FFB7CE) & PEONY THEMING --- */
@@ -206,10 +206,10 @@
             opacity: 0 !important;
         }
 
-        /* LAYERED ENVELOPE TYPOGRAPHY */
+        /* LAYERED ENVELOPE TYPOGRAPHY — SMALLER & MINIMALIST THIN */
         .envelope-text-wrapper {
             position: absolute;
-            bottom: 12%;
+            bottom: 11%;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -227,10 +227,11 @@
 
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: 2.8rem;
+            font-size: 1.6rem; /* Smaller & Minimalist */
             color: #000000 !important;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-weight: 300; /* Extra Thin */
+            letter-spacing: 5px; /* Generous Breathing Space */
+            text-transform: uppercase;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
         }
@@ -239,9 +240,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            width: 140px;
-            margin: 0.8rem 0 1rem 0;
+            gap: 10px;
+            width: 90px;
+            margin: 0.5rem 0 0.6rem 0;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.5s;
         }
@@ -252,30 +253,33 @@
             flex: 1;
             height: 1px;
             background: var(--peony-rose);
-            opacity: 0.6;
+            opacity: 0.45;
         }
 
         .envelope-divider-line span {
-            font-size: 0.8rem;
+            font-size: 0.65rem;
             color: var(--peony-rose);
+            opacity: 0.6;
         }
 
         .envelope-action-btn {
             font-family: var(--font-sans);
-            letter-spacing: 0.5px;
-            font-size: 0.95rem;
+            letter-spacing: 3px;
+            font-size: 0.75rem; /* Small & Delicate */
             color: #000000 !important;
-            font-weight: 400;
+            font-weight: 300; /* Thin */
+            text-transform: lowercase;
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.7s;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .png-envelope-container:hover .envelope-action-btn {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            opacity: 0.85;
         }
 
         /* --- LAYER 2: INVITATION OVERLAY CARD --- */
@@ -860,13 +864,15 @@
             .chapter-container { padding: 2.5rem 1.2rem; }
             #type-line3 { font-size: 2.5rem !important; letter-spacing: 3px !important; }
             #type-line4 { font-size: 1rem !important; letter-spacing: 2px !important; }
-            .envelope-caption-title { font-size: 1.9rem; letter-spacing: 2px; }
+            .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
+            .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
             .chapter-title { font-size: 1.8rem; }
             .chapter-subtitle { font-size: 1.8rem; }
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 140px; height: 180px; }
             .story-text-compact { font-size: 0.88rem; line-height: 1.6; }
             .png-envelope-container { width: 95vw; }
+            .envelope-text-wrapper { bottom: 8%; }
         }
     </style>
 </head>
@@ -880,13 +886,13 @@
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
 
-            <!-- DIRECT TEXT CONTAINER POSITIONED ACCURATELY -->
+            <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
             <div class="envelope-text-wrapper">
                 <p class="envelope-caption-title">A Personal Invitation</p>
                 <div class="envelope-divider-line">
                     <span>✦</span>
                 </div>
-                <div class="envelope-action-btn">Tap to open</div>
+                <div class="envelope-action-btn">tap to open</div>
             </div>
         </div>
     </div>
