@@ -416,7 +416,66 @@
             color: var(--peony-rose);
         }
 
-        /* MAGICAL SIMULTANEOUS WHITE AURA SLOW REVEAL HEADLINE */
+        /* --- CLOUDY WHITE AURA TEXT CONTAINER --- */
+        .cloud-headline-wrapper {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 1.2rem;
+        }
+
+        /* WHITE CLOUD FOG PUFFS (BEFORE & AFTER) */
+        .cloud-headline-wrapper::before,
+        .cloud-headline-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            width: 115%;
+            height: 140%;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.98) 0%, rgba(255, 240, 244, 0.85) 45%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            filter: blur(18px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1), transform 2.5s cubic-bezier(0.16, 1, 0.3, 1), filter 2.5s ease;
+        }
+
+        .cloud-headline-wrapper::after {
+            width: 130%;
+            height: 160%;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 230, 238, 0.6) 55%, rgba(255, 255, 255, 0) 75%);
+            filter: blur(24px);
+        }
+
+        /* CLOUD FOG SWELLS & DISPERSES WHILE TEXT APPEARS */
+        .cloud-headline-wrapper.cloud-active::before,
+        .cloud-headline-wrapper.cloud-active::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.15);
+            animation: cloudDisperse 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cloudDisperse {
+            0% {
+                opacity: 0.95;
+                filter: blur(14px);
+                transform: translate(-50%, -50%) scale(0.85);
+            }
+            40% {
+                opacity: 0.85;
+                filter: blur(20px);
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+            100% {
+                opacity: 0.15; /* Soft remaining misty aura */
+                filter: blur(28px);
+                transform: translate(-50%, -50%) scale(1.35);
+            }
+        }
+
         .story-headline-married {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -425,33 +484,34 @@
             font-weight: 600;
             line-height: 1.25;
             text-transform: uppercase;
-            margin-bottom: 1.2rem;
+            margin: 0;
             display: inline-block;
             position: relative;
+            z-index: 3;
         }
 
-        /* ALL CHARACTERS REVEAL TOGETHER WITH SLOW WARM WHITE GLOW */
+        /* ALL CHARACTERS REVEAL SIMULTANEOUSLY FROM THE CLOUD MIST */
         .story-headline-married .story-glyph {
             display: inline-block;
             opacity: 0;
-            color: #FFFFFF;
-            filter: blur(14px);
-            transform: scale(0.96);
-            transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        color 2.2s ease, 
-                        filter 2.2s ease, 
-                        transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
-                        text-shadow 2.2s ease;
+            color: #FFFFFF; /* Pure Cloud White Initial State */
+            filter: blur(16px); /* White mist blur */
+            transform: scale(0.94);
+            transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        color 2.5s ease, 
+                        filter 2.5s ease, 
+                        transform 2.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        text-shadow 2.5s ease;
             white-space: pre;
         }
 
-        /* SIMULTANEOUS REVEAL TRIGGER */
+        /* MAGICAL REVEAL STATE: FADES FROM WHITE MIST INTO PEONY INK */
         .story-headline-married .story-glyph.magical-appear {
             opacity: 1;
             color: var(--peony-deep);
             filter: blur(0px);
             transform: scale(1);
-            text-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 24px rgba(255, 183, 206, 0.5);
+            text-shadow: 0 0 16px rgba(255, 255, 255, 0.95), 0 0 26px rgba(255, 183, 206, 0.55);
         }
 
         .story-heart-flourish {
@@ -1060,8 +1120,10 @@
                         <span>✦</span>
                     </div>
 
-                    <!-- 6. MAGICAL ETHEREAL WHITE LIGHT SLOW REVEAL HEADLINE -->
-                    <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
+                    <!-- 6. MAGICAL CLOUD MIST SLOW REVEAL HEADLINE -->
+                    <div class="cloud-headline-wrapper" id="cloud-wrapper">
+                        <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
+                    </div>
 
                     <!-- 7. HEART FLOURISH DIVIDER -->
                     <div class="story-heart-flourish">
@@ -1499,11 +1561,16 @@
             }
         }
 
-        /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE AURA MAGICAL TEXT REVEAL */
+        /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE CLOUD MIST MAGICAL REVEAL */
         function playMagicalHeadlineReveal() {
+            const cloudWrapper = document.getElementById('cloud-wrapper');
             const glyphs = document.querySelectorAll('#magical-married-title .story-glyph');
+
+            if (cloudWrapper) {
+                cloudWrapper.classList.add('cloud-active');
+            }
+
             glyphs.forEach((glyph) => {
-                // All letters fade in together at the same time
                 glyph.classList.add('magical-appear');
             });
         }
@@ -1558,7 +1625,7 @@
                 storyScene.classList.add('scene-story-animated');
                 storyScene.scrollIntoView({ behavior: 'smooth' });
                 
-                // Trigger Simultaneous Slow White Light Magical Text Reveal
+                // Trigger Simultaneous Cloud Fog Slow Reveal
                 playMagicalHeadlineReveal();
             });
         }
