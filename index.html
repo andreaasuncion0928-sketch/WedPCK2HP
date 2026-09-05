@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -605,14 +605,14 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING (FEATURING BACKGROUND.JPG COVER) --- */
+        /* --- WEDDING CHAPTERS STYLING (FEATURING HIGH VISIBILITY BACKGROUND.JPG COVER) --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
             text-align: center;
             position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.82), rgba(253, 240, 244, 0.88)), url('background.jpg');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.45), rgba(253, 240, 244, 0.50)), url('background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -630,7 +630,7 @@
             text-transform: uppercase;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
         }
 
         .chapters-sub-title {
@@ -639,9 +639,9 @@
             letter-spacing: 2.5px;
             color: var(--champagne-gold);
             text-transform: uppercase;
-            font-weight: 400;
+            font-weight: 500;
             margin-bottom: 2.5rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
         }
 
         /* COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR */
@@ -659,7 +659,7 @@
             flex: 1 1 0;
             height: 85px;
             min-width: 70px;
-            background: var(--envelope-flap-bg) !important;
+            background: rgba(248, 176, 189, 0.92) !important;
             border-radius: 12px;
             display: flex;
             flex-direction: column;
@@ -1121,7 +1121,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION -->
+        <!-- 3. OUR STORY SECTION (UPDATED REVEAL HEADLINE TO "WE'RE GETTING MARRIED.") -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1148,7 +1148,7 @@
 
                     <!-- 5. MAGICAL CLOUD MIST SLOW REVEAL HEADLINE -->
                     <div class="cloud-headline-wrapper" id="cloud-wrapper">
-                        <h1 class="story-headline-married" id="magical-married-title">WE BECAME US.</h1>
+                        <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
                     </div>
 
                     <!-- 6. HEART FLOURISH DIVIDER -->
@@ -1402,7 +1402,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
