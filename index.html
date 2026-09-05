@@ -778,11 +778,13 @@
         .day-card-actions {
             display: flex;
             align-items: center;
+            justify-content: center !important;
             gap: 12px;
             flex-wrap: wrap;
+            width: 100%;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -914,7 +916,7 @@
             transform: scaleX(-1) rotate(-15deg);
         }
 
-        /* --- THE DETAILS (SCENE-DETAILS) ELEGANT MINIMALIST TABBED INTERFACE --- */
+        /* --- THE DETAILS (SCENE-DETAILS) TABBED INTERFACE --- */
         #scene-details {
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -980,7 +982,6 @@
             box-shadow: 0 8px 25px rgba(255, 183, 206, 0.35) !important;
         }
 
-        /* 20% OPACITY SINGLE PANEL CONTAINER */
         .details-panel-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -1009,7 +1010,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ELEGANT DRESS CODE SWATCHES & STYLING */
         .dress-code-swatch-wrapper {
             display: flex;
             align-items: center;
@@ -1254,7 +1254,7 @@
             user-select: none;
         }
 
-        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & BACKGROUND SCALING FIXES --- */
         @media (max-width: 768px) {
             #scene-menu,
             #scene-day,
@@ -1359,6 +1359,10 @@
                 letter-spacing: 3px;
             }
 
+            .the-day-header-desc {
+                margin-bottom: 1.8rem;
+            }
+
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
@@ -1372,6 +1376,18 @@
             .day-card-illustration {
                 width: 90px;
                 max-height: 75px;
+            }
+
+            .day-card-venue-title {
+                font-size: 1.2rem;
+            }
+
+            .day-card-datetime {
+                font-size: 0.78rem;
+            }
+
+            .day-card-actions {
+                justify-content: center !important;
             }
 
             #scene-entourage {
@@ -1398,9 +1414,23 @@
                 display: none;
             }
 
+            .entourage-block {
+                margin-bottom: 1.2rem;
+            }
+
+            .entourage-role-title {
+                font-size: 1.1rem;
+            }
+
+            .entourage-names-list {
+                font-size: 0.88rem;
+            }
+
             .entourage-bridesmaids-wrapper {
                 flex-direction: column;
                 gap: 0.5rem;
+                margin-top: 0.5rem;
+                padding-top: 0.8rem;
             }
 
             .entourage-lavender-sprig {
@@ -1636,7 +1666,6 @@
                     </div>
                 </div>
 
-                <!-- PREVIEW PHOTO MEMORY STACK WITH LIGHTBOX EVENT HANDLERS -->
                 <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
                     <div class="memory-stack-track" id="memory-track">
                         <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
