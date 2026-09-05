@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -268,11 +268,34 @@
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
+        /* --- UNIFIED ELEGANT BUTTON STYLING ALIGNED TO THE DAY PAGE --- */
+        .btn-magic, 
+        .btn-day-action, 
         .btn-story-link {
+            background: #FFFFFF !important;
+            border: 1px solid var(--baby-pink) !important;
+            color: var(--peony-deep) !important;
+            padding: 8px 24px !important;
+            font-family: var(--font-serif) !important;
+            letter-spacing: 2px !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
             cursor: pointer;
-            margin-top: 0.2rem;
-            font-size: 0.72rem;
-            padding: 8px 20px;
+            transition: all 0.3s ease !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 183, 206, 0.3) !important;
+            border-radius: 30px !important;
+            display: inline-block;
+        }
+
+        .btn-magic:hover, 
+        .btn-day-action:hover, 
+        .btn-story-link:hover {
+            background: var(--baby-pink) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 0 20px var(--peony-glow) !important;
+            transform: translateY(-1px);
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -822,32 +845,7 @@
             flex-wrap: wrap;
         }
 
-        .btn-day-action {
-            background: #FFFFFF;
-            border: 1px solid var(--baby-pink);
-            color: var(--peony-deep) !important;
-            padding: 8px 22px;
-            font-family: var(--font-serif);
-            letter-spacing: 2px;
-            font-size: 0.75rem;
-            font-weight: 600 !important;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(255, 183, 206, 0.3);
-            border-radius: 30px;
-            display: inline-block;
-        }
-
-        .btn-day-action:hover {
-            background: var(--baby-pink);
-            color: #FFFFFF !important;
-            box-shadow: 0 0 20px var(--peony-glow);
-            transform: translateY(-1px);
-        }
-
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) RE-DESIGNED TO MATCH SCREENSHOT --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) MOVED DOWN & BALANCED SPACING --- */
         #scene-entourage {
             width: 100%;
             min-height: 100vh;
@@ -858,7 +856,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            padding: 4.5rem 1.8rem 4rem 1.8rem;
+            padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -891,7 +889,7 @@
             font-size: clamp(0.8rem, 2.1vw, 0.95rem);
             color: #3D3537;
             font-weight: 300;
-            margin-bottom: 2.8rem;
+            margin-bottom: 2.5rem;
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
@@ -901,11 +899,11 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.95);
             border-radius: 16px;
-            padding: 2.8rem 2rem 2.2rem 2rem;
+            padding: 2.8rem 2rem 2.5rem 2rem;
             max-width: 1000px;
             width: 100%;
             box-shadow: 0 15px 45px rgba(185, 165, 160, 0.16);
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
             position: relative;
         }
 
@@ -1271,11 +1269,6 @@
                 justify-content: center;
             }
 
-            .btn-day-action {
-                font-size: 0.68rem;
-                padding: 6px 16px;
-            }
-
             /* MOBILE STYLING FOR ENTOURAGE STAGE & BACKGROUND PRESERVATION */
             #scene-entourage {
                 padding: 3.5rem 0.8rem 3.5rem 0.8rem;
@@ -1291,22 +1284,36 @@
             }
 
             .entourage-board-card {
-                padding: 1.8rem 1rem;
+                padding: 2.2rem 1rem 1.8rem 1rem;
                 background: rgba(255, 255, 255, 0.90);
             }
 
             .entourage-grid-3col {
                 grid-template-columns: 1fr;
-                gap: 1.2rem;
+                gap: 1rem;
             }
 
             .entourage-col:not(:last-child)::after {
                 display: none;
             }
 
+            .entourage-block {
+                margin-bottom: 1.2rem;
+            }
+
+            .entourage-role-title {
+                font-size: 1.1rem;
+            }
+
+            .entourage-names-list {
+                font-size: 0.88rem;
+            }
+
             .entourage-bridesmaids-wrapper {
                 flex-direction: column;
                 gap: 0.5rem;
+                margin-top: 0.5rem;
+                padding-top: 0.8rem;
             }
 
             .entourage-lavender-sprig {
@@ -1489,7 +1496,7 @@
                 
                 <p class="invite-signature-tag">— elena & adrian</p>
 
-                <button class="btn-magic btn-story-link" onclick="openOurStorySection()">
+                <button class="btn-day-action btn-story-link" onclick="openOurStorySection()">
                     Come see how our story began ➜
                 </button>
             </div>
@@ -1549,7 +1556,7 @@
                 </div>
                 <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories · click to enlarge →</div>
 
-                <button class="btn-magic stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
+                <button class="btn-day-action stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
                     VIEW THE WEDDING DETAILS →
                 </button>
             </article>
@@ -1563,11 +1570,13 @@
                     ELENA & ADRIAN — 31 . 01 . 2028
                 </p>
 
+                <!-- INLINE ELEGANT COUNTDOWN TIMER -->
                 <div class="inline-countdown-timer" id="inline-countdown-display">
                     <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
                 </div>
             </div>
 
+            <!-- MINIMALIST BOTTOM NAVIGATION BAR -->
             <nav class="nav-chapters-inline">
                 <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
                 <span class="nav-item-divider">|</span>
@@ -1589,6 +1598,7 @@
                 <p class="the-day-header-desc">Two places. One promise.</p>
             </div>
 
+            <!-- CEREMONY CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 15 L140 45 V140 H60 V45 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1609,6 +1619,7 @@
                 </div>
             </div>
 
+            <!-- RECEPTION CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M30 50 H170 V140 H30 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1763,7 +1774,7 @@
                     </p>
                     <div style="margin-top: 12px; font-size: 0.85rem;">
                         <p><strong>Send Monetary Gift (<span id="gift-label">GCash / Maya</span>):</strong> <span id="gift-number">0917-XXX-XXXX</span></p>
-                        <a id="gift-link" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 6px 12px; margin-top: 8px;">
+                        <a id="gift-link" href="#" target="_blank" class="btn-day-action" style="font-size: 0.75rem; padding: 6px 12px; margin-top: 8px;">
                             View Online Gift Registry →
                         </a>
                     </div>
@@ -1775,7 +1786,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 2rem;">
-                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                    <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
                 </div>
             </article>
         </section>
@@ -1789,7 +1800,7 @@
 
             <div class="gallery-envelope-container" id="gallery-container"></div>
 
-            <button class="btn-magic" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+            <button class="btn-day-action" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
                 ← Back to Chapters
             </button>
         </section>
@@ -1825,7 +1836,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn-magic" style="margin-top: 1rem;">
+                    <button type="submit" class="btn-day-action" style="margin-top: 1rem;">
                         Confirm RSVP →
                     </button>
                 </form>
@@ -1838,7 +1849,7 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 2rem;">
-                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                    <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
                 </div>
             </article>
         </section>
@@ -1909,6 +1920,23 @@
         const galleryImages = [
             "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg",
             "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
+        ];
+
+        const entourageData = [
+            { role: "PARENTS OF THE BRIDE", names: ["Mr. Roberto Santos", "Mrs. Carmen Santos"] },
+            { role: "PARENTS OF THE GROOM", names: ["Mr. Fernando Reyes", "Mrs. Alicia Reyes"] },
+            { role: "MAID OF HONOR", names: ["Sophia Santos"] },
+            { role: "BEST MAN", names: ["Marco Reyes"] },
+            { role: "PRINCIPAL SPONSORS", names: [
+                "Mr. Ricardo Cruz & Mrs. Elena Cruz",
+                "Mr. Gabriel Gomez & Mrs. Teresa Gomez",
+                "Mr. Antonio Morales & Mrs. Beatrix Morales"
+            ]},
+            { role: "BRIDESMAIDS & GROOMSMEN", names: [
+                "Isabella Santos · Lucas Torres",
+                "Clara Mendoza · Mateo Ramos",
+                "Julianna Navarro · Gabriel Navarro"
+            ]}
         ];
 
         const faqData = [
