@@ -129,7 +129,7 @@
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (SLOW, SEAMLESS DOWNWARD SLIDE) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -181,7 +181,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (SYNCHRONIZED SLIDE UP) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -559,7 +559,7 @@
             opacity: 0.8;
         }
 
-        /* --- WEDDING CHAPTERS STYLING CENTERED WITH MINIMALIST THIN COUNTDOWN FONT --- */
+        /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
             width: 100%;
             min-height: 100vh;
@@ -618,7 +618,6 @@
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
-        /* THINNER, MINIMALIST COUNTDOWN TIMER FONT */
         .inline-countdown-timer {
             font-family: var(--font-sans);
             font-size: clamp(1.05rem, 3.2vw, 1.7rem);
@@ -823,7 +822,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 20% OPACITY TRANSLUCENT CARD */
         .entourage-board-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -915,6 +913,100 @@
 
         .entourage-lavender-right {
             transform: scaleX(-1) rotate(-15deg);
+        }
+
+        /* --- THE DETAILS (SCENE-DETAILS) TABBED INTERFACE --- */
+        #scene-details {
+            padding: 5rem 1.8rem 5rem 1.8rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-header-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            letter-spacing: clamp(3px, 1.2vw, 7px);
+            color: #1A1415;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
+        }
+
+        .details-tab-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            max-width: 860px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-tab-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.20) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.85) !important;
+            border-radius: 12px !important;
+            padding: 14px 16px !important;
+            font-family: var(--font-serif) !important;
+            font-size: clamp(0.78rem, 2vw, 0.95rem) !important;
+            letter-spacing: 2px !important;
+            color: #1A1415 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 6px 20px rgba(185, 165, 160, 0.12) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .details-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.35) !important;
+            transform: translateY(-1px);
+        }
+
+        .details-tab-btn.active-tab {
+            background: rgba(255, 255, 255, 0.70) !important;
+            border-color: var(--baby-pink) !important;
+            color: var(--peony-deep) !important;
+            box-shadow: 0 8px 25px rgba(255, 183, 206, 0.35) !important;
+        }
+
+        .details-panel-card {
+            background: rgba(255, 255, 255, 0.20) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            padding: 2.8rem 2.2rem;
+            max-width: 860px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(185, 165, 160, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .details-tab-content {
+            display: none;
+        }
+
+        .details-tab-content.active-content {
+            display: block;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- PROGRAM FLOW INFOGRAPHIC MODAL STYLING --- */
@@ -1121,7 +1213,7 @@
             user-select: none;
         }
 
-        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & BACKGROUND SCALING FIXES --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT --- */
         @media (max-width: 768px) {
             #scene-menu,
             #scene-day,
@@ -1226,11 +1318,6 @@
                 letter-spacing: 3px;
             }
 
-            .the-day-header-desc {
-                margin-bottom: 1.8rem;
-            }
-
-            /* 20% OPACITY FOR MOBILE DAY CARDS */
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
@@ -1246,19 +1333,6 @@
                 max-height: 75px;
             }
 
-            .day-card-venue-title {
-                font-size: 1.2rem;
-            }
-
-            .day-card-datetime {
-                font-size: 0.78rem;
-            }
-
-            .day-card-actions {
-                justify-content: center;
-            }
-
-            /* 20% OPACITY FOR MOBILE ENTOURAGE CARDS */
             #scene-entourage {
                 padding: 5rem 0.5rem 3.5rem 0.5rem !important;
             }
@@ -1283,27 +1357,30 @@
                 display: none;
             }
 
-            .entourage-block {
-                margin-bottom: 1.2rem;
-            }
-
-            .entourage-role-title {
-                font-size: 1.1rem;
-            }
-
-            .entourage-names-list {
-                font-size: 0.88rem;
-            }
-
             .entourage-bridesmaids-wrapper {
                 flex-direction: column;
                 gap: 0.5rem;
-                margin-top: 0.5rem;
-                padding-top: 0.8rem;
             }
 
             .entourage-lavender-sprig {
                 display: none;
+            }
+
+            /* MOBILE DETAILS TAB STYLING */
+            #scene-details {
+                padding: 4.5rem 0.5rem 3.5rem 0.5rem !important;
+            }
+
+            .details-tab-bar {
+                flex-direction: column;
+                gap: 8px;
+                width: 92%;
+            }
+
+            .details-panel-card {
+                padding: 1.8rem 1.2rem;
+                width: 92% !important;
+                background: rgba(255, 255, 255, 0.20) !important;
             }
 
             .program-modal-container {
@@ -1518,7 +1595,6 @@
                     </div>
                 </div>
 
-                <!-- PREVIEW PHOTO MEMORY STACK WITH LIGHTBOX EVENT HANDLERS -->
                 <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
                     <div class="memory-stack-track" id="memory-track">
                         <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
@@ -1580,7 +1656,6 @@
                 <p class="the-day-header-desc">Two places. One promise.</p>
             </div>
 
-            <!-- CEREMONY CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 15 L140 45 V140 H60 V45 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1601,7 +1676,6 @@
                 </div>
             </div>
 
-            <!-- RECEPTION CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M30 50 H170 V140 H30 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1627,7 +1701,7 @@
             </div>
         </section>
 
-        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH 20% TRANSLUCENT CARD) -->
+        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE) -->
         <section class="stage hidden" id="scene-entourage">
             <div>
                 <p class="entourage-header-subtitle">With Our Beloved Families</p>
@@ -1637,7 +1711,6 @@
 
             <div class="entourage-board-card">
                 <div class="entourage-grid-3col">
-                    <!-- COL 1: PARENTS OF THE BRIDE & MAID OF HONOR -->
                     <div class="entourage-col">
                         <div class="entourage-block">
                             <h3 class="entourage-role-title">PARENTS OF THE BRIDE</h3>
@@ -1659,7 +1732,6 @@
                         </div>
                     </div>
 
-                    <!-- COL 2: PARENTS OF THE GROOM & BEST MAN -->
                     <div class="entourage-col">
                         <div class="entourage-block">
                             <h3 class="entourage-role-title">PARENTS OF THE GROOM</h3>
@@ -1681,7 +1753,6 @@
                         </div>
                     </div>
 
-                    <!-- COL 3: PRINCIPAL SPONSORS -->
                     <div class="entourage-col">
                         <div class="entourage-block">
                             <h3 class="entourage-role-title">PRINCIPAL SPONSORS</h3>
@@ -1698,7 +1769,6 @@
                     </div>
                 </div>
 
-                <!-- BRIDESMAIDS & GROOMSMEN -->
                 <div class="entourage-bridesmaids-wrapper">
                     <svg class="entourage-lavender-sprig entourage-lavender-left" viewBox="0 0 40 100" fill="none">
                         <path d="M20 90 Q20 50 25 10" stroke="#7D2D3E" stroke-width="1.5"/>
@@ -1732,42 +1802,59 @@
             </div>
         </section>
 
-        <!-- DETAILS -->
+        <!-- 7. DETAILS (SCENE-DETAILS WITH 20% TRANSLUCENT TABBED PANELS) -->
         <section class="stage hidden" id="scene-details">
-            <article class="chapter-container fade-in-up">
-                <h2 class="chapter-title">EVERYTHING YOU NEED TO KNOW</h2>
-                
-                <div class="unfold-card" style="margin-top: 1.5rem;">
-                    <h3 id="dress-code-title">BLACK & WHITE</h3>
-                    <p style="font-size: 0.85rem; color: var(--peony-deep); font-weight: 600;" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
-                    <div style="margin-top: 10px; font-size: 0.9rem; line-height: 1.6;">
-                        <p><strong>LADIES:</strong> <span id="dress-code-ladies">Black, white, ivory, or monochrome formalwear.</span></p>
+            <h2 class="details-header-title">THE DETAILS</h2>
+
+            <!-- HORIZONTAL 3-TAB BAR -->
+            <div class="details-tab-bar">
+                <button class="details-tab-btn active-tab" onclick="switchDetailsTab('dress-code', this)">
+                    👗 DRESS CODE
+                </button>
+                <button class="details-tab-btn" onclick="switchDetailsTab('registry', this)">
+                    🎁 REGISTRY & GIFTS
+                </button>
+                <button class="details-tab-btn" onclick="switchDetailsTab('faq', this)">
+                    ❓ FAQs
+                </button>
+            </div>
+
+            <!-- SINGLE TRANSLUCENT CONTENT PANEL CONTAINER (20% OPACITY) -->
+            <div class="details-panel-card">
+                <!-- TAB 1: DRESS CODE -->
+                <div class="details-tab-content active-content" id="tab-dress-code">
+                    <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 2px;" id="dress-code-title">BLACK & WHITE</h3>
+                    <p style="font-size: 0.88rem; color: var(--peony-deep); font-weight: 600; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 1px;" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
+                    <div style="font-size: 0.9rem; line-height: 1.8; color: #3D3537;">
+                        <p style="margin-bottom: 0.6rem;"><strong>LADIES:</strong> <span id="dress-code-ladies">Black, white, ivory, or monochrome formalwear.</span></p>
                         <p><strong>GENTLEMEN:</strong> <span id="dress-code-gents">Black suit, tuxedo, white shirt, or classic monochrome formalwear.</span></p>
                     </div>
                 </div>
 
-                <div class="unfold-card">
-                    <h3>REGISTRY & GIFTS</h3>
-                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-dark);">
+                <!-- TAB 2: REGISTRY & GIFTS -->
+                <div class="details-tab-content" id="tab-registry">
+                    <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">REGISTRY & GIFTS</h3>
+                    <p style="font-size: 0.88rem; line-height: 1.7; color: #3D3537; margin-bottom: 1.2rem;">
                         We are immensely grateful for your love and support. Your presence at our wedding is the greatest gift of all. If you wish to bless us with a gift, a contribution towards our future together or our gift registry would be deeply appreciated.
                     </p>
-                    <div style="margin-top: 12px; font-size: 0.85rem;">
-                        <p><strong>Send Monetary Gift (<span id="gift-label">GCash / Maya</span>):</strong> <span id="gift-number">0917-XXX-XXXX</span></p>
-                        <a id="gift-link" href="#" target="_blank" class="btn-day-action" style="font-size: 0.75rem; padding: 6px 12px; margin-top: 8px;">
+                    <div style="font-size: 0.88rem; line-height: 1.6; color: #1A1415;">
+                        <p style="margin-bottom: 0.8rem;"><strong>Send Monetary Gift (<span id="gift-label">GCash / Maya</span>):</strong> <span id="gift-number">0917-XXX-XXXX</span></p>
+                        <a id="gift-link" href="#" target="_blank" class="btn-day-action" style="font-size: 0.75rem; padding: 6px 16px; margin-top: 4px;">
                             View Online Gift Registry →
                         </a>
                     </div>
                 </div>
 
-                <div class="unfold-card">
-                    <h3>FREQUENTLY ASKED QUESTIONS</h3>
-                    <div id="faq-list" style="margin-top: 10px;"></div>
+                <!-- TAB 3: FAQs -->
+                <div class="details-tab-content" id="tab-faq">
+                    <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 2px;">FREQUENTLY ASKED QUESTIONS</h3>
+                    <div id="faq-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
                 </div>
+            </div>
 
-                <div style="text-align: center; margin-top: 2rem;">
-                    <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
-                </div>
-            </article>
+            <div style="text-align: center;">
+                <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← BACK TO CHAPTERS</button>
+            </div>
         </section>
 
         <!-- GALLERY -->
@@ -1977,6 +2064,21 @@
             }
         });
 
+        /* TAB SWAPPING FUNCTIONALITY FOR DETAILS PAGE */
+        function switchDetailsTab(tabId, btnElement) {
+            const tabs = document.querySelectorAll('.details-tab-btn');
+            const contents = document.querySelectorAll('.details-tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+            contents.forEach(content => content.classList.remove('active-content'));
+
+            btnElement.classList.add('active-tab');
+            const activePanel = document.getElementById('tab-' + tabId);
+            if (activePanel) {
+                activePanel.classList.add('active-content');
+            }
+        }
+
         /* PREPARES INDIVIDUAL LETTER SPANS FOR MAGICAL TEXT REVEAL WITHOUT SLICING WORDS */
         function prepareMagicalHeadlineText() {
             const headlineEl = document.getElementById('magical-married-title');
@@ -2147,9 +2249,9 @@
         function renderFAQ() {
             const container = document.getElementById('faq-list');
             container.innerHTML = faqData.map(item => `
-                <div style="margin-bottom: 12px;">
-                    <p style="font-weight: 600; font-size: 0.9rem; color: var(--text-dark);">Q: ${item.q}</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">A: ${item.a}</p>
+                <div style="border-bottom: 1px dashed rgba(226, 157, 167, 0.4); padding-bottom: 10px;">
+                    <p style="font-weight: 600; font-size: 0.9rem; color: #1A1415;">Q: ${item.q}</p>
+                    <p style="font-size: 0.85rem; color: #3D3537; margin-top: 4px; font-weight: 300;">A: ${item.a}</p>
                 </div>
             `).join('');
         }
