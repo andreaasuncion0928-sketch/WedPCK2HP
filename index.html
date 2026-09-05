@@ -673,7 +673,7 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING --- */
+        /* --- THE DAY (SCENE-DAY) STYLING WITH LEFT-ALIGNED BUTTONS --- */
         #scene-day {
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -784,7 +784,7 @@
             width: 100%;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -1092,7 +1092,6 @@
             transition: transform 0.6s ease;
         }
 
-        /* HOVER EFFECT: ELEVATE HOVERED IMAGE, DIM NEIGHBORS TO 50% */
         .gallery-masonry-grid:hover .gallery-masonry-item {
             opacity: 0.5;
         }
@@ -1108,12 +1107,10 @@
             transform: scale(1.04);
         }
 
-        /* ASYMMETRICAL PROPORTIONAL HEIGHTS */
         .gallery-masonry-item.portrait img { aspect-ratio: 3/4; }
         .gallery-masonry-item.landscape img { aspect-ratio: 4/3; }
         .gallery-masonry-item.square img { aspect-ratio: 1/1; }
 
-        /* PARALLAX SCROLL-TRIGGERED REVEAL STAGGER */
         .gallery-masonry-item:nth-child(3n+1) {
             transform: translateY(15px);
         }
@@ -1517,7 +1514,6 @@
                 background: rgba(255, 255, 255, 0.20) !important;
             }
 
-            /* MOBILE GALLERY MASONRY RESPONSIVENESS */
             .gallery-masonry-grid {
                 column-count: 2 !important;
                 column-gap: 12px !important;
@@ -2014,7 +2010,7 @@
             </div>
         </section>
 
-        <!-- 8. GALLERY (ASYMMETRICAL MASONRY GRID FEATURING PHOTO11 TO PHOTO20) -->
+        <!-- 8. GALLERY (ASYMMETRICAL MASONRY GRID FEATURING PICTURE11 TO PICTURE20) -->
         <section class="stage hidden" id="scene-gallery">
             <div class="gallery-title-wrapper">
                 <h2 class="the-day-header-title">MOMENTS ALONG THE WAY</h2>
@@ -2140,10 +2136,10 @@
             }
         };
 
-        /* GALLERY ASYMMETRICAL MASONRY IMAGES: PHOTO11.JPEG TO PHOTO20.JPEG */
+        /* GALLERY ASYMMETRICAL MASONRY IMAGES: PICTURE11.JPEG TO PICTURE20.JPEG */
         const galleryImages = [
-            "photo11.jpeg", "photo12.jpeg", "photo13.jpeg", "photo14.jpeg", "photo15.jpeg",
-            "photo16.jpeg", "photo17.jpeg", "photo18.jpeg", "photo19.jpeg", "photo20.jpeg"
+            "picture11.jpeg", "picture12.jpeg", "picture13.jpeg", "picture14.jpeg", "picture15.jpeg",
+            "picture16.jpeg", "picture17.jpeg", "picture18.jpeg", "picture19.jpeg", "picture20.jpeg"
         ];
 
         const entourageData = [
@@ -2414,19 +2410,32 @@
             `).join('');
         }
 
-        /* RENDERS PHOTO11.JPEG TO PHOTO20.JPEG IN ASYMMETRICAL MASONRY GRID */
+        /* RENDERS PICTURE11.JPEG TO PICTURE20.JPEG IN ASYMMETRICAL MASONRY GRID WITH FALLBACK EXTENSION HANDLING */
         function renderGallery() {
             const container = document.getElementById('gallery-container');
             const aspectRatios = ['portrait', 'landscape', 'square', 'portrait', 'square', 'landscape', 'portrait', 'square', 'portrait', 'landscape'];
             
             container.innerHTML = galleryImages.map((src, idx) => {
                 const ratioClass = aspectRatios[idx % aspectRatios.length];
+                const num = idx + 11;
                 return `
                     <div class="gallery-masonry-item ${ratioClass}" onclick="openLightbox('${src}')">
-                        <img src="${src}" alt="Gallery Photo ${idx + 11}" onerror="this.onerror=null; if(this.src.endsWith('.jpeg')){this.src='photo${idx+11}.jpg';} else if(this.src.endsWith('.jpg')){this.src='photo${idx+11}.JPG';}">
+                        <img src="${src}" alt="Gallery Photo ${num}" onerror="handleGalleryImageError(this, ${num})">
                     </div>
                 `;
             }).join('');
+        }
+
+        /* SMART IMAGE FALLBACK HANDLER FOR GALLERY PICTURES */
+        function handleGalleryImageError(imgEl, num) {
+            imgEl.onerror = null;
+            if (imgEl.src.endsWith('.jpeg')) {
+                imgEl.src = `picture${num}.jpg`;
+            } else if (imgEl.src.endsWith('.jpg')) {
+                imgEl.src = `picture${num}.JPG`;
+            } else if (imgEl.src.endsWith('.JPG')) {
+                imgEl.src = `picture${num}.png`;
+            }
         }
 
         /* LIGHTBOX OVERLAY FUNCTIONALITY FOR OUR STORY & GALLERY PHOTOS */
@@ -2437,12 +2446,14 @@
                 const targetUrl = new URL(src, window.location.href).href;
                 
                 img.onerror = function() {
+                    this.onerror = null;
                     if (this.src.endsWith('.jpeg')) {
                         this.src = this.src.replace('.jpeg', '.jpg');
                     } else if (this.src.endsWith('.jpg')) {
                         this.src = this.src.replace('.jpg', '.JPG');
+                    } else if (this.src.endsWith('.JPG')) {
+                        this.src = this.src.replace('.JPG', '.png');
                     }
-                    this.onerror = null;
                 };
 
                 img.src = targetUrl;
