@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -223,7 +223,6 @@
             border-radius: 8px;
         }
 
-        /* SHIFTED LOWER DOWN (top: 67%) TO SIT CLEANLY INSIDE THE WHITE FRAME */
         .second-page-embedded-content {
             position: absolute;
             top: 67%;
@@ -707,7 +706,7 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING WITH FULL MOBILE COVER BACKGROUND --- */
+        /* --- THE DAY (SCENE-DAY) REBALANCED SPACING & LAYOUT --- */
         #scene-day {
             width: 100%;
             min-height: 100vh;
@@ -718,7 +717,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            padding: 4.5rem 1.8rem 4rem 1.8rem;
+            padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -731,7 +730,7 @@
             font-size: clamp(0.85rem, 2.3vw, 1.05rem);
             color: #2D2527;
             font-weight: 400;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
@@ -742,7 +741,7 @@
             color: #1A1415;
             font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
@@ -751,7 +750,7 @@
             font-size: clamp(0.85rem, 2.2vw, 1.02rem);
             color: #3D3537;
             font-weight: 400;
-            margin-bottom: 2.8rem;
+            margin-bottom: 2.2rem;
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
@@ -762,8 +761,8 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.95);
             border-radius: 12px;
-            padding: 2rem 2.2rem;
-            margin-bottom: 2.2rem;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -775,9 +774,9 @@
         }
 
         .day-card-illustration {
-            width: 140px;
+            width: 130px;
             height: auto;
-            max-height: 110px;
+            max-height: 100px;
             object-fit: contain;
             opacity: 0.85;
             flex-shrink: 0;
@@ -790,30 +789,30 @@
 
         .day-card-venue-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            font-size: clamp(1.2rem, 3.2vw, 1.7rem);
             letter-spacing: 2px;
             color: #1A1415;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .day-card-datetime {
+            font-family: var(--font-serif);
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            letter-spacing: 1.5px;
+            color: #7D2D3E;
             font-weight: 600;
             text-transform: uppercase;
             margin-bottom: 0.4rem;
         }
 
-        .day-card-datetime {
-            font-family: var(--font-serif);
-            font-size: clamp(0.82rem, 2.2vw, 0.98rem);
-            letter-spacing: 1.5px;
-            color: #7D2D3E;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
         .day-card-description {
             font-family: var(--font-sans);
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: clamp(0.82rem, 2vw, 0.92rem);
             color: #3D3537;
             font-weight: 300;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
         .day-card-actions {
@@ -1055,7 +1054,7 @@
 
             .invite-body-paragraph {
                 font-size: 0.7rem;
-                line-height: 1.35;
+                line-height: 1.38;
                 margin-bottom: 0.25rem;
             }
 
@@ -1105,28 +1104,53 @@
                 letter-spacing: 1.5px;
             }
 
-            /* Mobile Styling for Scene-Day Background Fix */
+            /* Mobile Background Scaling Fix for Scene-Day */
             #scene-day {
-                padding: 3rem 0.8rem 2.5rem 0.8rem;
-                background-position: center center;
+                padding: 3.5rem 0.8rem 3.5rem 0.8rem;
+                background-size: contain;
+                background-position: center top;
+                background-repeat: repeat-y;
                 background-attachment: scroll;
+            }
+
+            .the-day-header-title {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+
+            .the-day-header-desc {
+                margin-bottom: 1.8rem;
             }
 
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
-                padding: 1.5rem 1rem;
+                padding: 1.4rem 1rem;
                 gap: 0.8rem;
-                background: rgba(255, 255, 255, 0.88);
+                background: rgba(255, 255, 255, 0.90);
+                margin-bottom: 1.5rem;
             }
 
             .day-card-illustration {
-                width: 100px;
-                max-height: 80px;
+                width: 90px;
+                max-height: 75px;
+            }
+
+            .day-card-venue-title {
+                font-size: 1.2rem;
+            }
+
+            .day-card-datetime {
+                font-size: 0.78rem;
             }
 
             .day-card-actions {
                 justify-content: center;
+            }
+
+            .btn-day-action {
+                font-size: 0.68rem;
+                padding: 6px 16px;
             }
 
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
@@ -1167,7 +1191,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT SHIFTED LOWER) -->
+    <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- 2ndpage.jpg artwork restored as background card -->
@@ -1257,7 +1281,7 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN (VISIBLE BACKGROUND.JPG ON MOBILE) -->
+        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN -->
         <section class="stage hidden" id="scene-menu">
             <div>
                 <h2 class="chapters-main-title">OUR WEDDING<br>CHAPTERS</h2>
@@ -1285,7 +1309,7 @@
             </nav>
         </section>
 
-        <!-- 5. THE DAY (FULL COVER BACKGROUND ON MOBILE & TRANSLUCENT CARDS) -->
+        <!-- 5. THE DAY (REBALANCED SPACING & SCALED BACKGROUND) -->
         <section class="stage hidden" id="scene-day">
             <div>
                 <p class="the-day-header-subtitle">A day we will always remember.</p>
@@ -1338,7 +1362,7 @@
             <!-- HIDDEN PROGRAM FLOW POPUP CONTAINER -->
             <div id="program-flow-content" style="display: none; text-align: left; margin: 0 auto 2rem auto; max-width: 800px;" class="unfold-card"></div>
 
-            <div style="text-align: center; margin-top: 2rem;">
+            <div style="text-align: center; margin-top: 1.5rem;">
                 <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← BACK TO CHAPTERS</button>
             </div>
         </section>
