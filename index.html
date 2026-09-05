@@ -673,7 +673,7 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING WITH LEFT-ALIGNED BUTTONS --- */
+        /* --- THE DAY (SCENE-DAY) STYLING --- */
         #scene-day {
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -775,7 +775,6 @@
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
-        /* LEFT-ALIGNED ACTION BUTTONS MATCHING VENUE TEXT ON DESKTOP */
         .day-card-actions {
             display: flex;
             align-items: center;
@@ -785,7 +784,7 @@
             width: 100%;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -1053,6 +1052,75 @@
             font-weight: 500;
         }
 
+        /* --- GALLERY MASONRY STYLING & 50% HOVER DIMMING --- */
+        #scene-gallery {
+            padding: 5rem 1.8rem 5rem 1.8rem;
+            text-align: center;
+        }
+
+        .gallery-title-wrapper {
+            margin-bottom: 2.5rem;
+        }
+
+        .gallery-masonry-grid {
+            column-count: 3;
+            column-gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 2.5rem auto;
+            text-align: left;
+        }
+
+        .gallery-masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.20);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 25px rgba(185, 165, 160, 0.15);
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery-masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        /* HOVER EFFECT: ELEVATE HOVERED IMAGE, DIM NEIGHBORS TO 50% */
+        .gallery-masonry-grid:hover .gallery-masonry-item {
+            opacity: 0.5;
+        }
+
+        .gallery-masonry-grid .gallery-masonry-item:hover {
+            opacity: 1 !important;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(173, 83, 98, 0.25), 0 0 25px var(--peony-glow);
+            z-index: 10;
+        }
+
+        .gallery-masonry-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ASYMMETRICAL PROPORTIONAL HEIGHTS */
+        .gallery-masonry-item.portrait img { aspect-ratio: 3/4; }
+        .gallery-masonry-item.landscape img { aspect-ratio: 4/3; }
+        .gallery-masonry-item.square img { aspect-ratio: 1/1; }
+
+        /* PARALLAX SCROLL-TRIGGERED REVEAL STAGGER */
+        .gallery-masonry-item:nth-child(3n+1) {
+            transform: translateY(15px);
+        }
+        .gallery-masonry-item:nth-child(3n+2) {
+            transform: translateY(-10px);
+        }
+
         /* --- PROGRAM FLOW INFOGRAPHIC MODAL STYLING --- */
         .program-modal-overlay {
             position: fixed;
@@ -1220,8 +1288,12 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(253, 244, 245, 0.95);
-            backdrop-filter: blur(10px);
+            background-image: linear-gradient(rgba(255, 253, 249, 0.40), rgba(253, 240, 244, 0.45)), url('background.jpg?v=mobile-fit');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -1239,17 +1311,24 @@
         .lightbox-content {
             max-width: 85vw;
             max-height: 80vh;
-            border: 6px solid #FFFFFF;
-            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.15), 0 0 30px var(--peony-glow);
-            border-radius: 4px;
+            border: 6px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.2), 0 0 35px var(--peony-glow);
+            border-radius: 8px;
             object-fit: contain;
+            background: rgba(255, 255, 255, 0.20);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
         }
 
         .lightbox-close {
             position: absolute;
             top: 30px;
             right: 30px;
-            color: var(--text-dark);
+            color: var(--peony-deep);
             font-size: 2.5rem;
             cursor: pointer;
             line-height: 1;
@@ -1257,7 +1336,7 @@
             user-select: none;
         }
 
-        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & SIDE-BY-SIDE DETAILS TABS --- */
         @media (max-width: 768px) {
             #scene-menu,
             #scene-day,
@@ -1438,6 +1517,13 @@
                 background: rgba(255, 255, 255, 0.20) !important;
             }
 
+            /* MOBILE GALLERY MASONRY RESPONSIVENESS */
+            .gallery-masonry-grid {
+                column-count: 2 !important;
+                column-gap: 12px !important;
+                width: 94% !important;
+            }
+
             .program-modal-container {
                 padding: 1.8rem 1rem;
             }
@@ -1469,6 +1555,12 @@
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-masonry-grid {
+                column-count: 1 !important;
+            }
         }
     </style>
 </head>
@@ -1860,11 +1952,10 @@
             </div>
         </section>
 
-        <!-- 7. DETAILS (SCENE-DETAILS WITH ELEGANT MINIMALIST 20% TRANSLUCENT TABBED PANELS) -->
+        <!-- 7. DETAILS (SCENE-DETAILS) -->
         <section class="stage hidden" id="scene-details">
             <h2 class="details-header-title">THE DETAILS</h2>
 
-            <!-- HORIZONTAL 3-TAB BAR -->
             <div class="details-tab-bar">
                 <button class="details-tab-btn active-tab" onclick="switchDetailsTab('dress-code', this)">
                     👗 DRESS CODE
@@ -1877,14 +1968,11 @@
                 </button>
             </div>
 
-            <!-- SINGLE TRANSLUCENT CONTENT PANEL CONTAINER (20% OPACITY) -->
             <div class="details-panel-card">
-                <!-- TAB 1: DRESS CODE -->
                 <div class="details-tab-content active-content" id="tab-dress-code">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);" id="dress-code-title">BLACK & WHITE</h3>
                     <p style="font-size: 0.88rem; color: var(--peony-deep); font-weight: 600; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
                     
-                    <!-- ELEGANT COLOR SWATCHES -->
                     <div class="dress-code-swatch-wrapper">
                         <div class="dress-swatch-item">
                             <div class="swatch-circle swatch-white"></div>
@@ -1902,7 +1990,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: REGISTRY & GIFTS -->
                 <div class="details-tab-content" id="tab-registry">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">REGISTRY & GIFTS</h3>
                     <p style="font-size: 0.88rem; line-height: 1.7; color: #1A1415; margin-bottom: 1.5rem; font-weight: 400; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">
@@ -1916,7 +2003,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: FAQs -->
                 <div class="details-tab-content" id="tab-faq">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">FREQUENTLY ASKED QUESTIONS</h3>
                     <div id="faq-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
@@ -1928,24 +2014,24 @@
             </div>
         </section>
 
-        <!-- GALLERY -->
+        <!-- 8. GALLERY (ASYMMETRICAL MASONRY GRID FEATURING PHOTO11 TO PHOTO20) -->
         <section class="stage hidden" id="scene-gallery">
-            <h2 class="chapter-title">MOMENTS ALONG THE WAY</h2>
-            <p style="color: var(--champagne-gold); font-size: 0.85rem; letter-spacing: 1.5px;">
-                OUR FAVORITE MEMORIES
-            </p>
+            <div class="gallery-title-wrapper">
+                <h2 class="the-day-header-title">MOMENTS ALONG THE WAY</h2>
+                <p class="the-day-header-subtitle" style="letter-spacing: 2px;">OUR FAVORITE MEMORIES</p>
+            </div>
 
-            <div class="gallery-envelope-container" id="gallery-container"></div>
+            <div class="gallery-masonry-grid" id="gallery-container"></div>
 
-            <button class="btn-day-action" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
-                ← Back to Chapters
+            <button class="btn-day-action" onclick="scrollToSection('scene-menu')" style="margin-top: 1rem;">
+                ← BACK TO CHAPTERS
             </button>
         </section>
 
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VESAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
@@ -2054,9 +2140,10 @@
             }
         };
 
+        /* GALLERY ASYMMETRICAL MASONRY IMAGES: PHOTO11.JPEG TO PHOTO20.JPEG */
         const galleryImages = [
-            "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg",
-            "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
+            "photo11.jpeg", "photo12.jpeg", "photo13.jpeg", "photo14.jpeg", "photo15.jpeg",
+            "photo16.jpeg", "photo17.jpeg", "photo18.jpeg", "photo19.jpeg", "photo20.jpeg"
         ];
 
         const entourageData = [
@@ -2327,13 +2414,16 @@
             `).join('');
         }
 
+        /* RENDERS PHOTO11.JPEG TO PHOTO20.JPEG IN ASYMMETRICAL MASONRY GRID */
         function renderGallery() {
             const container = document.getElementById('gallery-container');
+            const aspectRatios = ['portrait', 'landscape', 'square', 'portrait', 'square', 'landscape', 'portrait', 'square', 'portrait', 'landscape'];
+            
             container.innerHTML = galleryImages.map((src, idx) => {
-                const randomRot = (Math.random() * 12 - 6).toFixed(1);
+                const ratioClass = aspectRatios[idx % aspectRatios.length];
                 return `
-                    <div class="photo-card" style="--r: ${randomRot};" onclick="openLightbox('${src}')">
-                        <img src="${src}" alt="Gallery photo ${idx + 1}" onerror="this.src='https://via.placeholder.com/150?text=Photo+${idx+1}'">
+                    <div class="gallery-masonry-item ${ratioClass}" onclick="openLightbox('${src}')">
+                        <img src="${src}" alt="Gallery Photo ${idx + 11}" onerror="this.onerror=null; if(this.src.endsWith('.jpeg')){this.src='photo${idx+11}.jpg';} else if(this.src.endsWith('.jpg')){this.src='photo${idx+11}.JPG';}">
                     </div>
                 `;
             }).join('');
@@ -2347,10 +2437,10 @@
                 const targetUrl = new URL(src, window.location.href).href;
                 
                 img.onerror = function() {
-                    if (this.src.endsWith('.jpg')) {
-                        this.src = this.src.replace('.jpg', '.jpeg');
-                    } else if (this.src.endsWith('.jpeg')) {
+                    if (this.src.endsWith('.jpeg')) {
                         this.src = this.src.replace('.jpeg', '.jpg');
+                    } else if (this.src.endsWith('.jpg')) {
+                        this.src = this.src.replace('.jpg', '.JPG');
                     }
                     this.onerror = null;
                 };
