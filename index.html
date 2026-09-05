@@ -127,7 +127,7 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -144,7 +144,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: opacity 0.6s ease, transform 0.4s ease;
+            perspective: 1000px;
+            transition: opacity 1.2s ease, transform 0.6s ease;
         }
 
         .png-envelope-img {
@@ -157,9 +158,28 @@
             user-select: none;
         }
 
+        /* DYNAMIC FLAP ANIMATION LAYER */
+        .envelope-flap {
+            position: absolute;
+            top: 18%;
+            left: 10%;
+            width: 80%;
+            height: 32%;
+            background: #f3d4d4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 24;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        .png-envelope-container.open-flap .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
         .png-envelope-container.opening {
             opacity: 0 !important;
-            transition: opacity 0.6s ease !important;
+            transition: opacity 1.2s ease !important;
         }
 
         .envelope-text-wrapper {
@@ -178,6 +198,10 @@
             box-shadow: none !important;
             pointer-events: auto;
             transition: opacity 0.6s ease;
+        }
+
+        .png-envelope-container.open-flap .envelope-text-wrapper {
+            opacity: 0;
         }
 
         .envelope-caption-title {
@@ -246,7 +270,7 @@
             background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s ease;
+            transition: opacity 1.5s ease;
             padding: 0.8rem;
             overflow: hidden;
         }
@@ -1072,6 +1096,9 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <!-- 3D FLAP LAYER FOR OPENING ANIMATION -->
+            <div class="envelope-flap" id="envelope-flap-el"></div>
+
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
 
             <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
@@ -1607,13 +1634,14 @@
             });
         }
 
-        /* 1. ENVELOPE CLICK -> STARTS SONG.MP3 IMMEDIATELY & DIRECTS TO ELENA & ADRIAN PAGE */
+        /* 1. ENVELOPE CLICK -> OPENS FLAP FIRST, FADES OUT ENVELOPE, AND FADES IN 2ND PAGE */
         function openEnvelopeAndStartVideo(event) {
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
 
-            pngEnv.classList.add('opening');
+            // Trigger Flap Flip
+            pngEnv.classList.add('open-flap');
 
             if (bgMusic) {
                 bgMusic.currentTime = 0;
@@ -1621,13 +1649,12 @@
                 bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
+            // Step 1: Allow flap to flip open
             setTimeout(() => {
+                // Step 2: Fade in 2nd page while envelope screen fades out
+                proceedToCordiallyInvitedSeamless();
                 gateway.classList.add('fade-out');
-
-                setTimeout(() => {
-                    proceedToCordiallyInvitedSeamless();
-                }, 200);
-            }, 400);
+            }, 700);
         }
 
         /* REVEALS ELENA & ADRIAN PAGE DIRECTLY */
