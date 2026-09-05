@@ -34,7 +34,7 @@
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
-            --envelope-flap-bg: #F8B0BD;
+            --envelope-flap-bg: linear-gradient(180deg, #F8B0BD 0%, #F5ACB9 100%);
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -127,7 +127,7 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.3s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -145,11 +145,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: opacity 0.6s ease, transform 0.4s ease;
-        }
-
-        .png-envelope-container:hover {
-            transform: scale(1.015);
+            perspective: 1200px;
         }
 
         .png-envelope-img {
@@ -164,7 +160,28 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (UPDATED ELEGANT TEXT CARD) --- */
+        /* SIDE-BY-SIDE ALIGNED ANIMATED FLAP */
+        .envelope-flap-overlay {
+            position: absolute;
+            top: 4.8%;
+            left: 9.15%;
+            width: 81.7%;
+            height: 49.5%;
+            background: var(--envelope-flap-bg);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 24;
+            box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* FLAP SWINGS OPEN ON CLICK */
+        .png-envelope-container.open-flap .envelope-flap-overlay {
+            transform: rotateX(-180deg);
+            z-index: 5;
+        }
+
+        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -175,18 +192,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--cream-bg);
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.85) 0%, rgba(253, 240, 244, 0.95) 100%);
+            background-color: transparent;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.0s ease;
-            padding: 1rem;
+            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 1.3s ease;
+            padding: 0.8rem;
             overflow: hidden;
         }
 
         #scene-invite-card.active-overlay {
             opacity: 1 !important;
             pointer-events: auto !important;
+            background-color: var(--cream-bg);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
         }
 
         #scene-invite-card.slide-up-out {
@@ -205,7 +223,7 @@
             justify-content: center;
             text-align: center;
             background: #FFFFFF;
-            padding: 3rem 2rem;
+            padding: 3.2rem 2rem;
             border-radius: 12px;
             border: 1px solid rgba(255, 183, 206, 0.45);
             box-shadow: 0 20px 50px rgba(173, 83, 98, 0.12), 0 0 35px var(--peony-glow);
@@ -231,7 +249,7 @@
 
         .invite-body-paragraph {
             font-family: var(--font-sans);
-            font-size: clamp(0.88rem, 2.3vw, 0.98rem);
+            font-size: clamp(0.9rem, 2.4vw, 1rem);
             color: #4A4446;
             line-height: 1.75;
             font-weight: 300;
@@ -974,7 +992,7 @@
             }
 
             .invite-body-paragraph {
-                font-size: 0.85rem;
+                font-size: 0.88rem;
                 line-height: 1.65;
             }
 
@@ -1024,6 +1042,11 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.JPG ARTWORK -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            
+            <!-- OVERLAY FLAP MATCHING ENVELOPE.JPG SLOPING PINK FLAP -->
+            <div class="envelope-flap-overlay"></div>
+
+            <!-- EXACT ENVELOPE ARTWORK -->
             <img src="envelope.jpg" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
         </div>
     </div>
@@ -1044,21 +1067,16 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (UPDATED CUSTOM MESSAGE CARD) -->
+    <!-- 2. INVITATION LANDING OVERLAY (UPDATED SCENE 2 TEXT & BUTTON) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <h2 class="invite-headline-hey">Hey! We’re getting married!</h2>
+            <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
             
             <p class="invite-body-paragraph">
-                After all this time, it’s finally happening.
+                We’d love to celebrate with you.
             </p>
             
-            <p class="invite-body-paragraph">
-                We’d love to celebrate with you.<br>
-                But first, come see how our story began.
-            </p>
-            
-            <p class="invite-signature-tag">— Elena & Adrian</p>
+            <p class="invite-signature-tag">— elena & adrian</p>
 
             <button class="btn-magic btn-story-link" onclick="openOurStorySection()">
                 Come see how our story began ➜
@@ -1068,7 +1086,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION (RE-BALANCED SPACING, REMOVED UNWANTED LABELS) -->
+        <!-- 3. OUR STORY SECTION (UPDATED SCENE 3 REVEAL HEADLINE TO "WE BECAME US.") -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1093,9 +1111,9 @@
                         <span>✦</span>
                     </div>
 
-                    <!-- 5. MAGICAL CLOUD MIST SLOW REVEAL HEADLINE -->
+                    <!-- 5. MAGICAL CLOUD MIST SLOW REVEAL HEADLINE (UPDATED) -->
                     <div class="cloud-headline-wrapper" id="cloud-wrapper">
-                        <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
+                        <h1 class="story-headline-married" id="magical-married-title">WE BECAME US.</h1>
                     </div>
 
                     <!-- 6. HEART FLOURISH DIVIDER -->
@@ -1551,10 +1569,14 @@
             });
         }
 
-        /* 1. ENVELOPE CLICK -> REVEALS 2ND PAGE AND FADES OUT GATEWAY SCREEN */
+        /* 1. ENVELOPE CLICK -> CONCURRENT FLAP FLIP, ENVELOPE FADE-OUT, AND 2ND PAGE CARD ZOOM-OUT */
         function openEnvelopeAndStartVideo(event) {
+            const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
+
+            // Trigger Flap Flip Transition
+            pngEnv.classList.add('open-flap');
 
             if (bgMusic) {
                 bgMusic.currentTime = 0;
@@ -1562,8 +1584,9 @@
                 bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
-            gateway.classList.add('fade-out');
+            // Concurrently emerge 2nd Page card & fade gateway screen
             proceedToCordiallyInvitedSeamless();
+            gateway.classList.add('fade-out');
         }
 
         /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP / ZOOM-OUT ANIMATION */
