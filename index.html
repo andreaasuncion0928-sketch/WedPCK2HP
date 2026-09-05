@@ -69,11 +69,11 @@
             scroll-behavior: smooth;
         }
 
-        /* --- STRICT NO-SLICED-WORDS GLOBAL WRAPPING --- */
+        /* --- SAFE NATURAL WORD WRAPPING --- */
         h1, h2, h3, h4, h5, h6, p, span, a, button, div, label {
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
+            word-break: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
             hyphens: none !important;
             -webkit-hyphens: none !important;
             -ms-hyphens: none !important;
@@ -375,8 +375,6 @@
             margin: 0 auto 2.2rem auto;
             font-weight: 300;
             letter-spacing: 0.2px;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
         }
 
         .story-and-now-label {
@@ -416,7 +414,7 @@
         .cloud-headline-wrapper {
             position: relative;
             display: inline-block;
-            padding: 10px 15px;
+            padding: 8px 12px;
             margin-bottom: 2rem;
             max-width: 100%;
         }
@@ -473,8 +471,8 @@
 
         .story-headline-married {
             font-family: var(--font-serif);
-            font-size: clamp(1.25rem, 4.2vw, 2.2rem);
-            letter-spacing: clamp(1px, 0.8vw, 4px);
+            font-size: clamp(1.1rem, 3.8vw, 2.2rem);
+            letter-spacing: clamp(1px, 0.5vw, 3px);
             color: var(--peony-deep);
             font-weight: 600;
             line-height: 1.35;
@@ -483,10 +481,12 @@
             display: inline-block;
             position: relative;
             z-index: 3;
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            white-space: normal;
+            max-width: 100%;
+        }
+
+        .story-headline-married .story-word {
+            display: inline-block;
+            white-space: nowrap;
         }
 
         .story-headline-married .story-glyph {
@@ -500,7 +500,6 @@
                         filter 2.5s ease, 
                         transform 2.5s cubic-bezier(0.16, 1, 0.3, 1),
                         text-shadow 2.5s ease;
-            white-space: pre;
         }
 
         .story-headline-married .story-glyph.magical-appear {
@@ -608,7 +607,6 @@
             margin-top: -0.2rem;
             margin-bottom: 1rem;
             opacity: 0.8;
-            word-break: keep-all !important;
         }
 
         .story-text-group {
@@ -647,10 +645,6 @@
             text-transform: uppercase;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            white-space: normal;
         }
 
         .chapters-sub-title {
@@ -661,9 +655,6 @@
             text-transform: uppercase;
             font-weight: 400;
             margin-bottom: 2.5rem;
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
         }
 
         /* COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR */
@@ -711,7 +702,6 @@
             opacity: 0.85;
             text-transform: uppercase;
             font-weight: 500;
-            word-break: keep-all !important;
         }
 
         /* CHAPTER NAVIGATION TILES WITH UN-SLICED TEXT WRAPPING */
@@ -817,10 +807,6 @@
             margin-bottom: 6px;
             line-height: 1.25;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            white-space: normal;
         }
 
         .nav-card p {
@@ -830,10 +816,6 @@
             line-height: 1.35;
             font-weight: 500;
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
-            word-break: keep-all !important;
-            word-wrap: normal !important;
-            overflow-wrap: normal !important;
-            white-space: normal;
         }
 
         .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('photo11.jpg'), url('Photo1.jpeg'), url('photo1.jpg'); }
@@ -860,7 +842,6 @@
             color: var(--text-dark);
             margin-bottom: 0.5rem;
             font-weight: 600;
-            word-break: keep-all !important;
         }
 
         .btn-magic {
@@ -880,7 +861,6 @@
             text-decoration: none;
             box-shadow: 0 4px 15px var(--peony-glow);
             border-radius: 30px;
-            word-break: keep-all !important;
         }
 
         .btn-magic:hover {
@@ -1020,11 +1000,26 @@
             transform: translateY(0);
         }
 
-        /* --- MOBILE ENHARCED VISUAL ZOOM & WRAPPING FIXES --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & WRAPPING FIXES --- */
         @media (max-width: 600px) {
+            .story-editorial-card {
+                padding: 2.2rem 1rem 2rem 1rem !important;
+            }
             .chapter-container { padding: 2rem 1rem; }
             .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
             .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
+
+            /* Mobile Heading Optimization to prevent "MARRIED" slicing */
+            .story-headline-married {
+                font-size: clamp(0.95rem, 4.8vw, 1.4rem);
+                letter-spacing: 1px;
+                line-height: 1.4;
+            }
+
+            .cloud-headline-wrapper {
+                padding: 4px 6px;
+                margin-bottom: 1.5rem;
+            }
 
             /* Enlarged Mobile Intro Envelope */
             .png-envelope-container { 
@@ -1125,7 +1120,7 @@
                 
                 <div class="story-text-group">
                     <!-- 1. HEADER: OUR STORY -->
-                    <h2 class="story-header-title">O U R   S T O R Y</h2>
+                    <h2 class="story-header-title">O U R    S T O R Y</h2>
                     <div class="story-spark-divider">
                         <span>✦</span>
                     </div>
@@ -1138,8 +1133,8 @@
                         We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
                     </p>
 
-                    <!-- 4. "A N D   N O W ," -->
-                    <p class="story-and-now-label">A N D   N O W ,</p>
+                    <!-- 4. "A N D    N O W ," -->
+                    <p class="story-and-now-label">A N D    N O W ,</p>
                     <div class="story-spark-divider-small">
                         <span>✦</span>
                     </div>
@@ -1186,7 +1181,7 @@
 
         <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (HIDDEN INITIALLY) -->
         <section class="stage hidden" id="scene-menu">
-            <h2 class="chapters-main-title">W E D D I N G   C H A P T E R S</h2>
+            <h2 class="chapters-main-title">W E D D I N G    C H A P T E R S</h2>
             <p class="chapters-sub-title">
                 ELENA & ADRIAN — 31 · 01 · 2028
             </p>
@@ -1567,20 +1562,35 @@
             }
         });
 
-        /* PREPARES INDIVIDUAL LETTER SPANS FOR MAGICAL TEXT REVEAL */
+        /* PREPARES INDIVIDUAL LETTER SPANS FOR MAGICAL TEXT REVEAL WITHOUT SLICING WORDS */
         function prepareMagicalHeadlineText() {
             const headlineEl = document.getElementById('magical-married-title');
             if (!headlineEl) return;
 
             const text = headlineEl.textContent.trim();
+            const words = text.split(' ');
             headlineEl.innerHTML = '';
 
-            for (let char of text) {
-                const span = document.createElement('span');
-                span.className = 'story-glyph';
-                span.textContent = char;
-                headlineEl.appendChild(span);
-            }
+            words.forEach((word, wordIdx) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'story-word';
+
+                for (let char of word) {
+                    const charSpan = document.createElement('span');
+                    charSpan.className = 'story-glyph';
+                    charSpan.textContent = char;
+                    wordSpan.appendChild(charSpan);
+                }
+
+                headlineEl.appendChild(wordSpan);
+
+                if (wordIdx < words.length - 1) {
+                    const spaceSpan = document.createElement('span');
+                    spaceSpan.className = 'story-glyph';
+                    spaceSpan.innerHTML = '&nbsp;';
+                    headlineEl.appendChild(spaceSpan);
+                }
+            });
         }
 
         /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE CLOUD MIST MAGICAL REVEAL */
