@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -223,7 +223,6 @@
             border-radius: 8px;
         }
 
-        /* SHIFTED LOWER DOWN (top: 67%) TO SIT CLEANLY INSIDE THE WHITE FRAME */
         .second-page-embedded-content {
             position: absolute;
             top: 67%;
@@ -605,211 +604,100 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING (FEATURING HIGH VISIBILITY BACKGROUND.JPG COVER) --- */
+        /* --- WEDDING CHAPTERS STYLING RE-LAYOUTED & ALIGNED TO SCREENSHOT --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
             text-align: center;
             position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.45), rgba(253, 240, 244, 0.50)), url('background.jpg');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.42), rgba(253, 240, 244, 0.48)), url('background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 12px;
-            padding: 3rem 1.5rem;
+            padding: 4rem 2rem 3.5rem 2rem;
             box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
             border: 1px solid rgba(255, 183, 206, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 520px;
         }
 
         .chapters-main-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 4.5vw, 2.6rem);
-            letter-spacing: clamp(2px, 1.2vw, 6px);
-            color: #2C2527;
+            font-size: clamp(2rem, 5.8vw, 3.6rem);
+            letter-spacing: clamp(4px, 1.5vw, 10px);
+            color: #0E0B0C;
             text-transform: uppercase;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-top: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .chapters-sub-title {
-            font-family: var(--font-sans);
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
-            letter-spacing: 2.5px;
+            font-family: var(--font-serif);
+            font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+            letter-spacing: 4px;
             color: var(--champagne-gold);
             text-transform: uppercase;
             font-weight: 500;
-            margin-bottom: 2.5rem;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.2rem;
         }
 
-        /* COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 0 auto 3rem auto;
-            width: 100%;
-            max-width: 520px;
-            flex-wrap: nowrap;
-        }
-
-        .countdown-box {
-            flex: 1 1 0;
-            height: 85px;
-            min-width: 70px;
-            background: rgba(248, 176, 189, 0.92) !important;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 6px 18px rgba(180, 160, 155, 0.22),
-                inset 0 1px 1px rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(226, 157, 167, 0.35);
-            padding: 6px;
-        }
-
-        .countdown-num {
-            font-family: var(--font-serif);
-            font-size: 1.85rem;
-            font-weight: 600;
-            color: var(--peony-deep);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .countdown-label {
+        /* INLINE ELEGANT TIMER MATCHING SCREENSHOT */
+        .inline-countdown-timer {
             font-family: var(--font-sans);
-            font-size: 0.6rem;
-            letter-spacing: 1.8px;
-            color: var(--peony-deep);
-            opacity: 0.85;
+            font-size: clamp(1.05rem, 3.2vw, 1.7rem);
+            font-weight: 300;
+            color: #221D1E;
+            letter-spacing: 0.5px;
+            margin-bottom: 3.5rem;
+        }
+
+        .inline-countdown-timer span {
+            font-weight: 400;
+        }
+
+        /* MINIMALIST BOTTOM NAVIGATION BAR MATCHING SCREENSHOT */
+        .nav-chapters-inline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: clamp(12px, 2.5vw, 24px);
+            width: 100%;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .nav-item-link {
+            font-family: var(--font-serif);
+            font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+            letter-spacing: 3px;
+            color: #1A1415;
             text-transform: uppercase;
             font-weight: 500;
-        }
-
-        /* CHAPTER NAVIGATION TILES WITH UN-SLICED TEXT WRAPPING */
-        .nav-chapters {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            width: 100%;
-            margin-top: 1rem;
-            overflow-x: auto;
-            padding: 15px 10px 30px 10px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-chapters::-webkit-scrollbar {
-            display: none;
-        }
-        .nav-chapters {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .nav-card {
-            flex: 0 0 180px;
-            min-width: 180px;
-            height: 165px;
-            scroll-snap-align: center;
-            border-radius: 16px;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 0.6rem;
-            text-align: center;
-            box-shadow: 
-                10px 15px 25px rgba(185, 165, 160, 0.28),
-                -8px -8px 20px #FFFFFF,
-                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(235, 220, 215, 0.8);
-            transition: all 0.4s var(--transition-slow);
-            background-color: #F3ECE6;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
         }
 
-        .nav-card-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.50;
-            transition: transform 0.6s var(--transition-slow), opacity 0.4s ease;
-            z-index: 1;
+        .nav-item-link:hover {
+            color: var(--peony-deep);
+            transform: translateY(-1px);
         }
 
-        .nav-card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(250, 245, 240, 0.82) 0%, rgba(253, 240, 244, 0.76) 100%);
-            z-index: 2;
-            transition: background 0.4s ease;
+        .nav-item-divider {
+            color: #C2A5A8;
+            font-weight: 300;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            user-select: none;
         }
-
-        .nav-card-content {
-            position: relative;
-            z-index: 3;
-            width: 100%;
-            min-width: 0;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 
-                14px 22px 35px rgba(185, 165, 160, 0.35),
-                -10px -10px 25px #FFFFFF,
-                0 0 20px var(--peony-glow);
-        }
-
-        .nav-card:hover .nav-card-bg {
-            transform: scale(1.08);
-            opacity: 0.60;
-        }
-
-        .nav-card:hover .nav-card-overlay {
-            background: linear-gradient(135deg, rgba(255, 250, 245, 0.78) 0%, rgba(255, 240, 244, 0.70) 100%);
-        }
-
-        .nav-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.05rem;
-            letter-spacing: 1.5px;
-            color: #1A1415 !important;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            line-height: 1.25;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
-        }
-
-        .nav-card p {
-            font-family: var(--font-sans);
-            font-size: 0.7rem;
-            color: #2C2527 !important;
-            line-height: 1.35;
-            font-weight: 500;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 255, 255, 0.9);
-        }
-
-        .tile-bg-day { background-image: url('Photo11.jpeg'), url('./Photo11.jpeg'), url('Photo11.jpg'), url('photo11.jpg'), url('Photo1.jpeg'), url('photo1.jpg'); }
-        .tile-bg-entourage { background-image: url('Photo12.jpeg'), url('./Photo12.jpeg'), url('Photo12.jpg'), url('photo12.jpg'), url('Photo2.jpeg'), url('photo2.jpg'); }
-        .tile-bg-details { background-image: url('Photo13.jpeg'), url('./Photo13.jpeg'), url('Photo13.jpg'), url('photo13.jpg'), url('Photo3.jpeg'), url('photo3.jpg'); }
-        .tile-bg-gallery { background-image: url('Photo14.jpeg'), url('./Photo14.jpeg'), url('Photo14.jpg'), url('photo14.jpg'), url('Photo4.jpeg'), url('photo4.jpg'); }
-        .tile-bg-rsvp { background-image: url('Photo15.jpeg'), url('./Photo15.jpeg'), url('Photo15.jpg'), url('photo15.jpg'), url('Photo5.jpeg'), url('photo5.jpg'); }
 
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
@@ -1041,22 +929,27 @@
                 margin-bottom: 1.5rem;
             }
 
-            .chapters-main-title { font-size: 1.5rem; letter-spacing: 3px; }
-            .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
-            .countdown-container { gap: 8px; margin-bottom: 2rem; max-width: 100%; }
-            .countdown-box { height: 75px; min-width: 55px; border-radius: 8px; padding: 4px; }
-            .countdown-num { font-size: 1.35rem; }
-            .countdown-label { font-size: 0.5rem; letter-spacing: 1px; }
-            
-            .nav-card { 
-                flex: 0 0 160px; 
-                min-width: 160px; 
-                height: 155px; 
-                padding: 0.8rem 0.4rem; 
-                border-radius: 14px; 
+            #scene-menu {
+                padding: 2.5rem 1rem 2rem 1rem;
+                min-height: 460px;
             }
-            .nav-card h3 { font-size: 0.92rem; letter-spacing: 1px; }
-            .nav-card p { font-size: 0.65rem; }
+
+            .chapters-main-title { font-size: 1.8rem; letter-spacing: 3px; }
+            .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
+            
+            .inline-countdown-timer {
+                font-size: 1rem;
+                margin-bottom: 2.2rem;
+            }
+
+            .nav-chapters-inline {
+                gap: 8px 10px;
+            }
+
+            .nav-item-link {
+                font-size: 0.78rem;
+                letter-spacing: 1.5px;
+            }
 
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
             .story-script-heading { font-size: 1.5rem; }
@@ -1121,7 +1014,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION (UPDATED REVEAL HEADLINE TO "WE'RE GETTING MARRIED.") -->
+        <!-- 3. OUR STORY SECTION -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1186,67 +1079,31 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (HIDDEN INITIALLY, FEATURING BACKGROUND.JPG) -->
+        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN (RE-LAYOUTED & ALIGNED TO SCREENSHOT) -->
         <section class="stage hidden" id="scene-menu">
-            <h2 class="chapters-main-title">W E D D I N G    C H A P T E R S</h2>
-            <p class="chapters-sub-title">
-                ELENA & ADRIAN — 31 · 01 · 2028
-            </p>
+            <div>
+                <h2 class="chapters-main-title">OUR WEDDING<br>CHAPTERS</h2>
+                <p class="chapters-sub-title">
+                    ELENA & ADRIAN — 31 . 01 . 2028
+                </p>
 
-            <!-- COMPACT COUNTDOWN TILES MATCHING ENVELOPE FLAP COLOR -->
-            <div class="countdown-container" id="countdown-odometer">
-                <div class="countdown-box"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
-                <div class="countdown-box"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
-                <div class="countdown-box"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-label">Mins</div></div>
-                <div class="countdown-box"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Secs</div></div>
+                <!-- INLINE ELEGANT COUNTDOWN TIMER MATCHING SCREENSHOT -->
+                <div class="inline-countdown-timer" id="inline-countdown-display">
+                    <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
+                </div>
             </div>
 
-            <!-- FLOATING CHAPTER TILES WITH 50% OPACITY PHOTO BACKGROUNDS -->
-            <nav class="nav-chapters">
-                <div class="nav-card" onclick="scrollToSection('scene-day')">
-                    <div class="nav-card-bg tile-bg-day"></div>
-                    <div class="nav-card-overlay"></div>
-                    <div class="nav-card-content">
-                        <h3>THE DAY</h3>
-                        <p>When & where to find us</p>
-                    </div>
-                </div>
-
-                <div class="nav-card" onclick="scrollToSection('scene-entourage')">
-                    <div class="nav-card-bg tile-bg-entourage"></div>
-                    <div class="nav-card-overlay"></div>
-                    <div class="nav-card-content">
-                        <h3>THE ENTOURAGE</h3>
-                        <p>Those who walk beside us</p>
-                    </div>
-                </div>
-
-                <div class="nav-card" onclick="scrollToSection('scene-details')">
-                    <div class="nav-card-bg tile-bg-details"></div>
-                    <div class="nav-card-overlay"></div>
-                    <div class="nav-card-content">
-                        <h3>DETAILS</h3>
-                        <p>Everything you need to know</p>
-                    </div>
-                </div>
-
-                <div class="nav-card" onclick="scrollToSection('scene-gallery')">
-                    <div class="nav-card-bg tile-bg-gallery"></div>
-                    <div class="nav-card-overlay"></div>
-                    <div class="nav-card-content">
-                        <h3>GALLERY</h3>
-                        <p>The moments we've kept</p>
-                    </div>
-                </div>
-
-                <div class="nav-card" onclick="scrollToSection('scene-rsvp')">
-                    <div class="nav-card-bg tile-bg-rsvp"></div>
-                    <div class="nav-card-overlay"></div>
-                    <div class="nav-card-content">
-                        <h3>RSVP</h3>
-                        <p>Save your seat</p>
-                    </div>
-                </div>
+            <!-- MINIMALIST INLINE NAVIGATION BAR MATCHING SCREENSHOT -->
+            <nav class="nav-chapters-inline">
+                <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
+                <span class="nav-item-divider">|</span>
+                <a class="nav-item-link" onclick="scrollToSection('scene-entourage')">THE ENTOURAGE</a>
+                <span class="nav-item-divider">|</span>
+                <a class="nav-item-link" onclick="scrollToSection('scene-details')">DETAILS</a>
+                <span class="nav-item-divider">|</span>
+                <a class="nav-item-link" onclick="scrollToSection('scene-gallery')">GALLERY</a>
+                <span class="nav-item-divider">|</span>
+                <a class="nav-item-link" onclick="scrollToSection('scene-rsvp')">RSVP</a>
             </nav>
         </section>
 
@@ -1402,7 +1259,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
@@ -1707,7 +1564,7 @@
             }
         }
 
-        /* ODOMETER COUNTDOWN */
+        /* INLINE ELEGANT COUNTDOWN TIMER LOGIC */
         function startCountdown() {
             const targetDate = new Date("January 31, 2028 15:00:00").getTime();
 
@@ -1721,10 +1578,10 @@
                     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-                    document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-                    document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-                    document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-                    document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+                    document.getElementById('cd-days').innerText = String(days);
+                    document.getElementById('cd-hours').innerText = String(hours);
+                    document.getElementById('cd-mins').innerText = String(mins);
+                    document.getElementById('cd-secs').innerText = String(secs);
                 }
             }, 1000);
         }
