@@ -34,7 +34,7 @@
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
-            --envelope-flap-bg: linear-gradient(180deg, #F8B0BD 0%, #F5ACB9 100%);
+            --envelope-flap-bg: #F8B0BD;
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -127,7 +127,7 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.3s ease;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -145,7 +145,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            perspective: 1200px;
+            transition: opacity 0.6s ease, transform 0.4s ease;
+        }
+
+        .png-envelope-container:hover {
+            transform: scale(1.015);
         }
 
         .png-envelope-img {
@@ -160,28 +164,7 @@
             z-index: 10;
         }
 
-        /* SIDE-BY-SIDE ALIGNED ANIMATED FLAP */
-        .envelope-flap-overlay {
-            position: absolute;
-            top: 4.8%;
-            left: 9.15%;
-            width: 81.7%;
-            height: 49.5%;
-            background: var(--envelope-flap-bg);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            transform-origin: top center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 24;
-            box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        /* FLAP SWINGS OPEN ON CLICK */
-        .png-envelope-container.open-flap .envelope-flap-overlay {
-            transform: rotateX(-180deg);
-            z-index: 5;
-        }
-
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (UPDATED TEXT CONTENT) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (UPDATED ELEGANT TEXT CARD) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -192,19 +175,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: transparent;
+            background-color: var(--cream-bg);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.85) 0%, rgba(253, 240, 244, 0.95) 100%);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 1.3s ease;
-            padding: 0.8rem;
+            transition: opacity 1.0s ease;
+            padding: 1rem;
             overflow: hidden;
         }
 
         #scene-invite-card.active-overlay {
             opacity: 1 !important;
             pointer-events: auto !important;
-            background-color: var(--cream-bg);
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
         }
 
         #scene-invite-card.slide-up-out {
@@ -213,84 +195,62 @@
             display: none !important;
         }
 
-        /* CONCURRENT ZOOM-OUT / EMERGE ANIMATION FOR 2ND PAGE */
         .second-page-card-container {
             position: relative;
-            max-width: 760px;
-            width: 95vw;
+            max-width: 650px;
+            width: 92vw;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
-            transform: scale(0.35) translateY(60px);
+            text-align: center;
+            background: #FFFFFF;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 183, 206, 0.45);
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.12), 0 0 35px var(--peony-glow);
+            transform: translateY(20px);
             opacity: 0;
-            transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
+            transition: transform 0.8s ease, opacity 0.8s ease;
         }
 
         #scene-invite-card.active-overlay .second-page-card-container {
-            transform: scale(1) translateY(0);
+            transform: translateY(0);
             opacity: 1;
-        }
-
-        .second-page-img {
-            width: 100%;
-            height: auto;
-            max-height: 88vh;
-            object-fit: contain;
-            display: block;
-            border-radius: 12px;
-        }
-
-        /* UPDATED OVERLAY TEXT CARD STYLING */
-        .second-page-text-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 82%;
-            max-width: 520px;
-            text-align: center;
-            z-index: 25;
-            padding: 2.2rem 1.8rem;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 183, 206, 0.4);
-            box-shadow: 0 10px 30px rgba(173, 83, 98, 0.1);
         }
 
         .invite-headline-hey {
             font-family: var(--font-serif);
-            font-size: clamp(1.3rem, 3.8vw, 1.85rem);
+            font-size: clamp(1.35rem, 4vw, 1.9rem);
             color: var(--peony-deep);
             font-weight: 600;
             letter-spacing: 1.5px;
-            margin-bottom: 0.9rem;
+            margin-bottom: 1.2rem;
             text-transform: uppercase;
         }
 
         .invite-body-paragraph {
             font-family: var(--font-sans);
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: clamp(0.88rem, 2.3vw, 0.98rem);
             color: #4A4446;
-            line-height: 1.7;
+            line-height: 1.75;
             font-weight: 300;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.9rem;
         }
 
         .invite-signature-tag {
             font-family: var(--font-serif);
-            font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--peony-deep);
             font-style: italic;
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
+            margin-top: 0.6rem;
+            margin-bottom: 1.6rem;
             font-weight: 500;
         }
 
-        .btn-keep-reading {
-            margin-top: 0.2rem;
+        .btn-story-link {
             cursor: pointer;
+            margin-top: 0.4rem;
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -1003,21 +963,19 @@
             /* Mobile Envelope Responsive Scaling */
             .png-envelope-container {
                 width: 105vw;
-                transform: scale(1.08);
             }
 
-            .second-page-text-content {
-                width: 90%;
-                padding: 1.5rem 1rem;
+            .second-page-card-container {
+                padding: 2.2rem 1.2rem;
             }
 
             .invite-headline-hey {
-                font-size: 1.25rem;
+                font-size: 1.3rem;
             }
 
             .invite-body-paragraph {
-                font-size: 0.82rem;
-                line-height: 1.6;
+                font-size: 0.85rem;
+                line-height: 1.65;
             }
 
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
@@ -1031,14 +989,6 @@
                 padding: 4px 6px;
                 margin-bottom: 1.5rem;
             }
-
-            /* Enlarged Mobile 2nd Page Frame */
-            .second-page-card-container { 
-                width: 105vw; 
-            }
-            .second-page-img { max-height: 92vh; }
-
-            .hotspot-read-story { width: 180px; height: 44px; bottom: 21%; }
 
             .chapters-main-title { font-size: 1.5rem; letter-spacing: 3px; }
             .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
@@ -1071,15 +1021,10 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG ARTWORK -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.JPG ARTWORK -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            
-            <!-- OVERLAY FLAP MATCHING ENVELOPE.PNG SLOPING PINK FLAP -->
-            <div class="envelope-flap-overlay"></div>
-
-            <!-- EXACT ENVELOPE ARTWORK -->
-            <img src="envelope.png" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
+            <img src="envelope.jpg" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
         </div>
     </div>
 
@@ -1099,27 +1044,25 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING UPDATED TEXT OVER 2NDPAGE.JPG) -->
+    <!-- 2. INVITATION LANDING OVERLAY (UPDATED CUSTOM MESSAGE CARD) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <!-- Exact 2nd Page Artwork using 2ndpage.jpg -->
-            <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="second-page-img" id="second-page-img">
+            <h2 class="invite-headline-hey">Hey! We’re getting married!</h2>
+            
+            <p class="invite-body-paragraph">
+                After all this time, it’s finally happening.
+            </p>
+            
+            <p class="invite-body-paragraph">
+                We’d love to celebrate with you.<br>
+                But first, come see how our story began.
+            </p>
+            
+            <p class="invite-signature-tag">— Elena & Adrian</p>
 
-            <!-- UPDATED INTRO OVERLAY TEXT & BUTTON -->
-            <div class="second-page-text-content">
-                <h2 class="invite-headline-hey">Hey! We’re getting married!</h2>
-                <p class="invite-body-paragraph">
-                    But every wedding has a story—and ours started long before this invitation.
-                </p>
-                <p class="invite-body-paragraph">
-                    So, come on in. We’ll tell you how we met, how we got here, and where the next chapter begins.
-                </p>
-                <p class="invite-signature-tag">- elena&adrian</p>
-
-                <button class="btn-magic btn-keep-reading" onclick="openOurStorySection()">
-                    Keep reading →
-                </button>
-            </div>
+            <button class="btn-magic btn-story-link" onclick="openOurStorySection()">
+                Come see how our story began ➜
+            </button>
         </div>
     </section>
 
@@ -1550,24 +1493,14 @@
             setupDragScroll();
             prepareMagicalHeadlineText();
 
-            // Fallback for envelope.png
+            // Fallback for envelope.jpg
             const envImg = document.getElementById('envelope-main-img');
             if (envImg) {
                 envImg.onerror = function() {
-                    this.src = './envelope.png';
-                };
-            }
-
-            // Fallback for 2ndpage.jpg
-            const secondPageImg = document.getElementById('second-page-img');
-            if (secondPageImg) {
-                secondPageImg.onerror = function() {
                     if (this.src.endsWith('.jpg')) {
-                        this.src = '2ndpage.JPG';
+                        this.src = 'envelope.JPG';
                     } else if (this.src.endsWith('.JPG')) {
-                        this.src = '2ndpage.png';
-                    } else if (this.src.endsWith('.png')) {
-                        this.src = '2ndpage.PNG';
+                        this.src = 'envelope.png';
                     }
                 };
             }
@@ -1618,14 +1551,10 @@
             });
         }
 
-        /* 1. ENVELOPE CLICK -> CONCURRENT FLAP FLIP, ENVELOPE FADE-OUT, AND 2ND PAGE CARD ZOOM-OUT */
+        /* 1. ENVELOPE CLICK -> REVEALS 2ND PAGE AND FADES OUT GATEWAY SCREEN */
         function openEnvelopeAndStartVideo(event) {
-            const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
-
-            // Trigger Flap Flip Transition
-            pngEnv.classList.add('open-flap');
 
             if (bgMusic) {
                 bgMusic.currentTime = 0;
@@ -1633,9 +1562,8 @@
                 bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
-            // Concurrently emerge 2nd Page card & fade gateway screen
-            proceedToCordiallyInvitedSeamless();
             gateway.classList.add('fade-out');
+            proceedToCordiallyInvitedSeamless();
         }
 
         /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP / ZOOM-OUT ANIMATION */
