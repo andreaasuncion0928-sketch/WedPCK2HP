@@ -937,8 +937,10 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
+        /* HORIZONTAL SIDE-BY-SIDE TAB BAR */
         .details-tab-bar {
             display: flex;
+            flex-direction: row !important;
             justify-content: center;
             align-items: center;
             gap: 12px;
@@ -954,10 +956,10 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.85) !important;
             border-radius: 12px !important;
-            padding: 14px 16px !important;
+            padding: 12px 14px !important;
             font-family: var(--font-serif) !important;
-            font-size: clamp(0.78rem, 2vw, 0.95rem) !important;
-            letter-spacing: 2px !important;
+            font-size: clamp(0.75rem, 2vw, 0.95rem) !important;
+            letter-spacing: 1.5px !important;
             color: #1A1415 !important;
             font-weight: 600 !important;
             text-transform: uppercase;
@@ -967,7 +969,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
         }
 
         .details-tab-btn:hover {
@@ -1254,7 +1257,7 @@
             user-select: none;
         }
 
-        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & BACKGROUND SCALING FIXES --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & SIDE-BY-SIDE DETAILS TABS --- */
         @media (max-width: 768px) {
             #scene-menu,
             #scene-day,
@@ -1359,10 +1362,6 @@
                 letter-spacing: 3px;
             }
 
-            .the-day-header-desc {
-                margin-bottom: 1.8rem;
-            }
-
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
@@ -1376,18 +1375,6 @@
             .day-card-illustration {
                 width: 90px;
                 max-height: 75px;
-            }
-
-            .day-card-venue-title {
-                font-size: 1.2rem;
-            }
-
-            .day-card-datetime {
-                font-size: 0.78rem;
-            }
-
-            .day-card-actions {
-                justify-content: center !important;
             }
 
             #scene-entourage {
@@ -1414,43 +1401,36 @@
                 display: none;
             }
 
-            .entourage-block {
-                margin-bottom: 1.2rem;
-            }
-
-            .entourage-role-title {
-                font-size: 1.1rem;
-            }
-
-            .entourage-names-list {
-                font-size: 0.88rem;
-            }
-
             .entourage-bridesmaids-wrapper {
                 flex-direction: column;
                 gap: 0.5rem;
-                margin-top: 0.5rem;
-                padding-top: 0.8rem;
             }
 
             .entourage-lavender-sprig {
                 display: none;
             }
 
-            /* MOBILE DETAILS TAB STYLING */
+            /* COMPACT HORIZONTAL SIDE-BY-SIDE MOBILE DETAILS TABS */
             #scene-details {
-                padding: 4.5rem 0.5rem 3.5rem 0.5rem !important;
+                padding: 4rem 0.5rem 3.5rem 0.5rem !important;
             }
 
             .details-tab-bar {
-                flex-direction: column;
-                gap: 8px;
-                width: 92%;
+                flex-direction: row !important;
+                gap: 6px;
+                width: 94%;
+            }
+
+            .details-tab-btn {
+                padding: 10px 6px !important;
+                font-size: clamp(0.60rem, 2.2vw, 0.78rem) !important;
+                letter-spacing: 1px !important;
+                gap: 4px;
             }
 
             .details-panel-card {
                 padding: 1.8rem 1.2rem;
-                width: 92% !important;
+                width: 94% !important;
                 background: rgba(255, 255, 255, 0.20) !important;
             }
 
@@ -1666,6 +1646,7 @@
                     </div>
                 </div>
 
+                <!-- PREVIEW PHOTO MEMORY STACK WITH LIGHTBOX EVENT HANDLERS -->
                 <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
                     <div class="memory-stack-track" id="memory-track">
                         <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
@@ -1879,7 +1860,7 @@
         <section class="stage hidden" id="scene-details">
             <h2 class="details-header-title">THE DETAILS</h2>
 
-            <!-- HORIZONTAL 3-TAB BAR -->
+            <!-- HORIZONTAL 3-TAB BAR (SIDE-BY-SIDE ON ALL DEVICES) -->
             <div class="details-tab-bar">
                 <button class="details-tab-btn active-tab" onclick="switchDetailsTab('dress-code', this)">
                     👗 DRESS CODE
