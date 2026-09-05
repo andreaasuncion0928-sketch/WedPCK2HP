@@ -181,7 +181,7 @@
             z-index: 5;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (CONCURRENT ZOOM-OUT & EMERGE) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (UPDATED TEXT CONTENT) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -216,8 +216,8 @@
         /* CONCURRENT ZOOM-OUT / EMERGE ANIMATION FOR 2ND PAGE */
         .second-page-card-container {
             position: relative;
-            max-width: 980px;
-            width: 98vw;
+            max-width: 760px;
+            width: 95vw;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -235,29 +235,62 @@
         .second-page-img {
             width: 100%;
             height: auto;
-            max-height: 90vh;
+            max-height: 88vh;
             object-fit: contain;
             display: block;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
-        .hotspot-read-story {
+        /* UPDATED OVERLAY TEXT CARD STYLING */
+        .second-page-text-content {
             position: absolute;
-            bottom: 23%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 230px;
-            height: 52px;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 30;
-            background: rgba(255, 255, 255, 0.01);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transform: translate(-50%, -50%);
+            width: 82%;
+            max-width: 520px;
+            text-align: center;
+            z-index: 25;
+            padding: 2.2rem 1.8rem;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 183, 206, 0.4);
+            box-shadow: 0 10px 30px rgba(173, 83, 98, 0.1);
         }
 
-        .hotspot-read-story:hover {
-            background: rgba(255, 183, 206, 0.25);
-            box-shadow: 0 0 25px rgba(255, 183, 206, 0.6);
+        .invite-headline-hey {
+            font-family: var(--font-serif);
+            font-size: clamp(1.3rem, 3.8vw, 1.85rem);
+            color: var(--peony-deep);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .invite-body-paragraph {
+            font-family: var(--font-sans);
+            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            color: #4A4446;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 0.8rem;
+        }
+
+        .invite-signature-tag {
+            font-family: var(--font-serif);
+            font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+            color: var(--peony-deep);
+            font-style: italic;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .btn-keep-reading {
+            margin-top: 0.2rem;
+            cursor: pointer;
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -973,6 +1006,20 @@
                 transform: scale(1.08);
             }
 
+            .second-page-text-content {
+                width: 90%;
+                padding: 1.5rem 1rem;
+            }
+
+            .invite-headline-hey {
+                font-size: 1.25rem;
+            }
+
+            .invite-body-paragraph {
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
             .story-headline-married {
                 font-size: clamp(0.95rem, 4.8vw, 1.4rem);
@@ -1052,14 +1099,27 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG POPUP) -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING UPDATED TEXT OVER 2NDPAGE.JPG) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- Exact 2nd Page Artwork using 2ndpage.jpg -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="second-page-img" id="second-page-img">
 
-            <!-- Click Hotspot overlaying the READ OUR STORY button -->
-            <div class="hotspot-read-story" onclick="openOurStorySection()" title="Read Our Story"></div>
+            <!-- UPDATED INTRO OVERLAY TEXT & BUTTON -->
+            <div class="second-page-text-content">
+                <h2 class="invite-headline-hey">Hey! We’re getting married!</h2>
+                <p class="invite-body-paragraph">
+                    But every wedding has a story—and ours started long before this invitation.
+                </p>
+                <p class="invite-body-paragraph">
+                    So, come on in. We’ll tell you how we met, how we got here, and where the next chapter begins.
+                </p>
+                <p class="invite-signature-tag">- elena&adrian</p>
+
+                <button class="btn-magic btn-keep-reading" onclick="openOurStorySection()">
+                    Keep reading →
+                </button>
+            </div>
         </div>
     </section>
 
