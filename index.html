@@ -122,14 +122,14 @@
         #scene-rsvp {
             width: 100%;
             min-height: 100vh;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.15), rgba(253, 240, 244, 0.20)), url('background.jpg?v=fit');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.12), rgba(253, 240, 244, 0.18)), url('background.jpg?v=mobile-fit');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -313,11 +313,11 @@
             transform: translateY(-1px);
         }
 
-        /* --- GENERAL 70% TRANSLUCENT CHAPTER BOARD OVERLAY --- */
+        /* --- GENERAL 60% TRANSLUCENT CHAPTER BOARD OVERLAY --- */
         .chapter-container {
             max-width: 900px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.70) !important;
+            background: rgba(255, 255, 255, 0.60) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             color: var(--text-dark) !important;
@@ -557,41 +557,49 @@
             opacity: 0.8;
         }
 
-        /* --- WEDDING CHAPTERS STYLING MATCHING SCREENSHOT --- */
+        /* --- WEDDING CHAPTERS STYLING CENTERED WITH 60% OPACITY BOARD --- */
         #scene-menu {
-            max-width: 1000px;
-            border-radius: 12px;
-            padding: 4.5rem 2rem 3.5rem 2rem;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
-            border: 1px solid rgba(255, 183, 206, 0.4);
+            width: 100%;
+            min-height: 100vh;
+            margin: 0 auto;
+            text-align: center !important;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 520px;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1rem;
         }
 
         .chapters-board-card {
-            background: rgba(255, 255, 255, 0.70);
+            background: rgba(255, 255, 255, 0.60) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border-radius: 12px;
-            padding: 3rem 2rem;
+            border-radius: 16px;
+            padding: 3.5rem 2.5rem 3rem 2.5rem;
             border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 10px 30px rgba(185, 165, 160, 0.12);
+            box-shadow: 0 15px 45px rgba(185, 165, 160, 0.16);
             width: 100%;
             max-width: 920px;
             margin: 0 auto;
+            text-align: center !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .chapters-main-title {
             font-family: var(--font-serif);
-            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-size: clamp(2.2rem, 5.8vw, 3.6rem);
             letter-spacing: clamp(4px, 1.5vw, 12px);
             color: #0E0B0C;
             text-transform: uppercase;
-            font-weight: 400;
-            line-height: 1.15;
+            font-weight: 500;
+            line-height: 1.2;
             margin-bottom: 0.8rem;
+            text-align: center !important;
+            width: 100%;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
@@ -602,7 +610,9 @@
             color: var(--champagne-gold);
             text-transform: uppercase;
             font-weight: 600;
-            margin-bottom: 2.2rem;
+            margin-bottom: 2rem;
+            text-align: center !important;
+            width: 100%;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
@@ -612,20 +622,27 @@
             font-weight: 400;
             color: #1A1415;
             letter-spacing: 0.5px;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center !important;
+            width: 100%;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
+        }
+
+        .inline-countdown-timer span {
+            font-weight: 500;
         }
 
         .nav-chapters-inline {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center !important;
+            align-items: center !important;
             flex-wrap: wrap;
             gap: clamp(12px, 2.5vw, 24px);
             width: 100%;
             margin-top: 1rem;
-            padding-top: 1.2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(226, 157, 167, 0.4);
+            text-align: center !important;
         }
 
         .nav-item-link {
@@ -693,8 +710,9 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
+        /* 60% TRANSLUCENT CARDS FOR DAY & DETAILS */
         .day-location-card {
-            background: rgba(255, 255, 255, 0.70) !important;
+            background: rgba(255, 255, 255, 0.60) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.95);
@@ -760,7 +778,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) STYLING --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 60% OPACITY & TOP SPACING --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -799,8 +817,9 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
+        /* 60% OPACITY TRANSLUCENT CARD MATCHING DETAILS/DAY STYLES */
         .entourage-board-card {
-            background: rgba(255, 255, 255, 0.70) !important;
+            background: rgba(255, 255, 255, 0.60) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.90);
@@ -920,7 +939,7 @@
             max-width: 1100px;
             max-height: 90vh;
             overflow-y: auto;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.85), rgba(253, 240, 244, 0.88)), url('background.jpg?v=fit');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.85), rgba(253, 240, 244, 0.88)), url('background.jpg?v=mobile-fit');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -1096,7 +1115,6 @@
 
         /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & BACKGROUND SCALING FIXES --- */
         @media (max-width: 768px) {
-            /* ENSURE BACKGROUND.JPG FITS NATIVE MOBILE ASPECT RATIO */
             #scene-menu,
             #scene-day,
             #scene-entourage,
@@ -1117,6 +1135,7 @@
             .chapter-container { 
                 padding: 2rem 1rem !important;
                 width: 94% !important;
+                background: rgba(255, 255, 255, 0.60) !important;
             }
 
             .png-envelope-container {
@@ -1170,6 +1189,7 @@
             .chapters-board-card {
                 padding: 2.2rem 1rem !important;
                 width: 92% !important;
+                background: rgba(255, 255, 255, 0.60) !important;
             }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 3px; }
@@ -1207,7 +1227,7 @@
                 text-align: center;
                 padding: 1.4rem 1rem;
                 gap: 0.8rem;
-                background: rgba(255, 255, 255, 0.70) !important;
+                background: rgba(255, 255, 255, 0.60) !important;
                 margin-bottom: 1.5rem;
                 width: 92% !important;
             }
@@ -1241,7 +1261,7 @@
 
             .entourage-board-card {
                 padding: 2.2rem 1rem 1.8rem 1rem !important;
-                background: rgba(255, 255, 255, 0.70) !important;
+                background: rgba(255, 255, 255, 0.60) !important;
                 width: 92% !important;
             }
 
@@ -1439,8 +1459,10 @@
     <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
+            <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
+            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1459,7 +1481,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION -->
+        <!-- 3. OUR STORY SECTION (PHOTO CARDS FIXED TO TRIGGER LIGHTBOX OVERLAY) -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1598,7 +1620,7 @@
             </div>
         </section>
 
-        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 70% TRANSLUCENT CARD) -->
+        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 60% TRANSLUCENT CARD) -->
         <section class="stage hidden" id="scene-entourage">
             <div>
                 <p class="entourage-header-subtitle">With Our Beloved Families</p>
