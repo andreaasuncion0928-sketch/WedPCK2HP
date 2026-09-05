@@ -129,7 +129,7 @@
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (SLIDES DOWNWARD ON OPEN) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -143,10 +143,12 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            transition: opacity 1.0s ease, visibility 1.0s ease;
+            transform: translateY(0);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease, visibility 1.2s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
+            transform: translateY(100vh) !important;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -179,7 +181,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (SLIDES UPWARD CONCURRENTLY) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -219,9 +221,9 @@
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
-            transform: translateY(20px);
+            transform: translateY(80px);
             opacity: 0;
-            transition: transform 0.8s ease, opacity 0.8s ease;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.0s ease;
         }
 
         #scene-invite-card.active-overlay .second-page-card-container {
@@ -557,7 +559,7 @@
             opacity: 0.8;
         }
 
-        /* --- WEDDING CHAPTERS STYLING CENTERED WITH 60% OPACITY BOARD --- */
+        /* --- WEDDING CHAPTERS STYLING CENTERED WITH MINIMALIST THIN COUNTDOWN FONT --- */
         #scene-menu {
             width: 100%;
             min-height: 100vh;
@@ -616,12 +618,13 @@
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
+        /* THINNER, MINIMALIST COUNTDOWN TIMER FONT */
         .inline-countdown-timer {
             font-family: var(--font-sans);
             font-size: clamp(1.05rem, 3.2vw, 1.7rem);
-            font-weight: 400;
+            font-weight: 300 !important;
             color: #1A1415;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             margin-bottom: 2.5rem;
             text-align: center !important;
             width: 100%;
@@ -629,7 +632,7 @@
         }
 
         .inline-countdown-timer span {
-            font-weight: 500;
+            font-weight: 300 !important;
         }
 
         .nav-chapters-inline {
@@ -710,7 +713,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 20% OPACITY TRANSLUCENT CARDS FOR DAY LOCATION */
         .day-location-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -781,7 +783,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -820,7 +822,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 20% OPACITY TRANSLUCENT CARD */
         .entourage-board-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -1227,7 +1228,6 @@
                 margin-bottom: 1.8rem;
             }
 
-            /* 20% OPACITY FOR MOBILE DAY CARDS */
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
@@ -1255,7 +1255,6 @@
                 justify-content: center;
             }
 
-            /* 20% OPACITY FOR MOBILE ENTOURAGE CARDS */
             #scene-entourage {
                 padding: 5rem 0.5rem 3.5rem 0.5rem !important;
             }
@@ -1624,7 +1623,7 @@
             </div>
         </section>
 
-        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 20% TRANSLUCENT CARD) -->
+        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH 20% TRANSLUCENT CARD) -->
         <section class="stage hidden" id="scene-entourage">
             <div>
                 <p class="entourage-header-subtitle">With Our Beloved Families</p>
@@ -1820,7 +1819,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can'wait to celebrate with you.
+                        We can't wait to celebrate with you.
                     </p>
                 </div>
 
