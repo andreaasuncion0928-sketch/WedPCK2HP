@@ -673,7 +673,7 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING --- */
+        /* --- THE DAY (SCENE-DAY) STYLING WITH LEFT-ALIGNED BUTTONS --- */
         #scene-day {
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -775,10 +775,11 @@
             text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
+        /* LEFT-ALIGNED ACTION BUTTONS MATCHING VENUE TEXT ON DESKTOP */
         .day-card-actions {
             display: flex;
             align-items: center;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             gap: 12px;
             flex-wrap: wrap;
             width: 100%;
@@ -937,7 +938,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* HORIZONTAL SIDE-BY-SIDE TAB BAR */
         .details-tab-bar {
             display: flex;
             flex-direction: row !important;
@@ -1257,7 +1257,7 @@
             user-select: none;
         }
 
-        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & SIDE-BY-SIDE DETAILS TABS --- */
+        /* --- MOBILE ENHANCED RESPONSIVE LAYOUT --- */
         @media (max-width: 768px) {
             #scene-menu,
             #scene-day,
@@ -1375,6 +1375,10 @@
             .day-card-illustration {
                 width: 90px;
                 max-height: 75px;
+            }
+
+            .day-card-actions {
+                justify-content: center !important;
             }
 
             #scene-entourage {
@@ -1860,7 +1864,7 @@
         <section class="stage hidden" id="scene-details">
             <h2 class="details-header-title">THE DETAILS</h2>
 
-            <!-- HORIZONTAL 3-TAB BAR (SIDE-BY-SIDE ON ALL DEVICES) -->
+            <!-- HORIZONTAL 3-TAB BAR -->
             <div class="details-tab-bar">
                 <button class="details-tab-btn active-tab" onclick="switchDetailsTab('dress-code', this)">
                     👗 DRESS CODE
@@ -1941,7 +1945,7 @@
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'VESAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
