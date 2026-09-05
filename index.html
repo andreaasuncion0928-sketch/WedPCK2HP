@@ -847,6 +847,168 @@
             transform: translateY(-1px);
         }
 
+        /* --- PROGRAM FLOW INFOGRAPHIC MODAL STYLING --- */
+        .program-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 245, 247, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 1rem;
+        }
+
+        .program-modal-overlay.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .program-modal-container {
+            width: 100%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background-image: linear-gradient(rgba(255, 253, 249, 0.85), rgba(253, 240, 244, 0.88)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 183, 206, 0.6);
+            box-shadow: 0 20px 60px rgba(173, 83, 98, 0.2);
+            padding: 2.5rem 2rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .program-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: var(--peony-deep);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10001;
+            font-weight: 300;
+            transition: transform 0.2s ease;
+        }
+
+        .program-modal-close:hover {
+            transform: scale(1.15);
+        }
+
+        .program-header-names {
+            font-family: var(--font-sans);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #1A1415;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .program-header-date {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--peony-deep);
+            margin-bottom: 0.8rem;
+        }
+
+        .program-header-title {
+            font-family: var(--font-script);
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            color: var(--peony-rose);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+        }
+
+        /* HORIZONTAL INFOGRAPHIC TIMELINE CONTAINER */
+        .program-timeline-track {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            margin: 2rem 0;
+            padding: 0 10px;
+        }
+
+        /* HORIZONTAL CONNECTOR LINE */
+        .program-timeline-line {
+            position: absolute;
+            top: 110px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: #3D3537;
+            z-index: 1;
+        }
+
+        .program-timeline-node {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 4px;
+        }
+
+        .program-node-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .program-node-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #1A1415;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .program-node-dot {
+            width: 10px;
+            height: 10px;
+            background: #1A1415;
+            border-radius: 50%;
+            margin-bottom: 12px;
+        }
+
+        .program-node-time {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1A1415;
+            margin-bottom: 6px;
+            white-space: nowrap;
+        }
+
+        .program-node-title {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #1A1415;
+            text-transform: uppercase;
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+        }
+
         /* --- CARDS & BUTTONS --- */
         .unfold-card {
             background: var(--paper);
@@ -1024,7 +1186,7 @@
         }
 
         /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & WRAPPING FIXES --- */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .story-editorial-card {
                 padding: 2.2rem 1rem 2rem 1rem !important;
             }
@@ -1040,7 +1202,6 @@
                 max-height: 95vh;
             }
 
-            /* TAILORED MOBILE TEXT POSITIONING INSIDE WHITE PARCHMENT BOX */
             .second-page-embedded-content {
                 width: 76%;
                 top: 61%;
@@ -1068,7 +1229,6 @@
                 padding: 5px 12px;
             }
 
-            /* Mobile Heading Optimization to prevent "MARRIED" slicing */
             .story-headline-married {
                 font-size: clamp(0.95rem, 4.8vw, 1.4rem);
                 letter-spacing: 1px;
@@ -1104,12 +1264,12 @@
                 letter-spacing: 1.5px;
             }
 
-            /* Mobile Background Scaling Fix for Scene-Day */
+            /* Mobile Styling for Scene-Day Background Fix */
             #scene-day {
                 padding: 3.5rem 0.8rem 3.5rem 0.8rem;
-                background-size: contain;
+                background-size: cover;
                 background-position: center top;
-                background-repeat: repeat-y;
+                background-repeat: no-repeat;
                 background-attachment: scroll;
             }
 
@@ -1153,6 +1313,32 @@
                 padding: 6px 16px;
             }
 
+            /* MOBILE PROGRAM FLOW TIMELINE GRID RESPONSIVE STYLING */
+            .program-modal-container {
+                padding: 1.8rem 1rem;
+            }
+
+            .program-timeline-track {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .program-timeline-line {
+                display: none;
+            }
+
+            .program-node-icon {
+                margin-bottom: 10px;
+                width: 42px;
+                height: 42px;
+            }
+
+            .program-node-dot {
+                display: none;
+            }
+
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
             .story-script-heading { font-size: 1.5rem; }
             .story-body-text { font-size: 0.85rem; line-height: 1.6; }
@@ -1191,13 +1377,107 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
+    <!-- PROGRAM FLOW INFOGRAPHIC MODAL -->
+    <div class="program-modal-overlay" id="program-modal">
+        <div class="program-modal-container">
+            <span class="program-modal-close" onclick="toggleProgramFlow()">×</span>
+            
+            <div class="program-header-names">ELENA & ADRIAN</div>
+            <div class="program-header-date">31 · 01 · 2028</div>
+            <div class="program-header-title">Our Wedding Story</div>
+
+            <!-- INFOGRAPHIC HORIZONTAL TIMELINE TRACK -->
+            <div class="program-timeline-track">
+                <div class="program-timeline-line"></div>
+
+                <!-- 1. COCKTAILS -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M12 16 L32 40 L52 16 Z M32 40 V52 M22 52 H42 M42 12 Q48 10 46 18 M38 20 L26 32"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">5:00 PM</div>
+                    <div class="program-node-title">COCKTAILS<br>& WELCOME</div>
+                </div>
+
+                <!-- 2. PROGRAM START -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M20 48 H44 M24 48 L28 28 H36 L40 48 M22 28 H42 V20 H22 Z M32 16 A3 3 0 1 0 32 10 A3 3 0 1 0 32 16 M32 16 V20"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">6:00 PM</div>
+                    <div class="program-node-title">PROGRAM<br>START</div>
+                </div>
+
+                <!-- 3. GRAND ENTRANCE -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M16 18 L32 10 L48 18 V50 H16 Z M26 50 V32 Q32 26 38 32 V50 M32 18 V24 M28 21 H36"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">6:15 PM</div>
+                    <div class="program-node-title">THE GRAND<br>ENTRANCE</div>
+                </div>
+
+                <!-- 4. CHAT & WELCOME -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><circle cx="22" cy="20" r="6"/><path d="M12 40 C12 30 32 30 32 40"/><circle cx="42" cy="20" r="6"/><path d="M32 40 C32 30 52 30 52 40"/><path d="M16 12 H28 M36 12 H48"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">6:30 PM</div>
+                    <div class="program-node-title">CHAT &<br>WELCOME</div>
+                </div>
+
+                <!-- 5. FIRST DANCE -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><circle cx="24" cy="14" r="5"/><circle cx="40" cy="16" r="5"/><path d="M24 19 L20 36 L28 50 M40 21 L44 36 L36 50 M24 24 H40 M18 28 L24 24 L32 28"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">6:45 PM</div>
+                    <div class="program-node-title">THE FIRST<br>DANCE</div>
+                </div>
+
+                <!-- 6. CAKE CUTTING -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M20 48 H44 V38 H20 Z M24 38 H40 V30 H24 Z M28 30 H36 V24 H28 Z M32 18 V24 M16 48 H48 V52 H16 Z M42 22 Q48 18 52 24"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">7:00 PM</div>
+                    <div class="program-node-title">CAKE CUTTING<br>& TOAST</div>
+                </div>
+
+                <!-- 7. DINNER -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M16 16 V32 C16 40 28 40 28 32 V16 M22 16 V48 M42 16 V48 M42 16 C48 16 50 24 50 30 C50 36 42 36 42 36"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">7:15 PM</div>
+                    <div class="program-node-title">DINNER &<br>SPEECHES</div>
+                </div>
+
+                <!-- 8. PARTY TIME -->
+                <div class="program-timeline-node">
+                    <div class="program-node-icon">
+                        <svg viewBox="0 0 64 64"><path d="M16 44 L38 12 M22 48 L44 16 M38 12 C48 10 52 20 44 26 M14 42 C10 46 16 52 20 48 Z M48 38 A6 6 0 1 0 48 26 A6 6 0 1 0 48 38 Z"/></svg>
+                    </div>
+                    <div class="program-node-dot"></div>
+                    <div class="program-node-time">8:30 PM</div>
+                    <div class="program-node-title">PARTY<br>TIME</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1221,38 +1501,31 @@
             <article class="chapter-container story-editorial-card">
                 
                 <div class="story-text-group">
-                    <!-- 1. HEADER: OUR STORY -->
                     <h2 class="story-header-title">O U R    S T O R Y</h2>
                     <div class="story-spark-divider">
                         <span>✦</span>
                     </div>
                     
-                    <!-- 2. "It started with coffee." -->
                     <p class="story-script-heading">It started with coffee.</p>
 
-                    <!-- 3. PARAGRAPH BODY TEXT -->
                     <p class="story-body-text" id="story-paragraph">
                         We met over iced coffee on an ordinary afternoon in Manila. What was supposed to be a quick coffee date turned into hours of conversation, laughter, and the feeling that we had known each other much longer than we actually had.
                     </p>
 
-                    <!-- 4. "A N D    N O W ," -->
                     <p class="story-and-now-label">A N D    N O W ,</p>
                     <div class="story-spark-divider-small">
                         <span>✦</span>
                     </div>
 
-                    <!-- 5. MAGICAL CLOUD MIST SLOW REVEAL HEADLINE -->
                     <div class="cloud-headline-wrapper" id="cloud-wrapper">
                         <h1 class="story-headline-married" id="magical-married-title">WE’RE GETTING MARRIED.</h1>
                     </div>
 
-                    <!-- 6. HEART FLOURISH DIVIDER -->
                     <div class="story-heart-flourish">
                         <span>❥</span>
                     </div>
                 </div>
 
-                <!-- 7. PREVIEW PHOTO MEMORY STACK -->
                 <div class="memory-stack-wrapper stagger-item stagger-photo-stack">
                     <div class="memory-stack-track" id="memory-track">
                         <div class="memory-photo-card" onclick="openLightbox('photo1.jpg')">
@@ -1274,7 +1547,6 @@
                 </div>
                 <div class="scroll-hint-indicator stagger-item stagger-photo-stack">← drag or swipe memories · click to enlarge →</div>
 
-                <!-- BUTTON TO CHAPTER MENU -->
                 <button class="btn-magic stagger-item stagger-btn" onclick="switchSoundtrackAndGoMenu()">
                     VIEW THE WEDDING DETAILS →
                 </button>
@@ -1289,13 +1561,11 @@
                     ELENA & ADRIAN — 31 . 01 . 2028
                 </p>
 
-                <!-- INLINE ELEGANT COUNTDOWN TIMER -->
                 <div class="inline-countdown-timer" id="inline-countdown-display">
                     <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
                 </div>
             </div>
 
-            <!-- MINIMALIST BOTTOM NAVIGATION BAR -->
             <nav class="nav-chapters-inline">
                 <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
                 <span class="nav-item-divider">|</span>
@@ -1309,7 +1579,7 @@
             </nav>
         </section>
 
-        <!-- 5. THE DAY (REBALANCED SPACING & SCALED BACKGROUND) -->
+        <!-- 5. THE DAY -->
         <section class="stage hidden" id="scene-day">
             <div>
                 <p class="the-day-header-subtitle">A day we will always remember.</p>
@@ -1317,7 +1587,6 @@
                 <p class="the-day-header-desc">Two places. One promise.</p>
             </div>
 
-            <!-- CEREMONY CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 15 L140 45 V140 H60 V45 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1338,7 +1607,6 @@
                 </div>
             </div>
 
-            <!-- RECEPTION CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M30 50 H170 V140 H30 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1358,9 +1626,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- HIDDEN PROGRAM FLOW POPUP CONTAINER -->
-            <div id="program-flow-content" style="display: none; text-align: left; margin: 0 auto 2rem auto; max-width: 800px;" class="unfold-card"></div>
 
             <div style="text-align: center; margin-top: 1.5rem;">
                 <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← BACK TO CHAPTERS</button>
@@ -1553,17 +1818,6 @@
             "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
         ];
 
-        const programFlow = [
-            { time: "5:00 PM", title: "Cocktails & Registration", desc: "Guests arrive for registration, welcome drinks, cocktails, and acoustic music before taking their seats." },
-            { time: "6:00 PM", title: "Start of Program", desc: "Our host formally opens the evening and welcomes our beloved family and friends to the celebration." },
-            { time: "6:15 PM", title: "Grand Entrance", desc: "Welcoming the newlyweds as they make their first official entrance as husband and wife." },
-            { time: "6:30 PM", title: "Short Interview & Welcome", desc: "A quick chat with the couple to share their excitement and set the joyful tone for the night." },
-            { time: "6:45 PM", title: "First Dance", desc: "Elena and Adrian take the floor for their very first dance as a married couple." },
-            { time: "7:00 PM", title: "Cake Cutting & Toast", desc: "The traditional cutting of the wedding cake followed by heartfelt toasts and raising a glass to love." },
-            { time: "7:15 PM", title: "Dinner & Speeches", desc: "A sumptuous meal served alongside messages, stories, and toasts from special guests." },
-            { time: "8:30 PM", title: "Socials & Party", desc: "The dance floor opens! Enjoy drinks, music, and celebrating under the stars with us." }
-        ];
-
         const entourageData = [
             { role: "PARENTS OF THE BRIDE", names: ["Mr. Roberto Santos", "Mrs. Carmen Santos"] },
             { role: "PARENTS OF THE GROOM", names: ["Mr. Fernando Reyes", "Mrs. Alicia Reyes"] },
@@ -1609,7 +1863,6 @@
             document.getElementById('gift-number').innerText = wedding.gifts.paymentNumber;
             document.getElementById('gift-link').href = wedding.gifts.registryUrl;
 
-            renderProgramFlow();
             renderEntourage();
             renderFAQ();
             renderGallery();
@@ -1802,19 +2055,11 @@
             }, 1000);
         }
 
-        function renderProgramFlow() {
-            const container = document.getElementById('program-flow-content');
-            container.innerHTML = programFlow.map(item => `
-                <div style="margin-bottom: 15px; border-bottom: 1px dashed rgba(255, 183, 206, 0.4); padding-bottom: 10px;">
-                    <div style="font-weight: 600; color: var(--text-dark); font-size: 0.95rem;">${item.time} — ${item.title}</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">${item.desc}</div>
-                </div>
-            `).join('');
-        }
-
         function toggleProgramFlow() {
-            const container = document.getElementById('program-flow-content');
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            const modal = document.getElementById('program-modal');
+            if (modal) {
+                modal.classList.toggle('active');
+            }
         }
 
         function renderEntourage() {
