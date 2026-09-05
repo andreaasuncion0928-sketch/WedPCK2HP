@@ -129,7 +129,7 @@
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -313,7 +313,7 @@
             transform: translateY(-1px);
         }
 
-        /* --- GENERAL 60% TRANSLUCENT CHAPTER BOARD OVERLAY --- */
+        /* --- GENERAL TRANSLUCENT CHAPTER BOARD OVERLAY --- */
         .chapter-container {
             max-width: 900px;
             width: 100%;
@@ -710,12 +710,12 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 60% TRANSLUCENT CARDS FOR DAY & DETAILS */
+        /* 20% OPACITY TRANSLUCENT CARDS FOR DAY LOCATION */
         .day-location-card {
-            background: rgba(255, 255, 255, 0.60) !important;
+            background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.85);
             border-radius: 12px;
             padding: 1.8rem 2.2rem;
             margin-bottom: 1.8rem;
@@ -751,6 +751,7 @@
             font-weight: 600;
             text-transform: uppercase;
             margin-bottom: 0.3rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
         .day-card-datetime {
@@ -761,14 +762,16 @@
             font-weight: 600;
             text-transform: uppercase;
             margin-bottom: 0.4rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
         .day-card-description {
             font-family: var(--font-sans);
             font-size: clamp(0.82rem, 2vw, 0.92rem);
             color: #3D3537;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 1rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
         .day-card-actions {
@@ -778,7 +781,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 60% OPACITY & TOP SPACING --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -817,12 +820,12 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 60% OPACITY TRANSLUCENT CARD MATCHING DETAILS/DAY STYLES */
+        /* 20% OPACITY TRANSLUCENT CARD */
         .entourage-board-card {
-            background: rgba(255, 255, 255, 0.60) !important;
+            background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.90);
+            border: 1px solid rgba(255, 255, 255, 0.85);
             border-radius: 16px;
             padding: 3rem 2rem 2.5rem 2rem;
             max-width: 1000px;
@@ -865,16 +868,18 @@
             font-style: italic;
             letter-spacing: 1.5px;
             color: var(--peony-deep);
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 0.6rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
         .entourage-names-list {
             font-family: var(--font-sans);
             font-size: clamp(0.85rem, 2vw, 0.98rem);
             color: #1A1415;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.6;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
         }
 
         .entourage-cherry-icon {
@@ -1222,12 +1227,13 @@
                 margin-bottom: 1.8rem;
             }
 
+            /* 20% OPACITY FOR MOBILE DAY CARDS */
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
                 padding: 1.4rem 1rem;
                 gap: 0.8rem;
-                background: rgba(255, 255, 255, 0.60) !important;
+                background: rgba(255, 255, 255, 0.20) !important;
                 margin-bottom: 1.5rem;
                 width: 92% !important;
             }
@@ -1249,7 +1255,7 @@
                 justify-content: center;
             }
 
-            /* MOBILE ENTOURAGE ADJUSTMENTS */
+            /* 20% OPACITY FOR MOBILE ENTOURAGE CARDS */
             #scene-entourage {
                 padding: 5rem 0.5rem 3.5rem 0.5rem !important;
             }
@@ -1261,7 +1267,7 @@
 
             .entourage-board-card {
                 padding: 2.2rem 1rem 1.8rem 1rem !important;
-                background: rgba(255, 255, 255, 0.60) !important;
+                background: rgba(255, 255, 255, 0.20) !important;
                 width: 92% !important;
             }
 
@@ -1459,10 +1465,8 @@
     <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1481,7 +1485,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION (PHOTO CARDS FIXED TO TRIGGER LIGHTBOX OVERLAY) -->
+        <!-- 3. OUR STORY SECTION -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1539,7 +1543,7 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN (ALIGNED TO SCREENSHOT) -->
+        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN -->
         <section class="stage hidden" id="scene-menu">
             <div class="chapters-board-card">
                 <h2 class="chapters-main-title">OUR WEDDING<br>CHAPTERS</h2>
@@ -1620,7 +1624,7 @@
             </div>
         </section>
 
-        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 60% TRANSLUCENT CARD) -->
+        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 20% TRANSLUCENT CARD) -->
         <section class="stage hidden" id="scene-entourage">
             <div>
                 <p class="entourage-header-subtitle">With Our Beloved Families</p>
@@ -1816,7 +1820,7 @@
                 <div id="rsvp-confirmation" style="display: none; text-align: center; padding: 2rem 0;">
                     <p class="script-handwriting" style="color: var(--peony-deep) !important;">You're on the list.</p>
                     <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);">
-                        We can't wait to celebrate with you.
+                        We can'wait to celebrate with you.
                     </p>
                 </div>
 
