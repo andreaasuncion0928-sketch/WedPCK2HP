@@ -113,7 +113,7 @@
             display: none !important;
         }
 
-        /* --- 1ST PAGE HERO GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -125,7 +125,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.5rem;
             overflow: hidden;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
@@ -136,74 +136,168 @@
             pointer-events: none;
         }
 
-        /* Original Sliced Transparent Outer Wrapper to Preserve Flowers */
-        .envelope-frame-wrapper {
+        .png-envelope-container {
             position: relative;
             max-width: 900px;
             width: 95vw;
-            height: auto;
-            max-height: 88vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent !important;
-            border-radius: 0;
-            padding: 0;
-            border: none !important;
-            box-shadow: none !important;
+            cursor: pointer;
+            transition: opacity 0.6s ease, transform 0.4s ease;
         }
 
-        .card-content-box {
-            position: relative;
-            z-index: 10;
+        .png-envelope-img {
             width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .png-envelope-container.opening {
+            opacity: 0 !important;
+            transition: opacity 0.6s ease !important;
+        }
+
+        .envelope-text-wrapper {
+            position: absolute;
+            bottom: 11%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            z-index: 25;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            pointer-events: auto;
+            transition: opacity 0.6s ease;
         }
 
-        /* Smaller Inset 2ndpage.jpg Rested On Top Without Covering Flowers */
-        .inset-card-img {
-            width: 70%;
-            max-width: 420px;
+        .envelope-caption-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+            color: #000000 !important;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.3s;
+        }
+
+        .envelope-divider-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 90px;
+            margin: 0.5rem 0 0.6rem 0;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.5s;
+        }
+
+        .envelope-divider-line::before,
+        .envelope-divider-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--peony-rose);
+            opacity: 0.45;
+        }
+
+        .envelope-divider-line span {
+            font-size: 0.65rem;
+            color: var(--peony-rose);
+            opacity: 0.6;
+        }
+
+        .envelope-action-btn {
+            font-family: var(--font-sans);
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            color: #000000 !important;
+            font-weight: 300;
+            text-transform: lowercase;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            opacity: 0;
+            animation: softFadeUp 1.2s ease forwards 0.7s;
+        }
+
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (FEATURING 2NDPAGE.JPG) --- */
+        #scene-invite-card {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cream-bg);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            padding: 0.8rem;
+            overflow: hidden;
+        }
+
+        #scene-invite-card.active-overlay {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        #scene-invite-card.slide-up-out {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            display: none !important;
+        }
+
+        .second-page-card-container {
+            position: relative;
+            max-width: 980px;
+            width: 98vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
+        }
+
+        .second-page-img {
+            width: 100%;
             height: auto;
-            max-height: 42vh;
+            max-height: 90vh;
             object-fit: contain;
             display: block;
             border-radius: 8px;
-            background: transparent !important;
-            padding: 0 !important;
-            border: none !important;
-            box-shadow: 0 10px 30px rgba(173, 83, 98, 0.22);
         }
 
-        /* Single Action Button "YOU ARE INVITED →" */
-        .btn-you-are-invited {
-            background: var(--paper);
-            border: 1px solid var(--baby-pink);
-            color: var(--peony-deep) !important;
-            padding: 10px 28px;
-            font-family: var(--font-serif);
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            font-weight: 600 !important;
-            cursor: pointer;
-            transition: var(--transition-med);
-            text-transform: uppercase;
-            margin-top: 1.4rem;
-            display: inline-block;
-            text-decoration: none;
-            box-shadow: 0 4px 15px var(--peony-glow);
+        .hotspot-read-story {
+            position: absolute;
+            bottom: 23%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 230px;
+            height: 52px;
             border-radius: 30px;
-            word-break: keep-all !important;
+            cursor: pointer;
+            z-index: 30;
+            background: rgba(255, 255, 255, 0.01);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .btn-you-are-invited:hover {
-            background: var(--baby-pink);
-            color: #FFFFFF !important;
-            box-shadow: 0 0 20px var(--peony-glow);
-            transform: translateY(-2px);
+        .hotspot-read-story:hover {
+            background: rgba(255, 183, 206, 0.25);
+            box-shadow: 0 0 25px rgba(255, 183, 206, 0.6);
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -379,8 +473,8 @@
 
         .story-headline-married {
             font-family: var(--font-serif);
-            font-size: clamp(1.05rem, 3.6vw, 2.2rem);
-            letter-spacing: clamp(1px, 0.5vw, 4px);
+            font-size: clamp(1.25rem, 4.2vw, 2.2rem);
+            letter-spacing: clamp(1px, 0.8vw, 4px);
             color: var(--peony-deep);
             font-weight: 600;
             line-height: 1.35;
@@ -393,12 +487,6 @@
             word-wrap: normal !important;
             overflow-wrap: normal !important;
             white-space: normal;
-        }
-
-        .story-headline-married .headline-word-token {
-            display: inline-block;
-            white-space: nowrap;
-            word-break: keep-all !important;
         }
 
         .story-headline-married .story-glyph {
@@ -553,8 +641,8 @@
 
         .chapters-main-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.3rem, 3.8vw, 2.2rem);
-            letter-spacing: clamp(2px, 1vw, 5px);
+            font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+            letter-spacing: clamp(2px, 1.2vw, 6px);
             color: #2C2527;
             text-transform: uppercase;
             font-weight: 500;
@@ -935,23 +1023,27 @@
         /* --- MOBILE ENHARCED VISUAL ZOOM & WRAPPING FIXES --- */
         @media (max-width: 600px) {
             .chapter-container { padding: 2rem 1rem; }
+            .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
+            .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
 
-            .envelope-frame-wrapper { 
-                width: 96vw; 
-                padding: 1rem 0.5rem;
+            /* Enlarged Mobile Intro Envelope */
+            .png-envelope-container { 
+                width: 105vw; 
+                transform: scale(1.12);
             }
+            .png-envelope-img { max-height: 92vh; }
 
-            .inset-card-img {
-                width: 82%;
-                max-height: 48vh;
+            /* Enlarged Mobile 2nd Page Frame */
+            .second-page-card-container { 
+                width: 105vw; 
+                transform: scale(1.12);
             }
+            .second-page-img { max-height: 92vh; }
 
-            .btn-you-are-invited {
-                font-size: 0.78rem;
-                padding: 8px 20px;
-                letter-spacing: 1.5px;
-            }
+            .hotspot-read-story { width: 180px; height: 44px; bottom: 21%; }
 
+            .chapters-main-title { font-size: 1.5rem; letter-spacing: 3px; }
+            .chapters-sub-title { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 1.8rem; }
             .countdown-container { gap: 8px; margin-bottom: 2rem; max-width: 100%; }
             .countdown-box { height: 75px; min-width: 55px; border-radius: 8px; padding: 4px; }
             .countdown-num { font-size: 1.35rem; }
@@ -973,6 +1065,7 @@
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
+            .envelope-text-wrapper { bottom: 8%; }
         }
     </style>
 </head>
@@ -981,22 +1074,28 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING GATEWAY: ENVELOPE FRAME WITH TRANSPARENT INSET CARD -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
-        <div class="envelope-frame-wrapper">
-            <div class="card-content-box">
-                <!-- 2ndpage.jpg Inset in Center without covering envelope -->
-                <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="inset-card-img" id="envelope-preview-letter" onerror="this.src='2ndpage.png'">
-                
-                <!-- Single Action Button "YOU ARE INVITED →" -->
-                <button class="btn-you-are-invited" onclick="openOurStoryDirectly()">
-                    YOU ARE INVITED →
-                </button>
+        <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
+
+            <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
+            <div class="envelope-text-wrapper">
+                <p class="envelope-caption-title">A Personal Invitation</p>
+                <div class="envelope-divider-line">
+                    <span>✦</span>
+                </div>
+                <div class="envelope-action-btn">tap to open</div>
             </div>
         </div>
     </div>
 
-    <!-- MAIN SOUNDTRACK -->
+    <!-- YOU ARE CORDIALLY INVITED SOUNDTRACK -->
+    <audio id="invite-music" loop preload="auto">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MAIN COUPLE SOUNDTRACK -->
     <audio id="bg-music" loop preload="auto">
         <source src="song.mp3" type="audio/mpeg">
     </audio>
@@ -1007,9 +1106,20 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG) -->
+    <section id="scene-invite-card">
+        <div class="second-page-card-container">
+            <!-- Exact 2nd Page Artwork using 2ndpage.jpg -->
+            <img src="2ndpage.jpg" alt="Elena & Adrian Invitation" class="second-page-img" id="second-page-img">
+
+            <!-- Click Hotspot overlaying the READ OUR STORY button -->
+            <div class="hotspot-read-story" onclick="openOurStorySection()" title="Read Our Story"></div>
+        </div>
+    </section>
+
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 2. OUR STORY SECTION -->
+        <!-- 3. OUR STORY SECTION (RE-BALANCED SPACING, REMOVED UNWANTED LABELS) -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1074,7 +1184,7 @@
             </article>
         </section>
 
-        <!-- 3. CHAPTER MENU & NEUMORPHIC COUNTDOWN (HIDDEN INITIALLY) -->
+        <!-- 4. CHAPTER MENU & NEUMORPHIC COUNTDOWN (HIDDEN INITIALLY) -->
         <section class="stage hidden" id="scene-menu">
             <h2 class="chapters-main-title">W E D D I N G   C H A P T E R S</h2>
             <p class="chapters-sub-title">
@@ -1434,44 +1544,43 @@
             setupDragScroll();
             prepareMagicalHeadlineText();
 
-            // Fallback for preview letter
-            const previewLetterImg = document.getElementById('envelope-preview-letter');
-            if (previewLetterImg) {
-                previewLetterImg.onerror = function() {
-                    this.src = '2ndpage.png';
+            // Fallback for envelope.png
+            const envImg = document.getElementById('envelope-main-img');
+            if (envImg) {
+                envImg.onerror = function() {
+                    this.src = './envelope.png';
+                };
+            }
+
+            // Fallback for 2ndpage.jpg
+            const secondPageImg = document.getElementById('second-page-img');
+            if (secondPageImg) {
+                secondPageImg.onerror = function() {
+                    if (this.src.endsWith('.jpg')) {
+                        this.src = '2ndpage.JPG';
+                    } else if (this.src.endsWith('.JPG')) {
+                        this.src = '2ndpage.png';
+                    } else if (this.src.endsWith('.png')) {
+                        this.src = '2ndpage.PNG';
+                    }
                 };
             }
         });
 
-        /* PREPARES WORD TOKENS FOR MAGICAL TEXT REVEAL WITHOUT SLICING */
+        /* PREPARES INDIVIDUAL LETTER SPANS FOR MAGICAL TEXT REVEAL */
         function prepareMagicalHeadlineText() {
             const headlineEl = document.getElementById('magical-married-title');
             if (!headlineEl) return;
 
             const text = headlineEl.textContent.trim();
-            const words = text.split(' ');
             headlineEl.innerHTML = '';
 
-            words.forEach((word, wIdx) => {
-                const wordToken = document.createElement('span');
-                wordToken.className = 'headline-word-token';
-
-                for (let char of word) {
-                    const span = document.createElement('span');
-                    span.className = 'story-glyph';
-                    span.textContent = char;
-                    wordToken.appendChild(span);
-                }
-
-                headlineEl.appendChild(wordToken);
-
-                if (wIdx < words.length - 1) {
-                    const spaceSpan = document.createElement('span');
-                    spaceSpan.className = 'story-glyph';
-                    spaceSpan.textContent = ' ';
-                    headlineEl.appendChild(spaceSpan);
-                }
-            });
+            for (let char of text) {
+                const span = document.createElement('span');
+                span.className = 'story-glyph';
+                span.textContent = char;
+                headlineEl.appendChild(span);
+            }
         }
 
         /* SIMULTANEOUS (ALL-AT-ONCE) SLOW WHITE CLOUD MIST MAGICAL REVEAL */
@@ -1488,36 +1597,59 @@
             });
         }
 
-        /* 1. CLICK "YOU ARE INVITED" -> PLAYS SONG.MP3 IMMEDIATELY & TRANSITIONS DIRECTLY TO OUR STORY */
-        function openOurStoryDirectly() {
+        /* 1. ENVELOPE CLICK -> STARTS SONG.MP3 IMMEDIATELY & DIRECTS TO ELENA & ADRIAN PAGE */
+        function openEnvelopeAndStartVideo(event) {
+            const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
-            const storyScene = document.getElementById('scene-story');
             const bgMusic = document.getElementById('bg-music');
 
-            // Play song.mp3 immediately
+            pngEnv.classList.add('opening');
+
             if (bgMusic) {
                 bgMusic.currentTime = 0;
                 bgMusic.volume = 0.55;
-                bgMusic.play().catch(e => console.log("Song Play Error:", e));
+                bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
-            // Fade out hero gateway
-            gateway.classList.add('fade-out');
-
-            // Unhide & smoothly transition to Our Story page
             setTimeout(() => {
-                storyScene.classList.remove('hidden');
+                gateway.classList.add('fade-out');
 
-                requestAnimationFrame(() => {
-                    storyScene.classList.add('active');
-                    storyScene.classList.add('page-up-active');
-                    storyScene.classList.add('scene-story-animated');
-                    storyScene.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    proceedToCordiallyInvitedSeamless();
+                }, 200);
+            }, 400);
+        }
 
-                    // Trigger Cloud Mist Headline Reveal
-                    playMagicalHeadlineReveal();
-                });
-            }, 600);
+        /* REVEALS ELENA & ADRIAN PAGE DIRECTLY */
+        function proceedToCordiallyInvitedSeamless() {
+            const inviteScene = document.getElementById('scene-invite-card');
+            inviteScene.classList.add('active-overlay');
+        }
+
+        /* 2. READ OUR STORY CLICK -> CONTINUOUS SONG.MP3 PLAYBACK + SHOWS OUR STORY PAGE */
+        function openOurStorySection() {
+            const inviteScene = document.getElementById('scene-invite-card');
+            const storyScene = document.getElementById('scene-story');
+            const bgMusic = document.getElementById('bg-music');
+
+            if (bgMusic && bgMusic.paused) {
+                bgMusic.play().catch(e => console.log("Continuous Song Play Error:", e));
+            }
+
+            inviteScene.classList.add('slide-up-out');
+            inviteScene.classList.remove('active-overlay');
+
+            storyScene.classList.remove('hidden');
+            
+            requestAnimationFrame(() => {
+                storyScene.classList.add('active');
+                storyScene.classList.add('page-up-active');
+                storyScene.classList.add('scene-story-animated');
+                storyScene.scrollIntoView({ behavior: 'smooth' });
+                
+                // Trigger Simultaneous Cloud Fog Slow Reveal
+                playMagicalHeadlineReveal();
+            });
         }
 
         /* DRAG TO SCROLL FOR DESKTOP MOUSE INTERACTION ON MEMORY STACK */
@@ -1545,7 +1677,7 @@
             });
         }
 
-        /* 2. VIEW THE WEDDING DETAILS CLICK -> SHOWS WEDDING CHAPTERS MENU */
+        /* 3. VIEW THE WEDDING DETAILS CLICK -> SHOWS WEDDING CHAPTERS MENU */
         function switchSoundtrackAndGoMenu() {
             const bgMusic = document.getElementById('bg-music');
             if (bgMusic && bgMusic.paused) {
