@@ -129,7 +129,7 @@
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (SLOW, SEAMLESS DOWNWARD SLIDE) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -559,7 +559,7 @@
             opacity: 0.8;
         }
 
-        /* --- WEDDING CHAPTERS STYLING CENTERED WITH MINIMALIST THIN COUNTDOWN FONT --- */
+        /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
             width: 100%;
             min-height: 100vh;
@@ -673,7 +673,7 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING WITH LEFT-ALIGNED BUTTONS --- */
+        /* --- THE DAY (SCENE-DAY) STYLING --- */
         #scene-day {
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -784,7 +784,7 @@
             width: 100%;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -1052,72 +1052,6 @@
             font-weight: 500;
         }
 
-        /* --- GALLERY MASONRY STYLING & 50% HOVER DIMMING --- */
-        #scene-gallery {
-            padding: 5rem 1.8rem 5rem 1.8rem;
-            text-align: center;
-        }
-
-        .gallery-title-wrapper {
-            margin-bottom: 2.5rem;
-        }
-
-        .gallery-masonry-grid {
-            column-count: 3;
-            column-gap: 20px;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto 2.5rem auto;
-            text-align: left;
-        }
-
-        .gallery-masonry-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.20);
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 25px rgba(185, 165, 160, 0.15);
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .gallery-masonry-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .gallery-masonry-grid:hover .gallery-masonry-item {
-            opacity: 0.5;
-        }
-
-        .gallery-masonry-grid .gallery-masonry-item:hover {
-            opacity: 1 !important;
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(173, 83, 98, 0.25), 0 0 25px var(--peony-glow);
-            z-index: 10;
-        }
-
-        .gallery-masonry-item:hover img {
-            transform: scale(1.04);
-        }
-
-        .gallery-masonry-item.portrait img { aspect-ratio: 3/4; }
-        .gallery-masonry-item.landscape img { aspect-ratio: 4/3; }
-        .gallery-masonry-item.square img { aspect-ratio: 1/1; }
-
-        .gallery-masonry-item:nth-child(3n+1) {
-            transform: translateY(15px);
-        }
-        .gallery-masonry-item:nth-child(3n+2) {
-            transform: translateY(-10px);
-        }
-
         /* --- PROGRAM FLOW INFOGRAPHIC MODAL STYLING --- */
         .program-modal-overlay {
             position: fixed;
@@ -1285,12 +1219,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.40), rgba(253, 240, 244, 0.45)), url('background.jpg?v=mobile-fit');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(253, 244, 245, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -1308,24 +1238,17 @@
         .lightbox-content {
             max-width: 85vw;
             max-height: 80vh;
-            border: 6px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.2), 0 0 35px var(--peony-glow);
-            border-radius: 8px;
+            border: 6px solid #FFFFFF;
+            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.15), 0 0 30px var(--peony-glow);
+            border-radius: 4px;
             object-fit: contain;
-            background: rgba(255, 255, 255, 0.20);
-            transform: scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .lightbox-modal.active .lightbox-content {
-            transform: scale(1);
         }
 
         .lightbox-close {
             position: absolute;
             top: 30px;
             right: 30px;
-            color: var(--peony-deep);
+            color: var(--text-dark);
             font-size: 2.5rem;
             cursor: pointer;
             line-height: 1;
@@ -1514,12 +1437,6 @@
                 background: rgba(255, 255, 255, 0.20) !important;
             }
 
-            .gallery-masonry-grid {
-                column-count: 2 !important;
-                column-gap: 12px !important;
-                width: 94% !important;
-            }
-
             .program-modal-container {
                 padding: 1.8rem 1rem;
             }
@@ -1551,12 +1468,6 @@
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-masonry-grid {
-                column-count: 1 !important;
-            }
         }
     </style>
 </head>
@@ -1952,6 +1863,7 @@
         <section class="stage hidden" id="scene-details">
             <h2 class="details-header-title">THE DETAILS</h2>
 
+            <!-- HORIZONTAL 3-TAB BAR -->
             <div class="details-tab-bar">
                 <button class="details-tab-btn active-tab" onclick="switchDetailsTab('dress-code', this)">
                     👗 DRESS CODE
@@ -1964,11 +1876,14 @@
                 </button>
             </div>
 
+            <!-- SINGLE TRANSLUCENT CONTENT PANEL CONTAINER (20% OPACITY) -->
             <div class="details-panel-card">
+                <!-- TAB 1: DRESS CODE -->
                 <div class="details-tab-content active-content" id="tab-dress-code">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);" id="dress-code-title">BLACK & WHITE</h3>
                     <p style="font-size: 0.88rem; color: var(--peony-deep); font-weight: 600; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);" id="dress-code-sub">Keep it classic. Keep it timeless.</p>
                     
+                    <!-- ELEGANT COLOR SWATCHES -->
                     <div class="dress-code-swatch-wrapper">
                         <div class="dress-swatch-item">
                             <div class="swatch-circle swatch-white"></div>
@@ -1986,6 +1901,7 @@
                     </div>
                 </div>
 
+                <!-- TAB 2: REGISTRY & GIFTS -->
                 <div class="details-tab-content" id="tab-registry">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">REGISTRY & GIFTS</h3>
                     <p style="font-size: 0.88rem; line-height: 1.7; color: #1A1415; margin-bottom: 1.5rem; font-weight: 400; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">
@@ -1999,6 +1915,7 @@
                     </div>
                 </div>
 
+                <!-- TAB 3: FAQs -->
                 <div class="details-tab-content" id="tab-faq">
                     <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #1A1415; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 1px 4px rgba(255,255,255,0.8);">FREQUENTLY ASKED QUESTIONS</h3>
                     <div id="faq-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
@@ -2010,17 +1927,17 @@
             </div>
         </section>
 
-        <!-- 8. GALLERY (ASYMMETRICAL MASONRY GRID FEATURING PICTURE11 TO PICTURE20) -->
+        <!-- GALLERY -->
         <section class="stage hidden" id="scene-gallery">
-            <div class="gallery-title-wrapper">
-                <h2 class="the-day-header-title">MOMENTS ALONG THE WAY</h2>
-                <p class="the-day-header-subtitle" style="letter-spacing: 2px;">OUR FAVORITE MEMORIES</p>
-            </div>
+            <h2 class="chapter-title">MOMENTS ALONG THE WAY</h2>
+            <p style="color: var(--champagne-gold); font-size: 0.85rem; letter-spacing: 1.5px;">
+                OUR FAVORITE MEMORIES
+            </p>
 
-            <div class="gallery-masonry-grid" id="gallery-container"></div>
+            <div class="gallery-envelope-container" id="gallery-container"></div>
 
-            <button class="btn-day-action" onclick="scrollToSection('scene-menu')" style="margin-top: 1rem;">
-                ← BACK TO CHAPTERS
+            <button class="btn-day-action" onclick="scrollToSection('scene-menu')" style="margin-top: 2rem;">
+                ← Back to Chapters
             </button>
         </section>
 
@@ -2136,10 +2053,9 @@
             }
         };
 
-        /* GALLERY ASYMMETRICAL MASONRY IMAGES: PICTURE11.JPEG TO PICTURE20.JPEG */
         const galleryImages = [
-            "picture11.jpeg", "picture12.jpeg", "picture13.jpeg", "picture14.jpeg", "picture15.jpeg",
-            "picture16.jpeg", "picture17.jpeg", "picture18.jpeg", "picture19.jpeg", "picture20.jpeg"
+            "photo1.jpg", "photo2.jpg", "photo3.jpg", "photo4.jpg", "photo5.jpg",
+            "photo6.jpg", "photo7.jpg", "photo8.jpg", "photo9.jpg", "photo10.jpg"
         ];
 
         const entourageData = [
@@ -2410,32 +2326,16 @@
             `).join('');
         }
 
-        /* RENDERS PICTURE11.JPEG TO PICTURE20.JPEG IN ASYMMETRICAL MASONRY GRID WITH FALLBACK EXTENSION HANDLING */
         function renderGallery() {
             const container = document.getElementById('gallery-container');
-            const aspectRatios = ['portrait', 'landscape', 'square', 'portrait', 'square', 'landscape', 'portrait', 'square', 'portrait', 'landscape'];
-            
             container.innerHTML = galleryImages.map((src, idx) => {
-                const ratioClass = aspectRatios[idx % aspectRatios.length];
-                const num = idx + 11;
+                const randomRot = (Math.random() * 12 - 6).toFixed(1);
                 return `
-                    <div class="gallery-masonry-item ${ratioClass}" onclick="openLightbox('${src}')">
-                        <img src="${src}" alt="Gallery Photo ${num}" onerror="handleGalleryImageError(this, ${num})">
+                    <div class="photo-card" style="--r: ${randomRot};" onclick="openLightbox('${src}')">
+                        <img src="${src}" alt="Gallery photo ${idx + 1}" onerror="this.src='https://via.placeholder.com/150?text=Photo+${idx+1}'">
                     </div>
                 `;
             }).join('');
-        }
-
-        /* SMART IMAGE FALLBACK HANDLER FOR GALLERY PICTURES */
-        function handleGalleryImageError(imgEl, num) {
-            imgEl.onerror = null;
-            if (imgEl.src.endsWith('.jpeg')) {
-                imgEl.src = `picture${num}.jpg`;
-            } else if (imgEl.src.endsWith('.jpg')) {
-                imgEl.src = `picture${num}.JPG`;
-            } else if (imgEl.src.endsWith('.JPG')) {
-                imgEl.src = `picture${num}.png`;
-            }
         }
 
         /* LIGHTBOX OVERLAY FUNCTIONALITY FOR OUR STORY & GALLERY PHOTOS */
@@ -2446,14 +2346,12 @@
                 const targetUrl = new URL(src, window.location.href).href;
                 
                 img.onerror = function() {
-                    this.onerror = null;
-                    if (this.src.endsWith('.jpeg')) {
+                    if (this.src.endsWith('.jpg')) {
+                        this.src = this.src.replace('.jpg', '.jpeg');
+                    } else if (this.src.endsWith('.jpeg')) {
                         this.src = this.src.replace('.jpeg', '.jpg');
-                    } else if (this.src.endsWith('.jpg')) {
-                        this.src = this.src.replace('.jpg', '.JPG');
-                    } else if (this.src.endsWith('.JPG')) {
-                        this.src = this.src.replace('.JPG', '.png');
                     }
+                    this.onerror = null;
                 };
 
                 img.src = targetUrl;
