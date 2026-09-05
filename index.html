@@ -48,7 +48,7 @@
             --font-sans: 'Poppins', sans-serif;
             --font-script: 'Great Vibes', cursive;
             
-            --transition-slow: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-slow: 1.8s cubic-bezier(0.22, 1, 0.36, 1);
             --transition-med: 0.6s ease;
         }
 
@@ -129,7 +129,7 @@
             background-attachment: fixed;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (SLIDES DOWNWARD ON OPEN) --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (SLOW, SEAMLESS DOWNWARD SLIDE) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -144,7 +144,7 @@
             padding: 0.5rem;
             overflow: hidden;
             transform: translateY(0);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease, visibility 1.2s ease;
+            transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.8s ease, visibility 1.8s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -181,7 +181,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (SLIDES UPWARD CONCURRENTLY) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (SYNCHRONIZED SLIDE UP) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -195,7 +195,7 @@
             background-color: transparent;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.2s ease, background-color 1.2s ease;
+            transition: opacity 1.8s ease, background-color 1.8s ease;
             padding: 0.8rem;
             overflow: hidden;
         }
@@ -221,9 +221,9 @@
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
-            transform: translateY(80px);
+            transform: translateY(100px);
             opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.0s ease;
+            transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.5s ease;
         }
 
         #scene-invite-card.active-overlay .second-page-card-container {
@@ -713,6 +713,7 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
+        /* 20% OPACITY TRANSLUCENT CARDS FOR DAY LOCATION */
         .day-location-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -783,7 +784,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 20% OPACITY --- */
         #scene-entourage {
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
@@ -822,6 +823,7 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
+        /* 20% OPACITY TRANSLUCENT CARD */
         .entourage-board-card {
             background: rgba(255, 255, 255, 0.20) !important;
             backdrop-filter: blur(8px);
@@ -1228,6 +1230,7 @@
                 margin-bottom: 1.8rem;
             }
 
+            /* 20% OPACITY FOR MOBILE DAY CARDS */
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
@@ -1255,6 +1258,7 @@
                 justify-content: center;
             }
 
+            /* 20% OPACITY FOR MOBILE ENTOURAGE CARDS */
             #scene-entourage {
                 padding: 5rem 0.5rem 3.5rem 0.5rem !important;
             }
