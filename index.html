@@ -113,7 +113,23 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
+        /* --- UNIFIED BACKGROUND.JPG SETTINGS FOR ALL SUCCEEDING PAGES --- */
+        #scene-menu,
+        #scene-day,
+        #scene-entourage,
+        #scene-details,
+        #scene-gallery,
+        #scene-rsvp {
+            width: 100%;
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(255, 253, 249, 0.15), rgba(253, 240, 244, 0.20)), url('background.jpg?v=fit');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* --- LAYER 1: ENCHANTED GATEWAY --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -136,7 +152,6 @@
             pointer-events: none;
         }
 
-        /* ENVELOPE CONTAINER */
         .png-envelope-container {
             position: relative;
             max-width: 900px;
@@ -298,17 +313,19 @@
             transform: translateY(-1px);
         }
 
-        /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
+        /* --- GENERAL 70% TRANSLUCENT CHAPTER BOARD OVERLAY --- */
         .chapter-container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            background: var(--paper);
+            background: rgba(255, 255, 255, 0.70) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: var(--text-dark) !important;
-            padding: 3.5rem 2rem;
-            border-radius: 6px;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.05), 0 0 35px var(--peony-glow);
+            padding: 3.5rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
             position: relative;
-            border: 1px solid rgba(255, 183, 206, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             margin: 2rem 0;
             text-align: center;
         }
@@ -408,63 +425,12 @@
             color: var(--peony-rose);
         }
 
-        /* --- CLOUDY WHITE AURA TEXT CONTAINER --- */
         .cloud-headline-wrapper {
             position: relative;
             display: inline-block;
             padding: 8px 12px;
             margin-bottom: 2rem;
             max-width: 100%;
-        }
-
-        .cloud-headline-wrapper::before,
-        .cloud-headline-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.6);
-            width: 115%;
-            height: 140%;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.98) 0%, rgba(255, 240, 244, 0.85) 45%, rgba(255, 255, 255, 0) 70%);
-            border-radius: 50%;
-            filter: blur(18px);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 2;
-            transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1), transform 2.5s cubic-bezier(0.16, 1, 0.3, 1), filter 2.5s ease;
-        }
-
-        .cloud-headline-wrapper::after {
-            width: 130%;
-            height: 160%;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 230, 238, 0.6) 55%, rgba(255, 255, 255, 0) 75%);
-            filter: blur(24px);
-        }
-
-        .cloud-headline-wrapper.cloud-active::before,
-        .cloud-headline-wrapper.cloud-active::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.15);
-            animation: cloudDisperse 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes cloudDisperse {
-            0% {
-                opacity: 0.95;
-                filter: blur(14px);
-                transform: translate(-50%, -50%) scale(0.85);
-            }
-            40% {
-                opacity: 0.85;
-                filter: blur(20px);
-                transform: translate(-50%, -50%) scale(1.15);
-            }
-            100% {
-                opacity: 0.15;
-                filter: blur(28px);
-                transform: translate(-50%, -50%) scale(1.35);
-            }
         }
 
         .story-headline-married {
@@ -558,10 +524,6 @@
             scrollbar-width: none;
         }
 
-        .memory-stack-track:active {
-            cursor: grabbing;
-        }
-
         .memory-photo-card {
             flex: 0 0 180px;
             height: 230px;
@@ -585,18 +547,6 @@
             pointer-events: none;
         }
 
-        .memory-photo-card:nth-child(1) { transform: rotate(-2deg); }
-        .memory-photo-card:nth-child(2) { transform: rotate(1deg); }
-        .memory-photo-card:nth-child(3) { transform: rotate(-1deg); }
-        .memory-photo-card:nth-child(4) { transform: rotate(2deg); }
-        .memory-photo-card:nth-child(5) { transform: rotate(-1deg); }
-
-        .memory-photo-card:hover {
-            transform: scale(1.04) rotate(0deg) !important;
-            z-index: 10;
-            box-shadow: 0 14px 30px rgba(173, 83, 98, 0.18), 0 0 20px var(--peony-glow) !important;
-        }
-
         .scroll-hint-indicator {
             font-size: 0.68rem;
             color: var(--text-muted);
@@ -607,39 +557,11 @@
             opacity: 0.8;
         }
 
-        .story-text-group {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 1.4s ease, transform 1.4s var(--transition-slow);
-        }
-
-        .scene-story-animated .story-text-group {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 1.0s var(--transition-slow), transform 1.0s var(--transition-slow);
-        }
-
-        .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-        .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-
-        /* --- WEDDING CHAPTERS STYLING --- */
+        /* --- WEDDING CHAPTERS STYLING MATCHING SCREENSHOT --- */
         #scene-menu {
-            width: 100%;
             max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.25), rgba(253, 240, 244, 0.35)), url('background.jpg?v=mobile-fit');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             border-radius: 12px;
-            padding: 4rem 2rem 3.5rem 2rem;
+            padding: 4.5rem 2rem 3.5rem 2rem;
             box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
             border: 1px solid rgba(255, 183, 206, 0.4);
             display: flex;
@@ -648,17 +570,29 @@
             min-height: 520px;
         }
 
+        .chapters-board-card {
+            background: rgba(255, 255, 255, 0.70);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(185, 165, 160, 0.12);
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
         .chapters-main-title {
             font-family: var(--font-serif);
-            font-size: clamp(2rem, 5.8vw, 3.6rem);
-            letter-spacing: clamp(4px, 1.5vw, 10px);
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            letter-spacing: clamp(4px, 1.5vw, 12px);
             color: #0E0B0C;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 1.15;
-            margin-top: 1rem;
             margin-bottom: 0.8rem;
-            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
         .chapters-sub-title {
@@ -669,25 +603,19 @@
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 2.2rem;
-            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95), 0 0 12px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
-        /* INLINE ELEGANT COUNTDOWN TIMER */
         .inline-countdown-timer {
             font-family: var(--font-sans);
             font-size: clamp(1.05rem, 3.2vw, 1.7rem);
             font-weight: 400;
             color: #1A1415;
             letter-spacing: 0.5px;
-            margin-bottom: 3.5rem;
+            margin-bottom: 2rem;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.95);
         }
 
-        .inline-countdown-timer span {
-            font-weight: 500;
-        }
-
-        /* MINIMALIST BOTTOM NAVIGATION BAR */
         .nav-chapters-inline {
             display: flex;
             justify-content: center;
@@ -695,12 +623,9 @@
             flex-wrap: wrap;
             gap: clamp(12px, 2.5vw, 24px);
             width: 100%;
-            margin-top: auto;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(4px);
-            border-radius: 8px;
+            margin-top: 1rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(226, 157, 167, 0.4);
         }
 
         .nav-item-link {
@@ -731,15 +656,6 @@
 
         /* --- THE DAY (SCENE-DAY) STYLING --- */
         #scene-day {
-            width: 100%;
-            min-height: 100vh;
-            margin: 0 auto;
-            position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.18), rgba(253, 240, 244, 0.25)), url('background.jpg?v=mobile-fit');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             padding: 5rem 1.8rem 5rem 1.8rem;
             text-align: center;
             display: flex;
@@ -777,7 +693,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 70% TRANSLUCENT CARDS FOR DAY & DETAILS */
         .day-location-card {
             background: rgba(255, 255, 255, 0.70) !important;
             backdrop-filter: blur(8px);
@@ -845,17 +760,8 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 70% OPACITY & TOP SPACING --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) STYLING --- */
         #scene-entourage {
-            width: 100%;
-            min-height: 100vh;
-            margin: 0 auto;
-            position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.18), rgba(253, 240, 244, 0.25)), url('background.jpg?v=mobile-fit');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             padding: 5.5rem 1.8rem 5rem 1.8rem;
             text-align: center;
             display: flex;
@@ -893,7 +799,6 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* 70% OPACITY TRANSLUCENT CARD MATCHING DETAILS/DAY STYLES */
         .entourage-board-card {
             background: rgba(255, 255, 255, 0.70) !important;
             backdrop-filter: blur(8px);
@@ -1015,7 +920,7 @@
             max-width: 1100px;
             max-height: 90vh;
             overflow-y: auto;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.85), rgba(253, 240, 244, 0.88)), url('background.jpg?v=mobile-fit');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.85), rgba(253, 240, 244, 0.88)), url('background.jpg?v=fit');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -1070,7 +975,6 @@
             margin-bottom: 2.5rem;
         }
 
-        /* HORIZONTAL INFOGRAPHIC TIMELINE CONTAINER */
         .program-timeline-track {
             display: flex;
             align-items: flex-start;
@@ -1192,11 +1096,29 @@
 
         /* --- MOBILE ENHANCED RESPONSIVE LAYOUT & BACKGROUND SCALING FIXES --- */
         @media (max-width: 768px) {
+            /* ENSURE BACKGROUND.JPG FITS NATIVE MOBILE ASPECT RATIO */
+            #scene-menu,
+            #scene-day,
+            #scene-entourage,
+            #scene-details,
+            #scene-gallery,
+            #scene-rsvp {
+                background-size: contain !important;
+                background-position: center top !important;
+                background-repeat: repeat-y !important;
+                background-attachment: scroll !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+
             .story-editorial-card {
                 padding: 2.2rem 1rem 2rem 1rem !important;
             }
-            .chapter-container { padding: 2rem 1rem; }
-            
+            .chapter-container { 
+                padding: 2rem 1rem !important;
+                width: 94% !important;
+            }
+
             .png-envelope-container {
                 width: 105vw;
             }
@@ -1206,7 +1128,6 @@
                 max-height: 95vh;
             }
 
-            /* TAILORED MOBILE TEXT & BUTTON FIT ON ONE LINE */
             .second-page-embedded-content {
                 width: 76%;
                 top: 61%;
@@ -1246,12 +1167,9 @@
                 margin-bottom: 1.5rem;
             }
 
-            #scene-menu {
-                padding: 2.5rem 0.8rem 2rem 0.8rem;
-                min-height: 460px;
-                background-size: cover !important;
-                background-position: center top !important;
-                background-attachment: scroll !important;
+            .chapters-board-card {
+                padding: 2.2rem 1rem !important;
+                width: 92% !important;
             }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 3px; }
@@ -1271,13 +1189,8 @@
                 letter-spacing: 1.5px;
             }
 
-            /* MOBILE BACKGROUND SCALING FOR THE DAY PAGE */
             #scene-day {
-                padding: 3.5rem 0.8rem 3.5rem 0.8rem !important;
-                background-size: cover !important;
-                background-position: center top !important;
-                background-repeat: no-repeat !important;
-                background-attachment: scroll !important;
+                padding: 4rem 0.5rem 3.5rem 0.5rem !important;
             }
 
             .the-day-header-title {
@@ -1296,6 +1209,7 @@
                 gap: 0.8rem;
                 background: rgba(255, 255, 255, 0.70) !important;
                 margin-bottom: 1.5rem;
+                width: 92% !important;
             }
 
             .day-card-illustration {
@@ -1315,13 +1229,9 @@
                 justify-content: center;
             }
 
-            /* MOBILE BACKGROUND SCALING FOR ENTOURAGE PAGE */
+            /* MOBILE ENTOURAGE ADJUSTMENTS */
             #scene-entourage {
-                padding: 5rem 0.8rem 3.5rem 0.8rem !important;
-                background-size: cover !important;
-                background-position: center top !important;
-                background-repeat: no-repeat !important;
-                background-attachment: scroll !important;
+                padding: 5rem 0.5rem 3.5rem 0.5rem !important;
             }
 
             .entourage-header-title {
@@ -1332,6 +1242,7 @@
             .entourage-board-card {
                 padding: 2.2rem 1rem 1.8rem 1rem !important;
                 background: rgba(255, 255, 255, 0.70) !important;
+                width: 92% !important;
             }
 
             .entourage-grid-3col {
@@ -1366,7 +1277,6 @@
                 display: none;
             }
 
-            /* MOBILE PROGRAM FLOW TIMELINE GRID RESPONSIVE STYLING */
             .program-modal-container {
                 padding: 1.8rem 1rem;
             }
@@ -1529,10 +1439,8 @@
     <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1551,7 +1459,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION (PHOTO CARDS FIXED TO TRIGGER LIGHTBOX OVERLAY) -->
+        <!-- 3. OUR STORY SECTION -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1609,32 +1517,30 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN -->
+        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN (ALIGNED TO SCREENSHOT) -->
         <section class="stage hidden" id="scene-menu">
-            <div>
+            <div class="chapters-board-card">
                 <h2 class="chapters-main-title">OUR WEDDING<br>CHAPTERS</h2>
                 <p class="chapters-sub-title">
                     ELENA & ADRIAN — 31 . 01 . 2028
                 </p>
 
-                <!-- INLINE ELEGANT COUNTDOWN TIMER -->
                 <div class="inline-countdown-timer" id="inline-countdown-display">
                     <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
                 </div>
-            </div>
 
-            <!-- MINIMALIST BOTTOM NAVIGATION BAR -->
-            <nav class="nav-chapters-inline">
-                <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
-                <span class="nav-item-divider">|</span>
-                <a class="nav-item-link" onclick="scrollToSection('scene-entourage')">THE ENTOURAGE</a>
-                <span class="nav-item-divider">|</span>
-                <a class="nav-item-link" onclick="scrollToSection('scene-details')">DETAILS</a>
-                <span class="nav-item-divider">|</span>
-                <a class="nav-item-link" onclick="scrollToSection('scene-gallery')">GALLERY</a>
-                <span class="nav-item-divider">|</span>
-                <a class="nav-item-link" onclick="scrollToSection('scene-rsvp')">RSVP</a>
-            </nav>
+                <nav class="nav-chapters-inline">
+                    <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
+                    <span class="nav-item-divider">|</span>
+                    <a class="nav-item-link" onclick="scrollToSection('scene-entourage')">THE ENTOURAGE</a>
+                    <span class="nav-item-divider">|</span>
+                    <a class="nav-item-link" onclick="scrollToSection('scene-details')">DETAILS</a>
+                    <span class="nav-item-divider">|</span>
+                    <a class="nav-item-link" onclick="scrollToSection('scene-gallery')">GALLERY</a>
+                    <span class="nav-item-divider">|</span>
+                    <a class="nav-item-link" onclick="scrollToSection('scene-rsvp')">RSVP</a>
+                </nav>
+            </div>
         </section>
 
         <!-- 5. THE DAY -->
