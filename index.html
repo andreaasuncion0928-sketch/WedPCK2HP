@@ -127,7 +127,7 @@
             justify-content: center;
             padding: 0.5rem;
             overflow: hidden;
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s ease;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
         }
 
         .fairytale-gateway-screen.fade-out {
@@ -144,6 +144,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            perspective: 1200px;
             transition: opacity 1.2s ease, transform 0.6s ease;
         }
 
@@ -155,6 +156,28 @@
             display: block;
             pointer-events: none;
             user-select: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 3D ANIMATED ENVELOPE FLAP */
+        .envelope-flap {
+            position: absolute;
+            top: 18%;
+            left: 10%;
+            width: 80%;
+            height: 32%;
+            background: #f3d4d4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 24;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        .png-envelope-container.open-flap .envelope-flap {
+            transform: rotateX(-180deg);
+            z-index: 5;
         }
 
         .png-envelope-container.opening {
@@ -178,6 +201,11 @@
             box-shadow: none !important;
             pointer-events: auto;
             transition: opacity 0.6s ease;
+        }
+
+        .png-envelope-container.open-flap .envelope-text-wrapper {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .envelope-caption-title {
@@ -231,22 +259,21 @@
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (FEATURING 2NDPAGE.JPG) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (FEATURING 2NDPAGE.JPG POPUP) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 20;
+            z-index: 5500;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--cream-bg);
-            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
+            background-color: transparent;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.2s ease, background-color 1.2s ease;
             padding: 0.8rem;
             overflow: hidden;
         }
@@ -254,6 +281,8 @@
         #scene-invite-card.active-overlay {
             opacity: 1 !important;
             pointer-events: auto !important;
+            background-color: var(--cream-bg);
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(253, 240, 244, 0.9) 100%);
         }
 
         #scene-invite-card.slide-up-out {
@@ -262,7 +291,7 @@
             display: none !important;
         }
 
-        /* CONCURRENT ZOOM-OUT & EMERGE ANIMATION */
+        /* ENVELOPE CARD POP-UP ANIMATION STYLES */
         .second-page-card-container {
             position: relative;
             max-width: 980px;
@@ -271,13 +300,13 @@
             align-items: center;
             justify-content: center;
             filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
-            transform: scale(0.82);
+            transform: translateY(120px) scale(0.3);
             opacity: 0;
-            transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
         }
 
         #scene-invite-card.active-overlay .second-page-card-container {
-            transform: scale(1);
+            transform: translateY(0) scale(1);
             opacity: 1;
         }
 
@@ -1037,16 +1066,10 @@
             }
             .png-envelope-img { max-height: 92vh; }
 
-            /* Enlarged Mobile 2nd Page Frame with Scale Reset */
+            /* Enlarged Mobile 2nd Page Frame */
             .second-page-card-container { 
                 width: 105vw; 
-                transform: scale(0.88);
             }
-
-            #scene-invite-card.active-overlay .second-page-card-container {
-                transform: scale(1.12);
-            }
-
             .second-page-img { max-height: 92vh; }
 
             .hotspot-read-story { width: 180px; height: 44px; bottom: 21%; }
@@ -1086,6 +1109,9 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            <!-- 3D FLAP LAYER FOR OPENING ANIMATION -->
+            <div class="envelope-flap" id="envelope-flap-el"></div>
+
             <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
 
             <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
@@ -1115,7 +1141,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG) -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG POPUP) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- Exact 2nd Page Artwork using 2ndpage.jpg -->
@@ -1621,13 +1647,14 @@
             });
         }
 
-        /* 1. ENVELOPE CLICK -> CONCURRENT ENVELOPE FADE OUT & 2ND PAGE ZOOM-OUT/EMERGE FADE IN */
+        /* 1. ENVELOPE CLICK -> OPENS FLAP FIRST, POPS UP 2ND PAGE OUT OF THE ENVELOPE, FADES GATEWAY */
         function openEnvelopeAndStartVideo(event) {
             const pngEnv = document.getElementById('png-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
 
-            pngEnv.classList.add('opening');
+            // Trigger 3D Flap Opening
+            pngEnv.classList.add('open-flap');
 
             if (bgMusic) {
                 bgMusic.currentTime = 0;
@@ -1635,12 +1662,19 @@
                 bgMusic.play().catch(e => console.log("Song Play Warning:", e));
             }
 
-            // Simultaneously trigger envelope gateway fade out and 2nd page emerging zoom-out fade in
-            gateway.classList.add('fade-out');
-            proceedToCordiallyInvitedSeamless();
+            // Step 1: Wait for flap to flip open completely
+            setTimeout(() => {
+                // Step 2: Pop up the 2nd page card directly out of the envelope
+                proceedToCordiallyInvitedSeamless();
+
+                // Step 3: Fade out the gateway background smoothly
+                setTimeout(() => {
+                    gateway.classList.add('fade-out');
+                }, 400);
+            }, 600);
         }
 
-        /* REVEALS ELENA & ADRIAN PAGE DIRECTLY WITH ZOOM-OUT EMERGE TRANSITION */
+        /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP ANIMATION */
         function proceedToCordiallyInvitedSeamless() {
             const inviteScene = document.getElementById('scene-invite-card');
             inviteScene.classList.add('active-overlay');
