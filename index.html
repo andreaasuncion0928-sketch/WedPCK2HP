@@ -33,9 +33,9 @@
             --blush-soft: #FFF0F4;
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
-            --peony-glow: rgba(255, 183, 206, 0.4);
-            --envelope-flap: #f2d5d8;
-            --envelope-flap-bottom: #ebd0d4;
+            --peony-glow: rgba(255, 183, 206, 0.5);
+            --envelope-flap: #f7d6da;
+            --envelope-flap-bottom: #f0cbcf;
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -121,7 +121,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #f9e3e2 !important;
+            background: radial-gradient(circle at center, #fbf0f1 0%, #f7dbe0 100%) !important;
             z-index: 5000;
             display: flex;
             align-items: center;
@@ -137,46 +137,71 @@
             pointer-events: none;
         }
 
-        /* --- PURE CSS DESIGNER ENVELOPE WITH LARGE TRIANGULAR FLAP --- */
+        /* --- HIGHLY ELEGANT & MAGICAL CSS ENVELOPE --- */
+        .envelope-outer-aura {
+            position: relative;
+            padding: 20px;
+            border-radius: 20px;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 183, 206, 0.25) 60%, rgba(255,255,255,0) 80%);
+            animation: auraPulsate 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes auraPulsate {
+            0% { transform: scale(0.99); filter: drop-shadow(0 0 25px rgba(255, 183, 206, 0.4)); }
+            100% { transform: scale(1.015); filter: drop-shadow(0 0 45px rgba(255, 183, 206, 0.7)); }
+        }
+
         .custom-envelope-wrapper {
             position: relative;
             width: 100%;
             max-width: 580px;
-            height: 400px;
+            height: 390px;
             background: #FFFFFF;
             border-radius: 12px;
             box-shadow: 
-                0 25px 60px rgba(173, 83, 98, 0.18),
-                0 8px 20px rgba(0, 0, 0, 0.05),
-                inset 0 0 0 1px rgba(255, 183, 206, 0.35);
+                0 30px 70px rgba(173, 83, 98, 0.22),
+                0 10px 25px rgba(0, 0, 0, 0.04),
+                inset 0 0 0 1px rgba(255, 183, 206, 0.4);
             cursor: pointer;
             perspective: 1200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
 
         .custom-envelope-wrapper:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             box-shadow: 
-                0 32px 70px rgba(173, 83, 98, 0.24),
-                0 0 30px var(--peony-glow);
+                0 38px 80px rgba(173, 83, 98, 0.28),
+                0 0 35px var(--peony-glow);
         }
 
-        /* LARGE DOMINANT DUSTY PINK TRIANGULAR FLAP (ENDS ~54-55% HEIGHT) */
+        /* ENVELOPE POCKET INTERIOR LINING */
+        .envelope-pocket-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #f5d3d7 0%, #FAF6F1 50%, #ffffff 100%);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        /* LARGE DUSTY/BABY PINK INVERTED TRIANGULAR FLAP WITH PAPER SHADOW & FOIL BORDER */
         .envelope-top-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 220px; /* ~55% of 400px height */
-            background: linear-gradient(to bottom, var(--envelope-flap) 0%, var(--envelope-flap-bottom) 100%);
+            height: 215px; /* ~55% height */
+            background: linear-gradient(175deg, #fce8eb 0%, var(--envelope-flap) 50%, var(--envelope-flap-bottom) 100%);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 12;
-            filter: drop-shadow(0 6px 12px rgba(160, 80, 95, 0.22));
+            filter: drop-shadow(0 8px 15px rgba(160, 80, 95, 0.25));
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
@@ -186,16 +211,17 @@
             z-index: 2;
         }
 
-        /* INTERIOR INNER CORNER LINE-WORK DETAILS */
-        .envelope-interior-corner-lines {
+        /* GOLD FOIL TRIM ON FLAP EDGE */
+        .envelope-top-flap::after {
+            content: '';
             position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            height: 180px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 96%, rgba(197, 160, 89, 0.4) 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
             pointer-events: none;
-            z-index: 3;
-            opacity: 0.55;
         }
 
         /* WATERCOLOR BOTANICAL FLORAL ARRANGEMENTS (LEFT & RIGHT) */
@@ -207,39 +233,23 @@
             height: 310px;
             pointer-events: none;
             z-index: 10;
+            filter: drop-shadow(0 2px 6px rgba(173, 83, 98, 0.12));
         }
 
-        .envelope-floral-left {
-            left: -22px;
-        }
+        .envelope-floral-left { left: -20px; }
+        .envelope-floral-right { right: -20px; }
 
-        .envelope-floral-right {
-            right: -22px;
-        }
-
-        /* ENVELOPE INTERIOR SHADOW POCKET */
-        .envelope-pocket-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #f3d0d6 0%, #ffffff 45%);
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        /* ENVELOPE LOWER PAPER TRIANGLES */
+        /* ENVELOPE LOWER PAPER FOLDS */
         .envelope-paper-bottom {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 200px;
-            background: #FFFFFF;
-            clip-path: polygon(0 100%, 100% 100%, 50% 20%);
+            height: 195px;
+            background: linear-gradient(to top, #FFFFFF 85%, #FAF8F5 100%);
+            clip-path: polygon(0 100%, 100% 100%, 50% 18%);
             z-index: 8;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 -3px 12px rgba(173, 83, 98, 0.06);
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
         }
@@ -250,7 +260,7 @@
             left: 0;
             width: 210px;
             height: 100%;
-            background: #FAFAF8;
+            background: linear-gradient(to right, #FAF8F6 0%, #FFFFFF 100%);
             clip-path: polygon(0 0, 0 100%, 85% 50%);
             z-index: 7;
             border-top-left-radius: 12px;
@@ -263,50 +273,64 @@
             right: 0;
             width: 210px;
             height: 100%;
-            background: #FAFAF8;
+            background: linear-gradient(to left, #FAF8F6 0%, #FFFFFF 100%);
             clip-path: polygon(100% 0, 100% 100%, 15% 50%);
             z-index: 7;
             border-top-right-radius: 12px;
             border-bottom-right-radius: 12px;
         }
 
-        /* GOLD WAX SEAL */
+        /* BABY PINK EMBOSSED WAX SEAL WITH GOLD MONOGRAM */
         .wax-seal {
             position: absolute;
-            top: 188px;
+            top: 185px;
             left: 50%;
             transform: translateX(-50%);
-            width: 52px;
-            height: 52px;
-            background: radial-gradient(circle at 30% 30%, #E2C07B, #9E7A32);
+            width: 54px;
+            height: 54px;
+            background: radial-gradient(circle at 35% 35%, #FFD6E2 0%, #FFB7CE 60%, #E895AD 100%);
             border-radius: 50%;
             z-index: 15;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(130, 90, 30, 0.35);
+            box-shadow: 
+                0 6px 16px rgba(173, 83, 98, 0.35),
+                inset 0 2px 3px rgba(255, 255, 255, 0.8),
+                inset 0 -3px 5px rgba(173, 83, 98, 0.3);
             transition: opacity 0.5s ease, transform 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px dashed rgba(197, 160, 89, 0.65);
+            pointer-events: none;
         }
 
         .wax-seal span {
             font-family: var(--font-serif);
-            font-size: 0.85rem;
-            color: #FFFFFF;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            font-size: 0.9rem;
+            color: #C5A059;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
         .custom-envelope-wrapper.open-flap .wax-seal {
             opacity: 0;
-            transform: translateX(-50%) scale(0.6);
+            transform: translateX(-50%) scale(0.5);
             pointer-events: none;
         }
 
-        /* ENVELOPE TYPOGRAPHY WRAPPER */
+        /* MINIMALIST THIN TYPOGRAPHY WRAPPER */
         .envelope-text-wrapper {
             position: absolute;
-            bottom: 7%;
+            bottom: 6.5%;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -326,10 +350,10 @@
 
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
-            color: var(--peony-deep) !important;
-            font-weight: 500;
-            letter-spacing: 4px;
+            font-size: clamp(0.95rem, 3vw, 1.15rem);
+            color: #2C2527 !important;
+            font-weight: 300;
+            letter-spacing: 5px;
             text-transform: uppercase;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
@@ -340,8 +364,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            width: 90px;
-            margin: 0.3rem 0 0.4rem 0;
+            width: 75px;
+            margin: 0.25rem 0 0.35rem 0;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.5s;
         }
@@ -352,20 +376,20 @@
             flex: 1;
             height: 1px;
             background: var(--peony-rose);
-            opacity: 0.65;
+            opacity: 0.5;
         }
 
         .envelope-divider-line span {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--peony-rose);
         }
 
         .envelope-action-btn {
             font-family: var(--font-sans);
-            letter-spacing: 3px;
-            font-size: 0.7rem;
-            color: var(--text-muted) !important;
-            font-weight: 400;
+            letter-spacing: 3.5px;
+            font-size: 0.65rem;
+            color: var(--peony-deep) !important;
+            font-weight: 300;
             text-transform: lowercase;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.7s;
@@ -1156,9 +1180,7 @@
                 padding: 2.2rem 1rem 2rem 1rem !important;
             }
             .chapter-container { padding: 2rem 1rem; }
-            .envelope-caption-title { font-size: 1.1rem; letter-spacing: 2.5px; }
-            .envelope-action-btn { font-size: 0.65rem; letter-spacing: 2px; }
-
+            
             /* Mobile Envelope Responsive Adjustments */
             .custom-envelope-wrapper {
                 max-width: 92vw;
@@ -1166,11 +1188,11 @@
             }
 
             .envelope-top-flap {
-                height: 180px; /* ~54-55% of 330px height */
+                height: 180px; /* ~54-55% height */
             }
 
             .envelope-paper-bottom {
-                height: 170px;
+                height: 165px;
             }
 
             .envelope-paper-left,
@@ -1180,8 +1202,8 @@
 
             .wax-seal {
                 top: 152px;
-                width: 46px;
-                height: 46px;
+                width: 48px;
+                height: 48px;
             }
 
             .envelope-floral-side {
@@ -1191,6 +1213,9 @@
 
             .envelope-floral-left { left: -14px; }
             .envelope-floral-right { right: -14px; }
+
+            .envelope-caption-title { font-size: 0.95rem; letter-spacing: 3.5px; }
+            .envelope-action-btn { font-size: 0.6rem; letter-spacing: 2.5px; }
 
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
             .story-headline-married {
@@ -1244,105 +1269,101 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING DUSTY PINK TRIANGULAR FLAP & BOTANICAL FLORALS -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING MAGICAL DUSTY PINK ENVELOPE -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
-        <div class="custom-envelope-wrapper" id="custom-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            
-            <!-- ENVELOPE POCKET INTERIOR SHADOW -->
-            <div class="envelope-pocket-bg"></div>
-
-            <!-- LARGE DUSTY PINK INVERTED TRIANGULAR FLAP (54–55% HEIGHT) -->
-            <div class="envelope-top-flap" id="envelope-flap-el"></div>
-
-            <!-- INTERIOR FINE LINE DETAILS (TOP INNER CORNERS) -->
-            <svg class="envelope-interior-corner-lines" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 15,20 L 120,20 L 250,110 L 380,20 L 485,20" stroke="#C5A059" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.6"/>
-                <path d="M 30,35 L 125,35 L 250,120 L 375,35 L 470,35" stroke="#E29DA7" stroke-width="0.6" opacity="0.5"/>
-            </svg>
-
-            <!-- LEFT BOTANICAL WATERCOLOR ARRANGEMENT -->
-            <svg class="envelope-floral-side envelope-floral-left" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Tall Pink/Lavender Branches & Stems -->
-                <path d="M60 300 C 40 210, 85 130, 45 20" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M55 240 C 25 180, 50 110, 25 60" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
+        <div class="envelope-outer-aura">
+            <div class="custom-envelope-wrapper" id="custom-envelope" onclick="openEnvelopeAndStartVideo(event)">
                 
-                <!-- Lavender & Soft Pink Leaves -->
-                <path d="M45 20 C 35 10, 20 20, 30 30 C 40 40, 50 30, 45 20 Z" fill="#D8C3D3" opacity="0.75"/>
-                <path d="M25 60 C 15 50, 5 60, 15 70 C 25 80, 35 70, 25 60 Z" fill="#C5B1C2" opacity="0.7"/>
-                <path d="M50 140 C 30 130, 20 150, 35 160 Z" fill="#E2C2CF" opacity="0.8"/>
-                <path d="M65 190 C 80 180, 90 200, 75 210 Z" fill="#D3A8B7" opacity="0.8"/>
-                
-                <!-- Large Blush Flower (Lower-Left / Middle) -->
-                <g transform="translate(48, 200)">
-                    <circle cx="0" cy="0" r="28" fill="#FCE4EC" opacity="0.85"/>
-                    <circle cx="-6" cy="-4" r="18" fill="#FFB7CE" opacity="0.75"/>
-                    <circle cx="5" cy="5" r="14" fill="#E29DA7" opacity="0.7"/>
-                    <circle cx="0" cy="0" r="6" fill="#AD5362" opacity="0.8"/>
-                </g>
+                <!-- ENVELOPE POCKET INTERIOR SHADOW -->
+                <div class="envelope-pocket-bg"></div>
 
-                <!-- Soft Pink Flowers & Blossoms Extending Upward -->
-                <g transform="translate(62, 110)">
-                    <circle cx="0" cy="0" r="16" fill="#FFC1D5" opacity="0.85"/>
-                    <circle cx="-3" cy="-3" r="10" fill="#E29DA7" opacity="0.75"/>
-                    <circle cx="0" cy="0" r="3.5" fill="#C5A059" opacity="0.9"/>
-                </g>
+                <!-- LARGE DUSTY PINK INVERTED TRIANGULAR FLAP (54–55% HEIGHT) -->
+                <div class="envelope-top-flap" id="envelope-flap-el"></div>
 
-                <g transform="translate(38, 55)">
-                    <circle cx="0" cy="0" r="12" fill="#FCE4EC" opacity="0.9"/>
-                    <circle cx="0" cy="0" r="7" fill="#FFB7CE" opacity="0.8"/>
-                </g>
-            </svg>
+                <!-- LEFT BOTANICAL WATERCOLOR ARRANGEMENT -->
+                <svg class="envelope-floral-side envelope-floral-left" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tall Branches -->
+                    <path d="M60 300 C 40 210, 85 130, 45 20" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M55 240 C 25 180, 50 110, 25 60" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
+                    
+                    <!-- Lavender & Soft Pink Leaves -->
+                    <path d="M45 20 C 35 10, 20 20, 30 30 C 40 40, 50 30, 45 20 Z" fill="#D8C3D3" opacity="0.75"/>
+                    <path d="M25 60 C 15 50, 5 60, 15 70 C 25 80, 35 70, 25 60 Z" fill="#C5B1C2" opacity="0.7"/>
+                    <path d="M50 140 C 30 130, 20 150, 35 160 Z" fill="#E2C2CF" opacity="0.8"/>
+                    <path d="M65 190 C 80 180, 90 200, 75 210 Z" fill="#D3A8B7" opacity="0.8"/>
+                    
+                    <!-- Large Blush Flower -->
+                    <g transform="translate(48, 200)">
+                        <circle cx="0" cy="0" r="28" fill="#FCE4EC" opacity="0.85"/>
+                        <circle cx="-6" cy="-4" r="18" fill="#FFB7CE" opacity="0.75"/>
+                        <circle cx="5" cy="5" r="14" fill="#E29DA7" opacity="0.7"/>
+                        <circle cx="0" cy="0" r="6" fill="#AD5362" opacity="0.8"/>
+                    </g>
 
-            <!-- RIGHT BOTANICAL WATERCOLOR ARRANGEMENT (BALANCED ASYMMETRICAL MIRROR) -->
-            <svg class="envelope-floral-side envelope-floral-right" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Tall Branches -->
-                <path d="M55 300 C 80 200, 30 140, 70 25" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M60 250 C 90 170, 65 100, 90 45" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
-                
-                <!-- Pale Lavender / Pink Leaves -->
-                <path d="M70 25 C 80 15, 95 25, 85 35 Z" fill="#D8C3D3" opacity="0.75"/>
-                <path d="M90 45 C 100 35, 110 45, 100 55 Z" fill="#C5B1C2" opacity="0.7"/>
-                <path d="M60 120 C 80 110, 90 130, 70 140 Z" fill="#E2C2CF" opacity="0.8"/>
-                <path d="M45 180 C 30 170, 20 190, 35 200 Z" fill="#D3A8B7" opacity="0.8"/>
+                    <!-- Blossoms Extending Upward -->
+                    <g transform="translate(62, 110)">
+                        <circle cx="0" cy="0" r="16" fill="#FFC1D5" opacity="0.85"/>
+                        <circle cx="-3" cy="-3" r="10" fill="#E29DA7" opacity="0.75"/>
+                        <circle cx="0" cy="0" r="3.5" fill="#C5A059" opacity="0.9"/>
+                    </g>
 
-                <!-- Large Pale Flower (Middle-Right) -->
-                <g transform="translate(62, 175)">
-                    <circle cx="0" cy="0" r="26" fill="#FFF0F4" opacity="0.9"/>
-                    <circle cx="4" cy="-3" r="17" fill="#FFCBDD" opacity="0.8"/>
-                    <circle cx="-3" cy="4" r="12" fill="#E29DA7" opacity="0.75"/>
-                    <circle cx="0" cy="0" r="5" fill="#AD5362" opacity="0.85"/>
-                </g>
+                    <g transform="translate(38, 55)">
+                        <circle cx="0" cy="0" r="12" fill="#FCE4EC" opacity="0.9"/>
+                        <circle cx="0" cy="0" r="7" fill="#FFB7CE" opacity="0.8"/>
+                    </g>
+                </svg>
 
-                <!-- Smaller Blossoms Extending Upward & Outward -->
-                <g transform="translate(45, 95)">
-                    <circle cx="0" cy="0" r="15" fill="#FCE4EC" opacity="0.85"/>
-                    <circle cx="2" cy="2" r="9" fill="#E29DA7" opacity="0.7"/>
-                    <circle cx="0" cy="0" r="3" fill="#C5A059" opacity="0.9"/>
-                </g>
+                <!-- RIGHT BOTANICAL WATERCOLOR ARRANGEMENT -->
+                <svg class="envelope-floral-side envelope-floral-right" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Tall Branches -->
+                    <path d="M55 300 C 80 200, 30 140, 70 25" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M60 250 C 90 170, 65 100, 90 45" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
+                    
+                    <!-- Pale Leaves -->
+                    <path d="M70 25 C 80 15, 95 25, 85 35 Z" fill="#D8C3D3" opacity="0.75"/>
+                    <path d="M90 45 C 100 35, 110 45, 100 55 Z" fill="#C5B1C2" opacity="0.7"/>
+                    <path d="M60 120 C 80 110, 90 130, 70 140 Z" fill="#E2C2CF" opacity="0.8"/>
+                    <path d="M45 180 C 30 170, 20 190, 35 200 Z" fill="#D3A8B7" opacity="0.8"/>
 
-                <g transform="translate(78, 65)">
-                    <circle cx="0" cy="0" r="11" fill="#FFC1D5" opacity="0.85"/>
-                    <circle cx="0" cy="0" r="6" fill="#E29DA7" opacity="0.75"/>
-                </g>
-            </svg>
+                    <!-- Large Pale Flower -->
+                    <g transform="translate(62, 175)">
+                        <circle cx="0" cy="0" r="26" fill="#FFF0F4" opacity="0.9"/>
+                        <circle cx="4" cy="-3" r="17" fill="#FFCBDD" opacity="0.8"/>
+                        <circle cx="-3" cy="4" r="12" fill="#E29DA7" opacity="0.75"/>
+                        <circle cx="0" cy="0" r="5" fill="#AD5362" opacity="0.85"/>
+                    </g>
 
-            <!-- ENVELOPE LOWER PAPER TRIANGLES -->
-            <div class="envelope-paper-left"></div>
-            <div class="envelope-paper-right"></div>
-            <div class="envelope-paper-bottom"></div>
+                    <!-- Smaller Blossoms -->
+                    <g transform="translate(45, 95)">
+                        <circle cx="0" cy="0" r="15" fill="#FCE4EC" opacity="0.85"/>
+                        <circle cx="2" cy="2" r="9" fill="#E29DA7" opacity="0.7"/>
+                        <circle cx="0" cy="0" r="3" fill="#C5A059" opacity="0.9"/>
+                    </g>
 
-            <!-- GOLD WAX SEAL -->
-            <div class="wax-seal">
-                <span>E&A</span>
-            </div>
+                    <g transform="translate(78, 65)">
+                        <circle cx="0" cy="0" r="11" fill="#FFC1D5" opacity="0.85"/>
+                        <circle cx="0" cy="0" r="6" fill="#E29DA7" opacity="0.75"/>
+                    </g>
+                </svg>
 
-            <!-- ENVELOPE TYPOGRAPHY WRAPPER -->
-            <div class="envelope-text-wrapper">
-                <p class="envelope-caption-title">A Personal Invitation</p>
-                <div class="envelope-divider-line">
-                    <span>✦</span>
+                <!-- ENVELOPE LOWER PAPER TRIANGLES -->
+                <div class="envelope-paper-left"></div>
+                <div class="envelope-paper-right"></div>
+                <div class="envelope-paper-bottom"></div>
+
+                <!-- BABY PINK WAX SEAL WITH GOLD MONOGRAM -->
+                <div class="wax-seal">
+                    <span>E&A</span>
                 </div>
-                <div class="envelope-action-btn">tap to open</div>
+
+                <!-- MINIMALIST THIN TYPOGRAPHY -->
+                <div class="envelope-text-wrapper">
+                    <p class="envelope-caption-title">A Personal Invitation</p>
+                    <div class="envelope-divider-line">
+                        <span>✦</span>
+                    </div>
+                    <div class="envelope-action-btn">tap to open</div>
+                </div>
             </div>
         </div>
     </div>
@@ -1885,7 +1906,7 @@
                 setTimeout(() => {
                     gateway.classList.add('fade-out');
                 }, 400);
-            }, 600);
+            }, 650);
         }
 
         /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP ANIMATION */
