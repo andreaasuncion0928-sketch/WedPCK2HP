@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT OVER 2NDPAGE.JPG) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -198,18 +198,12 @@
 
         .second-page-card-container {
             position: relative;
-            max-width: 650px;
-            width: 92vw;
+            max-width: 980px;
+            width: 98vw;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: #FFFFFF;
-            padding: 3.2rem 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 183, 206, 0.45);
-            box-shadow: 0 20px 50px rgba(173, 83, 98, 0.12), 0 0 35px var(--peony-glow);
+            filter: drop-shadow(0 20px 50px rgba(173, 83, 98, 0.18));
             transform: translateY(20px);
             opacity: 0;
             transition: transform 0.8s ease, opacity 0.8s ease;
@@ -220,33 +214,58 @@
             opacity: 1;
         }
 
+        .second-page-img {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* TEXT EMBEDDED DIRECTLY ON TOP OF 2NDPAGE.JPG (NO CARD BACKGROUND) */
+        .second-page-embedded-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 580px;
+            text-align: center;
+            z-index: 25;
+            padding: 1rem;
+        }
+
         .invite-headline-hey {
             font-family: var(--font-serif);
-            font-size: clamp(1.35rem, 4vw, 1.9rem);
+            font-size: clamp(1.35rem, 4vw, 2.1rem);
             color: var(--peony-deep);
             font-weight: 600;
             letter-spacing: 1.5px;
             margin-bottom: 1.2rem;
             text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
         }
 
         .invite-body-paragraph {
             font-family: var(--font-sans);
-            font-size: clamp(0.9rem, 2.4vw, 1rem);
+            font-size: clamp(0.9rem, 2.4vw, 1.05rem);
             color: #4A4446;
             line-height: 1.75;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 0.9rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         .invite-signature-tag {
             font-family: var(--font-serif);
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-size: clamp(1.05rem, 2.8vw, 1.3rem);
             color: var(--peony-deep);
             font-style: italic;
             margin-top: 0.6rem;
-            margin-bottom: 1.6rem;
+            margin-bottom: 1.8rem;
             font-weight: 500;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         .btn-story-link {
@@ -967,16 +986,20 @@
             }
 
             .second-page-card-container {
-                padding: 2.2rem 1.2rem;
+                padding: 1rem;
+            }
+
+            .second-page-embedded-content {
+                width: 88%;
             }
 
             .invite-headline-hey {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
             }
 
             .invite-body-paragraph {
-                font-size: 0.88rem;
-                line-height: 1.65;
+                font-size: 0.85rem;
+                line-height: 1.6;
             }
 
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
@@ -1022,11 +1045,11 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.JPG ARTWORK -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG ARTWORK -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- EXACT ENVELOPE ARTWORK -->
-            <img src="envelope.jpg" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
+            <!-- EXACT ENVELOPE ARTWORK REVERTED TO PNG -->
+            <img src="envelope.png" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
         </div>
     </div>
 
@@ -1046,20 +1069,26 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
-            <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
-            
-            <p class="invite-body-paragraph">
-                We’d love to celebrate with you.
-            </p>
-            
-            <p class="invite-signature-tag">— elena & adrian</p>
+            <!-- 2ndpage.jpg artwork restored as background card -->
+            <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <button class="btn-magic btn-story-link" onclick="openOurStorySection()">
-                Come see how our story began ➜
-            </button>
+            <!-- Text embedded directly onto 2ndpage.jpg without background card container -->
+            <div class="second-page-embedded-content">
+                <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
+                
+                <p class="invite-body-paragraph">
+                    We’d love to celebrate with you.
+                </p>
+                
+                <p class="invite-signature-tag">— elena & adrian</p>
+
+                <button class="btn-magic btn-story-link" onclick="openOurStorySection()">
+                    Come see how our story began ➜
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1490,14 +1519,24 @@
             setupDragScroll();
             prepareMagicalHeadlineText();
 
-            // Fallback for envelope.jpg
+            // Fallback for envelope.png
             const envImg = document.getElementById('envelope-main-img');
             if (envImg) {
                 envImg.onerror = function() {
+                    this.src = './envelope.png';
+                };
+            }
+
+            // Fallback for 2ndpage.jpg
+            const secondPageImg = document.getElementById('second-page-img');
+            if (secondPageImg) {
+                secondPageImg.onerror = function() {
                     if (this.src.endsWith('.jpg')) {
-                        this.src = 'envelope.JPG';
+                        this.src = '2ndpage.JPG';
                     } else if (this.src.endsWith('.JPG')) {
-                        this.src = 'envelope.png';
+                        this.src = '2ndpage.png';
+                    } else if (this.src.endsWith('.png')) {
+                        this.src = '2ndpage.PNG';
                     }
                 };
             }
@@ -1563,7 +1602,7 @@
             proceedToCordiallyInvitedSeamless();
         }
 
-        /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP / ZOOM-OUT ANIMATION */
+        /* REVEALS ELENA & ADRIAN PAGE VIA POP-UP ANIMATION */
         function proceedToCordiallyInvitedSeamless() {
             const inviteScene = document.getElementById('scene-invite-card');
             inviteScene.classList.add('active-overlay');
