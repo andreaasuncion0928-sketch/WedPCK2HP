@@ -777,9 +777,9 @@
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* TRANSLUCENT CARDS ALLOWING BACKGROUND ARTWORK TO SHOW THROUGH */
+        /* 70% TRANSLUCENT CARDS FOR DAY & DETAILS */
         .day-location-card {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.70);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.95);
@@ -845,7 +845,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) UPDATED WITH 70% OPACITY & TOP SPACING --- */
+        /* --- THE ENTOURAGE (SCENE-ENTOURAGE) ADJUSTED WITH 70% OPACITY & TOP SPACING --- */
         #scene-entourage {
             width: 100%;
             min-height: 100vh;
@@ -1248,7 +1248,7 @@
                 text-align: center;
                 padding: 1.4rem 1rem;
                 gap: 0.8rem;
-                background: rgba(255, 255, 255, 0.88);
+                background: rgba(255, 255, 255, 0.70);
                 margin-bottom: 1.5rem;
             }
 
@@ -1269,9 +1269,9 @@
                 justify-content: center;
             }
 
-            /* MOBILE ENTOURAGE ADJUSTMENTS & BACKGROUND ARTWORK PRESERVATION */
+            /* MOBILE ENTOURAGE ADJUSTMENTS WITH TOP SPACING & 70% OPACITY */
             #scene-entourage {
-                padding: 4.5rem 0.8rem 3.5rem 0.8rem;
+                padding: 5rem 0.8rem 3.5rem 0.8rem;
                 background-size: cover;
                 background-position: center top;
                 background-repeat: no-repeat;
@@ -1284,7 +1284,7 @@
             }
 
             .entourage-board-card {
-                padding: 2rem 1rem 1.8rem 1rem;
+                padding: 2.2rem 1rem 1.8rem 1rem;
                 background: rgba(255, 255, 255, 0.70);
             }
 
@@ -1483,8 +1483,10 @@
     <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
+            <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
+            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1503,7 +1505,7 @@
 
     <main class="stage-container" id="stage-wrapper">
 
-        <!-- 3. OUR STORY SECTION (PHOTO CARDS OPEN LIGHTBOX OVERLAY) -->
+        <!-- 3. OUR STORY SECTION (PHOTO CARDS FIXED TO TRIGGER LIGHTBOX OVERLAY) -->
         <section class="stage hidden" id="scene-story">
             <article class="chapter-container story-editorial-card">
                 
@@ -1569,11 +1571,13 @@
                     ELENA & ADRIAN — 31 . 01 . 2028
                 </p>
 
+                <!-- INLINE ELEGANT COUNTDOWN TIMER -->
                 <div class="inline-countdown-timer" id="inline-countdown-display">
                     <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
                 </div>
             </div>
 
+            <!-- MINIMALIST BOTTOM NAVIGATION BAR -->
             <nav class="nav-chapters-inline">
                 <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
                 <span class="nav-item-divider">|</span>
@@ -1595,6 +1599,7 @@
                 <p class="the-day-header-desc">Two places. One promise.</p>
             </div>
 
+            <!-- CEREMONY CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 15 L140 45 V140 H60 V45 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1615,6 +1620,7 @@
                 </div>
             </div>
 
+            <!-- RECEPTION CARD WITH ARCHITECTURAL ILLUSTRATION -->
             <div class="day-location-card">
                 <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M30 50 H170 V140 H30 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
@@ -1640,7 +1646,7 @@
             </div>
         </section>
 
-        <!-- 6. THE ENTOURAGE (BALANCED SPACING & 70% TRANSLUCENT BOARD) -->
+        <!-- 6. THE ENTOURAGE (SCENE-ENTOURAGE WITH TOP SPACING & 70% TRANSLUCENT CARD) -->
         <section class="stage hidden" id="scene-entourage">
             <div>
                 <p class="entourage-header-subtitle">With Our Beloved Families</p>
