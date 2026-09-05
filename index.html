@@ -35,6 +35,7 @@
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
             --envelope-flap: #f9e3e2;
+            --envelope-flap-inner: #f1cfd1;
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -125,7 +126,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
+            padding: 1rem;
             overflow: hidden;
             transition: opacity 1.2s ease, visibility 1.2s ease;
         }
@@ -136,58 +137,166 @@
             pointer-events: none;
         }
 
-        .png-envelope-container {
+        /* --- PURE CSS DESIGNER ENVELOPE WITH SIDE FLORAL SCROLLS --- */
+        .custom-envelope-wrapper {
             position: relative;
-            max-width: 900px;
-            width: 95vw;
+            width: 100%;
+            max-width: 540px;
+            height: 360px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 
+                0 25px 60px rgba(173, 83, 98, 0.18),
+                0 8px 20px rgba(0, 0, 0, 0.05),
+                inset 0 0 0 1px rgba(255, 183, 206, 0.35);
+            cursor: pointer;
+            perspective: 1200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            perspective: 1200px;
-            transition: opacity 1.2s ease, transform 0.6s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .png-envelope-img {
-            width: 100%;
-            height: auto;
-            max-height: 85vh;
-            object-fit: contain;
-            display: block;
-            pointer-events: none;
-            user-select: none;
-            position: relative;
-            z-index: 10;
+        .custom-envelope-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 32px 70px rgba(173, 83, 98, 0.24),
+                0 0 30px var(--peony-glow);
         }
 
-        /* 3D ANIMATED ENVELOPE FLAP */
-        .envelope-flap {
+        /* SIDE FLORAL SCROLLS (SVG ARTWORK) */
+        .envelope-floral-side {
             position: absolute;
-            top: 18%;
-            left: 10%;
-            width: 80%;
-            height: 32%;
-            background: #f3d4d4;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 220px;
+            pointer-events: none;
+            opacity: 0.75;
+            z-index: 8;
+        }
+
+        .envelope-floral-left {
+            left: 12px;
+        }
+
+        .envelope-floral-right {
+            right: 12px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        /* ENVELOPE INTERIOR SHADOW POCKET */
+        .envelope-pocket-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #f3d0d6 0%, #ffffff 40%);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        /* 3D BABY PINK FLAP */
+        .envelope-top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 190px;
+            background: var(--envelope-flap);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 24;
-            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+            z-index: 12;
+            filter: drop-shadow(0 4px 8px rgba(173, 83, 98, 0.15));
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         }
 
-        .png-envelope-container.open-flap .envelope-flap {
+        .custom-envelope-wrapper.open-flap .envelope-top-flap {
             transform: rotateX(-180deg);
-            z-index: 5;
+            z-index: 2;
         }
 
-        .png-envelope-container.opening {
-            opacity: 0 !important;
-            transition: opacity 1.2s ease !important;
+        /* ENVELOPE LOWER PAPER TRIANGLES */
+        .envelope-paper-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 210px;
+            background: #FFFFFF;
+            clip-path: polygon(0 100%, 100% 100%, 50% 15%);
+            z-index: 9;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
 
+        .envelope-paper-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background: #FAFAF8;
+            clip-path: polygon(0 0, 0 100%, 85% 50%);
+            z-index: 7;
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .envelope-paper-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: #FAFAF8;
+            clip-path: polygon(100% 0, 100% 100%, 15% 50%);
+            z-index: 7;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* GOLD WAX SEAL */
+        .wax-seal {
+            position: absolute;
+            top: 155px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52px;
+            height: 52px;
+            background: radial-gradient(circle at 30% 30%, #E2C07B, #9E7A32);
+            border-radius: 50%;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(130, 90, 30, 0.35);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .wax-seal span {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+
+        .custom-envelope-wrapper.open-flap .wax-seal {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.6);
+            pointer-events: none;
+        }
+
+        /* ENVELOPE TYPOGRAPHY WRAPPER */
         .envelope-text-wrapper {
             position: absolute;
-            bottom: 11%;
+            bottom: 8%;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -196,24 +305,21 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
             pointer-events: auto;
             transition: opacity 0.6s ease;
         }
 
-        .png-envelope-container.open-flap .envelope-text-wrapper {
+        .custom-envelope-wrapper.open-flap .envelope-text-wrapper {
             opacity: 0;
             pointer-events: none;
         }
 
         .envelope-caption-title {
             font-family: var(--font-serif);
-            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-            color: #000000 !important;
-            font-weight: 300;
-            letter-spacing: 5px;
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            color: var(--peony-deep) !important;
+            font-weight: 500;
+            letter-spacing: 4px;
             text-transform: uppercase;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.3s;
@@ -225,7 +331,7 @@
             justify-content: center;
             gap: 10px;
             width: 90px;
-            margin: 0.5rem 0 0.6rem 0;
+            margin: 0.3rem 0 0.4rem 0;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.5s;
         }
@@ -236,25 +342,21 @@
             flex: 1;
             height: 1px;
             background: var(--peony-rose);
-            opacity: 0.45;
+            opacity: 0.65;
         }
 
         .envelope-divider-line span {
             font-size: 0.65rem;
             color: var(--peony-rose);
-            opacity: 0.6;
         }
 
         .envelope-action-btn {
             font-family: var(--font-sans);
             letter-spacing: 3px;
-            font-size: 0.75rem;
-            color: #000000 !important;
-            font-weight: 300;
+            font-size: 0.7rem;
+            color: var(--text-muted) !important;
+            font-weight: 400;
             text-transform: lowercase;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
             opacity: 0;
             animation: softFadeUp 1.2s ease forwards 0.7s;
         }
@@ -1044,8 +1146,38 @@
                 padding: 2.2rem 1rem 2rem 1rem !important;
             }
             .chapter-container { padding: 2rem 1rem; }
-            .envelope-caption-title { font-size: 1.25rem; letter-spacing: 3px; }
-            .envelope-action-btn { font-size: 0.7rem; letter-spacing: 2px; }
+            .envelope-caption-title { font-size: 1.1rem; letter-spacing: 2.5px; }
+            .envelope-action-btn { font-size: 0.65rem; letter-spacing: 2px; }
+
+            /* Mobile Envelope Responsive Adjustments */
+            .custom-envelope-wrapper {
+                max-width: 92vw;
+                height: 310px;
+            }
+
+            .envelope-top-flap {
+                height: 165px;
+            }
+
+            .envelope-paper-bottom {
+                height: 180px;
+            }
+
+            .envelope-paper-left,
+            .envelope-paper-right {
+                width: 140px;
+            }
+
+            .wax-seal {
+                top: 135px;
+                width: 46px;
+                height: 46px;
+            }
+
+            .envelope-floral-side {
+                width: 50px;
+                height: 160px;
+            }
 
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
             .story-headline-married {
@@ -1058,13 +1190,6 @@
                 padding: 4px 6px;
                 margin-bottom: 1.5rem;
             }
-
-            /* Enlarged Mobile Intro Envelope */
-            .png-envelope-container { 
-                width: 105vw; 
-                transform: scale(1.12);
-            }
-            .png-envelope-img { max-height: 92vh; }
 
             /* Enlarged Mobile 2nd Page Frame */
             .second-page-card-container { 
@@ -1097,7 +1222,7 @@
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
-            .envelope-text-wrapper { bottom: 8%; }
+            .envelope-text-wrapper { bottom: 6%; }
         }
     </style>
 </head>
@@ -1106,15 +1231,48 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG (#f9e3e2 Background) -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING CUSTOM CSS ENVELOPE WITH SIDE FLORAL SCROLLS -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
-        <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- 3D FLAP LAYER FOR OPENING ANIMATION -->
-            <div class="envelope-flap" id="envelope-flap-el"></div>
+        <div class="custom-envelope-wrapper" id="custom-envelope" onclick="openEnvelopeAndStartVideo(event)">
+            
+            <!-- ENVELOPE POCKET INTERIOR SHADOW -->
+            <div class="envelope-pocket-bg"></div>
 
-            <img src="envelope.png" alt="Personal Envelope" class="png-envelope-img" id="envelope-main-img">
+            <!-- 3D BABY PINK FLAP -->
+            <div class="envelope-top-flap" id="envelope-flap-el"></div>
 
-            <!-- SMALLER & MINIMALIST THIN TYPOGRAPHY -->
+            <!-- SIDE FLORAL SCROLLS (LEFT & RIGHT) -->
+            <svg class="envelope-floral-side envelope-floral-left" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 C 20 60, 80 100, 40 150 C 10 190, 70 240, 50 290" stroke="#E29DA7" stroke-width="2" fill="none"/>
+                <circle cx="40" cy="60" r="8" fill="#FFB7CE" opacity="0.8"/>
+                <circle cx="60" cy="110" r="6" fill="#E29DA7" opacity="0.7"/>
+                <circle cx="30" cy="180" r="9" fill="#FFB7CE" opacity="0.8"/>
+                <circle cx="55" cy="230" r="7" fill="#E29DA7" opacity="0.7"/>
+                <path d="M40 60 Q 20 50 15 65" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+                <path d="M30 180 Q 10 170 5 185" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+            </svg>
+
+            <svg class="envelope-floral-side envelope-floral-right" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 C 20 60, 80 100, 40 150 C 10 190, 70 240, 50 290" stroke="#E29DA7" stroke-width="2" fill="none"/>
+                <circle cx="40" cy="60" r="8" fill="#FFB7CE" opacity="0.8"/>
+                <circle cx="60" cy="110" r="6" fill="#E29DA7" opacity="0.7"/>
+                <circle cx="30" cy="180" r="9" fill="#FFB7CE" opacity="0.8"/>
+                <circle cx="55" cy="230" r="7" fill="#E29DA7" opacity="0.7"/>
+                <path d="M40 60 Q 20 50 15 65" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+                <path d="M30 180 Q 10 170 5 185" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+            </svg>
+
+            <!-- ENVELOPE LOWER PAPER TRIANGLES -->
+            <div class="envelope-paper-left"></div>
+            <div class="envelope-paper-right"></div>
+            <div class="envelope-paper-bottom"></div>
+
+            <!-- GOLD WAX SEAL -->
+            <div class="wax-seal">
+                <span>E&A</span>
+            </div>
+
+            <!-- ENVELOPE TYPOGRAPHY WRAPPER -->
             <div class="envelope-text-wrapper">
                 <p class="envelope-caption-title">A Personal Invitation</p>
                 <div class="envelope-divider-line">
@@ -1579,14 +1737,6 @@
             setupDragScroll();
             prepareMagicalHeadlineText();
 
-            // Fallback for envelope.png
-            const envImg = document.getElementById('envelope-main-img');
-            if (envImg) {
-                envImg.onerror = function() {
-                    this.src = './envelope.png';
-                };
-            }
-
             // Fallback for 2ndpage.jpg
             const secondPageImg = document.getElementById('second-page-img');
             if (secondPageImg) {
@@ -1649,12 +1799,12 @@
 
         /* 1. ENVELOPE CLICK -> OPENS FLAP FIRST, POPS UP 2ND PAGE OUT OF THE ENVELOPE, FADES GATEWAY */
         function openEnvelopeAndStartVideo(event) {
-            const pngEnv = document.getElementById('png-envelope');
+            const envEl = document.getElementById('custom-envelope');
             const gateway = document.getElementById('desk-gateway');
             const bgMusic = document.getElementById('bg-music');
 
             // Trigger 3D Flap Opening
-            pngEnv.classList.add('open-flap');
+            envEl.classList.add('open-flap');
 
             if (bgMusic) {
                 bgMusic.currentTime = 0;
