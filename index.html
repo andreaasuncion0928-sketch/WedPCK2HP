@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT LOWERED & RESIZED) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -223,10 +223,10 @@
             border-radius: 8px;
         }
 
-        /* TEXT EMBEDDED & POSITIONED LOWER ON 2NDPAGE.JPG */
+        /* SHIFTED LOWER DOWN (top: 67%) TO SIT CLEANLY INSIDE THE WHITE FRAME */
         .second-page-embedded-content {
             position: absolute;
-            top: 58%;
+            top: 67%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 78%;
@@ -994,11 +994,11 @@
 
             .second-page-embedded-content {
                 width: 88%;
-                top: 60%;
+                top: 68%;
             }
 
             .invite-headline-hey {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
                 margin-bottom: 0.5rem;
             }
 
@@ -1064,7 +1064,7 @@
     <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING ENVELOPE.PNG ARTWORK -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="png-envelope-container" id="png-envelope" onclick="openEnvelopeAndStartVideo(event)">
-            <!-- EXACT ENVELOPE ARTWORK REVERTED TO PNG -->
+            <!-- EXACT ENVELOPE ARTWORK -->
             <img src="envelope.png" alt="Personal Envelope Invitation" class="png-envelope-img" id="envelope-main-img">
         </div>
     </div>
@@ -1085,13 +1085,13 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT) -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT SHIFTED LOWER) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down -->
+            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1355,7 +1355,7 @@
         <!-- RSVP -->
         <section class="stage hidden" id="scene-rsvp">
             <article class="chapter-container fade-in-up" style="max-width: 550px;">
-                <h2 class="chapter-title">WE'VE SAVED YOU A SEAT.</h2>
+                <h2 class="chapter-title">WE'SAVED YOU A SEAT.</h2>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
                     Please let us know if you'll be joining us.
                 </p>
