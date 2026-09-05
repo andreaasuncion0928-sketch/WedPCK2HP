@@ -113,7 +113,7 @@
             display: none !important;
         }
 
-        /* --- LAYER 1: ENCHANTED GATEWAY --- */
+        /* --- LAYER 1: ENCHANTED GATEWAY (#f9e3e2 BACKGROUND) --- */
         .fairytale-gateway-screen {
             position: fixed;
             top: 0;
@@ -164,7 +164,7 @@
             z-index: 10;
         }
 
-        /* --- LAYER 2: ELENA & ADRIAN PAGE (MOBILE TAILORED FIT) --- */
+        /* --- LAYER 2: ELENA & ADRIAN PAGE (EMBEDDED TEXT SHIFTED LOWER) --- */
         #scene-invite-card {
             position: fixed;
             top: 0;
@@ -223,62 +223,57 @@
             border-radius: 8px;
         }
 
-        /* PERFECTLY CENTERED EMBEDDED TEXT INSIDE WHITE INNER BOX */
+        /* SHIFTED LOWER DOWN (top: 67%) TO SIT CLEANLY INSIDE THE WHITE FRAME */
         .second-page-embedded-content {
             position: absolute;
-            top: 61%;
+            top: 67%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 72%;
-            max-width: 480px;
+            width: 78%;
+            max-width: 520px;
             text-align: center;
             z-index: 25;
-            padding: 0.2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            padding: 0.5rem;
         }
 
         .invite-headline-hey {
             font-family: var(--font-serif);
-            font-size: clamp(0.92rem, 2.6vw, 1.35rem);
+            font-size: clamp(1.05rem, 2.8vw, 1.45rem);
             color: var(--peony-deep);
             font-weight: 600;
-            letter-spacing: 1.2px;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.8rem;
+            line-height: 1.35;
             text-transform: uppercase;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         .invite-body-paragraph {
             font-family: var(--font-sans);
-            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+            font-size: clamp(0.82rem, 2vw, 0.95rem);
             color: #4A4446;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
-            margin-bottom: 0.4rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.6rem;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         .invite-signature-tag {
             font-family: var(--font-serif);
-            font-size: clamp(0.85rem, 2vw, 1.05rem);
+            font-size: clamp(0.95rem, 2.2vw, 1.15rem);
             color: var(--peony-deep);
             font-style: italic;
-            margin-top: 0.2rem;
-            margin-bottom: 0.8rem;
+            margin-top: 0.4rem;
+            margin-bottom: 1.2rem;
             font-weight: 500;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
         }
 
         .btn-story-link {
             cursor: pointer;
             margin-top: 0.2rem;
-            font-size: clamp(0.62rem, 1.6vw, 0.72rem);
-            padding: 6px 18px;
-            white-space: nowrap;
+            font-size: 0.72rem;
+            padding: 8px 20px;
         }
 
         /* --- MAIN CHAPTER STYLING & PARCHMENT CONTAINER --- */
@@ -610,7 +605,7 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING (HIGHLY VISIBLE MOBILE BACKGROUND) --- */
+        /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
@@ -712,21 +707,23 @@
             user-select: none;
         }
 
-        /* --- THE DAY (SCENE-DAY) STYLING --- */
+        /* --- THE DAY (SCENE-DAY) STYLING WITH FULL MOBILE COVER BACKGROUND --- */
         #scene-day {
             width: 100%;
-            max-width: 1000px;
+            min-height: 100vh;
             margin: 0 auto;
             position: relative;
-            background-image: linear-gradient(rgba(255, 253, 249, 0.25), rgba(253, 240, 244, 0.35)), url('background.jpg');
+            background-image: linear-gradient(rgba(255, 253, 249, 0.18), rgba(253, 240, 244, 0.25)), url('background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border-radius: 12px;
+            background-attachment: fixed;
             padding: 4.5rem 1.8rem 4rem 1.8rem;
-            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
-            border: 1px solid rgba(255, 183, 206, 0.4);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .the-day-header-subtitle {
@@ -735,7 +732,7 @@
             color: #2D2527;
             font-weight: 400;
             margin-bottom: 0.4rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
         .the-day-header-title {
@@ -746,7 +743,7 @@
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 0.4rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
         .the-day-header-desc {
@@ -755,15 +752,15 @@
             color: #3D3537;
             font-weight: 400;
             margin-bottom: 2.8rem;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.95);
         }
 
-        /* LOCATION CARDS MATCHING SCREENSHOT OVERLAY */
+        /* TRANSLUCENT CARDS ALLOWING BACKGROUND ARTWORK TO SHOW THROUGH */
         .day-location-card {
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
             border-radius: 12px;
             padding: 2rem 2.2rem;
             margin-bottom: 2.2rem;
@@ -772,6 +769,8 @@
             justify-content: space-between;
             gap: 2rem;
             text-align: left;
+            max-width: 860px;
+            width: 100%;
             box-shadow: 0 10px 30px rgba(185, 165, 160, 0.15);
         }
 
@@ -1042,26 +1041,27 @@
                 max-height: 95vh;
             }
 
+            /* TAILORED MOBILE TEXT POSITIONING INSIDE WHITE PARCHMENT BOX */
             .second-page-embedded-content {
-                width: 78%;
+                width: 76%;
                 top: 61%;
             }
 
             .invite-headline-hey {
-                font-size: 0.88rem;
+                font-size: 0.82rem;
                 margin-bottom: 0.35rem;
                 letter-spacing: 0.8px;
             }
 
             .invite-body-paragraph {
-                font-size: 0.72rem;
-                line-height: 1.38;
+                font-size: 0.7rem;
+                line-height: 1.35;
                 margin-bottom: 0.25rem;
             }
 
             .invite-signature-tag {
-                font-size: 0.8rem;
-                margin-bottom: 0.6rem;
+                font-size: 0.78rem;
+                margin-bottom: 0.5rem;
             }
 
             .btn-story-link {
@@ -1082,9 +1082,10 @@
             }
 
             #scene-menu {
-                padding: 2.5rem 1rem 2rem 1rem;
+                padding: 2.5rem 0.8rem 2rem 0.8rem;
                 min-height: 460px;
                 background-position: center center;
+                background-attachment: scroll;
             }
 
             .chapters-main-title { font-size: 1.8rem; letter-spacing: 3px; }
@@ -1104,17 +1105,19 @@
                 letter-spacing: 1.5px;
             }
 
-            /* Mobile Styling for Scene-Day */
+            /* Mobile Styling for Scene-Day Background Fix */
             #scene-day {
-                padding: 3rem 1rem 2.5rem 1rem;
+                padding: 3rem 0.8rem 2.5rem 0.8rem;
                 background-position: center center;
+                background-attachment: scroll;
             }
 
             .day-location-card {
                 flex-direction: column;
                 text-align: center;
-                padding: 1.5rem 1.2rem;
-                gap: 1rem;
+                padding: 1.5rem 1rem;
+                gap: 0.8rem;
+                background: rgba(255, 255, 255, 0.88);
             }
 
             .day-card-illustration {
@@ -1164,13 +1167,13 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (TAILORED FIT INSIDE PARCHMENT FRAME) -->
+    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT SHIFTED LOWER) -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- 2ndpage.jpg artwork restored as background card -->
             <img src="2ndpage.jpg" alt="Elena & Adrian Invitation Artwork" class="second-page-img" id="second-page-img">
 
-            <!-- Text embedded directly onto 2ndpage.jpg positioned inside white frame -->
+            <!-- Text embedded directly onto 2ndpage.jpg positioned lower down inside frame -->
             <div class="second-page-embedded-content">
                 <h2 class="invite-headline-hey">After all this time, it’s finally happening.</h2>
                 
@@ -1282,7 +1285,7 @@
             </nav>
         </section>
 
-        <!-- 5. THE DAY (VISIBLE BACKGROUND.JPG ON MOBILE) -->
+        <!-- 5. THE DAY (FULL COVER BACKGROUND ON MOBILE & TRANSLUCENT CARDS) -->
         <section class="stage hidden" id="scene-day">
             <div>
                 <p class="the-day-header-subtitle">A day we will always remember.</p>
