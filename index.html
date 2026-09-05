@@ -34,8 +34,8 @@
             --peony-rose: #E29DA7;
             --peony-deep: #AD5362;
             --peony-glow: rgba(255, 183, 206, 0.4);
-            --envelope-flap: #f9e3e2;
-            --envelope-flap-inner: #f1cfd1;
+            --envelope-flap: #f2d5d8;
+            --envelope-flap-bottom: #ebd0d4;
             
             --champagne-gold: #C5A059;
             --gold-glow: rgba(197, 160, 89, 0.25);
@@ -137,12 +137,12 @@
             pointer-events: none;
         }
 
-        /* --- PURE CSS DESIGNER ENVELOPE WITH SIDE FLORAL SCROLLS --- */
+        /* --- PURE CSS DESIGNER ENVELOPE WITH LARGE TRIANGULAR FLAP --- */
         .custom-envelope-wrapper {
             position: relative;
             width: 100%;
-            max-width: 540px;
-            height: 360px;
+            max-width: 580px;
+            height: 400px;
             background: #FFFFFF;
             border-radius: 12px;
             box-shadow: 
@@ -164,52 +164,19 @@
                 0 0 30px var(--peony-glow);
         }
 
-        /* SIDE FLORAL SCROLLS (SVG ARTWORK) */
-        .envelope-floral-side {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 70px;
-            height: 220px;
-            pointer-events: none;
-            opacity: 0.75;
-            z-index: 8;
-        }
-
-        .envelope-floral-left {
-            left: 12px;
-        }
-
-        .envelope-floral-right {
-            right: 12px;
-            transform: translateY(-50%) scaleX(-1);
-        }
-
-        /* ENVELOPE INTERIOR SHADOW POCKET */
-        .envelope-pocket-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #f3d0d6 0%, #ffffff 40%);
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        /* 3D BABY PINK FLAP */
+        /* LARGE DOMINANT DUSTY PINK TRIANGULAR FLAP (ENDS ~54-55% HEIGHT) */
         .envelope-top-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 190px;
-            background: var(--envelope-flap);
+            height: 220px; /* ~55% of 400px height */
+            background: linear-gradient(to bottom, var(--envelope-flap) 0%, var(--envelope-flap-bottom) 100%);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top center;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 12;
-            filter: drop-shadow(0 4px 8px rgba(173, 83, 98, 0.15));
+            filter: drop-shadow(0 6px 12px rgba(160, 80, 95, 0.22));
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
@@ -219,16 +186,59 @@
             z-index: 2;
         }
 
+        /* INTERIOR INNER CORNER LINE-WORK DETAILS */
+        .envelope-interior-corner-lines {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            height: 180px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.55;
+        }
+
+        /* WATERCOLOR BOTANICAL FLORAL ARRANGEMENTS (LEFT & RIGHT) */
+        .envelope-floral-side {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 110px;
+            height: 310px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .envelope-floral-left {
+            left: -22px;
+        }
+
+        .envelope-floral-right {
+            right: -22px;
+        }
+
+        /* ENVELOPE INTERIOR SHADOW POCKET */
+        .envelope-pocket-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #f3d0d6 0%, #ffffff 45%);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
         /* ENVELOPE LOWER PAPER TRIANGLES */
         .envelope-paper-bottom {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 210px;
+            height: 200px;
             background: #FFFFFF;
-            clip-path: polygon(0 100%, 100% 100%, 50% 15%);
-            z-index: 9;
+            clip-path: polygon(0 100%, 100% 100%, 50% 20%);
+            z-index: 8;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
@@ -238,7 +248,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 200px;
+            width: 210px;
             height: 100%;
             background: #FAFAF8;
             clip-path: polygon(0 0, 0 100%, 85% 50%);
@@ -251,7 +261,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 200px;
+            width: 210px;
             height: 100%;
             background: #FAFAF8;
             clip-path: polygon(100% 0, 100% 100%, 15% 50%);
@@ -263,7 +273,7 @@
         /* GOLD WAX SEAL */
         .wax-seal {
             position: absolute;
-            top: 155px;
+            top: 188px;
             left: 50%;
             transform: translateX(-50%);
             width: 52px;
@@ -296,7 +306,7 @@
         /* ENVELOPE TYPOGRAPHY WRAPPER */
         .envelope-text-wrapper {
             position: absolute;
-            bottom: 8%;
+            bottom: 7%;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -1152,32 +1162,35 @@
             /* Mobile Envelope Responsive Adjustments */
             .custom-envelope-wrapper {
                 max-width: 92vw;
-                height: 310px;
+                height: 330px;
             }
 
             .envelope-top-flap {
-                height: 165px;
+                height: 180px; /* ~54-55% of 330px height */
             }
 
             .envelope-paper-bottom {
-                height: 180px;
+                height: 170px;
             }
 
             .envelope-paper-left,
             .envelope-paper-right {
-                width: 140px;
+                width: 145px;
             }
 
             .wax-seal {
-                top: 135px;
+                top: 152px;
                 width: 46px;
                 height: 46px;
             }
 
             .envelope-floral-side {
-                width: 50px;
-                height: 160px;
+                width: 75px;
+                height: 220px;
             }
+
+            .envelope-floral-left { left: -14px; }
+            .envelope-floral-right { right: -14px; }
 
             /* Mobile Heading Optimization to prevent "MARRIED" slicing */
             .story-headline-married {
@@ -1222,7 +1235,7 @@
 
             .photo-card { width: 95px; height: 120px; }
             .memory-photo-card { flex: 0 0 135px; height: 175px; }
-            .envelope-text-wrapper { bottom: 6%; }
+            .envelope-text-wrapper { bottom: 5%; }
         }
     </style>
 </head>
@@ -1231,35 +1244,86 @@
     <!-- Ambient Peony Petal Canvas Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING CUSTOM CSS ENVELOPE WITH SIDE FLORAL SCROLLS -->
+    <!-- 1. HERO OPENING: ENCHANTED GATEWAY FEATURING DUSTY PINK TRIANGULAR FLAP & BOTANICAL FLORALS -->
     <div class="fairytale-gateway-screen" id="desk-gateway">
         <div class="custom-envelope-wrapper" id="custom-envelope" onclick="openEnvelopeAndStartVideo(event)">
             
             <!-- ENVELOPE POCKET INTERIOR SHADOW -->
             <div class="envelope-pocket-bg"></div>
 
-            <!-- 3D BABY PINK FLAP -->
+            <!-- LARGE DUSTY PINK INVERTED TRIANGULAR FLAP (54–55% HEIGHT) -->
             <div class="envelope-top-flap" id="envelope-flap-el"></div>
 
-            <!-- SIDE FLORAL SCROLLS (LEFT & RIGHT) -->
-            <svg class="envelope-floral-side envelope-floral-left" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10 C 20 60, 80 100, 40 150 C 10 190, 70 240, 50 290" stroke="#E29DA7" stroke-width="2" fill="none"/>
-                <circle cx="40" cy="60" r="8" fill="#FFB7CE" opacity="0.8"/>
-                <circle cx="60" cy="110" r="6" fill="#E29DA7" opacity="0.7"/>
-                <circle cx="30" cy="180" r="9" fill="#FFB7CE" opacity="0.8"/>
-                <circle cx="55" cy="230" r="7" fill="#E29DA7" opacity="0.7"/>
-                <path d="M40 60 Q 20 50 15 65" stroke="#AD5362" stroke-width="1.5" fill="none"/>
-                <path d="M30 180 Q 10 170 5 185" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+            <!-- INTERIOR FINE LINE DETAILS (TOP INNER CORNERS) -->
+            <svg class="envelope-interior-corner-lines" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 15,20 L 120,20 L 250,110 L 380,20 L 485,20" stroke="#C5A059" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.6"/>
+                <path d="M 30,35 L 125,35 L 250,120 L 375,35 L 470,35" stroke="#E29DA7" stroke-width="0.6" opacity="0.5"/>
             </svg>
 
-            <svg class="envelope-floral-side envelope-floral-right" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10 C 20 60, 80 100, 40 150 C 10 190, 70 240, 50 290" stroke="#E29DA7" stroke-width="2" fill="none"/>
-                <circle cx="40" cy="60" r="8" fill="#FFB7CE" opacity="0.8"/>
-                <circle cx="60" cy="110" r="6" fill="#E29DA7" opacity="0.7"/>
-                <circle cx="30" cy="180" r="9" fill="#FFB7CE" opacity="0.8"/>
-                <circle cx="55" cy="230" r="7" fill="#E29DA7" opacity="0.7"/>
-                <path d="M40 60 Q 20 50 15 65" stroke="#AD5362" stroke-width="1.5" fill="none"/>
-                <path d="M30 180 Q 10 170 5 185" stroke="#AD5362" stroke-width="1.5" fill="none"/>
+            <!-- LEFT BOTANICAL WATERCOLOR ARRANGEMENT -->
+            <svg class="envelope-floral-side envelope-floral-left" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tall Pink/Lavender Branches & Stems -->
+                <path d="M60 300 C 40 210, 85 130, 45 20" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M55 240 C 25 180, 50 110, 25 60" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
+                
+                <!-- Lavender & Soft Pink Leaves -->
+                <path d="M45 20 C 35 10, 20 20, 30 30 C 40 40, 50 30, 45 20 Z" fill="#D8C3D3" opacity="0.75"/>
+                <path d="M25 60 C 15 50, 5 60, 15 70 C 25 80, 35 70, 25 60 Z" fill="#C5B1C2" opacity="0.7"/>
+                <path d="M50 140 C 30 130, 20 150, 35 160 Z" fill="#E2C2CF" opacity="0.8"/>
+                <path d="M65 190 C 80 180, 90 200, 75 210 Z" fill="#D3A8B7" opacity="0.8"/>
+                
+                <!-- Large Blush Flower (Lower-Left / Middle) -->
+                <g transform="translate(48, 200)">
+                    <circle cx="0" cy="0" r="28" fill="#FCE4EC" opacity="0.85"/>
+                    <circle cx="-6" cy="-4" r="18" fill="#FFB7CE" opacity="0.75"/>
+                    <circle cx="5" cy="5" r="14" fill="#E29DA7" opacity="0.7"/>
+                    <circle cx="0" cy="0" r="6" fill="#AD5362" opacity="0.8"/>
+                </g>
+
+                <!-- Soft Pink Flowers & Blossoms Extending Upward -->
+                <g transform="translate(62, 110)">
+                    <circle cx="0" cy="0" r="16" fill="#FFC1D5" opacity="0.85"/>
+                    <circle cx="-3" cy="-3" r="10" fill="#E29DA7" opacity="0.75"/>
+                    <circle cx="0" cy="0" r="3.5" fill="#C5A059" opacity="0.9"/>
+                </g>
+
+                <g transform="translate(38, 55)">
+                    <circle cx="0" cy="0" r="12" fill="#FCE4EC" opacity="0.9"/>
+                    <circle cx="0" cy="0" r="7" fill="#FFB7CE" opacity="0.8"/>
+                </g>
+            </svg>
+
+            <!-- RIGHT BOTANICAL WATERCOLOR ARRANGEMENT (BALANCED ASYMMETRICAL MIRROR) -->
+            <svg class="envelope-floral-side envelope-floral-right" viewBox="0 0 120 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tall Branches -->
+                <path d="M55 300 C 80 200, 30 140, 70 25" stroke="#9A8297" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M60 250 C 90 170, 65 100, 90 45" stroke="#B8A4B3" stroke-width="1.2" stroke-linecap="round"/>
+                
+                <!-- Pale Lavender / Pink Leaves -->
+                <path d="M70 25 C 80 15, 95 25, 85 35 Z" fill="#D8C3D3" opacity="0.75"/>
+                <path d="M90 45 C 100 35, 110 45, 100 55 Z" fill="#C5B1C2" opacity="0.7"/>
+                <path d="M60 120 C 80 110, 90 130, 70 140 Z" fill="#E2C2CF" opacity="0.8"/>
+                <path d="M45 180 C 30 170, 20 190, 35 200 Z" fill="#D3A8B7" opacity="0.8"/>
+
+                <!-- Large Pale Flower (Middle-Right) -->
+                <g transform="translate(62, 175)">
+                    <circle cx="0" cy="0" r="26" fill="#FFF0F4" opacity="0.9"/>
+                    <circle cx="4" cy="-3" r="17" fill="#FFCBDD" opacity="0.8"/>
+                    <circle cx="-3" cy="4" r="12" fill="#E29DA7" opacity="0.75"/>
+                    <circle cx="0" cy="0" r="5" fill="#AD5362" opacity="0.85"/>
+                </g>
+
+                <!-- Smaller Blossoms Extending Upward & Outward -->
+                <g transform="translate(45, 95)">
+                    <circle cx="0" cy="0" r="15" fill="#FCE4EC" opacity="0.85"/>
+                    <circle cx="2" cy="2" r="9" fill="#E29DA7" opacity="0.7"/>
+                    <circle cx="0" cy="0" r="3" fill="#C5A059" opacity="0.9"/>
+                </g>
+
+                <g transform="translate(78, 65)">
+                    <circle cx="0" cy="0" r="11" fill="#FFC1D5" opacity="0.85"/>
+                    <circle cx="0" cy="0" r="6" fill="#E29DA7" opacity="0.75"/>
+                </g>
             </svg>
 
             <!-- ENVELOPE LOWER PAPER TRIANGLES -->
