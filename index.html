@@ -604,7 +604,7 @@
         .scene-story-animated .stagger-photo-stack { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
         .scene-story-animated .stagger-btn { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
-        /* --- WEDDING CHAPTERS STYLING RE-LAYOUTED & ALIGNED TO SCREENSHOT --- */
+        /* --- WEDDING CHAPTERS STYLING --- */
         #scene-menu {
             width: 100%;
             max-width: 1000px;
@@ -647,7 +647,7 @@
             margin-bottom: 2.2rem;
         }
 
-        /* INLINE ELEGANT TIMER MATCHING SCREENSHOT */
+        /* INLINE ELEGANT COUNTDOWN TIMER */
         .inline-countdown-timer {
             font-family: var(--font-sans);
             font-size: clamp(1.05rem, 3.2vw, 1.7rem);
@@ -661,7 +661,7 @@
             font-weight: 400;
         }
 
-        /* MINIMALIST BOTTOM NAVIGATION BAR MATCHING SCREENSHOT */
+        /* MINIMALIST BOTTOM NAVIGATION BAR */
         .nav-chapters-inline {
             display: flex;
             justify-content: center;
@@ -697,6 +697,140 @@
             opacity: 0.6;
             font-size: 0.9rem;
             user-select: none;
+        }
+
+        /* --- THE DAY (SCENE-DAY) STYLING RE-ALIGNED TO SCREENSHOT --- */
+        #scene-day {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            background-image: linear-gradient(rgba(255, 253, 249, 0.35), rgba(253, 240, 244, 0.45)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 12px;
+            padding: 4.5rem 1.8rem 4rem 1.8rem;
+            box-shadow: 0 15px 45px rgba(173, 83, 98, 0.08);
+            border: 1px solid rgba(255, 183, 206, 0.4);
+            text-align: center;
+        }
+
+        .the-day-header-subtitle {
+            font-family: var(--font-sans);
+            font-size: clamp(0.85rem, 2.3vw, 1.05rem);
+            color: #2D2527;
+            font-weight: 300;
+            margin-bottom: 0.4rem;
+        }
+
+        .the-day-header-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            letter-spacing: clamp(3px, 1.2vw, 7px);
+            color: #1A1415;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .the-day-header-desc {
+            font-family: var(--font-sans);
+            font-size: clamp(0.85rem, 2.2vw, 1.02rem);
+            color: #3D3537;
+            font-weight: 300;
+            margin-bottom: 2.8rem;
+        }
+
+        /* LOCATION CARDS MATCHING SCREENSHOT OVERLAY */
+        .day-location-card {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(185, 165, 160, 0.12);
+        }
+
+        .day-card-illustration {
+            width: 140px;
+            height: auto;
+            max-height: 110px;
+            object-fit: contain;
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+
+        .day-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .day-card-venue-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            letter-spacing: 2px;
+            color: #1A1415;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .day-card-datetime {
+            font-family: var(--font-serif);
+            font-size: clamp(0.82rem, 2.2vw, 0.98rem);
+            letter-spacing: 1.5px;
+            color: #7D2D3E;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-card-description {
+            font-family: var(--font-sans);
+            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            color: #3D3537;
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+        }
+
+        .day-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-day-action {
+            background: #FFFFFF;
+            border: 1px solid var(--baby-pink);
+            color: var(--peony-deep) !important;
+            padding: 8px 22px;
+            font-family: var(--font-serif);
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: 600 !important;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 183, 206, 0.3);
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .btn-day-action:hover {
+            background: var(--baby-pink);
+            color: #FFFFFF !important;
+            box-shadow: 0 0 20px var(--peony-glow);
+            transform: translateY(-1px);
         }
 
         /* --- CARDS & BUTTONS --- */
@@ -951,6 +1085,27 @@
                 letter-spacing: 1.5px;
             }
 
+            /* Mobile Styling for Scene-Day */
+            #scene-day {
+                padding: 3rem 1rem 2.5rem 1rem;
+            }
+
+            .day-location-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem 1.2rem;
+                gap: 1rem;
+            }
+
+            .day-card-illustration {
+                width: 100px;
+                max-height: 80px;
+            }
+
+            .day-card-actions {
+                justify-content: center;
+            }
+
             .story-header-title { font-size: 1.1rem; letter-spacing: 4px; }
             .story-script-heading { font-size: 1.5rem; }
             .story-body-text { font-size: 0.85rem; line-height: 1.6; }
@@ -989,7 +1144,7 @@
         <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged photo preview">
     </div>
 
-    <!-- 2. INVITATION LANDING OVERLAY (FEATURING 2NDPAGE.JPG WITH EMBEDDED TEXT SHIFTED LOWER) -->
+    <!-- 2. INVITATION LANDING OVERLAY -->
     <section id="scene-invite-card">
         <div class="second-page-card-container">
             <!-- 2ndpage.jpg artwork restored as background card -->
@@ -1079,7 +1234,7 @@
             </article>
         </section>
 
-        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN (RE-LAYOUTED & ALIGNED TO SCREENSHOT) -->
+        <!-- 4. CHAPTER MENU & INLINE COUNTDOWN -->
         <section class="stage hidden" id="scene-menu">
             <div>
                 <h2 class="chapters-main-title">OUR WEDDING<br>CHAPTERS</h2>
@@ -1087,13 +1242,13 @@
                     ELENA & ADRIAN — 31 . 01 . 2028
                 </p>
 
-                <!-- INLINE ELEGANT COUNTDOWN TIMER MATCHING SCREENSHOT -->
+                <!-- INLINE ELEGANT COUNTDOWN TIMER -->
                 <div class="inline-countdown-timer" id="inline-countdown-display">
                     <span id="cd-days">512</span> Days : <span id="cd-hours">19</span> Hours : <span id="cd-mins">42</span> Mins : <span id="cd-secs">45</span> Secs
                 </div>
             </div>
 
-            <!-- MINIMALIST INLINE NAVIGATION BAR MATCHING SCREENSHOT -->
+            <!-- MINIMALIST BOTTOM NAVIGATION BAR -->
             <nav class="nav-chapters-inline">
                 <a class="nav-item-link" onclick="scrollToSection('scene-day')">THE DAY</a>
                 <span class="nav-item-divider">|</span>
@@ -1107,48 +1262,62 @@
             </nav>
         </section>
 
-        <!-- THE DAY -->
+        <!-- 5. THE DAY (RE-LAYOUTED & BALANCED SPACING TO SCREENSHOT) -->
         <section class="stage hidden" id="scene-day">
-            <article class="chapter-container fade-in-up">
-                <p class="chapter-subtitle" style="margin-bottom: 0.2rem;">The Day</p>
-                <h2 class="chapter-title">THE DETAILS</h2>
-                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem;">
-                    Two places. One promise. A day we will always remember.
-                </p>
+            <div>
+                <p class="the-day-header-subtitle">A day we will always remember.</p>
+                <h2 class="the-day-header-title">THE DETAILS</h2>
+                <p class="the-day-header-desc">Two places. One promise.</p>
+            </div>
 
-                <div class="unfold-card">
-                    <h3 id="ceremony-venue">SAN SEBASTIAN CHURCH</h3>
-                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--peony-deep); font-weight: 600;" id="ceremony-time">
-                        MANILA · TUESDAY, JANUARY 31, 2028 · 3:00 PM
-                    </p>
-                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);" id="ceremony-desc">
-                        Where our forever begins.
-                    </p>
-                    <a id="ceremony-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
-                </div>
+            <!-- CEREMONY CARD WITH ARCHITECTURAL ILLUSTRATION -->
+            <div class="day-location-card">
+                <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 15 L140 45 V140 H60 V45 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
+                    <path d="M100 15 V45 M80 45 H120" stroke="#221D1E" stroke-width="1.5"/>
+                    <path d="M85 80 Q100 65 115 80 V140 H85 Z" stroke="#221D1E" stroke-width="1.5" fill="none"/>
+                    <circle cx="100" cy="40" r="8" stroke="#221D1E" stroke-width="1.2"/>
+                    <path d="M40 70 L60 55 V140 H40 Z M160 70 L140 55 V140 H160 Z" stroke="#221D1E" stroke-width="1.5" fill="none"/>
+                    <line x1="20" y1="140" x2="180" y2="140" stroke="#221D1E" stroke-width="2"/>
+                </svg>
 
-                <div class="unfold-card">
-                    <h3 id="reception-venue">MANILA HOTEL</h3>
-                    <p style="font-size: 0.8rem; letter-spacing: 1.5px; color: var(--peony-deep); font-weight: 600;" id="reception-time">
-                        MANILA · TUESDAY, JANUARY 31, 2028 · 6:00 PM
-                    </p>
-                    <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-dark);" id="reception-desc">
-                        A celebration to remember.
-                    </p>
-                    <a id="reception-map" href="#" target="_blank" class="btn-magic" style="font-size: 0.75rem; padding: 8px 16px;">Get Directions →</a>
+                <div class="day-card-info">
+                    <h3 class="day-card-venue-title" id="ceremony-venue">SAN SEBASTIAN CHURCH</h3>
+                    <p class="day-card-datetime" id="ceremony-time">MANILA · TUESDAY, JANUARY 31, 2028 · 3:00 PM</p>
+                    <p class="day-card-description" id="ceremony-desc">Where our forever begins.</p>
+                    <div class="day-card-actions">
+                        <a id="ceremony-map" href="#" target="_blank" class="btn-day-action">GET DIRECTIONS →</a>
+                    </div>
                 </div>
+            </div>
 
-                <div style="margin-top: 2.5rem; text-align: center;">
-                    <button class="btn-magic" onclick="toggleProgramFlow()">
-                        Program Flow ↓
-                    </button>
-                    <div id="program-flow-content" style="display: none; text-align: left; margin-top: 1.5rem;" class="unfold-card"></div>
-                </div>
+            <!-- RECEPTION CARD WITH ARCHITECTURAL ILLUSTRATION -->
+            <div class="day-location-card">
+                <svg class="day-card-illustration" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 50 H170 V140 H30 Z" stroke="#221D1E" stroke-width="1.8" fill="none"/>
+                    <path d="M20 50 L100 25 L180 50" stroke="#221D1E" stroke-width="2" fill="none"/>
+                    <path d="M70 90 H130 V140 H70 Z" stroke="#221D1E" stroke-width="1.5" fill="none"/>
+                    <path d="M45 70 H65 V90 H45 Z M135 70 H155 V90 H135 Z M45 105 H65 V125 H45 Z M135 105 H155 V125 H135 Z" stroke="#221D1E" stroke-width="1.2" fill="none"/>
+                    <line x1="10" y1="140" x2="190" y2="140" stroke="#221D1E" stroke-width="2"/>
+                </svg>
 
-                <div style="text-align: center; margin-top: 2rem;">
-                    <button class="btn-magic" onclick="scrollToSection('scene-menu')">← Back to Chapters</button>
+                <div class="day-card-info">
+                    <h3 class="day-card-venue-title" id="reception-venue">MANILA HOTEL</h3>
+                    <p class="day-card-datetime" id="reception-time">MANILA · TUESDAY, JANUARY 31, 2028 · 6:00 PM</p>
+                    <p class="day-card-description" id="reception-desc">A celebration to remember.</p>
+                    <div class="day-card-actions">
+                        <a id="reception-map" href="#" target="_blank" class="btn-day-action">GET DIRECTIONS →</a>
+                        <button class="btn-day-action" onclick="toggleProgramFlow()">PROGRAM FLOW →</button>
+                    </div>
                 </div>
-            </article>
+            </div>
+
+            <!-- HIDDEN PROGRAM FLOW POPUP CONTAINER -->
+            <div id="program-flow-content" style="display: none; text-align: left; margin: 0 auto 2rem auto; max-width: 800px;" class="unfold-card"></div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-day-action" onclick="scrollToSection('scene-menu')">← BACK TO CHAPTERS</button>
+            </div>
         </section>
 
         <!-- THE ENTOURAGE -->
@@ -1828,4 +1997,4 @@
         }
     </script>
 </body>
-</html>
+</html
